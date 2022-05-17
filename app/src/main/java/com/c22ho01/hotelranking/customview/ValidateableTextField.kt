@@ -16,13 +16,14 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
 class ValidateableTextField : ConstraintLayout {
-    var _binding: ValidateableTextFieldBinding? = null
+    private var _binding: ValidateableTextFieldBinding? = null
     private val binding get() = _binding
 
 
     private var validateType: Int? = null
     private var isRequired: Boolean = false
     private var hasError: Boolean = false
+    private var hintText: String? = null
 
     constructor(context: Context) : super(context) {
         init(context)
@@ -53,7 +54,7 @@ class ValidateableTextField : ConstraintLayout {
                 0,
             )
 
-        val hintText = typedArray.getString(R.styleable.ValidateableTextField_validFieldHint)
+        hintText = typedArray.getString(R.styleable.ValidateableTextField_validFieldHint)
         val valueText = typedArray.getString(R.styleable.ValidateableTextField_validFieldValue)
         val errorText = typedArray.getString(R.styleable.ValidateableTextField_validFieldError)
         val isObscure = typedArray.getBoolean(R.styleable.ValidateableTextField_validFieldObscure, false)
@@ -89,10 +90,16 @@ class ValidateableTextField : ConstraintLayout {
 
     fun setError(errorText: String?) {
         if (errorText != null) {
-            binding?.tilValidateableViews?.error = errorText
+            binding?.tilValidateableViews?.run {
+                error = errorText
+                isErrorEnabled = true
+            }
             hasError = true
         } else {
-            binding?.tilValidateableViews?.error = null
+            binding?.tilValidateableViews?.run {
+                error = null
+                isErrorEnabled = false
+            }
             hasError = false
         }
     }
@@ -136,6 +143,7 @@ class ValidateableTextField : ConstraintLayout {
                 override fun afterTextChanged(s: Editable?) {}
             })
     }
+
 
     companion object {
         const val VALIDATE_TYPE_EMAIL = 0

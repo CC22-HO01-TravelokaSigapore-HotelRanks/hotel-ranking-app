@@ -1,97 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="32dp"
     tools:context=".ui.auth.RegisterFragment">
 
-    <TextView
-        android:id="@+id/tv_register_headline"
-        style="@style/TextAppearance.HotelRanking.HeadlineLarge"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
-        android:text="@string/account_nregistration"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:padding="32dp">
 
-    <TextView
-        android:id="@+id/tv_register_subheadline"
-        style="@style/TextAppearance.HotelRanking.LabelSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/please_fill_the_form_to_register"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_register_headline" />
+        <TextView
+            android:id="@+id/tv_register_headline"
+            style="@style/TextAppearance.HotelRanking.HeadlineLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="72dp"
+            android:text="@string/account_nregistration"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <com.c22ho01.hotelranking.customview.ValidateableTextField
-        android:id="@+id/vtf_register_username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="58dp"
-        app:layout_constraintTop_toBottomOf="@id/tv_register_subheadline"
-        app:validFieldHint="@string/username"
-        app:validFieldRequired="true" />
+        <TextView
+            android:id="@+id/tv_register_subheadline"
+            style="@style/TextAppearance.HotelRanking.LabelSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/please_fill_the_form_to_register"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_register_headline" />
 
-    <com.c22ho01.hotelranking.customview.ValidateableTextField
-        android:id="@+id/vtf_register_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/vtf_register_username"
-        app:validFieldHint="@string/email"
-        app:validFieldRequired="true"
-        app:validFieldValidateType="EMAIL" />
+        <com.c22ho01.hotelranking.customview.ValidateableTextField
+            android:id="@+id/vtf_register_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="58dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_register_subheadline"
+            app:validFieldHint="@string/username"
+            app:validFieldRequired="true" />
 
-    <com.c22ho01.hotelranking.customview.ValidateableTextField
-        android:id="@+id/vtf_register_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/vtf_register_email"
-        app:validFieldHint="@string/password"
-        app:validFieldObscure="true"
-        app:validFieldRequired="true"
-        app:validFieldValidateType="PASSWORD" />
+        <com.c22ho01.hotelranking.customview.ValidateableTextField
+            android:id="@+id/vtf_register_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/vtf_register_username"
+            app:validFieldHint="@string/email"
+            app:validFieldRequired="true"
+            app:validFieldValidateType="EMAIL" />
+
+        <com.c22ho01.hotelranking.customview.ValidateableTextField
+            android:id="@+id/vtf_register_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/vtf_register_email"
+            app:validFieldHint="@string/password"
+            app:validFieldObscure="true"
+            app:validFieldRequired="true"
+            app:validFieldValidateType="PASSWORD" />
 
 
-    <Button
-        android:id="@+id/btn_register"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:enabled="false"
-        android:text="@string/register"
-        app:layout_constraintTop_toBottomOf="@id/vtf_register_password"
-        tools:enabled="true" />
+        <Button
+            android:id="@+id/btn_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:enabled="false"
+            android:text="@string/register"
+            app:layout_constraintTop_toBottomOf="@id/vtf_register_password"
+            tools:enabled="true" />
 
-    <TextView
-        android:id="@+id/tv_register_or"
-        style="@style/TextAppearance.HotelRanking.LabelLarge"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="@string/or"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_register" />
+        <TextView
+            android:id="@+id/tv_register_or"
+            style="@style/TextAppearance.HotelRanking.LabelLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/or"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_register" />
 
-    <Button
-        android:id="@+id/btn_goto_login"
-        style="@style/Widget.Material3.Button.TextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:minWidth="0dp"
-        android:minHeight="0dp"
-        android:padding="0dp"
-        android:text="@string/login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_register_or" />
+        <Button
+            android:id="@+id/btn_go_to_login"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="0dp"
+            android:text="@string/login"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_register_or" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
