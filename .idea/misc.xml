@@ -4,9 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Tenessine/GudangKode/AndroidKotlin/hotel-ranking-app/app/src/main/res/drawable/google_icon.xml" value="0.1" />
+        <entry key="..\:/Users/Tenessine/GudangKode/AndroidKotlin/hotel-ranking-app/app/src/main/res/layout/__validatable_text_field.xml" value="0.11203703703703703" />
+        <entry key="..\:/Users/Tenessine/GudangKode/AndroidKotlin/hotel-ranking-app/app/src/main/res/layout/__validateable_text_field.xml" value="0.1" />
         <entry key="..\:/Users/Tenessine/GudangKode/AndroidKotlin/hotel-ranking-app/app/src/main/res/layout/activity_auth.xml" value="0.25" />
         <entry key="..\:/Users/Tenessine/GudangKode/AndroidKotlin/hotel-ranking-app/app/src/main/res/layout/activity_main.xml" value="0.4" />
-        <entry key="..\:/Users/Tenessine/GudangKode/AndroidKotlin/hotel-ranking-app/app/src/main/res/layout/fragment_login.xml" value="0.26024590163934425" />
+        <entry key="..\:/Users/Tenessine/GudangKode/AndroidKotlin/hotel-ranking-app/app/src/main/res/layout/fragment_login.xml" value="0.16799999999999998" />
+        <entry key="..\:/Users/Tenessine/GudangKode/AndroidKotlin/hotel-ranking-app/app/src/main/res/layout/fragment_register.xml" value="0.1" />
       </map>
     </option>
   </component>

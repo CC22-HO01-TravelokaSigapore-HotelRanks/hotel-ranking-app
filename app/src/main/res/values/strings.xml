@@ -11,4 +11,7 @@
     <string name="create_account">Create Account</string>
     <string name="or">Or</string>
     <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="account_nregistration">Account\nRegistration</string>
+    <string name="please_fill_the_form_to_register">Please fill the form to register.</string>
+    <string name="register">Register</string>
 </resources>
