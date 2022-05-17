@@ -5,14 +5,16 @@
       <map>
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/drawable/ic_circle.xml" value="0.2435" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/drawable/ic_hotel.xml" value="0.2435" />
+        <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/drawable/ic_rectangle.xml" value="0.2295" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/drawable/ic_search.xml" value="0.2435" />
-        <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/activity_home_guest.xml" value="0.1" />
+        <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/drawable/ic_star.xml" value="0.2475" />
+        <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/activity_home_guest.xml" value="0.2" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/activity_home_logged_in.xml" value="0.25" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/card_login.xml" value="0.16148648648648647" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/card_menu.xml" value="0.2" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/custom_menu.xml" value="1.0" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/custom_search_bar.xml" value="0.16216216216216217" />
-        <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/list_hotel.xml" value="0.16148648648648647" />
+        <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/list_hotel.xml" value="0.2" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/menu.xml" value="0.16216216216216217" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/recommendations.xml" value="0.16148648648648647" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/search_bar.xml" value="0.4" />

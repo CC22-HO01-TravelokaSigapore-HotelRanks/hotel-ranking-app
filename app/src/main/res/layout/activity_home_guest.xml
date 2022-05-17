@@ -16,6 +16,7 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView"
+        style="?attr/materialCardViewElevatedStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -52,6 +53,7 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView2"
+        style="?attr/materialCardViewElevatedStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
