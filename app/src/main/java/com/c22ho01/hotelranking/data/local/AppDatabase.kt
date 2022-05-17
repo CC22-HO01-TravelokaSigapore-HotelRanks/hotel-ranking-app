@@ -4,9 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.c22ho01.hotelranking.data.local.entity.HotelEntity
 
 @Database(
-    entities = [],
+    entities = [HotelEntity::class],
     version = 1,
     exportSchema = false,
 )
