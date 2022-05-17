@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="32dp"
     tools:context=".ui.auth.RegisterFragment">
 
@@ -15,7 +15,8 @@
         android:layout_marginTop="72dp"
         android:text="@string/account_nregistration"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/tv_register_subheadline"
         style="@style/TextAppearance.HotelRanking.LabelSmall"
@@ -26,45 +27,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_register_headline" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_register_email"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+    <com.c22ho01.hotelranking.customview.ValidateableTextField
+        android:id="@+id/vtf_register_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="58dp"
-        android:hint="@string/email"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_register_subheadline">
+        app:layout_constraintTop_toBottomOf="@id/tv_register_subheadline"
+        app:validFieldHint="@string/username"
+        app:validFieldRequired="true" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_register_email"
-            style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_register_password"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+    <com.c22ho01.hotelranking.customview.ValidateableTextField
+        android:id="@+id/vtf_register_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:hint="@string/password"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/til_register_email"
-        app:passwordToggleEnabled="true"
-        app:passwordToggleTint="@color/md_theme_light_primary">
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/vtf_register_username"
+        app:validFieldHint="@string/email"
+        app:validFieldRequired="true"
+        app:validFieldValidateType="EMAIL" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_register_password"
-            style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+    <com.c22ho01.hotelranking.customview.ValidateableTextField
+        android:id="@+id/vtf_register_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/vtf_register_email"
+        app:validFieldHint="@string/password"
+        app:validFieldObscure="true"
+        app:validFieldRequired="true"
+        app:validFieldValidateType="PASSWORD" />
 
 
     <Button
@@ -72,8 +63,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
+        android:enabled="false"
         android:text="@string/register"
-        app:layout_constraintTop_toBottomOf="@id/til_register_password" />
+        app:layout_constraintTop_toBottomOf="@id/vtf_register_password"
+        tools:enabled="true" />
 
+    <TextView
+        android:id="@+id/tv_register_or"
+        style="@style/TextAppearance.HotelRanking.LabelLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/or"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_register" />
+
+    <Button
+        android:id="@+id/btn_goto_login"
+        style="@style/Widget.Material3.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:padding="0dp"
+        android:text="@string/login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_register_or" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

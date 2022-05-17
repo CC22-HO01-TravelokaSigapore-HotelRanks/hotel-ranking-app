@@ -27,45 +27,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_login_headline" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_login_email"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+    <com.c22ho01.hotelranking.customview.ValidateableTextField
+        android:id="@+id/vtf_login_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="58dp"
-        android:hint="@string/email"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_login_subheadline">
+        app:layout_constraintTop_toBottomOf="@id/tv_login_subheadline"
+        app:validFieldHint="@string/email"
+        app:validFieldRequired="true" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_login_email"
-            style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_login_password"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+    <com.c22ho01.hotelranking.customview.ValidateableTextField
+        android:id="@+id/vtf_login_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:hint="@string/password"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/til_login_email"
-        app:passwordToggleEnabled="true"
-        app:passwordToggleTint="@color/md_theme_light_primary">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_login_password"
-            style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/vtf_login_email"
+        app:validFieldHint="@string/password"
+        app:validFieldObscure="true"
+        app:validFieldRequired="true" />
 
 
     <Button
@@ -73,8 +52,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
+        android:enabled="false"
         android:text="@string/login"
-        app:layout_constraintTop_toBottomOf="@id/til_login_password" />
+        app:layout_constraintTop_toBottomOf="@id/vtf_login_password"
+        tools:enabled="true" />
 
     <TextView
         android:id="@+id/tv_dont_have_acc"
