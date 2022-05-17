@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Hotel Ranking</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login_to_your_existing_account">Login to your\nexisting account</string>
+    <string name="please_fill_the_form_to_login">Please fill the form to login.</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="don_t_have_an_account">Don’t have an account?</string>
+    <string name="create_account">Create Account</string>
+    <string name="or">Or</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
 </resources>
