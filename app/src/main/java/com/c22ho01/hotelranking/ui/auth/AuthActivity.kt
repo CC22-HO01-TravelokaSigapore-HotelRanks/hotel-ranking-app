@@ -1,7 +1,7 @@
 package com.c22ho01.hotelranking.ui.auth
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.c22ho01.hotelranking.R
 
 class AuthActivity : AppCompatActivity() {

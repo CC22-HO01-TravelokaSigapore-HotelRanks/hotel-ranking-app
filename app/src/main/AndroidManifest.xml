@@ -10,13 +10,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HotelRanking">
         <activity
-            android:name=".ui.auth.AuthActivity"
+            android:name=".ui.home.HomeLoggedIn"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.HomeGuest"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.auth.AuthActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

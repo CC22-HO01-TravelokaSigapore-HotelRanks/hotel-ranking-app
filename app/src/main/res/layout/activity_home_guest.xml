@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground"
+    tools:context=".ui.home.HomeGuest">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/custom_search_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:cardBackgroundColor="?attr/colorTertiary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include"
+        app:strokeColor="@android:color/transparent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/not_logged_in"
+                android:textColor="?attr/colorOnTertiary" />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/login_here"
+                android:textColor="?attr/colorOnTertiaryContainer"
+                app:backgroundTint="?attr/colorTertiaryContainer" />
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        app:cardBackgroundColor="?attr/colorPrimaryContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView"
+        app:strokeColor="@android:color/transparent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingStart="24dp"
+            android:paddingTop="24dp"
+            android:paddingEnd="24dp"
+            android:paddingBottom="24dp">
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="16dp"
+                app:justifyContent="space_between">
+
+                <include layout="@layout/custom_menu" />
+
+                <include layout="@layout/custom_menu" />
+
+                <include layout="@layout/custom_menu" />
+
+                <include layout="@layout/custom_menu" />
+            </com.google.android.flexbox.FlexboxLayout>
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:justifyContent="space_between">
+
+                <include layout="@layout/custom_menu" />
+
+                <include layout="@layout/custom_menu" />
+
+                <include layout="@layout/custom_menu" />
+
+                <include layout="@layout/custom_menu" />
+            </com.google.android.flexbox.FlexboxLayout>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/materialTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/hotel_recommendations"
+        android:textAppearance="@style/TextAppearance.HotelRanking.TitleLarge"
+        android:textColor="?attr/colorOnBackground"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView2" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/materialTextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/trending"
+        android:textAppearance="@style/TextAppearance.HotelRanking.TitleMedium"
+        app:layout_constraintStart_toStartOf="@+id/materialTextView"
+        app:layout_constraintTop_toBottomOf="@+id/materialTextView" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_forward"
+        app:layout_constraintBottom_toBottomOf="@+id/materialTextView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/materialTextView2"
+        tools:ignore="ContentDescription" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_trending"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialTextView2" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/materialTextView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/near_your_location"
+        android:textAppearance="@style/TextAppearance.HotelRanking.TitleMedium"
+        app:layout_constraintStart_toStartOf="@+id/rv_trending"
+        app:layout_constraintTop_toBottomOf="@+id/rv_trending" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_forward"
+        app:layout_constraintBottom_toBottomOf="@+id/materialTextView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/materialTextView3"
+        tools:ignore="ContentDescription" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialTextView3" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            style="@style/Widget.App.BottomNavigationView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:labelVisibilityMode="labeled"
+            app:menu="@menu/bottom_navigation_menu" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

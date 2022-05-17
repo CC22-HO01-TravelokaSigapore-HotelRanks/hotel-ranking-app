@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Hotel Ranking</string>
+    <string name="search_hint">Search hotel</string>
+    <string name="not_logged_in">You’re not logged in. Login first to enjoy interesting promotions.</string>
+    <string name="login_here">Login Here</string>
+    <string name="menu">Menu</string>
+    <string name="menu_description">Menu</string>
+    <string name="hotel_recommendations">Hotel Recommendations</string>
+    <string name="trending">Trending</string>
+    <string name="near_your_location">Near your location</string>
+    <string name="navbar_home">Home</string>
+    <string name="navbar_order">Order</string>
+    <string name="navbar_explore">Explore</string>
+    <string name="navbar_notification">Notification</string>
+    <string name="navbar_profile">Profile</string>
 </resources>
