@@ -7,12 +7,9 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.text.method.PasswordTransformationMethod
 import android.util.AttributeSet
-import android.view.LayoutInflater
-import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.c22ho01.hotelranking.R
 import com.c22ho01.hotelranking.databinding.ValidateableTextFieldBinding
-import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
 class ValidateableTextField : ConstraintLayout {
@@ -57,12 +54,15 @@ class ValidateableTextField : ConstraintLayout {
         hintText = typedArray.getString(R.styleable.ValidateableTextField_validFieldHint)
         val valueText = typedArray.getString(R.styleable.ValidateableTextField_validFieldValue)
         val errorText = typedArray.getString(R.styleable.ValidateableTextField_validFieldError)
-        val isObscure = typedArray.getBoolean(R.styleable.ValidateableTextField_validFieldObscure, false)
+        val isObscure =
+            typedArray.getBoolean(R.styleable.ValidateableTextField_validFieldObscure, false)
 
-        validateType = typedArray.getInt(R.styleable.ValidateableTextField_validFieldValidateType, -1)
-        isRequired = typedArray.getBoolean(R.styleable.ValidateableTextField_validFieldRequired, false)
+        validateType =
+            typedArray.getInt(R.styleable.ValidateableTextField_validFieldValidateType, -1)
+        isRequired =
+            typedArray.getBoolean(R.styleable.ValidateableTextField_validFieldRequired, false)
 
-        if(isObscure) {
+        if (isObscure) {
             binding?.tilValidateableViews?.run {
                 endIconMode = TextInputLayout.END_ICON_PASSWORD_TOGGLE
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -104,29 +104,46 @@ class ValidateableTextField : ConstraintLayout {
         }
     }
 
-    fun addValidateListener(callback: (Boolean) -> Unit) {
+    fun addValidateListener(matchText: String? = "null", callback: (Boolean) -> Unit) {
+        fun ruleHandling(rule: Boolean, errorText: String) {
+            if (!rule && !hasError) {
+                setError(errorText)
+            } else if (rule) {
+                setError(null)
+            }
+            callback(rule)
+        }
+
         binding?.etValidateableField?.addTextChangedListener(
             object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     when (validateType) {
                         VALIDATE_TYPE_EMAIL -> {
-                            val isValid = android.util.Patterns.EMAIL_ADDRESS.matcher(s ?: "").matches()
-                            if (!isValid && !hasError) {
-                                setError(context.getString(R.string.error_email_invalid))
-                            } else if (isValid) {
-                                setError(null)
-                            }
-                            callback(isValid)
+                            ruleHandling(
+                                android.util.Patterns.EMAIL_ADDRESS.matcher(s ?: "").matches(),
+                                context.getString(R.string.error_email_invalid),
+                            )
                         }
                         VALIDATE_TYPE_PASSWORD -> {
-                            val isValid = s?.length ?: 0 >= PASSWORD_MIN_LENGTH
-                            if (!isValid && !hasError) {
-                                setError(context.getString(R.string.error_pass_length, PASSWORD_MIN_LENGTH))
-                            } else if (isValid) {
-                                setError(null)
-                            }
-                            callback(isValid)
+                            ruleHandling(
+                                (s?.length ?: 0) >= PASSWORD_MIN_LENGTH,
+                                context.getString(R.string.error_pass_length, PASSWORD_MIN_LENGTH)
+                            )
+                        }
+
+                        VALIDATE_TYPE_PASSWORD_CONFIRMATION -> {
+                            ruleHandling(
+                                s?.toString() == matchText,
+                                context.getString(R.string.error_pass_confirmation)
+                            )
                         }
                         else -> {
                             if (isRequired && s.isNullOrEmpty()) {
@@ -148,6 +165,7 @@ class ValidateableTextField : ConstraintLayout {
     companion object {
         const val VALIDATE_TYPE_EMAIL = 0
         const val VALIDATE_TYPE_PASSWORD = 1
+        const val VALIDATE_TYPE_PASSWORD_CONFIRMATION = 2
         const val PASSWORD_MIN_LENGTH = 8
     }
 }

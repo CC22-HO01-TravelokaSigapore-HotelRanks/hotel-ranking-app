@@ -61,6 +61,17 @@
             app:validFieldRequired="true"
             app:validFieldValidateType="PASSWORD" />
 
+        <com.c22ho01.hotelranking.customview.ValidateableTextField
+            android:id="@+id/vtf_register_confirm_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/vtf_register_email"
+            app:validFieldHint="@string/password_confirmation"
+            app:validFieldObscure="true"
+            app:validFieldRequired="true"
+            app:validFieldValidateType="PASSWORD_CONFIRMATION" />
+
 
         <Button
             android:id="@+id/btn_register"

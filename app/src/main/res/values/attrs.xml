@@ -4,6 +4,7 @@
         <attr name="validFieldValidateType" format="enum">
             <enum name="EMAIL" value="0" />
             <enum name="PASSWORD" value="1" />
+            <enum name="PASSWORD_CONFIRMATION" value="2" />
         </attr>
         <attr name="validFieldValue" format="string" />
         <attr name="validFieldHint" format="string" />

@@ -16,6 +16,8 @@
     <string name="register">Register</string>
     <string name="error_email_invalid">Email is not valid!</string>
     <string name="error_pass_length">Password must have %1$d character at minimum!</string>
+    <string name="error_pass_confirmation">Password confirmation doesn\'t match your password input!</string>
     <string name="error_required">Field must not be empty!</string>
     <string name="username">Username</string>
+    <string name="password_confirmation">Password Confirmation</string>
 </resources>
