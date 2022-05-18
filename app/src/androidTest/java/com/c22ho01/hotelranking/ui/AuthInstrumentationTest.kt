@@ -116,6 +116,7 @@ class AuthInstrumentationTest {
     fun errorTextIsShownWhenRegisterFieldsAreInvalid() {
         onView(withId(R.id.btn_go_to_create_acc)).check(matches(isDisplayed())).perform(click())
         onView(withId(R.id.btn_register)).check(matches(isNotEnabled()))
+
         ValidateableTextFieldTest.onTextInput(R.id.vtf_register_username)
             .perform(typeText(dummyUsername))
         ValidateableTextFieldTest.onEditTextLayout(R.id.vtf_register_username)
