@@ -52,6 +52,9 @@ class RegisterFragment : Fragment() {
             vtfRegisterPassword.addValidateListener {
                 viewModel.setPasswordValid(it)
             }
+            vtfRegisterConfirmPassword.addValidateListener(vtfRegisterPassword.getText()) {
+                viewModel.setConfirmPasswordValid(it)
+            }
         }
 
         viewModel.formValid.observe(viewLifecycleOwner) {
