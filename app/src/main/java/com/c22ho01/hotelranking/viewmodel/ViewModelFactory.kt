@@ -3,18 +3,21 @@ package com.c22ho01.hotelranking.viewmodel
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.c22ho01.hotelranking.data.repository.AuthRepository
+import com.c22ho01.hotelranking.injection.RepositoryInjection
+import com.c22ho01.hotelranking.viewmodel.auth.LoginViewModel
 
 class ViewModelFactory
 private constructor(
-//    private val authRepository: AuthRepository,
+    private val authRepository: AuthRepository,
 ) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
-//            modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
-//                LoginViewModel(authRepository) as T
-//            }
+            modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
+                LoginViewModel(authRepository) as T
+            }
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
     }
@@ -27,7 +30,7 @@ private constructor(
                 ?: synchronized(this) {
                     instance
                         ?: ViewModelFactory(
-//                            RepositoryInjection.provideAuthRepository(),
+                            RepositoryInjection.provideAuthRepository(),
                         )
                             .also { instance = it }
                 }
