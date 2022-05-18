@@ -46,7 +46,7 @@ class LoginFragment : Fragment() {
 
     private fun setupFieldListener() {
         binding?.run {
-            vtfLoginEmail.addValidateListener { viewModel.setEmailValid(it) }
+            vtfLoginUsername.addValidateListener { viewModel.setUsernameValid(it) }
             vtfLoginPassword.addValidateListener { viewModel.setPasswordValid(it) }
         }
         viewModel.formValid.observe(viewLifecycleOwner) {
