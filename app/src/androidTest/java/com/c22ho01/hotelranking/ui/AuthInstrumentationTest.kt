@@ -62,7 +62,8 @@ class AuthInstrumentationTest {
     @Test
     fun loginButtonIsEnabledWhenLoginFieldsAreValid() {
         onView(withId(R.id.btn_login)).check(matches(isNotEnabled()))
-        ValidateableTextFieldTest.onTextInput(R.id.vtf_login_username).perform(typeText(dummyEmail))
+        ValidateableTextFieldTest.onTextInput(R.id.vtf_login_username)
+            .perform(typeText(dummyUsername))
         ValidateableTextFieldTest.onTextInput(R.id.vtf_login_password)
             .perform(typeText(dummyPassword))
         onView(withId(R.id.btn_login)).check(matches(isEnabled()))
@@ -73,15 +74,51 @@ class AuthInstrumentationTest {
         onView(withId(R.id.btn_login)).check(matches(isNotEnabled()))
 
         ValidateableTextFieldTest.onTextInput(R.id.vtf_login_username)
-            .perform(typeText(dummyEmailInvalid), clearText())
+            .perform(typeText(dummyUsername), clearText())
         ValidateableTextFieldTest.onEditTextLayout(R.id.vtf_login_username)
             .check(matches(hasError()))
 
         ValidateableTextFieldTest.onTextInput(R.id.vtf_login_password)
             .perform(typeText(dummyPasswordInvalid), clearText())
-        ValidateableTextFieldTest.onEditTextLayout(R.id.vtf_login_username)
+        ValidateableTextFieldTest.onEditTextLayout(R.id.vtf_login_password)
             .check(matches(hasError()))
 
         onView(withId(R.id.btn_login)).check(matches(isNotEnabled()))
     }
+
+    @Test
+    fun registerButtonIsEnabledWhenRegisterFieldsAreValid() {
+        onView(withId(R.id.btn_go_to_create_acc)).check(matches(isDisplayed())).perform(click())
+        onView(withId(R.id.btn_register)).check(matches(isNotEnabled()))
+        ValidateableTextFieldTest.onTextInput(R.id.vtf_register_username)
+            .perform(typeText(dummyUsername))
+        ValidateableTextFieldTest.onTextInput(R.id.vtf_register_email)
+            .perform(typeText(dummyEmail))
+        ValidateableTextFieldTest.onTextInput(R.id.vtf_register_password)
+            .perform(typeText(dummyPassword))
+        onView(withId(R.id.btn_register)).check(matches(isEnabled()))
+    }
+
+    @Test
+    fun errorTextIsShownWhenRegisterFieldsAreInvalid() {
+        onView(withId(R.id.btn_register)).check(matches(isNotEnabled()))
+
+        ValidateableTextFieldTest.onTextInput(R.id.vtf_register_username)
+            .perform(typeText(dummyUsername))
+        ValidateableTextFieldTest.onEditTextLayout(R.id.vtf_register_username)
+            .check(matches(hasError()))
+
+        ValidateableTextFieldTest.onTextInput(R.id.vtf_register_email)
+            .perform(typeText(dummyEmailInvalid))
+        ValidateableTextFieldTest.onEditTextLayout(R.id.vtf_register_email)
+            .check(matches(hasError()))
+
+        ValidateableTextFieldTest.onTextInput(R.id.vtf_register_password)
+            .perform(typeText(dummyPasswordInvalid))
+        ValidateableTextFieldTest.onEditTextLayout(R.id.vtf_register_password)
+            .check(matches(hasError()))
+
+        onView(withId(R.id.btn_register)).check(matches(isNotEnabled()))
+    }
+
 }

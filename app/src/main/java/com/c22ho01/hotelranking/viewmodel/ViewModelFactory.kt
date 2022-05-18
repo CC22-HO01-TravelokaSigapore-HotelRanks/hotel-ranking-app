@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.c22ho01.hotelranking.data.repository.AuthRepository
 import com.c22ho01.hotelranking.injection.RepositoryInjection
 import com.c22ho01.hotelranking.viewmodel.auth.LoginViewModel
+import com.c22ho01.hotelranking.viewmodel.auth.RegisterViewModel
 
 class ViewModelFactory
 private constructor(
@@ -17,6 +18,9 @@ private constructor(
         return when {
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
                 LoginViewModel(authRepository) as T
+            }
+            modelClass.isAssignableFrom(RegisterViewModel::class.java) -> {
+                RegisterViewModel(authRepository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

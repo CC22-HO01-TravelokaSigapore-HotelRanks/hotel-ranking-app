@@ -1,20 +1,26 @@
 package com.c22ho01.hotelranking.ui.auth
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
+import androidx.fragment.app.viewModels
 import com.c22ho01.hotelranking.R
 import com.c22ho01.hotelranking.databinding.FragmentRegisterBinding
+import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
+import com.c22ho01.hotelranking.viewmodel.auth.RegisterViewModel
 
 class RegisterFragment : Fragment() {
 
     private var _binding: FragmentRegisterBinding? = null
     val binding get() = _binding
+
+    private lateinit var factory: ViewModelFactory
+    private val viewModel: RegisterViewModel by viewModels { factory }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,11 +32,31 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        factory = ViewModelFactory.getInstance(requireContext())
+
         activity?.onBackPressedDispatcher?.addCallback {
             goToLogin()
         }
-
+        setupFieldListener()
         setupBtnListener()
+    }
+
+    private fun setupFieldListener() {
+        binding?.run {
+            vtfRegisterUsername.addValidateListener {
+                viewModel.setUsernameValid(it)
+            }
+            vtfRegisterEmail.addValidateListener {
+                viewModel.setEmailValid(it)
+            }
+            vtfRegisterPassword.addValidateListener {
+                viewModel.setPasswordValid(it)
+            }
+        }
+
+        viewModel.formValid.observe(viewLifecycleOwner) {
+            binding?.btnRegister?.isEnabled = it
+        }
     }
 
     private fun setupBtnListener() {
@@ -38,9 +64,6 @@ class RegisterFragment : Fragment() {
             btnGoToLogin.setOnClickListener {
                 goToLogin()
             }
-            vtfRegisterUsername.addValidateListener { null }
-            vtfRegisterEmail.addValidateListener { null }
-            vtfRegisterPassword.addValidateListener { null }
         }
     }
 
