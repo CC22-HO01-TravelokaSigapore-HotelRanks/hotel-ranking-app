@@ -25,7 +25,7 @@
 //                    INSTANCE
 //                        ?: Room.databaseBuilder(
 //                            context.applicationContext, AppDatabase::class.java, DATABASE_NAME
-//                        )
+//)
 //                            .fallbackToDestructiveMigration()
 //                            .build()
 //                            .also { INSTANCE = it }

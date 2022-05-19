@@ -12,5 +12,7 @@ class HomeGuest : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeGuestBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.searchBar.customSearchBar
     }
 }

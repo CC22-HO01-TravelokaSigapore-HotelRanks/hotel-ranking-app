@@ -1,6 +1,8 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.HotelRanking" parent="Theme.Material3.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/md_theme_light_background</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <item name="fontFamily">@font/montserrat_regular</item>
         <item name="colorPrimary">@color/md_theme_light_primary</item>
         <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
@@ -64,20 +66,17 @@
     </style>
 
     <style name="Widget.App.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
-        <item name="android:background">?attr/colorSecondaryContainer</item>
-        <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView</item>
+        <item name="android:background">@android:color/transparent</item>
         <item name="itemActiveIndicatorStyle">
             @style/Widget.App.BottomNavigationView.ActiveIndicator
         </item>
-    </style>
-
-    <style name="ThemeOverlay.App.BottomNavigationView" parent="">
-        <item name="colorSurface">@color/md_theme_light_surface</item>
-        <item name="colorOnSurfaceVariant">@color/md_theme_light_onSurfaceVariant</item>
+        <item name="elevation">0dp</item>
+        <item name="itemTextAppearanceActive">@style/TextAppearance.HotelRanking.LabelMedium</item>
+        <item name="itemTextAppearanceInactive">@style/TextAppearance.HotelRanking.LabelSmall</item>
     </style>
 
     <style name="Widget.App.BottomNavigationView.ActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
-        <item name="android:color">@color/md_theme_ref_tertiary80</item>
+        <item name="android:color">?attr/colorTertiary</item>
     </style>
 
     <style name="TextAppearance.HotelRanking.DisplayLarge" parent="TextAppearance.Material3.DisplayLarge">

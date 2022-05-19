@@ -58,4 +58,5 @@
     <color name="md_theme_ref_tertiary80">#EFB8C8</color>
     <color name="seed">#6750A4</color>
     <color name="error">#BA1B1B</color>
+    <color name="iconTint">@color/navbar_color_state</color>
 </resources>
