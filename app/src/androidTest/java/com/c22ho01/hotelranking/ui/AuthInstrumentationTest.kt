@@ -108,7 +108,6 @@ class AuthInstrumentationTest {
             .perform(typeText(dummyPassword))
         ValidateableTextFieldTest.onTextInput(R.id.vtf_register_confirm_password)
             .perform(typeText(dummyPasswordInvalid))
-        ValidateableTextFieldTest.onEditTextLayout(R.id.vtf_register_confirm_password)
             .check(matches(hasError()))
     }
 

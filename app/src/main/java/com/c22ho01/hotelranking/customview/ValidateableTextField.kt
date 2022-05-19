@@ -104,7 +104,7 @@ class ValidateableTextField : ConstraintLayout {
         }
     }
 
-    fun addValidateListener(matchText: String? = "null", callback: (Boolean) -> Unit) {
+    fun addValidateListener(matchValidateableTextFieldView: ValidateableTextField? = null, callback: (Boolean) -> Unit) {
         fun ruleHandling(rule: Boolean, errorText: String) {
             if (!rule && !hasError) {
                 setError(errorText)
@@ -141,7 +141,7 @@ class ValidateableTextField : ConstraintLayout {
 
                         VALIDATE_TYPE_PASSWORD_CONFIRMATION -> {
                             ruleHandling(
-                                s?.toString() == matchText,
+                                s?.toString() == matchValidateableTextFieldView?.getText(),
                                 context.getString(R.string.error_pass_confirmation)
                             )
                         }
