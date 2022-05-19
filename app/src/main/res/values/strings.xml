@@ -20,4 +20,5 @@
     <string name="error_required">Field must not be empty!</string>
     <string name="username">Username</string>
     <string name="password_confirmation">Password Confirmation</string>
+    <string name="login_success">Login Success!</string>
 </resources>
