@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Hotel Ranking</string>
+    <string name="location">Location</string>
+    <string name="hotel_name">Hotel Name</string>
+    <string name="rating">(4.0/5.0)</string>
+    <string name="review">Review</string>
+    <string name="facilities">Facilities</string>
+    <string name="username">Username</string>
 </resources>
