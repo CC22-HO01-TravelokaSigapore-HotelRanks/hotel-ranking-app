@@ -7,7 +7,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object APIConfig {
-    var BASE_URL = "http://example.com"
+    var BASE_URL = "https://test1-ywu6raktuq-uc.a.run.app/"
 
     private fun getRetrofit(url: String): Retrofit {
         val loggingInterceptor =
