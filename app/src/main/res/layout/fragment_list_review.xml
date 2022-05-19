@@ -12,20 +12,19 @@
         style="@style/TextAppearance.Material3.TitleLarge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hotel Name"
+        android:text="@string/hotel_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <RatingBar
+    <ImageView
         android:id="@+id/ratingBar"
-        style="@style/Widget.AppCompat.RatingBar.Indicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:rating="4"
-        android:progressTint="@color/md_theme_light_primary"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginTop="16dp"
+        android:src="@drawable/ic_baseline_star_24"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/hotelName" />
+        app:layout_constraintTop_toBottomOf="@id/hotelName"
+        app:tint="@color/md_theme_light_primary" />
 
     <TextView
         android:id="@+id/ratingText"
@@ -33,7 +32,7 @@
         android:layout_height="wrap_content"
         android:text="4.0"
         android:textStyle="bold"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         style="@style/TextAppearance.HotelRanking.TitleMedium"
         app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
         app:layout_constraintStart_toEndOf="@id/ratingBar"
