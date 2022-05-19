@@ -52,7 +52,7 @@ class RegisterFragment : Fragment() {
             vtfRegisterPassword.addValidateListener {
                 viewModel.setPasswordValid(it)
             }
-            vtfRegisterConfirmPassword.addValidateListener(vtfRegisterPassword.getText()) {
+            vtfRegisterConfirmPassword.addValidateListener(matchValidateableTextFieldView = vtfRegisterPassword) {
                 viewModel.setConfirmPasswordValid(it)
             }
         }
