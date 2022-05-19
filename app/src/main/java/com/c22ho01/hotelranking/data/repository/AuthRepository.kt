@@ -8,6 +8,10 @@ import com.c22ho01.hotelranking.data.remote.response.auth.LoginResponse
 import com.c22ho01.hotelranking.data.remote.response.auth.RegisterResponse
 import com.c22ho01.hotelranking.data.remote.retrofit.AuthService
 import com.c22ho01.hotelranking.utils.wrapEspressoIdlingResource
+import com.google.gson.Gson
+
+
+
 
 class AuthRepository(
     private val authService: AuthService
@@ -25,7 +29,8 @@ class AuthRepository(
                 if (response.isSuccessful) {
                     emit(Result.Success(response.body() ?: RegisterResponse()))
                 } else {
-                    emit(Result.Error(response.body()?.message ?: "Error"))
+                    val errorResponse = Gson().fromJson(response.errorBody()?.charStream(), RegisterResponse::class.java)
+                    emit(Result.Error(errorResponse.message ?: "Error"))
                 }
             } catch (e: Exception) {
                 emit(Result.Error(e.message.toString()))
@@ -44,7 +49,8 @@ class AuthRepository(
                 if (response.isSuccessful) {
                     emit(Result.Success(response.body() ?: LoginResponse()))
                 } else {
-                    emit(Result.Error(response.body()?.message ?: "Error"))
+                    val errorResponse = Gson().fromJson(response.errorBody()?.charStream(), RegisterResponse::class.java)
+                    emit(Result.Error(errorResponse.message ?: "Error"))
                 }
             } catch (e: Exception) {
                 emit(Result.Error(e.message.toString()))
