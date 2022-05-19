@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
@@ -17,6 +16,7 @@ import com.c22ho01.hotelranking.ui.DummyActivity
 import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
 import com.c22ho01.hotelranking.viewmodel.auth.LoginViewModel
 import com.c22ho01.hotelranking.viewmodel.utils.TokenViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class LoginFragment : Fragment() {
 
@@ -70,20 +70,30 @@ class LoginFragment : Fragment() {
             if (this.hasObservers()) this.removeObservers(viewLifecycleOwner)
             this.observe(viewLifecycleOwner) {
                 when (it) {
-                    is Result.Loading -> showLoading(true)
+                    is Result.Loading -> {
+                        showLoading(true)
+                    }
                     is Result.Success -> {
                         showLoading(false)
                         tokenViewModel.setToken(it.data.loginData?.token ?: "")
-                        Toast.makeText(
-                            requireContext(),
-                            getString(R.string.login_success),
-                            Toast.LENGTH_SHORT,
-                        ).show()
+                        binding?.let { fragment ->
+                            Snackbar.make(
+                                fragment.root,
+                                getString(R.string.login_success),
+                                Snackbar.LENGTH_SHORT
+                            ).show()
+                        }
                         goToHome()
                     }
                     is Result.Error -> {
                         showLoading(false)
-                        Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
+                        binding?.let { fragment ->
+                            Snackbar.make(
+                                fragment.root,
+                                it.error,
+                                Snackbar.LENGTH_SHORT,
+                            ).show()
+                        }
                     }
                 }
             }

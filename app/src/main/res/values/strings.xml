@@ -11,7 +11,7 @@
     <string name="create_account">Create Account</string>
     <string name="or">Or</string>
     <string name="sign_in_with_google">Sign in with Google</string>
-    <string name="account_nregistration">Account\nRegistration</string>
+    <string name="account_registration">Account\nRegistration</string>
     <string name="please_fill_the_form_to_register">Please fill the form to register.</string>
     <string name="register">Register</string>
     <string name="error_email_invalid">Email is not valid!</string>
@@ -20,5 +20,6 @@
     <string name="error_required">Field must not be empty!</string>
     <string name="username">Username</string>
     <string name="password_confirmation">Password Confirmation</string>
-    <string name="login_success">Login Success!</string>
+    <string name="login_success">Login success!</string>
+    <string name="register_success">Register success, you may now login with your new account.</string>
 </resources>
