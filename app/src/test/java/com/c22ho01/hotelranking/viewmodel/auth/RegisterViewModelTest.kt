@@ -3,11 +3,11 @@ package com.c22ho01.hotelranking.viewmodel.auth
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.test.filters.MediumTest
-import com.c22ho01.hotelranking.MainCoroutineRule
 import com.c22ho01.hotelranking.data.Result
 import com.c22ho01.hotelranking.data.remote.response.auth.RegisterResponse
 import com.c22ho01.hotelranking.data.repository.AuthRepository
-import com.c22ho01.hotelranking.getOrAwaitValue
+import com.c22ho01.hotelranking.utils.MainCoroutineRuleUnitTest
+import com.c22ho01.hotelranking.utils.getOrAwaitValue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert
 import org.junit.Before
@@ -26,7 +26,7 @@ class RegisterViewModelTest {
     var instantExecutorRule = InstantTaskExecutorRule()
 
     @get:Rule
-    var mainCoroutineRules = MainCoroutineRule()
+    var mainCoroutineRulesUnitTest = MainCoroutineRuleUnitTest()
 
     @Mock
     private lateinit var authRepositoryMock: AuthRepository

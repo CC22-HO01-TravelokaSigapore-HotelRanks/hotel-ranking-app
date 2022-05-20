@@ -3,8 +3,7 @@ package com.c22ho01.hotelranking.data.repository
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.filters.MediumTest
-import com.c22ho01.hotelranking.MainCoroutineRule
-import com.c22ho01.hotelranking.captureValues
+import com.c22ho01.hotelranking.utils.captureValues
 import com.c22ho01.hotelranking.data.Result
 import com.c22ho01.hotelranking.data.remote.response.auth.LoginData
 import com.c22ho01.hotelranking.data.remote.response.auth.LoginResponse
@@ -31,7 +30,8 @@ class AuthRepositoryTest {
     var instantExecutorRule = InstantTaskExecutorRule()
 
     @get:Rule
-    var mainCoroutineRules = MainCoroutineRule(UnconfinedTestDispatcher())
+    var mainCoroutineRulesUnitTest =
+        com.c22ho01.hotelranking.utils.MainCoroutineRuleUnitTest(UnconfinedTestDispatcher())
 
     @Mock
     private lateinit var authService: AuthService
@@ -55,7 +55,7 @@ class AuthRepositoryTest {
 
     @Test
     fun `when submitRegister should not return null`() =
-        mainCoroutineRules.scope.runTest {
+        mainCoroutineRulesUnitTest.scope.runTest {
             val dummyResponse =
                 RegisterResponse(
                     message = "success",
@@ -73,7 +73,7 @@ class AuthRepositoryTest {
 
     @Test
     fun `when submitRegister error should return error result`() =
-        mainCoroutineRules.scope.runTest {
+        mainCoroutineRulesUnitTest.scope.runTest {
             val dummyResponse =
                 RegisterResponse(
                     message = "Error!",
@@ -97,7 +97,7 @@ class AuthRepositoryTest {
 
     @Test
     fun `when submitLogin should not return null`() =
-        mainCoroutineRules.scope.runTest {
+        mainCoroutineRulesUnitTest.scope.runTest {
             val dummyResponse =
                 LoginResponse(
                     message = "success",
@@ -120,7 +120,7 @@ class AuthRepositoryTest {
 
     @Test
     fun `when submitLogin error should return error result`() =
-        mainCoroutineRules.scope.runTest {
+        mainCoroutineRulesUnitTest.scope.runTest {
             val dummyResponse =
                 LoginResponse(
                     message = "Error!",

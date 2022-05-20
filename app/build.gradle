@@ -37,15 +37,11 @@ android {
         freeCompilerArgs += ["-Xopt-in=kotlin.RequiresOptIn"]
     }
 
-
     testOptions {
         animationsDisabled = true
         unitTests.returnDefaultValues = true
     }
-    sourceSets {
-        androidTest.java.srcDirs += "src/sharedTest/java"
-        test.java.srcDirs += "src/sharedTest/java"
-    }
+
     packagingOptions {
         resources {
             excludes += ['META-INF/AL2.0', 'META-INF/LGPL2.1']
