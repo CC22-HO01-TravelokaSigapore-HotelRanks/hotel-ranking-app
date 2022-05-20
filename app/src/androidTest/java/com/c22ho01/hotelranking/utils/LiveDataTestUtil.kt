@@ -1,4 +1,4 @@
-package com.c22ho01.hotelranking
+package com.c22ho01.hotelranking.utils
 
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData

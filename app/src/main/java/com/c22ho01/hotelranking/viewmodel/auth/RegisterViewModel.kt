@@ -1,8 +1,11 @@
 package com.c22ho01.hotelranking.viewmodel.auth
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.c22ho01.hotelranking.data.Result
+import com.c22ho01.hotelranking.data.remote.response.auth.RegisterResponse
 import com.c22ho01.hotelranking.data.repository.AuthRepository
 
 class RegisterViewModel(private val authRepository: AuthRepository) : ViewModel() {
@@ -13,7 +16,7 @@ class RegisterViewModel(private val authRepository: AuthRepository) : ViewModel(
 
     var formValid: MediatorLiveData<Boolean> = MediatorLiveData()
 
-    fun checkAnyFormValueTrue(): Boolean {
+    private fun checkAnyFormValueTrue(): Boolean {
         return _usernameValid.value ?: false && _emailValid.value ?: false && _passwordValid.value ?: false && _confirmPasswordValid.value ?: false
     }
 
@@ -48,4 +51,11 @@ class RegisterViewModel(private val authRepository: AuthRepository) : ViewModel(
         _confirmPasswordValid.postValue(valid)
     }
 
+    fun submitRegister(
+        userName: String,
+        email: String,
+        password: String,
+    ): LiveData<Result<RegisterResponse>> {
+        return authRepository.submitRegister(userName, email, password)
+    }
 }

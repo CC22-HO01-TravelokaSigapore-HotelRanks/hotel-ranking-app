@@ -1,0 +1,8 @@
+{
+  "status": "success",
+  "message": "auth successful",
+  "data": {
+    "userId": 106,
+    "token": "tokentokentoken"
+  }
+}

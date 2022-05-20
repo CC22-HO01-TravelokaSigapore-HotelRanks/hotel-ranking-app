@@ -10,9 +10,11 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import com.c22ho01.hotelranking.R
+import com.c22ho01.hotelranking.data.Result
 import com.c22ho01.hotelranking.databinding.FragmentRegisterBinding
 import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
 import com.c22ho01.hotelranking.viewmodel.auth.RegisterViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class RegisterFragment : Fragment() {
 
@@ -67,6 +69,47 @@ class RegisterFragment : Fragment() {
             btnGoToLogin.setOnClickListener {
                 goToLogin()
             }
+            btnRegister.setOnClickListener {
+                registerAccount()
+            }
+        }
+    }
+
+    private fun registerAccount() {
+        viewModel.submitRegister(
+            userName = binding?.vtfRegisterUsername?.getText() ?: "",
+            email = binding?.vtfRegisterEmail?.getText() ?: "",
+            password = binding?.vtfRegisterPassword?.getText() ?: "",
+        ).run {
+            if (this.hasObservers()) this.removeObservers(viewLifecycleOwner)
+            this.observe(viewLifecycleOwner) {
+                when (it) {
+                    is Result.Loading -> {
+                        showLoading(true)
+                    }
+                    is Result.Success -> {
+                        showLoading(false)
+                        binding?.let { fragment ->
+                            Snackbar.make(
+                                fragment.root,
+                                getString(R.string.register_success),
+                                Snackbar.LENGTH_SHORT
+                            ).show()
+                        }
+                        goToLogin()
+                    }
+                    is Result.Error -> {
+                        showLoading(false)
+                        binding?.let { fragment ->
+                            Snackbar.make(
+                                fragment.root,
+                                it.error,
+                                Snackbar.LENGTH_SHORT,
+                            ).show()
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -82,6 +125,20 @@ class RegisterFragment : Fragment() {
                 mDestFragment,
                 mDestFragmentTag,
             )
+        }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding?.run {
+                pbRegisterProgress.visibility = View.VISIBLE
+                btnRegister.isEnabled = false
+            }
+        } else {
+            binding?.run {
+                pbRegisterProgress.visibility = View.GONE
+                btnRegister.isEnabled = viewModel.formValid.value ?: false
+            }
         }
     }
 

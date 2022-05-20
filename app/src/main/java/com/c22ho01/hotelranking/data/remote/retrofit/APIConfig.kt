@@ -24,11 +24,6 @@ object APIConfig {
             .build()
     }
 
-    fun getExampleAPIService(): ExampleService {
-        val retrofit = getRetrofit(BASE_URL)
-        return retrofit.create(ExampleService::class.java)
-    }
-
     fun getAuthAPIService(): AuthService {
         val retrofit = getRetrofit(BASE_URL)
         return retrofit.create(AuthService::class.java)
