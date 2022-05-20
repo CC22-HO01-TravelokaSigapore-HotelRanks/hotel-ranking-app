@@ -215,9 +215,13 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintTop_toBottomOf="@+id/facilitesCircleCard"
-                tools:layout_editor_absoluteX="16dp" />
+                tools:layout_editor_absoluteX="16dp"
+                tools:listitem="@layout/item_features" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -283,12 +287,24 @@
                 app:tint="@color/md_theme_light_primary" />
 
             <FrameLayout
-
+                android:id="@+id/frame_previewMaps"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_marginTop="15dp"
                 app:layout_constraintTop_toBottomOf="@+id/locationCircleCard"
                 tools:layout_editor_absoluteX="16dp" />
+
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:enabled="false"
+                android:text="@string/open_maps"
+                app:layout_constraintEnd_toEndOf="@+id/frame_previewMaps"
+                app:layout_constraintStart_toStartOf="@+id/frame_previewMaps"
+                app:layout_constraintTop_toBottomOf="@+id/frame_previewMaps"
+                tools:enabled="true" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
