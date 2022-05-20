@@ -1,5 +1,27 @@
 <resources>
     <string name="app_name">Hotel Ranking</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login_to_your_existing_account">Login to your\nexisting account</string>
+    <string name="please_fill_the_form_to_login">Please fill the form to login.</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="don_t_have_an_account">Don’t have an account?</string>
+    <string name="create_account">Create Account</string>
+    <string name="or">Or</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="account_registration">Account\nRegistration</string>
+    <string name="please_fill_the_form_to_register">Please fill the form to register.</string>
+    <string name="register">Register</string>
+    <string name="error_email_invalid">Email is not valid!</string>
+    <string name="error_pass_length">Password must have %1$d character at minimum!</string>
+    <string name="error_pass_confirmation">Password confirmation doesn\'t match your password input!</string>
+    <string name="error_required">Field must not be empty!</string>
+    <string name="username">Username</string>
+    <string name="password_confirmation">Password Confirmation</string>
+    <string name="login_success">Login success!</string>
+    <string name="register_success">Register success, you may now login with your new account.</string>
     <string name="search_hint">Search hotel</string>
     <string name="not_logged_in">You’re not logged in. Login first to enjoy interesting promotions.</string>
     <string name="login_here">Login Here</string>

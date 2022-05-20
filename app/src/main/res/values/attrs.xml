@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ValidateableTextField">
+        <attr name="validFieldValidateType" format="enum">
+            <enum name="EMAIL" value="0" />
+            <enum name="PASSWORD" value="1" />
+            <enum name="PASSWORD_CONFIRMATION" value="2" />
+        </attr>
+        <attr name="validFieldValue" format="string" />
+        <attr name="validFieldHint" format="string" />
+        <attr name="validFieldError" format="string" />
+        <attr name="validFieldObscure" format="boolean" />
+        <attr name="validFieldRequired" format="boolean" />
+    </declare-styleable>
+</resources>
