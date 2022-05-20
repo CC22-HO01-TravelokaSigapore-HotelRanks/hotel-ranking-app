@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.HotelRanking" parent="Theme.Material3.Dark.NoActionBar">
         <item name="android:statusBarColor">@color/md_theme_dark_background</item>

@@ -56,19 +56,19 @@ class LoginViewModelTest {
     @Test
     fun `when submitLogin should not return null`() {
         val loginData = LoginData(
-                userId = 1,
-                token = "dummyToken",
+            userId = 1,
+            token = "dummyToken",
         )
         val loginResponse = LoginResponse(
-                loginData = loginData,
-                message = "dummyMessage",
-                status = "dummyStatus"
+            loginData = loginData,
+            message = "dummyMessage",
+            status = "dummyStatus"
         )
         val expectedResult = MutableLiveData<Result<LoginResponse>>()
         expectedResult.value = Result.Success(loginResponse)
 
         Mockito.`when`(authRepositoryMock.submitLogin(dummyEmail, dummyPassword))
-                .thenReturn(expectedResult)
+            .thenReturn(expectedResult)
 
         val actualResult = loginViewModel.submitLogin(dummyEmail, dummyPassword).getOrAwaitValue()
 

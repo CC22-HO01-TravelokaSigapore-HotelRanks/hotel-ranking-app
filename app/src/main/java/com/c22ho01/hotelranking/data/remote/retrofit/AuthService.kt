@@ -11,15 +11,15 @@ interface AuthService {
     @POST("user/login")
     @FormUrlEncoded
     suspend fun login(
-            @Field("userName") userName: String,
-            @Field("password") password: String
+        @Field("userName") userName: String,
+        @Field("password") password: String
     ): Response<LoginResponse>
 
     @POST("user/register")
     @FormUrlEncoded
     suspend fun register(
-            @Field("userName") userName: String,
-            @Field("email") email: String,
-            @Field("password") password: String
+        @Field("userName") userName: String,
+        @Field("email") email: String,
+        @Field("password") password: String
     ): Response<RegisterResponse>
 }

@@ -27,4 +27,9 @@ class ProfileFragment : Fragment() {
 
         val homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }

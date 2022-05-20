@@ -52,9 +52,9 @@ class RegisterViewModel(private val authRepository: AuthRepository) : ViewModel(
     }
 
     fun submitRegister(
-            userName: String,
-            email: String,
-            password: String,
+        userName: String,
+        email: String,
+        password: String,
     ): LiveData<Result<RegisterResponse>> {
         return authRepository.submitRegister(userName, email, password)
     }

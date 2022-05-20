@@ -7,9 +7,9 @@ import androidx.room.RoomDatabase
 import com.c22ho01.hotelranking.data.local.entity.HotelEntity
 
 @Database(
-        entities = [HotelEntity::class],
-        version = 1,
-        exportSchema = false,
+    entities = [HotelEntity::class],
+    version = 1,
+    exportSchema = false,
 )
 abstract class AppDatabase : RoomDatabase() {
 
@@ -22,15 +22,15 @@ abstract class AppDatabase : RoomDatabase() {
         @JvmStatic
         fun getDatabase(context: Context): AppDatabase {
             return INSTANCE
-                    ?: synchronized(this) {
-                        INSTANCE
-                                ?: Room.databaseBuilder(
-                                        context.applicationContext, AppDatabase::class.java, DATABASE_NAME
-                                )
-                                        .fallbackToDestructiveMigration()
-                                        .build()
-                                        .also { INSTANCE = it }
-                    }
+                ?: synchronized(this) {
+                    INSTANCE
+                        ?: Room.databaseBuilder(
+                            context.applicationContext, AppDatabase::class.java, DATABASE_NAME
+                        )
+                            .fallbackToDestructiveMigration()
+                            .build()
+                            .also { INSTANCE = it }
+                }
         }
     }
 }

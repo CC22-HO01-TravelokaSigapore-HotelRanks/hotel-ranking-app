@@ -48,52 +48,52 @@ class TokenRepositoryTest {
     fun setUp() {
         preferencesScope = CoroutineScope(mainCoroutineRulesInstTest.dispatcher + Job())
         testDataStore =
-                PreferenceDataStoreFactory.create(
-                        scope = preferencesScope,
-                        produceFile = { testContext.preferencesDataStoreFile(TEST_DATASTORE_NAME) },
-                )
+            PreferenceDataStoreFactory.create(
+                scope = preferencesScope,
+                produceFile = { testContext.preferencesDataStoreFile(TEST_DATASTORE_NAME) },
+            )
         tokenRepository = TokenRepository(testDataStore)
     }
 
     @After
     fun removeDatastore() {
         File(ApplicationProvider.getApplicationContext<Context>().filesDir, "datastore")
-                .deleteRecursively()
+            .deleteRecursively()
         preferencesScope.cancel()
     }
 
     @Test
     fun getToken_shouldReturnToken() =
-            mainCoroutineRulesInstTest.scope.runTest {
-                testDataStore.edit { it[tokenPreference] = testToken }
-                val actualToken = tokenRepository.getToken().asLiveData().getOrAwaitValue()
-                Assert.assertNotNull(actualToken)
-                Assert.assertEquals(testToken, actualToken)
-            }
+        mainCoroutineRulesInstTest.scope.runTest {
+            testDataStore.edit { it[tokenPreference] = testToken }
+            val actualToken = tokenRepository.getToken().asLiveData().getOrAwaitValue()
+            Assert.assertNotNull(actualToken)
+            Assert.assertEquals(testToken, actualToken)
+        }
 
     @Test
     fun setToken_shouldEditTokenToANewToken() =
-            mainCoroutineRulesInstTest.scope.runTest {
-                testDataStore.edit { it[tokenPreference] = testToken }
-                val newToken = "newToken"
-                tokenRepository.setToken(newToken)
+        mainCoroutineRulesInstTest.scope.runTest {
+            testDataStore.edit { it[tokenPreference] = testToken }
+            val newToken = "newToken"
+            tokenRepository.setToken(newToken)
 
-                val actualToken =
-                        testDataStore.data.map { it[tokenPreference] }.asLiveData().getOrAwaitValue()
-                Assert.assertNotNull(actualToken)
-                Assert.assertEquals(newToken, actualToken)
-            }
+            val actualToken =
+                testDataStore.data.map { it[tokenPreference] }.asLiveData().getOrAwaitValue()
+            Assert.assertNotNull(actualToken)
+            Assert.assertEquals(newToken, actualToken)
+        }
 
     @Test
     fun deleteToken_shouldRemoveTokenFromDataStore() =
-            mainCoroutineRulesInstTest.scope.runTest {
-                testDataStore.edit { it[tokenPreference] = testToken }
-                tokenRepository.deleteToken()
+        mainCoroutineRulesInstTest.scope.runTest {
+            testDataStore.edit { it[tokenPreference] = testToken }
+            tokenRepository.deleteToken()
 
-                val actualToken =
-                        testDataStore.data.map { it[tokenPreference] }.asLiveData().getOrAwaitValue()
-                Assert.assertNull(actualToken)
-            }
+            val actualToken =
+                testDataStore.data.map { it[tokenPreference] }.asLiveData().getOrAwaitValue()
+            Assert.assertNull(actualToken)
+        }
 
     companion object {
         private const val TEST_DATASTORE_NAME = "test_datastore"
