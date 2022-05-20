@@ -10,10 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HotelRanking">
         <activity
-            android:name=".ui.home.HomeLoggedIn"
-            android:exported="false" />
+            android:name=".ui.home.HomeLoggedInActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".ui.home.HomeGuest"
+            android:name=".ui.home.HomeGuestActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>

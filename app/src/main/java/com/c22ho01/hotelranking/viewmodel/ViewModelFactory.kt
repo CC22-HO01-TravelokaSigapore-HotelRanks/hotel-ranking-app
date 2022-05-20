@@ -24,13 +24,13 @@ private constructor(
         private var instance: ViewModelFactory? = null
 
         fun getInstance(context: Context) =
-            instance
-                ?: synchronized(this) {
-                    instance
-                        ?: ViewModelFactory(
+                instance
+                        ?: synchronized(this) {
+                            instance
+                                    ?: ViewModelFactory(
 //                            RepositoryInjection.provideAuthRepository(),
-                        )
-                            .also { instance = it }
-                }
+                                    )
+                                            .also { instance = it }
+                        }
     }
 }
