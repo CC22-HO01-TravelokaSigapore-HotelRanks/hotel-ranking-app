@@ -12,8 +12,8 @@ import com.c22ho01.hotelranking.viewmodel.utils.TokenViewModel
 
 class ViewModelFactory
 private constructor(
-    private val authRepository: AuthRepository,
-    private val tokenRepository: TokenRepository,
+        private val authRepository: AuthRepository,
+        private val tokenRepository: TokenRepository,
 ) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
@@ -33,17 +33,18 @@ private constructor(
     }
 
     companion object {
-        @Volatile private var instance: ViewModelFactory? = null
+        @Volatile
+        private var instance: ViewModelFactory? = null
 
         fun getInstance(context: Context) =
-            instance
-                ?: synchronized(this) {
-                    instance
-                        ?: ViewModelFactory(
-                            RepositoryInjection.provideAuthRepository(),
-                            RepositoryInjection.provideTokenRepository(context)
-                        )
-                            .also { instance = it }
-                }
+                instance
+                        ?: synchronized(this) {
+                            instance
+                                    ?: ViewModelFactory(
+                                            RepositoryInjection.provideAuthRepository(),
+                                            RepositoryInjection.provideTokenRepository(context)
+                                    )
+                                            .also { instance = it }
+                        }
     }
 }

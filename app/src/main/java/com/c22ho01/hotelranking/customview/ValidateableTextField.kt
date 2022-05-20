@@ -106,7 +106,10 @@ class ValidateableTextField : ConstraintLayout {
         }
     }
 
-    fun addValidateListener(matchValidateableTextFieldView: ValidateableTextField? = null, callback: (Boolean) -> Unit) {
+    fun addValidateListener(
+        matchValidateableTextFieldView: ValidateableTextField? = null,
+        callback: (Boolean) -> Unit
+    ) {
         fun ruleHandling(rule: Boolean, errorText: String) {
             if (!rule && !_hasError) {
                 setError(errorText)
@@ -130,7 +133,10 @@ class ValidateableTextField : ConstraintLayout {
                     when (validateType) {
                         VALIDATE_TYPE_EMAIL -> {
                             ruleHandling(
-                                android.util.Patterns.EMAIL_ADDRESS.matcher(s ?: "").matches(),
+                                android.util.Patterns.EMAIL_ADDRESS.matcher(
+                                    s
+                                        ?: ""
+                                ).matches(),
                                 context.getString(R.string.error_email_invalid),
                             )
                         }

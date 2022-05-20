@@ -7,28 +7,30 @@ import androidx.room.RoomDatabase
 import com.c22ho01.hotelranking.data.local.entity.HotelEntity
 
 @Database(
-    entities = [HotelEntity::class],
-    version = 1,
-    exportSchema = false,
+        entities = [HotelEntity::class],
+        version = 1,
+        exportSchema = false,
 )
 abstract class AppDatabase : RoomDatabase() {
 
     companion object {
         private const val DATABASE_NAME = "hotel_ranking_app_db"
 
-        @Volatile private var INSTANCE: AppDatabase? = null
+        @Volatile
+        private var INSTANCE: AppDatabase? = null
 
         @JvmStatic
         fun getDatabase(context: Context): AppDatabase {
             return INSTANCE
-                ?: synchronized(this) {
-                    INSTANCE
-                        ?: Room.databaseBuilder(
-                            context.applicationContext, AppDatabase::class.java, DATABASE_NAME)
-                            .fallbackToDestructiveMigration()
-                            .build()
-                            .also { INSTANCE = it }
-                }
+                    ?: synchronized(this) {
+                        INSTANCE
+                                ?: Room.databaseBuilder(
+                                        context.applicationContext, AppDatabase::class.java, DATABASE_NAME
+                                )
+                                        .fallbackToDestructiveMigration()
+                                        .build()
+                                        .also { INSTANCE = it }
+                    }
         }
     }
 }

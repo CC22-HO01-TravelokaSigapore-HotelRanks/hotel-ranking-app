@@ -61,11 +61,11 @@ class RegisterViewModelTest {
         expectedResult.value = Result.Success(RegisterResponse(message = "Success"))
 
         Mockito.`when`(authRepositoryMock.submitRegister(dummyUsername, dummyEmail, dummyPassword))
-            .thenReturn(expectedResult)
+                .thenReturn(expectedResult)
 
         val actualResult =
-            registerViewModel.submitRegister(dummyUsername, dummyEmail, dummyPassword)
-                .getOrAwaitValue()
+                registerViewModel.submitRegister(dummyUsername, dummyEmail, dummyPassword)
+                        .getOrAwaitValue()
 
         Assert.assertNotNull(actualResult)
         Assert.assertEquals(expectedResult.value, actualResult)

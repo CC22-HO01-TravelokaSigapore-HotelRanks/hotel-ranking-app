@@ -19,7 +19,7 @@ import com.google.android.material.snackbar.Snackbar
 class RegisterFragment : Fragment() {
 
     private var _binding: FragmentRegisterBinding? = null
-    val binding get() = _binding
+    private val binding get() = _binding
 
     private lateinit var factory: ViewModelFactory
     private val viewModel: RegisterViewModel by viewModels { factory }
