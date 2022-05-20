@@ -28,8 +28,8 @@ class LoginFragment : Fragment() {
     private val tokenViewModel: TokenViewModel by viewModels { factory }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         factory = ViewModelFactory.getInstance(requireContext())
@@ -64,8 +64,8 @@ class LoginFragment : Fragment() {
 
     private fun loginAccount() {
         loginViewModel.submitLogin(
-            userName = binding?.vtfLoginUsername?.getText() ?: "",
-            password = binding?.vtfLoginPassword?.getText() ?: "",
+                userName = binding?.vtfLoginUsername?.getText() ?: "",
+                password = binding?.vtfLoginPassword?.getText() ?: "",
         ).run {
             if (this.hasObservers()) this.removeObservers(viewLifecycleOwner)
             this.observe(viewLifecycleOwner) {
@@ -78,9 +78,9 @@ class LoginFragment : Fragment() {
                         tokenViewModel.setToken(it.data.loginData?.token ?: "")
                         binding?.let { fragment ->
                             Snackbar.make(
-                                fragment.root,
-                                getString(R.string.login_success),
-                                Snackbar.LENGTH_SHORT
+                                    fragment.root,
+                                    getString(R.string.login_success),
+                                    Snackbar.LENGTH_SHORT
                             ).show()
                         }
                         goToHome()
@@ -89,9 +89,9 @@ class LoginFragment : Fragment() {
                         showLoading(false)
                         binding?.let { fragment ->
                             Snackbar.make(
-                                fragment.root,
-                                it.error,
-                                Snackbar.LENGTH_LONG,
+                                    fragment.root,
+                                    it.error,
+                                    Snackbar.LENGTH_LONG,
                             ).show()
                         }
                     }
@@ -102,9 +102,9 @@ class LoginFragment : Fragment() {
 
     private fun goToHome() {
         val intent =
-            Intent(activity, DummyActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-            }
+                Intent(activity, DummyActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                }
         startActivity(intent)
     }
 
@@ -116,9 +116,9 @@ class LoginFragment : Fragment() {
         mFragmentManager.commit {
             setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             replace(
-                R.id.auth_fragment_container,
-                mDestFragment,
-                mDestFragmentTag,
+                    R.id.auth_fragment_container,
+                    mDestFragment,
+                    mDestFragmentTag,
             )
         }
     }
