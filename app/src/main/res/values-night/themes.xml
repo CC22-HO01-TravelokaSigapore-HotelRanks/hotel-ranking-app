@@ -35,7 +35,7 @@
     </style>
 
     <style name="Widget.App.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
-        <item name="android:background">@android:color/transparent</item>
+        <item name="android:background">@color/md_theme_dark_background</item>
         <item name="itemActiveIndicatorStyle">
             @style/Widget.App.BottomNavigationView.ActiveIndicator
         </item>

@@ -11,7 +11,7 @@
         android:background="@drawable/ic_circle"
         android:contentDescription="@string/menu_description"
         android:src="@drawable/ic_hotel"
-        tools:ignore="ContentDescription,DuplicateSpeakableTextCheck" />
+        tools:ignore="DuplicateSpeakableTextCheck" />
 
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="wrap_content"

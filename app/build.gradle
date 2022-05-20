@@ -80,12 +80,12 @@ dependencies {
     androidTestImplementation 'com.squareup.okhttp3:okhttp-tls:5.0.0-alpha.7'
 
     // ktx utils
-    implementation 'androidx.lifecycle:lifecycle-livedata:2.4.1'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.1"
     implementation "androidx.activity:activity-ktx:1.4.0"
     implementation "androidx.fragment:fragment-ktx:1.4.1"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
 
     // api response
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'

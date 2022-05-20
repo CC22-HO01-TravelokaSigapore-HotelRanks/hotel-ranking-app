@@ -9,6 +9,8 @@
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/drawable/home-24px.xml" value="0.1095" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/drawable/ic_account.xml" value="0.1095" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/drawable/ic_circle.xml" value="0.2435" />
+        <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.1295" />
+        <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/drawable/ic_down.xml" value="0.1295" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/drawable/ic_explore.xml" value="0.1095" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/drawable/ic_forward.xml" value="0.1095" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/drawable/ic_home.xml" value="0.1095" />
@@ -16,17 +18,25 @@
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/drawable/ic_rectangle.xml" value="0.2295" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/drawable/ic_search.xml" value="0.2435" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/drawable/ic_star.xml" value="0.2475" />
+        <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/activity_home.xml" value="0.1" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/activity_home_guest.xml" value="0.2" />
-        <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/activity_home_logged_in.xml" value="0.25" />
+        <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/activity_home_logged_in.xml" value="0.15405405405405406" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/card_hotel.xml" value="0.2" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/card_login.xml" value="0.16148648648648647" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/card_menu.xml" value="0.2" />
-        <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/custom_menu.xml" value="1.0" />
+        <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/custom_menu.xml" value="0.4" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/custom_search_bar.xml" value="0.16216216216216217" />
+        <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/fragment_dashboard.xml" value="0.16216216216216217" />
+        <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/fragment_home.xml" value="0.264" />
+        <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/fragment_home_guest.xml" value="0.14791666666666667" />
+        <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/fragment_home_logged_in.xml" value="0.4" />
+        <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/fragment_notifications.xml" value="0.16216216216216217" />
+        <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/fragment_profile.xml" value="0.1" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/list_hotel.xml" value="0.2" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/menu.xml" value="0.16216216216216217" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/recommendations.xml" value="0.16148648648648647" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/search_bar.xml" value="0.4" />
+        <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/menu/bottom_nav_menu.xml" value="0.16216216216216217" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.16216216216216217" />
         <entry key="..\:/Users/Tenessine/GudangKode/AndroidKotlin/hotel-ranking-app/app/src/main/res/layout/activity_main.xml" value="0.4" />
       </map>

@@ -2,17 +2,25 @@ package com.c22ho01.hotelranking.ui.home
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
+import com.c22ho01.hotelranking.R
 import com.c22ho01.hotelranking.databinding.ActivityHomeGuestBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class HomeGuest : AppCompatActivity() {
+class HomeGuestActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeGuestBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityHomeGuestBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.searchBar.customSearchBar
+        val navView: BottomNavigationView = binding.navView
+
+        val navController = findNavController(R.id.nav_host_fragment_activity_home)
+        navView.setupWithNavController(navController)
     }
 }
