@@ -9,7 +9,7 @@ import com.c22ho01.hotelranking.data.remote.response.auth.LoginResponse
 import com.c22ho01.hotelranking.data.repository.AuthRepository
 
 class LoginViewModel(
-    private val authRepository: AuthRepository,
+        private val authRepository: AuthRepository,
 ) : ViewModel() {
     private var _usernameValid = MutableLiveData(false)
     private var _passwordValid = MutableLiveData(false)
@@ -34,8 +34,8 @@ class LoginViewModel(
     }
 
     fun submitLogin(
-        userName: String,
-        password: String,
+            userName: String,
+            password: String,
     ): LiveData<Result<LoginResponse>> {
         return authRepository.submitLogin(userName, password)
     }

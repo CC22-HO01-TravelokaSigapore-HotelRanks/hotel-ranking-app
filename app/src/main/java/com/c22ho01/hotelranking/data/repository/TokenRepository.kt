@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class TokenRepository(
-    private val settingPreferences: DataStore<Preferences>
+        private val settingPreferences: DataStore<Preferences>
 ) {
     private val tokenPref = stringPreferencesKey(PREF_TOKEN)
 
@@ -24,17 +24,18 @@ class TokenRepository(
 
     companion object {
         const val PREF_TOKEN = "PREF_TOKEN"
+
         @Volatile
         private var instance: TokenRepository? = null
 
         fun getInstance(settingPreferences: DataStore<Preferences>): TokenRepository =
-            instance
-                ?: synchronized(this) {
-                    instance
-                        ?: TokenRepository(
-                            settingPreferences,
-                        )
-                            .also { instance = it }
-                }
+                instance
+                        ?: synchronized(this) {
+                            instance
+                                    ?: TokenRepository(
+                                            settingPreferences,
+                                    )
+                                            .also { instance = it }
+                        }
     }
 }

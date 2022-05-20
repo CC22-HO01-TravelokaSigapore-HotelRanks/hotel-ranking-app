@@ -15,21 +15,21 @@ import org.hamcrest.Matchers
 object ValidateableTextFieldTest {
     fun onEditTextLayout(id: Int): ViewInteraction {
         return Espresso.onView(
-            Matchers.allOf(
-                ViewMatchers.isDisplayed(),
-                ViewMatchers.isAssignableFrom(TextInputLayout::class.java),
-                ViewMatchers.isDescendantOfA(ViewMatchers.withId(id))
-            )
+                Matchers.allOf(
+                        ViewMatchers.isDisplayed(),
+                        ViewMatchers.isAssignableFrom(TextInputLayout::class.java),
+                        ViewMatchers.isDescendantOfA(ViewMatchers.withId(id))
+                )
         )
     }
 
     fun onTextInput(id: Int): ViewInteraction {
         return Espresso.onView(
-            Matchers.allOf(
-                ViewMatchers.isDisplayed(),
-                ViewMatchers.isAssignableFrom(TextInputEditText::class.java),
-                ViewMatchers.isDescendantOfA(ViewMatchers.withId(id))
-            )
+                Matchers.allOf(
+                        ViewMatchers.isDisplayed(),
+                        ViewMatchers.isAssignableFrom(TextInputEditText::class.java),
+                        ViewMatchers.isDescendantOfA(ViewMatchers.withId(id))
+                )
         )
     }
 }

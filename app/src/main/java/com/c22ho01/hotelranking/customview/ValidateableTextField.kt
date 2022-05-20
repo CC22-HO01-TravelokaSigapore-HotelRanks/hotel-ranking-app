@@ -33,9 +33,9 @@ class ValidateableTextField : ConstraintLayout {
     }
 
     constructor(
-        context: Context,
-        attrs: AttributeSet,
-        defStyleAttr: Int
+            context: Context,
+            attrs: AttributeSet,
+            defStyleAttr: Int
     ) : super(context, attrs, defStyleAttr) {
         init(context, attrs, defStyleAttr)
     }
@@ -46,23 +46,23 @@ class ValidateableTextField : ConstraintLayout {
         _binding = ValidateableTextFieldBinding.bind(this)
 
         val typedArray =
-            context.obtainStyledAttributes(
-                attrs,
-                R.styleable.ValidateableTextField,
-                defStyleAttr,
-                0,
-            )
+                context.obtainStyledAttributes(
+                        attrs,
+                        R.styleable.ValidateableTextField,
+                        defStyleAttr,
+                        0,
+                )
 
         hintText = typedArray.getString(R.styleable.ValidateableTextField_validFieldHint)
         val valueText = typedArray.getString(R.styleable.ValidateableTextField_validFieldValue)
         val errorText = typedArray.getString(R.styleable.ValidateableTextField_validFieldError)
         val isObscure =
-            typedArray.getBoolean(R.styleable.ValidateableTextField_validFieldObscure, false)
+                typedArray.getBoolean(R.styleable.ValidateableTextField_validFieldObscure, false)
 
         validateType =
-            typedArray.getInt(R.styleable.ValidateableTextField_validFieldValidateType, -1)
+                typedArray.getInt(R.styleable.ValidateableTextField_validFieldValidateType, -1)
         isRequired =
-            typedArray.getBoolean(R.styleable.ValidateableTextField_validFieldRequired, false)
+                typedArray.getBoolean(R.styleable.ValidateableTextField_validFieldRequired, false)
 
         if (isObscure) {
             binding?.tilValidateableViews?.run {
@@ -117,50 +117,51 @@ class ValidateableTextField : ConstraintLayout {
         }
 
         binding?.etValidateableField?.addTextChangedListener(
-            object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
+                object : TextWatcher {
+                    override fun beforeTextChanged(
+                            s: CharSequence?,
+                            start: Int,
+                            count: Int,
+                            after: Int
+                    ) {
+                    }
 
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    when (validateType) {
-                        VALIDATE_TYPE_EMAIL -> {
-                            ruleHandling(
-                                android.util.Patterns.EMAIL_ADDRESS.matcher(s ?: "").matches(),
-                                context.getString(R.string.error_email_invalid),
-                            )
-                        }
-                        VALIDATE_TYPE_PASSWORD -> {
-                            ruleHandling(
-                                (s?.length ?: 0) >= PASSWORD_MIN_LENGTH,
-                                context.getString(R.string.error_pass_length, PASSWORD_MIN_LENGTH)
-                            )
-                        }
+                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                        when (validateType) {
+                            VALIDATE_TYPE_EMAIL -> {
+                                ruleHandling(
+                                        android.util.Patterns.EMAIL_ADDRESS.matcher(s
+                                                ?: "").matches(),
+                                        context.getString(R.string.error_email_invalid),
+                                )
+                            }
+                            VALIDATE_TYPE_PASSWORD -> {
+                                ruleHandling(
+                                        (s?.length ?: 0) >= PASSWORD_MIN_LENGTH,
+                                        context.getString(R.string.error_pass_length, PASSWORD_MIN_LENGTH)
+                                )
+                            }
 
-                        VALIDATE_TYPE_PASSWORD_CONFIRMATION -> {
-                            ruleHandling(
-                                s?.toString() == matchValidateableTextFieldView?.getText(),
-                                context.getString(R.string.error_pass_confirmation)
-                            )
-                        }
-                        else -> {
-                            if (isRequired && s.isNullOrEmpty()) {
-                                setError(context.getString(R.string.error_required))
-                                callback(false)
-                            } else {
-                                setError(null)
-                                callback(true)
+                            VALIDATE_TYPE_PASSWORD_CONFIRMATION -> {
+                                ruleHandling(
+                                        s?.toString() == matchValidateableTextFieldView?.getText(),
+                                        context.getString(R.string.error_pass_confirmation)
+                                )
+                            }
+                            else -> {
+                                if (isRequired && s.isNullOrEmpty()) {
+                                    setError(context.getString(R.string.error_required))
+                                    callback(false)
+                                } else {
+                                    setError(null)
+                                    callback(true)
+                                }
                             }
                         }
                     }
-                }
 
-                override fun afterTextChanged(s: Editable?) {}
-            })
+                    override fun afterTextChanged(s: Editable?) {}
+                })
     }
 
 

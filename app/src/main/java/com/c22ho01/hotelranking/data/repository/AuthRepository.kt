@@ -11,16 +11,14 @@ import com.c22ho01.hotelranking.utils.wrapEspressoIdlingResource
 import com.google.gson.Gson
 
 
-
-
 class AuthRepository(
-    private val authService: AuthService
+        private val authService: AuthService
 ) {
 
     fun submitRegister(
-        userName: String,
-        email: String,
-        password: String,
+            userName: String,
+            email: String,
+            password: String,
     ): LiveData<Result<RegisterResponse>> = liveData {
         emit(Result.Loading)
         wrapEspressoIdlingResource {
@@ -39,8 +37,8 @@ class AuthRepository(
     }
 
     fun submitLogin(
-        userName: String,
-        password: String,
+            userName: String,
+            password: String,
     ): LiveData<Result<LoginResponse>> = liveData {
         emit(Result.Loading)
         wrapEspressoIdlingResource {
@@ -64,13 +62,13 @@ class AuthRepository(
         private var instance: AuthRepository? = null
 
         fun getInstance(authService: AuthService): AuthRepository =
-            instance
-                ?: synchronized(this) {
-                    instance
-                        ?: AuthRepository(
-                            authService,
-                        )
-                            .also { instance = it }
-                }
+                instance
+                        ?: synchronized(this) {
+                            instance
+                                    ?: AuthRepository(
+                                            authService,
+                                    )
+                                            .also { instance = it }
+                        }
     }
 }
