@@ -12,7 +12,7 @@
         android:paddingHorizontal="32dp">
 
         <ProgressBar
-            android:id="@+id/progress_bar_login"
+            android:id="@+id/pb_login_progress"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="16dp"

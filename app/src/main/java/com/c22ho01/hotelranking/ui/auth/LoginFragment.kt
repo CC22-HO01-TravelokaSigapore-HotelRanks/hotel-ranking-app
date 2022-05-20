@@ -91,7 +91,7 @@ class LoginFragment : Fragment() {
                             Snackbar.make(
                                 fragment.root,
                                 it.error,
-                                Snackbar.LENGTH_SHORT,
+                                Snackbar.LENGTH_LONG,
                             ).show()
                         }
                     }
@@ -102,7 +102,7 @@ class LoginFragment : Fragment() {
 
     private fun goToHome() {
         val intent =
-            Intent(requireActivity(), DummyActivity::class.java).apply {
+            Intent(activity, DummyActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             }
         startActivity(intent)
@@ -126,12 +126,12 @@ class LoginFragment : Fragment() {
     private fun showLoading(isLoading: Boolean) {
         if (isLoading) {
             binding?.run {
-                progressBarLogin.visibility = View.VISIBLE
+                pbLoginProgress.visibility = View.VISIBLE
                 btnLogin.isEnabled = false
             }
         } else {
             binding?.run {
-                progressBarLogin.visibility = View.GONE
+                pbLoginProgress.visibility = View.GONE
                 btnLogin.isEnabled = loginViewModel.formValid.value ?: false
             }
         }

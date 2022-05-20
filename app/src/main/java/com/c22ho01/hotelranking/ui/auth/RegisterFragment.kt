@@ -131,12 +131,12 @@ class RegisterFragment : Fragment() {
     private fun showLoading(isLoading: Boolean) {
         if (isLoading) {
             binding?.run {
-                progressBarRegister.visibility = View.VISIBLE
+                pbRegisterProgress.visibility = View.VISIBLE
                 btnRegister.isEnabled = false
             }
         } else {
             binding?.run {
-                progressBarRegister.visibility = View.GONE
+                pbRegisterProgress.visibility = View.GONE
                 btnRegister.isEnabled = viewModel.formValid.value ?: false
             }
         }

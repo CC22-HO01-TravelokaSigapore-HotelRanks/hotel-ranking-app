@@ -17,9 +17,11 @@ class ValidateableTextField : ConstraintLayout {
     private val binding get() = _binding
 
 
+    private var _hasError: Boolean = false
+    val hasError: Boolean
+        get() = _hasError
     private var validateType: Int? = null
     private var isRequired: Boolean = false
-    private var hasError: Boolean = false
     private var hintText: String? = null
 
     constructor(context: Context) : super(context) {
@@ -94,19 +96,19 @@ class ValidateableTextField : ConstraintLayout {
                 error = errorText
                 isErrorEnabled = true
             }
-            hasError = true
+            _hasError = true
         } else {
             binding?.tilValidateableViews?.run {
                 error = null
                 isErrorEnabled = false
             }
-            hasError = false
+            _hasError = false
         }
     }
 
     fun addValidateListener(matchValidateableTextFieldView: ValidateableTextField? = null, callback: (Boolean) -> Unit) {
         fun ruleHandling(rule: Boolean, errorText: String) {
-            if (!rule && !hasError) {
+            if (!rule && !_hasError) {
                 setError(errorText)
             } else if (rule) {
                 setError(null)
