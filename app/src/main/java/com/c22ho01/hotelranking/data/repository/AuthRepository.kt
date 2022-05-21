@@ -12,13 +12,13 @@ import com.google.gson.Gson
 
 
 class AuthRepository(
-        private val authService: AuthService
+    private val authService: AuthService
 ) {
 
     fun submitRegister(
-            userName: String,
-            email: String,
-            password: String,
+        userName: String,
+        email: String,
+        password: String,
     ): LiveData<Result<RegisterResponse>> = liveData {
         emit(Result.Loading)
         wrapEspressoIdlingResource {
@@ -27,7 +27,10 @@ class AuthRepository(
                 if (response.isSuccessful) {
                     emit(Result.Success(response.body() ?: RegisterResponse()))
                 } else {
-                    val errorResponse = Gson().fromJson(response.errorBody()?.charStream(), RegisterResponse::class.java)
+                    val errorResponse = Gson().fromJson(
+                        response.errorBody()?.charStream(),
+                        RegisterResponse::class.java
+                    )
                     emit(Result.Error(errorResponse.message ?: "Error"))
                 }
             } catch (e: Exception) {
@@ -37,8 +40,8 @@ class AuthRepository(
     }
 
     fun submitLogin(
-            userName: String,
-            password: String,
+        userName: String,
+        password: String,
     ): LiveData<Result<LoginResponse>> = liveData {
         emit(Result.Loading)
         wrapEspressoIdlingResource {
@@ -47,7 +50,10 @@ class AuthRepository(
                 if (response.isSuccessful) {
                     emit(Result.Success(response.body() ?: LoginResponse()))
                 } else {
-                    val errorResponse = Gson().fromJson(response.errorBody()?.charStream(), RegisterResponse::class.java)
+                    val errorResponse = Gson().fromJson(
+                        response.errorBody()?.charStream(),
+                        RegisterResponse::class.java
+                    )
                     emit(Result.Error(errorResponse.message ?: "Error"))
                 }
             } catch (e: Exception) {
@@ -62,13 +68,13 @@ class AuthRepository(
         private var instance: AuthRepository? = null
 
         fun getInstance(authService: AuthService): AuthRepository =
-                instance
-                        ?: synchronized(this) {
-                            instance
-                                    ?: AuthRepository(
-                                            authService,
-                                    )
-                                            .also { instance = it }
-                        }
+            instance
+                ?: synchronized(this) {
+                    instance
+                        ?: AuthRepository(
+                            authService,
+                        )
+                            .also { instance = it }
+                }
     }
 }

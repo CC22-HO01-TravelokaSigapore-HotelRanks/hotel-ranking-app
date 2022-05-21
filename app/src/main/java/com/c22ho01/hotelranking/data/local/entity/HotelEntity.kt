@@ -8,6 +8,6 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Entity(tableName = "hotel")
 data class HotelEntity(
-        @PrimaryKey val id: String,
-        // wip
+    @PrimaryKey val id: String,
+    // wip
 ) : Parcelable

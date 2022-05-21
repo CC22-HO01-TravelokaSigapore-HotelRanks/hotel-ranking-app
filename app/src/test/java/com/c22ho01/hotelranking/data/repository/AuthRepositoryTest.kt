@@ -31,7 +31,7 @@ class AuthRepositoryTest {
 
     @get:Rule
     var mainCoroutineRulesUnitTest =
-            com.c22ho01.hotelranking.utils.MainCoroutineRuleUnitTest(UnconfinedTestDispatcher())
+        com.c22ho01.hotelranking.utils.MainCoroutineRuleUnitTest(UnconfinedTestDispatcher())
 
     @Mock
     private lateinit var authService: AuthService
@@ -55,90 +55,90 @@ class AuthRepositoryTest {
 
     @Test
     fun `when submitRegister should not return null`() =
-            mainCoroutineRulesUnitTest.scope.runTest {
-                val dummyResponse =
-                        RegisterResponse(
-                                message = "success",
-                        )
-                val expectedResult = Result.Success(dummyResponse)
-                Mockito.`when`(authService.register(dummyUserName, dummyEmail, dummyPassword))
-                        .thenReturn(
-                                Response.success(dummyResponse)
-                        )
-                authRepository.submitRegister(dummyUserName, dummyEmail, dummyPassword).captureValues {
-                    Assert.assertNotNull(values)
-                    Assert.assertEquals(arrayListOf(Result.Loading, expectedResult), values)
-                }
+        mainCoroutineRulesUnitTest.scope.runTest {
+            val dummyResponse =
+                RegisterResponse(
+                    message = "success",
+                )
+            val expectedResult = Result.Success(dummyResponse)
+            Mockito.`when`(authService.register(dummyUserName, dummyEmail, dummyPassword))
+                .thenReturn(
+                    Response.success(dummyResponse)
+                )
+            authRepository.submitRegister(dummyUserName, dummyEmail, dummyPassword).captureValues {
+                Assert.assertNotNull(values)
+                Assert.assertEquals(arrayListOf(Result.Loading, expectedResult), values)
             }
+        }
 
     @Test
     fun `when submitRegister error should return error result`() =
-            mainCoroutineRulesUnitTest.scope.runTest {
-                val dummyResponse =
-                        RegisterResponse(
-                                message = "Error!",
-                        )
-                val expectedResult = Result.Error(dummyResponse.message!!)
+        mainCoroutineRulesUnitTest.scope.runTest {
+            val dummyResponse =
+                RegisterResponse(
+                    message = "Error!",
+                )
+            val expectedResult = Result.Error(dummyResponse.message!!)
 
-                val errorResponse = "{message: \"Error!\"}"
-                Mockito.`when`(authService.register(dummyUserName, dummyEmail, dummyPassword))
-                        .thenReturn(
-                                Response.error(
-                                        400,
-                                        errorResponse.toResponseBody("application/json".toMediaTypeOrNull())
-                                )
-                        )
+            val errorResponse = "{message: \"Error!\"}"
+            Mockito.`when`(authService.register(dummyUserName, dummyEmail, dummyPassword))
+                .thenReturn(
+                    Response.error(
+                        400,
+                        errorResponse.toResponseBody("application/json".toMediaTypeOrNull())
+                    )
+                )
 
-                authRepository.submitRegister(dummyUserName, dummyEmail, dummyPassword).captureValues {
-                    Assert.assertNotNull(values)
-                    Assert.assertEquals(arrayListOf(Result.Loading, expectedResult), values)
-                }
+            authRepository.submitRegister(dummyUserName, dummyEmail, dummyPassword).captureValues {
+                Assert.assertNotNull(values)
+                Assert.assertEquals(arrayListOf(Result.Loading, expectedResult), values)
             }
+        }
 
     @Test
     fun `when submitLogin should not return null`() =
-            mainCoroutineRulesUnitTest.scope.runTest {
-                val dummyResponse =
-                        LoginResponse(
-                                message = "success",
-                                status = "success",
-                                loginData = LoginData(
-                                        userId = 1,
-                                        token = "token",
-                                ),
-                        )
-                val expectedResult = Result.Success(dummyResponse)
-                Mockito.`when`(authService.login(dummyUserName, dummyPassword))
-                        .thenReturn(
-                                Response.success(dummyResponse)
-                        )
-                authRepository.submitLogin(dummyUserName, dummyPassword).captureValues {
-                    Assert.assertNotNull(values)
-                    Assert.assertEquals(arrayListOf(Result.Loading, expectedResult), values)
-                }
+        mainCoroutineRulesUnitTest.scope.runTest {
+            val dummyResponse =
+                LoginResponse(
+                    message = "success",
+                    status = "success",
+                    loginData = LoginData(
+                        userId = 1,
+                        token = "token",
+                    ),
+                )
+            val expectedResult = Result.Success(dummyResponse)
+            Mockito.`when`(authService.login(dummyUserName, dummyPassword))
+                .thenReturn(
+                    Response.success(dummyResponse)
+                )
+            authRepository.submitLogin(dummyUserName, dummyPassword).captureValues {
+                Assert.assertNotNull(values)
+                Assert.assertEquals(arrayListOf(Result.Loading, expectedResult), values)
             }
+        }
 
     @Test
     fun `when submitLogin error should return error result`() =
-            mainCoroutineRulesUnitTest.scope.runTest {
-                val dummyResponse =
-                        LoginResponse(
-                                message = "Error!",
-                        )
-                val expectedResult = Result.Error(dummyResponse.message!!)
-
-                val errorResponse = "{message: \"Error!\"}"
-                Mockito.`when`(authService.login(dummyUserName, dummyPassword)).thenReturn(
-                        Response.error(
-                                400,
-                                errorResponse.toResponseBody("application/json".toMediaTypeOrNull())
-                        )
+        mainCoroutineRulesUnitTest.scope.runTest {
+            val dummyResponse =
+                LoginResponse(
+                    message = "Error!",
                 )
+            val expectedResult = Result.Error(dummyResponse.message!!)
 
-                authRepository.submitLogin(dummyUserName, dummyPassword).captureValues {
-                    Assert.assertNotNull(values)
-                    Assert.assertEquals(arrayListOf(Result.Loading, expectedResult), values)
-                }
+            val errorResponse = "{message: \"Error!\"}"
+            Mockito.`when`(authService.login(dummyUserName, dummyPassword)).thenReturn(
+                Response.error(
+                    400,
+                    errorResponse.toResponseBody("application/json".toMediaTypeOrNull())
+                )
+            )
+
+            authRepository.submitLogin(dummyUserName, dummyPassword).captureValues {
+                Assert.assertNotNull(values)
+                Assert.assertEquals(arrayListOf(Result.Loading, expectedResult), values)
             }
+        }
 
 }

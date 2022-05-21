@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
@@ -25,8 +24,8 @@ class RegisterFragment : Fragment() {
     private val viewModel: RegisterViewModel by viewModels { factory }
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentRegisterBinding.inflate(inflater, container, false)
         return binding?.root
@@ -36,9 +35,6 @@ class RegisterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         factory = ViewModelFactory.getInstance(requireContext())
 
-        activity?.onBackPressedDispatcher?.addCallback {
-            goToLogin()
-        }
         setupFieldListener()
         setupBtnListener()
     }
@@ -77,9 +73,9 @@ class RegisterFragment : Fragment() {
 
     private fun registerAccount() {
         viewModel.submitRegister(
-                userName = binding?.vtfRegisterUsername?.getText() ?: "",
-                email = binding?.vtfRegisterEmail?.getText() ?: "",
-                password = binding?.vtfRegisterPassword?.getText() ?: "",
+            userName = binding?.vtfRegisterUsername?.getText() ?: "",
+            email = binding?.vtfRegisterEmail?.getText() ?: "",
+            password = binding?.vtfRegisterPassword?.getText() ?: "",
         ).run {
             if (this.hasObservers()) this.removeObservers(viewLifecycleOwner)
             this.observe(viewLifecycleOwner) {
@@ -91,9 +87,9 @@ class RegisterFragment : Fragment() {
                         showLoading(false)
                         binding?.let { fragment ->
                             Snackbar.make(
-                                    fragment.root,
-                                    getString(R.string.register_success),
-                                    Snackbar.LENGTH_SHORT
+                                fragment.root,
+                                getString(R.string.register_success),
+                                Snackbar.LENGTH_SHORT
                             ).show()
                         }
                         goToLogin()
@@ -102,9 +98,9 @@ class RegisterFragment : Fragment() {
                         showLoading(false)
                         binding?.let { fragment ->
                             Snackbar.make(
-                                    fragment.root,
-                                    it.error,
-                                    Snackbar.LENGTH_SHORT,
+                                fragment.root,
+                                it.error,
+                                Snackbar.LENGTH_SHORT,
                             ).show()
                         }
                     }
@@ -121,9 +117,9 @@ class RegisterFragment : Fragment() {
         mFragmentManager.commit {
             setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             replace(
-                    R.id.auth_fragment_container,
-                    mDestFragment,
-                    mDestFragmentTag,
+                R.id.auth_fragment_container,
+                mDestFragment,
+                mDestFragmentTag,
             )
         }
     }

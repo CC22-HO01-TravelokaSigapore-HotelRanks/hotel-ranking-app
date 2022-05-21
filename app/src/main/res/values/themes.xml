@@ -62,6 +62,21 @@
         </item>
         <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.Material3.LargeComponent
         </item>
+        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
+    </style>
+
+    <style name="Widget.App.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
+        <item name="android:background">@color/md_theme_light_background</item>
+        <item name="itemActiveIndicatorStyle">
+            @style/Widget.App.BottomNavigationView.ActiveIndicator
+        </item>
+        <item name="elevation">0dp</item>
+        <item name="itemTextAppearanceActive">@style/TextAppearance.HotelRanking.LabelMedium</item>
+        <item name="itemTextAppearanceInactive">@style/TextAppearance.HotelRanking.LabelSmall</item>
+    </style>
+
+    <style name="Widget.App.BottomNavigationView.ActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">?attr/colorTertiary</item>
     </style>
 
     <style name="TextAppearance.HotelRanking.DisplayLarge" parent="TextAppearance.Material3.DisplayLarge">

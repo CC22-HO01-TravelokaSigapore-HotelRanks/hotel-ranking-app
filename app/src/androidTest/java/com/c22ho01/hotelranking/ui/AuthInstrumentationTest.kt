@@ -66,9 +66,9 @@ class AuthInstrumentationTest {
     fun whenLoginFieldsAreValid_loginButtonIsEnabled() {
         onView(withId(R.id.btn_login)).check(matches(isNotEnabled()))
         ValidateableTextFieldTest.onTextInput(R.id.vtf_login_username)
-                .perform(typeText(dummyUsername), closeSoftKeyboard())
+            .perform(typeText(dummyUsername), closeSoftKeyboard())
         ValidateableTextFieldTest.onTextInput(R.id.vtf_login_password)
-                .perform(typeText(dummyPassword), closeSoftKeyboard())
+            .perform(typeText(dummyPassword), closeSoftKeyboard())
         onView(withId(R.id.btn_login)).check(matches(isEnabled()))
     }
 
@@ -77,14 +77,14 @@ class AuthInstrumentationTest {
         onView(withId(R.id.btn_login)).check(matches(isNotEnabled()))
 
         ValidateableTextFieldTest.onTextInput(R.id.vtf_login_username)
-                .perform(typeText(dummyUsername), clearText(), closeSoftKeyboard())
+            .perform(typeText(dummyUsername), clearText(), closeSoftKeyboard())
         ValidateableTextFieldTest.onEditTextLayout(R.id.vtf_login_username)
-                .check(matches(hasError()))
+            .check(matches(hasError()))
 
         ValidateableTextFieldTest.onTextInput(R.id.vtf_login_password)
-                .perform(typeText(dummyPasswordInvalid), clearText(), closeSoftKeyboard())
+            .perform(typeText(dummyPasswordInvalid), clearText(), closeSoftKeyboard())
         ValidateableTextFieldTest.onEditTextLayout(R.id.vtf_login_password)
-                .check(matches(hasError()))
+            .check(matches(hasError()))
 
         onView(withId(R.id.btn_login)).check(matches(isNotEnabled()))
     }
@@ -94,13 +94,13 @@ class AuthInstrumentationTest {
         onView(withId(R.id.btn_go_to_create_acc)).check(matches(isDisplayed())).perform(click())
         onView(withId(R.id.btn_register)).check(matches(isNotEnabled()))
         ValidateableTextFieldTest.onTextInput(R.id.vtf_register_username)
-                .perform(typeText(dummyUsername), closeSoftKeyboard())
+            .perform(typeText(dummyUsername), closeSoftKeyboard())
         ValidateableTextFieldTest.onTextInput(R.id.vtf_register_email)
-                .perform(typeText(dummyEmail), closeSoftKeyboard())
+            .perform(typeText(dummyEmail), closeSoftKeyboard())
         ValidateableTextFieldTest.onTextInput(R.id.vtf_register_password)
-                .perform(typeText(dummyPassword), closeSoftKeyboard())
+            .perform(typeText(dummyPassword), closeSoftKeyboard())
         ValidateableTextFieldTest.onTextInput(R.id.vtf_register_confirm_password)
-                .perform(typeText(dummyPassword), closeSoftKeyboard())
+            .perform(typeText(dummyPassword), closeSoftKeyboard())
         onView(withId(R.id.btn_register)).check(matches(isEnabled()))
     }
 
@@ -108,11 +108,11 @@ class AuthInstrumentationTest {
     fun whenDoesNotMatchPasswordField_confirmationPasswordFieldHasError() {
         onView(withId(R.id.btn_go_to_create_acc)).check(matches(isDisplayed())).perform(click())
         ValidateableTextFieldTest.onTextInput(R.id.vtf_register_password)
-                .perform(typeText(dummyPassword), closeSoftKeyboard())
+            .perform(typeText(dummyPassword), closeSoftKeyboard())
         ValidateableTextFieldTest.onTextInput(R.id.vtf_register_confirm_password)
-                .perform(typeText(dummyPasswordInvalid), closeSoftKeyboard())
+            .perform(typeText(dummyPasswordInvalid), closeSoftKeyboard())
         ValidateableTextFieldTest.onEditTextLayout(R.id.vtf_register_confirm_password)
-                .check(matches(hasError()))
+            .check(matches(hasError()))
     }
 
     @Test
@@ -121,24 +121,24 @@ class AuthInstrumentationTest {
         onView(withId(R.id.btn_register)).check(matches(isNotEnabled()))
 
         ValidateableTextFieldTest.onTextInput(R.id.vtf_register_username)
-                .perform(typeText(dummyUsername), clearText(), closeSoftKeyboard())
+            .perform(typeText(dummyUsername), clearText(), closeSoftKeyboard())
         ValidateableTextFieldTest.onEditTextLayout(R.id.vtf_register_username)
-                .check(matches(hasError()))
+            .check(matches(hasError()))
 
         ValidateableTextFieldTest.onTextInput(R.id.vtf_register_email)
-                .perform(typeText(dummyEmailInvalid), closeSoftKeyboard())
+            .perform(typeText(dummyEmailInvalid), closeSoftKeyboard())
         ValidateableTextFieldTest.onEditTextLayout(R.id.vtf_register_email)
-                .check(matches(hasError()))
+            .check(matches(hasError()))
 
         ValidateableTextFieldTest.onTextInput(R.id.vtf_register_password)
-                .perform(typeText(dummyPasswordInvalid), closeSoftKeyboard())
+            .perform(typeText(dummyPasswordInvalid), closeSoftKeyboard())
         ValidateableTextFieldTest.onEditTextLayout(R.id.vtf_register_password)
-                .check(matches(hasError()))
+            .check(matches(hasError()))
 
         ValidateableTextFieldTest.onTextInput(R.id.vtf_register_confirm_password)
-                .perform(typeText(dummyPassword), closeSoftKeyboard())
+            .perform(typeText(dummyPassword), closeSoftKeyboard())
         ValidateableTextFieldTest.onEditTextLayout(R.id.vtf_register_confirm_password)
-                .check(matches(hasError()))
+            .check(matches(hasError()))
 
         onView(withId(R.id.btn_register)).check(matches(isNotEnabled()))
     }
@@ -147,12 +147,12 @@ class AuthInstrumentationTest {
     @Test
     fun whenLoginSuccess_shouldGoToHome() {
         ValidateableTextFieldTest.onTextInput(R.id.vtf_login_username)
-                .perform(typeText(dummyUsername), closeSoftKeyboard())
+            .perform(typeText(dummyUsername), closeSoftKeyboard())
         ValidateableTextFieldTest.onTextInput(R.id.vtf_login_password)
-                .perform(typeText(dummyPassword), closeSoftKeyboard())
+            .perform(typeText(dummyPassword), closeSoftKeyboard())
         val mockResponse = MockResponse()
-                .setResponseCode(200)
-                .setBody(JsonConverter.readStringFromFile("login_success_response.json"))
+            .setResponseCode(200)
+            .setBody(JsonConverter.readStringFromFile("login_success_response.json"))
         mockWebServer.enqueue(mockResponse)
         onView(withId(R.id.btn_login)).perform(click())
         intended(hasComponent(DummyActivity::class.java.name))
@@ -161,14 +161,14 @@ class AuthInstrumentationTest {
     @Test
     fun whenLoginError_errorSnackBarIsShown() {
         ValidateableTextFieldTest.onTextInput(R.id.vtf_login_username)
-                .perform(typeText(dummyUsername), closeSoftKeyboard())
+            .perform(typeText(dummyUsername), closeSoftKeyboard())
         ValidateableTextFieldTest.onTextInput(R.id.vtf_login_password)
-                .perform(typeText(dummyPassword), closeSoftKeyboard())
+            .perform(typeText(dummyPassword), closeSoftKeyboard())
         val mockResponse =
-                MockResponse()
-                        .setHttp2ErrorCode(500)
-                        .setResponseCode(500)
-                        .setBody(JsonConverter.readStringFromFile("login_error_response.json"))
+            MockResponse()
+                .setHttp2ErrorCode(500)
+                .setResponseCode(500)
+                .setBody(JsonConverter.readStringFromFile("login_error_response.json"))
         onView(withId(R.id.btn_login)).perform(click())
         mockWebServer.enqueue(mockResponse)
         onView(withId(com.google.android.material.R.id.snackbar_text)).check(matches(isDisplayed()))
@@ -178,17 +178,17 @@ class AuthInstrumentationTest {
     fun whenRegisterSuccess_shouldGoToLogin() {
         onView(withId(R.id.btn_go_to_create_acc)).check(matches(isDisplayed())).perform(click())
         ValidateableTextFieldTest.onTextInput(R.id.vtf_register_username)
-                .perform(typeText(dummyUsername), closeSoftKeyboard())
+            .perform(typeText(dummyUsername), closeSoftKeyboard())
         ValidateableTextFieldTest.onTextInput(R.id.vtf_register_email)
-                .perform(typeText(dummyEmail), closeSoftKeyboard())
+            .perform(typeText(dummyEmail), closeSoftKeyboard())
         ValidateableTextFieldTest.onTextInput(R.id.vtf_register_password)
-                .perform(typeText(dummyPassword), closeSoftKeyboard())
+            .perform(typeText(dummyPassword), closeSoftKeyboard())
         ValidateableTextFieldTest.onTextInput(R.id.vtf_register_confirm_password)
-                .perform(typeText(dummyPassword), closeSoftKeyboard())
+            .perform(typeText(dummyPassword), closeSoftKeyboard())
         val mockResponse =
-                MockResponse()
-                        .setResponseCode(200)
-                        .setBody(JsonConverter.readStringFromFile("register_success_response.json"))
+            MockResponse()
+                .setResponseCode(200)
+                .setBody(JsonConverter.readStringFromFile("register_success_response.json"))
         mockWebServer.enqueue(mockResponse)
         onView(withId(R.id.btn_register)).perform(click())
         onView(withId(R.id.tv_login_headline)).check(matches(isDisplayed()))
@@ -198,17 +198,17 @@ class AuthInstrumentationTest {
     fun whenRegisterError_errorSnackBarIsShown() {
         onView(withId(R.id.btn_go_to_create_acc)).check(matches(isDisplayed())).perform(click())
         ValidateableTextFieldTest.onTextInput(R.id.vtf_register_username)
-                .perform(typeText(dummyUsername), closeSoftKeyboard())
+            .perform(typeText(dummyUsername), closeSoftKeyboard())
         ValidateableTextFieldTest.onTextInput(R.id.vtf_register_email)
-                .perform(typeText(dummyEmail), closeSoftKeyboard())
+            .perform(typeText(dummyEmail), closeSoftKeyboard())
         ValidateableTextFieldTest.onTextInput(R.id.vtf_register_password)
-                .perform(typeText(dummyPassword), closeSoftKeyboard())
+            .perform(typeText(dummyPassword), closeSoftKeyboard())
         ValidateableTextFieldTest.onTextInput(R.id.vtf_register_confirm_password)
-                .perform(typeText(dummyPassword), closeSoftKeyboard())
+            .perform(typeText(dummyPassword), closeSoftKeyboard())
         val mockResponse =
-                MockResponse()
-                        .setResponseCode(500)
-                        .setBody(JsonConverter.readStringFromFile("register_error_response.json"))
+            MockResponse()
+                .setResponseCode(500)
+                .setBody(JsonConverter.readStringFromFile("register_error_response.json"))
         mockWebServer.enqueue(mockResponse)
         onView(withId(R.id.btn_register)).perform(click())
         onView(withId(com.google.android.material.R.id.snackbar_text)).check(matches(isDisplayed()))

@@ -15,27 +15,28 @@ import org.hamcrest.Matchers
 object ValidateableTextFieldTest {
     fun onEditTextLayout(id: Int): ViewInteraction {
         return Espresso.onView(
-                Matchers.allOf(
-                        ViewMatchers.isDisplayed(),
-                        ViewMatchers.isAssignableFrom(TextInputLayout::class.java),
-                        ViewMatchers.isDescendantOfA(ViewMatchers.withId(id))
-                )
+            Matchers.allOf(
+                ViewMatchers.isDisplayed(),
+                ViewMatchers.isAssignableFrom(TextInputLayout::class.java),
+                ViewMatchers.isDescendantOfA(ViewMatchers.withId(id))
+            )
         )
     }
 
     fun onTextInput(id: Int): ViewInteraction {
         return Espresso.onView(
-                Matchers.allOf(
-                        ViewMatchers.isDisplayed(),
-                        ViewMatchers.isAssignableFrom(TextInputEditText::class.java),
-                        ViewMatchers.isDescendantOfA(ViewMatchers.withId(id))
-                )
+            Matchers.allOf(
+                ViewMatchers.isDisplayed(),
+                ViewMatchers.isAssignableFrom(TextInputEditText::class.java),
+                ViewMatchers.isDescendantOfA(ViewMatchers.withId(id))
+            )
         )
     }
 }
 
 fun validateableFieldHasError(): BoundedMatcher<View?, ValidateableTextField?> {
-    return object : BoundedMatcher<View?, ValidateableTextField?>(ValidateableTextField::class.java) {
+    return object :
+        BoundedMatcher<View?, ValidateableTextField?>(ValidateableTextField::class.java) {
         override fun describeTo(description: Description) {
             description.appendText("has no error text ")
         }

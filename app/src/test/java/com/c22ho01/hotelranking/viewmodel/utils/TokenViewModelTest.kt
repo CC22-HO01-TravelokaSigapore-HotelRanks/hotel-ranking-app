@@ -42,7 +42,7 @@ class TokenViewModelTest {
     @Test
     fun `when get token, should not return nullable value`() {
         `when`(tokenRepositoryMock.getToken()).thenReturn(
-                flow { emit(dummyToken) }
+            flow { emit(dummyToken) }
         )
 
         val actualToken = tokenViewModel.getToken().asLiveData().getOrAwaitValue()

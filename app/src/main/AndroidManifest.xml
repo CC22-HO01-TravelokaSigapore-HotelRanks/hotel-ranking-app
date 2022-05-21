@@ -16,13 +16,22 @@
             android:name=".ui.DummyActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.auth.AuthActivity"
-            android:exported="true">
+            android:name=".ui.home.HomeLoggedInActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.home.HomeGuestActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.auth.AuthActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
