@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Hotel Ranking</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="login_to_your_existing_account">Login to your\nexisting account</string>
     <string name="please_fill_the_form_to_login">Please fill the form to login.</string>
     <string name="email">Email</string>
@@ -41,5 +39,12 @@
     <string name="settings">Settings</string>
     <string name="theme">Theme</string>
     <string name="language">Language</string>
-    <string name="change">Change</string>
+    <string name="change">Change Language</string>
+    <string name="chat_button">Chat button</string>
+    <string name="bookmark_button">Bookmark button</string>
+    <string name="prefer_with_family">Prefer with family:</string>
+    <string name="hobbies">Hobbies:</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+    <string name="sign_out">Sign out</string>
 </resources>

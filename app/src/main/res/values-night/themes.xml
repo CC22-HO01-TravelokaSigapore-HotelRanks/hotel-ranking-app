@@ -3,6 +3,8 @@
     <style name="Theme.HotelRanking" parent="Theme.Material3.Dark.NoActionBar">
         <item name="android:statusBarColor">@color/md_theme_dark_background</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="android:navigationBarColor" tools:targetApi="q">?android:attr/windowBackground
+        </item>
         <item name="colorPrimary">@color/md_theme_dark_primary</item>
         <item name="colorOnPrimary">@color/md_theme_dark_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_dark_primaryContainer</item>
@@ -35,16 +37,18 @@
     </style>
 
     <style name="Widget.App.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
-        <item name="android:background">@color/md_theme_dark_background</item>
+        <item name="android:background">?android:attr/windowBackground</item>
         <item name="itemActiveIndicatorStyle">
             @style/Widget.App.BottomNavigationView.ActiveIndicator
         </item>
         <item name="elevation">0dp</item>
+        <item name="itemRippleColor">@color/ripple_color_state</item>
+        <item name="itemIconTint">?attr/colorOnSurfaceVariant</item>
         <item name="itemTextAppearanceActive">@style/TextAppearance.HotelRanking.LabelMedium</item>
         <item name="itemTextAppearanceInactive">@style/TextAppearance.HotelRanking.LabelSmall</item>
     </style>
 
     <style name="Widget.App.BottomNavigationView.ActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
-        <item name="android:color">?attr/colorTertiary</item>
+        <item name="android:color">?attr/colorOnTertiary</item>
     </style>
 </resources>
