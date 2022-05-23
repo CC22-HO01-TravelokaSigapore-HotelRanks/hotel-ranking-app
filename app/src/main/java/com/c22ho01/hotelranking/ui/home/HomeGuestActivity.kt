@@ -20,7 +20,7 @@ class HomeGuestActivity : AppCompatActivity() {
 
         val navView: BottomNavigationView = binding.navView
 
-        val navController = findNavController(R.id.nav_host_fragment_activity_home)
+        val navController = findNavController(R.id.nav_host_fragment_activity_home_guest)
         navView.setupWithNavController(navController)
     }
 }

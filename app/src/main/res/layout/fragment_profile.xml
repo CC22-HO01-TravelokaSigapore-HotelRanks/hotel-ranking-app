@@ -12,11 +12,33 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnBookmark"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnBookmark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/bookmark_button"
+        android:src="@drawable/ic_bookmark"
+        app:layout_constraintBottom_toBottomOf="@+id/btnChat"
+        app:layout_constraintEnd_toStartOf="@+id/btnChat"
+        app:layout_constraintTop_toTopOf="@+id/btnChat" />
+
+    <ImageButton
+        android:id="@+id/btnChat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/chat_button"
+        android:src="@drawable/ic_chat"
+        app:layout_constraintBottom_toBottomOf="@+id/search_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/search_bar" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/profile_label"
@@ -37,8 +59,7 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/profile_label"
-        app:layout_constraintTop_toBottomOf="@+id/profile_label"
-        app:strokeColor="?attr/colorOutline">
+        app:layout_constraintTop_toBottomOf="@+id/profile_label">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -98,10 +119,10 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="@+id/materialCardView3"
         app:layout_constraintStart_toStartOf="@+id/setting_label"
-        app:layout_constraintTop_toBottomOf="@+id/setting_label"
-        app:strokeColor="?attr/colorOutline">
+        app:layout_constraintTop_toBottomOf="@+id/setting_label">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -188,7 +209,7 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/language_button"
                 style="@style/Widget.Material3.Button.OutlinedButton"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/change"
                 app:layout_constraintBottom_toBottomOf="@+id/materialTextView9"

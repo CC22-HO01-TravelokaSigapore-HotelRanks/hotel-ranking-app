@@ -28,4 +28,9 @@ object APIConfig {
         val retrofit = getRetrofit(BASE_URL)
         return retrofit.create(AuthService::class.java)
     }
+
+    fun getHotelApiService(): HotelService {
+        val retrofit = getRetrofit(BASE_URL)
+        return retrofit.create(HotelService::class.java)
+    }
 }
