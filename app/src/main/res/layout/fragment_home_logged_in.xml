@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.home.HomeLoggedInFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardLogin"
+                style="?attr/materialCardViewFilledStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:cardBackgroundColor="?attr/colorTertiary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/not_logged_in"
+                        android:textColor="?attr/colorOnTertiary" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/login_here_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/check_it_out"
+                        android:textColor="?attr/colorOnTertiaryContainer"
+                        app:backgroundTint="?attr/colorTertiaryContainer"
+                        app:icon="@drawable/ic_down"
+                        app:iconTint="?attr/colorOnTertiaryContainer" />
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardMenu"
+                style="?attr/materialCardViewFilledStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                app:cardBackgroundColor="?attr/colorPrimaryContainer"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardLogin">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="24dp">
+
+                    <com.google.android.flexbox.FlexboxLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="24dp"
+                        app:justifyContent="space_between">
+
+                        <include layout="@layout/custom_menu" />
+
+                        <include layout="@layout/custom_menu" />
+
+                        <include layout="@layout/custom_menu" />
+
+                        <include layout="@layout/custom_menu" />
+                    </com.google.android.flexbox.FlexboxLayout>
+
+                    <com.google.android.flexbox.FlexboxLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:justifyContent="space_between">
+
+                        <include layout="@layout/custom_menu" />
+
+                        <include layout="@layout/custom_menu" />
+
+                        <include layout="@layout/custom_menu" />
+
+                        <include layout="@layout/custom_menu" />
+                    </com.google.android.flexbox.FlexboxLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvHotelRecommendation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/hotel_recommendations"
+                android:textAppearance="@style/TextAppearance.HotelRanking.TitleLarge"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardMenu" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvTrending"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/trending"
+                android:textAppearance="@style/TextAppearance.HotelRanking.TitleMedium"
+                app:layout_constraintStart_toStartOf="@+id/tvHotelRecommendation"
+                app:layout_constraintTop_toBottomOf="@+id/tvHotelRecommendation" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@android:color/transparent"
+                android:src="@drawable/ic_forward"
+                app:layout_constraintBottom_toBottomOf="@+id/tvTrending"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvTrending"
+                tools:ignore="ContentDescription,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvTrending"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:nestedScrollingEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTrending" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvNearLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/near_your_location"
+                android:textAppearance="@style/TextAppearance.HotelRanking.TitleMedium"
+                app:layout_constraintStart_toStartOf="@+id/rvTrending"
+                app:layout_constraintTop_toBottomOf="@+id/rvTrending" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@android:color/transparent"
+                android:src="@drawable/ic_forward"
+                app:layout_constraintBottom_toBottomOf="@+id/tvNearLocation"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvNearLocation"
+                tools:ignore="ContentDescription,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvNearLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:nestedScrollingEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvNearLocation" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_best_review"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:nestedScrollingEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/materialTextView4" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/materialTextView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/best_review"
+                android:textAppearance="@style/TextAppearance.HotelRanking.TitleMedium"
+                app:layout_constraintStart_toStartOf="@+id/rvNearLocation"
+                app:layout_constraintTop_toBottomOf="@+id/rvNearLocation" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@android:color/transparent"
+                android:src="@drawable/ic_forward"
+                app:layout_constraintBottom_toBottomOf="@+id/materialTextView4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/materialTextView4"
+                app:layout_constraintVertical_bias="0.5"
+                tools:ignore="ContentDescription,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

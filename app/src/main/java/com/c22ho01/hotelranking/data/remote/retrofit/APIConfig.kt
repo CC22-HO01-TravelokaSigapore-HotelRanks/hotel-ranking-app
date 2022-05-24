@@ -7,7 +7,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object APIConfig {
-    var BASE_URL = "http://example.com"
+    var BASE_URL = "https://test1-ywu6raktuq-uc.a.run.app/"
 
     private fun getRetrofit(url: String): Retrofit {
         val loggingInterceptor =
@@ -24,8 +24,13 @@ object APIConfig {
             .build()
     }
 
-    fun getExampleAPIService(): ExampleService {
+    fun getAuthAPIService(): AuthService {
         val retrofit = getRetrofit(BASE_URL)
-        return retrofit.create(ExampleService::class.java)
+        return retrofit.create(AuthService::class.java)
+    }
+
+    fun getHotelApiService(): HotelService {
+        val retrofit = getRetrofit(BASE_URL)
+        return retrofit.create(HotelService::class.java)
     }
 }
