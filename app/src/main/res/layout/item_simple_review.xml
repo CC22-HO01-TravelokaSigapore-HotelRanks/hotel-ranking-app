@@ -18,25 +18,25 @@
 
         <TextView
             android:id="@+id/itemUsername"
+            style="@style/TextAppearance.HotelRanking.LabelMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/username"
             android:textColor="@color/md_theme_light_primaryContainer"
             android:textStyle="bold"
-            style="@style/TextAppearance.HotelRanking.LabelMedium"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent" />
 
         <RatingBar
             android:id="@+id/itemRating"
+            style="@style/Widget.AppCompat.RatingBar.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:numStars="5"
-            android:rating="3"
-            android:progressTint="@color/md_theme_light_primaryContainer"
             android:progressBackgroundTint="@color/md_theme_light_onBackground"
-            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:progressTint="@color/md_theme_light_primaryContainer"
+            android:rating="3"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@id/itemUsername" />
 
@@ -49,7 +49,6 @@
             android:textColor="@color/md_theme_light_primaryContainer"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@id/itemRating" />
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,10 +1,10 @@
 package com.c22ho01.hotelranking.ui.detail
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.c22ho01.hotelranking.R
 
 // TODO: Rename parameter arguments, choose names that match

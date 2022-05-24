@@ -28,23 +28,23 @@
 
     <TextView
         android:id="@+id/ratingText"
+        style="@style/TextAppearance.HotelRanking.TitleMedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:text="4.0"
         android:textStyle="bold"
-        android:layout_marginStart="8dp"
-        style="@style/TextAppearance.HotelRanking.TitleMedium"
         app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
         app:layout_constraintStart_toEndOf="@id/ratingBar"
         app:layout_constraintTop_toTopOf="@+id/ratingBar" />
 
     <TextView
         android:id="@+id/totalReviews"
+        style="@style/TextAppearance.HotelRanking.TitleMedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="(100 Reviews)"
         android:layout_marginStart="16dp"
-        style="@style/TextAppearance.HotelRanking.TitleMedium"
+        android:text="(100 Reviews)"
         app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
         app:layout_constraintStart_toEndOf="@id/ratingText"
         app:layout_constraintTop_toTopOf="@+id/ratingBar" />
@@ -55,8 +55,8 @@
         android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ratingBar"
-        tools:listitem="@layout/item_detail_review"
-        tools:layout_editor_absoluteX="1dp" />
+        tools:layout_editor_absoluteX="1dp"
+        tools:listitem="@layout/item_detail_review" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

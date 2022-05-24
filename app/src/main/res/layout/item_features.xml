@@ -14,7 +14,7 @@
     <ImageView
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/ic_baseline_stars_24"
         android:layout_margin="5dp"
+        android:src="@drawable/ic_baseline_stars_24"
         card_view:tint="@color/md_theme_light_primaryContainer" />
 </com.google.android.material.card.MaterialCardView>
