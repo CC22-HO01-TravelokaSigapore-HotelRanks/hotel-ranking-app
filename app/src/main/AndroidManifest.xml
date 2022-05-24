@@ -12,6 +12,14 @@
         android:theme="@style/Theme.HotelRanking"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+        android:theme="@style/Theme.HotelRanking">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="YOUR_API_KEY" />
+
+        <activity
+            android:name=".DetailActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.home.SearchActivity"
             android:exported="false" />
