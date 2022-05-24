@@ -23,6 +23,7 @@
     <string name="error_pass_length">Password must have %1$d character at minimum!</string>
     <string name="error_pass_confirmation">Password confirmation doesn\'t match your password input!</string>
     <string name="error_required">Field must not be empty!</string>
+    <string name="username">Username</string>
     <string name="password_confirmation">Password Confirmation</string>
     <string name="login_success">Login success!</string>
     <string name="register_success">Register success, you may now login with your new account.</string>
@@ -53,4 +54,26 @@
     <string name="light">Light</string>
     <string name="dark">Dark</string>
     <string name="sign_out">Sign out</string>
+    <string name="profile_customization">Profile\nCustomization</string>
+    <string name="we_provide_hotel">We will provide your hotel preference based on these informations.</string>
+    <string name="required">*Required</string>
+    <string name="full_name_req">Full Name*</string>
+    <string name="identity_number_req">Identity Number*</string>
+    <string name="birth_date_req">Birth Date (DD/MM/YYYY)*</string>
+    <string name="prefer_to_go_with_your_family_req">Prefer to go with your family?*</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="select_hobbies_req">Select your hobbies below (minimum 1)*:</string>
+    <string name="selfie">Selfie</string>
+    <string name="hiking">Hiking</string>
+    <string name="eating">Eating</string>
+    <string name="traveling">Traveling</string>
+    <string name="shopping">Shopping</string>
+    <string name="swimming">Swimming</string>
+    <string name="let_us_know_if_you_have_any_special_needs">Let us know if you have any special needs.</string>
+    <string name="i_cant_move_freely">I can’t move freely</string>
+    <string name="i_cant_speak_easily">I can’t speak easily</string>
+    <string name="i_cant_hear_properly">I can’t hear properly</string>
+    <string name="i_cant_see_clearly">I can’t see clearly</string>
+    <string name="save">Save</string>
 </resources>
