@@ -4,16 +4,19 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.c22ho01.hotelranking.data.repository.AuthRepository
+import com.c22ho01.hotelranking.data.repository.ProfileRepository
 import com.c22ho01.hotelranking.data.repository.TokenRepository
 import com.c22ho01.hotelranking.injection.RepositoryInjection
 import com.c22ho01.hotelranking.viewmodel.auth.LoginViewModel
 import com.c22ho01.hotelranking.viewmodel.auth.RegisterViewModel
+import com.c22ho01.hotelranking.viewmodel.profile.ProfileCustomizationViewModel
 import com.c22ho01.hotelranking.viewmodel.utils.TokenViewModel
 
 class ViewModelFactory
 private constructor(
     private val authRepository: AuthRepository,
     private val tokenRepository: TokenRepository,
+    private val profileRepository: ProfileRepository,
 ) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
@@ -27,6 +30,9 @@ private constructor(
             }
             modelClass.isAssignableFrom(RegisterViewModel::class.java) -> {
                 RegisterViewModel(authRepository) as T
+            }
+            modelClass.isAssignableFrom(ProfileCustomizationViewModel::class.java) -> {
+                ProfileCustomizationViewModel(profileRepository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
@@ -42,7 +48,8 @@ private constructor(
                     instance
                         ?: ViewModelFactory(
                             RepositoryInjection.provideAuthRepository(),
-                            RepositoryInjection.provideTokenRepository(context)
+                            RepositoryInjection.provideTokenRepository(context),
+                            RepositoryInjection.provideProfileRepository(),
                         )
                             .also { instance = it }
                 }

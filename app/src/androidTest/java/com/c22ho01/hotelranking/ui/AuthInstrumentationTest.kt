@@ -16,6 +16,7 @@ import com.c22ho01.hotelranking.data.remote.retrofit.APIConfig
 import com.c22ho01.hotelranking.ui.auth.AuthActivity
 import com.c22ho01.hotelranking.ui.customview.ValidateableTextFieldTest
 import com.c22ho01.hotelranking.ui.customview.hasError
+import com.c22ho01.hotelranking.ui.home.HomeLoggedInActivity
 import com.c22ho01.hotelranking.utils.EspressoIdlingResource
 import com.c22ho01.hotelranking.utils.JsonConverter
 import okhttp3.mockwebserver.MockResponse
@@ -155,7 +156,7 @@ class AuthInstrumentationTest {
             .setBody(JsonConverter.readStringFromFile("login_success_response.json"))
         mockWebServer.enqueue(mockResponse)
         onView(withId(R.id.btn_login)).perform(click())
-        intended(hasComponent(DummyActivity::class.java.name))
+        intended(hasComponent(HomeLoggedInActivity::class.java.name))
     }
 
     @Test

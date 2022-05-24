@@ -16,12 +16,16 @@ class LoginViewModel(
 
     var formValid: MediatorLiveData<Boolean> = MediatorLiveData()
 
+    private fun checkEveryValidationValueTrue(): Boolean {
+        return (_usernameValid.value ?: false) && (_passwordValid.value ?: false)
+    }
+
     init {
         formValid.addSource(_usernameValid) {
-            formValid.value = (_usernameValid.value ?: false) && (_passwordValid.value ?: false)
+            formValid.value = checkEveryValidationValueTrue()
         }
         formValid.addSource(_passwordValid) {
-            formValid.value = (_usernameValid.value ?: false) && (_passwordValid.value ?: false)
+            formValid.value = checkEveryValidationValueTrue()
         }
     }
 
