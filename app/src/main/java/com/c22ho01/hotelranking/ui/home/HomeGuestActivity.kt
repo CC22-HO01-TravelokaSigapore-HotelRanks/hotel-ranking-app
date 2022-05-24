@@ -1,5 +1,6 @@
 package com.c22ho01.hotelranking.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -20,7 +21,11 @@ class HomeGuestActivity : AppCompatActivity() {
 
         val navView: BottomNavigationView = binding.navView
 
-        val navController = findNavController(R.id.nav_host_fragment_activity_home)
+        val navController = findNavController(R.id.nav_host_fragment_activity_home_guest)
         navView.setupWithNavController(navController)
+
+        binding.searchBar.setOnClickListener {
+            startActivity(Intent(this, SearchActivity::class.java))
+        }
     }
 }
