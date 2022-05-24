@@ -75,7 +75,7 @@ class ProfileCustomizationActivity : AppCompatActivity() {
                 setEnsureMinTouchTargetSize(false)
                 chipIconTint = ColorStateList.valueOf(typedValue.data)
                 setTextAppearance(R.style.TextAppearance_HotelRanking_LabelLarge)
-
+                tag = "disability-${disability.id}"
                 setOnCheckedChangeListener { _, isChecked ->
                     profileCustomViewModel.setDisabilityChecked(disability, isChecked)
                 }
@@ -96,6 +96,7 @@ class ProfileCustomizationActivity : AppCompatActivity() {
                 setChipIconResource(hobby.icon)
                 isCloseIconVisible = false
                 isCheckable = true
+                isClickable = true
                 setEnsureMinTouchTargetSize(false)
                 chipIconTint = ColorStateList.valueOf(typedValue.data)
                 setTextAppearance(R.style.TextAppearance_HotelRanking_LabelLarge)

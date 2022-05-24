@@ -184,10 +184,11 @@ class ValidateableTextField : ConstraintLayout {
                 isFocusable = false
                 setOnClickListener {
                     val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-                        binding?.etValidateableField?.setText("$dayOfMonth/$month/$year")
+                        val monthOfYear = month + 1
+                        binding?.etValidateableField?.setText("$dayOfMonth/$monthOfYear/$year")
                         selectedDate = Calendar.getInstance().apply {
                             set(Calendar.YEAR, year)
-                            set(Calendar.MONTH, month)
+                            set(Calendar.MONTH, monthOfYear)
                             set(Calendar.DAY_OF_MONTH, dayOfMonth)
                         }.time
                         callback(true)
