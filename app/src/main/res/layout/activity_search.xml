@@ -4,16 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
     tools:context=".ui.home.SearchActivity">
 
     <include
         android:id="@+id/searchBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
         layout="@layout/custom_search_bar" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvSearch"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp"
+        tools:listitem="@layout/item_search"/>
 </LinearLayout>

@@ -218,7 +218,7 @@ class AuthInstrumentationTest {
         @BeforeClass
         @JvmStatic
         fun setUpBaseUrl() {
-            APIConfig.BASE_URL = "http://localhost:8080"
+            APIConfig.AUTH_BASE_URL = "http://localhost:8080"
         }
     }
 }
