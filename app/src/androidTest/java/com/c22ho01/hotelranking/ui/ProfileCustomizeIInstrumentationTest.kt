@@ -60,26 +60,14 @@ class ProfileCustomizeIInstrumentationTest {
         ValidateableTextFieldTest.onTextInput(R.id.vtf_profile_custom_birth_date).perform(click())
 
         onView(withClassName(equalTo(DatePicker::class.java.name))).perform(
-            PickerActions.setDate(
-                2022,
-                5,
-                24,
-            ),
+            PickerActions.setDate(2022, 5, 24),
         )
         onView(withId(android.R.id.button1)).perform(click())
         ValidateableTextFieldTest.onEditTextLayout(R.id.vtf_profile_custom_birth_date).check(
-            matches(
-                hasDescendant(
-                    withText(
-                        "24/5/2022",
-                    ),
-                ),
-            ),
+            matches(hasDescendant(withText("24/5/2022"))),
         )
         onView(withId(R.id.rb_prefer_with_family_yes)).perform(click())
-        onView(
-            withText(dummyHobby)
-        ).perform(click())
+        onView(withText(dummyHobby)).perform(click())
         onView(withId(R.id.btn_save_profile_customization)).check(matches(isEnabled()))
     }
 }

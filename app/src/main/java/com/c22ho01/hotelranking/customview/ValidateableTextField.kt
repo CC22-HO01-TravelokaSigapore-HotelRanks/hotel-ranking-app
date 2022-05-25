@@ -8,6 +8,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.text.method.PasswordTransformationMethod
 import android.util.AttributeSet
+import android.view.inputmethod.EditorInfo
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.c22ho01.hotelranking.R
 import com.c22ho01.hotelranking.databinding.ValidateableTextFieldBinding
@@ -23,6 +24,7 @@ class ValidateableTextField : ConstraintLayout {
     val hasError: Boolean
         get() = _hasError
     private var validateType: Int? = null
+    private var inputType: Int? = null
     private var isRequired: Boolean = false
     private var hintText: String? = null
     private var selectedDate: Date? = null
@@ -61,9 +63,9 @@ class ValidateableTextField : ConstraintLayout {
         val errorText = typedArray.getString(R.styleable.ValidateableTextField_validFieldError)
         val isObscure =
             typedArray.getBoolean(R.styleable.ValidateableTextField_validFieldObscure, false)
-
         validateType =
             typedArray.getInt(R.styleable.ValidateableTextField_validFieldValidateType, -1)
+        inputType = typedArray.getInt(R.styleable.ValidateableTextField_validFieldInputType, INPUT_TYPE_TEXT)
         isRequired =
             typedArray.getBoolean(R.styleable.ValidateableTextField_validFieldRequired, false)
 
@@ -85,7 +87,44 @@ class ValidateableTextField : ConstraintLayout {
             setText(valueText)
             transformationMethod = if (isObscure) PasswordTransformationMethod() else null
         }
+        setupInputType()
+
         typedArray.recycle()
+    }
+
+    private fun setupInputType() {
+        when(inputType) {
+            INPUT_TYPE_TEXT -> {
+                binding?.etValidateableField?.inputType = EditorInfo.TYPE_CLASS_TEXT
+            }
+            INPUT_TYPE_NUMBER -> {
+                binding?.etValidateableField?.inputType = EditorInfo.TYPE_CLASS_NUMBER
+            }
+            INPUT_TYPE_DATE -> {
+                binding?.tilValidateableViews?.run {
+                    startIconDrawable = context.getDrawable(R.drawable.ic_baseline_date_range_24)
+                }
+                binding?.etValidateableField?.run {
+                    isFocusable = false
+                    setOnClickListener {
+                        val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+                            val monthOfYear = month + 1
+                            binding?.etValidateableField?.setText("$dayOfMonth/$monthOfYear/$year")
+                            selectedDate = Calendar.getInstance().apply {
+                                set(Calendar.YEAR, year)
+                                set(Calendar.MONTH, monthOfYear)
+                                set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                            }.time
+                        }
+                        val calendar = Calendar.getInstance()
+                        val year = calendar.get(Calendar.YEAR)
+                        val month = calendar.get(Calendar.MONTH)
+                        val day = calendar.get(Calendar.DAY_OF_MONTH)
+                        DatePickerDialog(context, dateSetListener, year, month, day).show()
+                    }
+                }
+            }
+        }
     }
 
     fun getText(): String? {
@@ -95,7 +134,6 @@ class ValidateableTextField : ConstraintLayout {
     fun getSelectedDate(): Date? {
         return selectedDate
     }
-
 
     fun setError(errorText: String?) {
         if (errorText != null) {
@@ -173,35 +211,12 @@ class ValidateableTextField : ConstraintLayout {
                     }
                 }
 
-                override fun afterTextChanged(s: Editable?) {}
-            })
-
-        if(validateType == VALIDATE_TYPE_DATE) {
-            binding?.tilValidateableViews?.run {
-                startIconDrawable = context.getDrawable(R.drawable.ic_baseline_date_range_24)
-            }
-            binding?.etValidateableField?.run {
-                isFocusable = false
-                setOnClickListener {
-                    val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-                        val monthOfYear = month + 1
-                        binding?.etValidateableField?.setText("$dayOfMonth/$monthOfYear/$year")
-                        selectedDate = Calendar.getInstance().apply {
-                            set(Calendar.YEAR, year)
-                            set(Calendar.MONTH, monthOfYear)
-                            set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                        }.time
+                override fun afterTextChanged(s: Editable?) {
+                    if(validateType == VALIDATE_TYPE_DATE) {
                         callback(true)
                     }
-                    val calendar = Calendar.getInstance()
-                    val year = calendar.get(Calendar.YEAR)
-                    val month = calendar.get(Calendar.MONTH)
-                    val day = calendar.get(Calendar.DAY_OF_MONTH)
-                    DatePickerDialog(context, dateSetListener, year, month, day).show()
                 }
-            }
-
-        }
+            })
     }
 
 
@@ -212,6 +227,11 @@ class ValidateableTextField : ConstraintLayout {
         const val VALIDATE_TYPE_PASSWORD = 1
         const val VALIDATE_TYPE_PASSWORD_CONFIRMATION = 2
         const val VALIDATE_TYPE_DATE = 3
+
+        const val INPUT_TYPE_TEXT = 0
+        const val INPUT_TYPE_NUMBER = 1
+        const val INPUT_TYPE_DATE = 2
+
         const val PASSWORD_MIN_LENGTH = 8
     }
 }
