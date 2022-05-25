@@ -18,8 +18,10 @@ class ProfileRepository(
 ) {
 
     private var _currentProfile = MutableLiveData<ProfileEntity>()
+    val currentProfile: LiveData<ProfileEntity>
+        get() = _currentProfile
 
-    private val _hobbyList: List<HobbyEntity> = arrayListOf(
+    val hobbyList: List<HobbyEntity> = arrayListOf(
         HobbyEntity(1, R.string.selfie, "selfie", R.drawable.ic_baseline_camera_alt_24),
         HobbyEntity(2, R.string.hiking, "hiking", R.drawable.ic_baseline_landscape_24),
         HobbyEntity(3, R.string.eating, "eating", R.drawable.ic_baseline_local_dining_24),
@@ -27,7 +29,7 @@ class ProfileRepository(
         HobbyEntity(5, R.string.shopping, "shopping", R.drawable.ic_baseline_shopping_cart_24),
         HobbyEntity(6, R.string.swimming, "swimming", R.drawable.ic_baseline_pool_24),
     )
-    private val _disabilityList: List<DisabilityEntity> = arrayListOf(
+    val disabilityList: List<DisabilityEntity> = arrayListOf(
         DisabilityEntity(
             1,
             R.string.i_cant_move_freely,
@@ -54,25 +56,22 @@ class ProfileRepository(
         ),
     )
 
-    fun getHobbyList(): List<HobbyEntity> {
-        return _hobbyList
-    }
 
-    fun getDisabilityList(): List<DisabilityEntity> {
-        return _disabilityList
-    }
-
-    fun getProfile(id: Int): LiveData<Result<ProfileEntity>> = liveData {
+    fun getProfile(userToken: String): LiveData<Result<ProfileEntity>> = liveData {
         wrapEspressoIdlingResource {
             emit(Result.Loading)
             try {
-                val response = profileService.getUserById(id)
+                val response = profileService.getUserById(
+                    userToken,
+                    currentProfile.value?.id,
+                )
                 if (response.isSuccessful) {
-                    var profile =
-                        ProfileEntity.fromGetResponse(response.body() ?: ProfileGetResponse())
+                    var profile = ProfileEntity.fromGetResponse(
+                        response.body() ?: ProfileGetResponse(),
+                    )
                     val responseData = response.body()?.profileData
                     val hobbies = responseData?.hobby?.map { hobbyResponse ->
-                        _hobbyList.find { hobbyRepo ->
+                        hobbyList.find { hobbyRepo ->
                             hobbyRepo.fromResponseLabel == hobbyResponse?.let { raw ->
                                 Regex("[^A-Za-z0-9 ]")
                                     .replace(raw, "")
@@ -81,7 +80,7 @@ class ProfileRepository(
                     }
 
                     val disabilities = responseData?.specialNeeds?.map { specialNeedsResponse ->
-                        _disabilityList.find { disabilityRepo ->
+                        disabilityList.find { disabilityRepo ->
                             disabilityRepo.fromResponseLabel == specialNeedsResponse?.let { raw ->
                                 Regex("[^A-Za-z0-9 ]")
                                     .replace(raw, "")
@@ -106,6 +105,12 @@ class ProfileRepository(
                 emit(Result.Error(e.message.toString()))
             }
         }
+    }
+
+    fun setProfileId(profileId: Int) {
+        _currentProfile.postValue(
+            _currentProfile.value?.copy(id = profileId) ?: ProfileEntity(id = profileId)
+        )
     }
 
     companion object {

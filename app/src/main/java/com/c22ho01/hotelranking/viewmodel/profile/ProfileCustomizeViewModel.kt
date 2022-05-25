@@ -7,13 +7,13 @@ import com.c22ho01.hotelranking.data.local.entity.DisabilityEntity
 import com.c22ho01.hotelranking.data.local.entity.HobbyEntity
 import com.c22ho01.hotelranking.data.repository.ProfileRepository
 
-class ProfileCustomizationViewModel(
+class ProfileCustomizeViewModel(
     private val profileRepository: ProfileRepository
 ) : ViewModel() {
     private var _formValid: MediatorLiveData<Boolean> = MediatorLiveData()
     val formValid get() = _formValid
 
-    private var _fullnameValid = MutableLiveData(false)
+    private var _fullNameValid = MutableLiveData(false)
     private var _nidValid = MutableLiveData(false)
     private var _birthDateValid = MutableLiveData(false)
     private var _familyValid = MutableLiveData(false)
@@ -21,7 +21,7 @@ class ProfileCustomizationViewModel(
     private var _selectedDisabilities = MutableLiveData<MutableList<DisabilityEntity>>()
 
     private fun checkEveryValidationValueTrue(): Boolean {
-        return (_fullnameValid.value ?: false) &&
+        return (_fullNameValid.value ?: false) &&
                 (_nidValid.value ?: false) &&
                 (_birthDateValid.value ?: false) &&
                 (_familyValid.value ?: false) &&
@@ -29,7 +29,7 @@ class ProfileCustomizationViewModel(
     }
 
     init {
-        formValid.addSource(_fullnameValid) {
+        formValid.addSource(_fullNameValid) {
             formValid.postValue(checkEveryValidationValueTrue())
         }
         formValid.addSource(_nidValid) {
@@ -49,8 +49,8 @@ class ProfileCustomizationViewModel(
         }
     }
 
-    fun setFullnameValid(valid: Boolean) {
-        _fullnameValid.postValue(valid)
+    fun setFullNameValid(valid: Boolean) {
+        _fullNameValid.postValue(valid)
     }
 
     fun setNidValid(valid: Boolean) {
@@ -75,11 +75,6 @@ class ProfileCustomizationViewModel(
         _selectedHobbies.postValue(list)
     }
 
-    fun checkSelectedHobbyByResponseLabel(responseLabel: String): Boolean {
-        val list = _selectedHobbies.value ?: mutableListOf()
-        return list.find { it.fromResponseLabel == responseLabel } != null
-    }
-
     fun setDisabilityChecked(disability: DisabilityEntity, checked: Boolean) {
         val list = _selectedDisabilities.value ?: mutableListOf()
         if (checked) {
@@ -90,18 +85,13 @@ class ProfileCustomizationViewModel(
         _selectedDisabilities.postValue(list)
     }
 
-    fun checkSelectedDisabilityByResponseLabel(responseLabel: String): Boolean {
-        val list = _selectedDisabilities.value ?: mutableListOf()
-        return list.find { it.fromResponseLabel == responseLabel } != null
+
+    fun getAllHobbyList(): List<HobbyEntity> {
+        return profileRepository.hobbyList
     }
 
-
-    fun getHobbyList(): List<HobbyEntity> {
-        return profileRepository.getHobbyList()
-    }
-
-    fun getDisabilityList(): List<DisabilityEntity> {
-        return profileRepository.getDisabilityList()
+    fun getAllDisabilityList(): List<DisabilityEntity> {
+        return profileRepository.disabilityList
     }
 
 

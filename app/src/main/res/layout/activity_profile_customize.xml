@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.profile.ProfileCustomizationActivity">
+    tools:context=".ui.profile.ProfileCustomizeActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/abl_profile_custom"
@@ -30,12 +30,23 @@
             android:paddingHorizontal="32dp"
             android:paddingBottom="64dp">
 
+            <ProgressBar
+                android:id="@+id/pb_profile_custom_progress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:indeterminate="true"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
+
             <TextView
                 android:id="@+id/tv_profile_custom_headline"
                 style="@style/TextAppearance.HotelRanking.HeadlineLarge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/profile_customization"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

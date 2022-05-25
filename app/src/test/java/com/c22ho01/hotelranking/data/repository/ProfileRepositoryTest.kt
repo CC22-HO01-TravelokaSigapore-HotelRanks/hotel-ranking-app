@@ -5,10 +5,7 @@ import androidx.test.espresso.IdlingRegistry
 import androidx.test.filters.MediumTest
 import com.c22ho01.hotelranking.data.Result
 import com.c22ho01.hotelranking.data.remote.retrofit.ProfileService
-import com.c22ho01.hotelranking.utils.DataDummy
-import com.c22ho01.hotelranking.utils.EspressoIdlingResource
-import com.c22ho01.hotelranking.utils.MainCoroutineRuleUnitTest
-import com.c22ho01.hotelranking.utils.captureValues
+import com.c22ho01.hotelranking.utils.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
@@ -34,10 +31,14 @@ class ProfileRepositoryTest {
 
     private lateinit var profileRepository: ProfileRepository
 
+    private val dummyToken = "dummyToken"
+    private val dummyUserId = 1
+
     @Before
     fun setUp() {
         IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
         profileRepository = ProfileRepository(profileService)
+        profileRepository.setProfileId(dummyUserId)
     }
 
     @After
@@ -45,7 +46,6 @@ class ProfileRepositoryTest {
         IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
     }
 
-    //wip
     @Test
     fun `when getProfile should not return null`() =
         mainCoroutineRulesUnitTest.scope.runTest {
@@ -54,12 +54,23 @@ class ProfileRepositoryTest {
                 DataDummy.provideProfileEntity()
             )
 
-            Mockito.`when`(profileService.getUserById(1)).thenReturn(
+            Mockito.`when`(profileService.getUserById(dummyToken, 1)).thenReturn(
                 Response.success(dummyResponse)
             )
-            profileRepository.getProfile(1).captureValues {
+            profileRepository.getProfile(dummyToken).captureValues {
                 Assert.assertNotNull(values)
                 Assert.assertEquals(arrayListOf(Result.Loading, expectedResult), values)
             }
         }
+
+    @Test
+    fun `when setProfileId should change currentProfileId`() {
+        val expectedId = 101
+        val beforeId = profileRepository.currentProfile.getOrAwaitValue().id
+        profileRepository.setProfileId(expectedId)
+
+        val actualId = profileRepository.currentProfile.getOrAwaitValue().id
+        Assert.assertNotEquals(beforeId, actualId)
+        Assert.assertEquals(expectedId, actualId)
+    }
 }

@@ -13,7 +13,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import com.c22ho01.hotelranking.R
 import com.c22ho01.hotelranking.ui.customview.ValidateableTextFieldTest
-import com.c22ho01.hotelranking.ui.profile.ProfileCustomizationActivity
+import com.c22ho01.hotelranking.ui.profile.ProfileCustomizeActivity
 import com.c22ho01.hotelranking.utils.EspressoIdlingResource
 import okhttp3.mockwebserver.MockWebServer
 import org.hamcrest.CoreMatchers.equalTo
@@ -30,7 +30,7 @@ class ProfileCustomizeIInstrumentationTest {
     private val mockWebServer = MockWebServer()
 
     @get:Rule
-    val activity = ActivityScenarioRule(ProfileCustomizationActivity::class.java)
+    val activity = ActivityScenarioRule(ProfileCustomizeActivity::class.java)
 
     private val dummyFullName = "Awanama Wijaya"
     private val dummyIdNumber = "123456789"

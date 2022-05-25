@@ -12,6 +12,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.c22ho01.hotelranking.R
 import com.c22ho01.hotelranking.databinding.ValidateableTextFieldBinding
+import com.c22ho01.hotelranking.utils.DateUtils
 import com.google.android.material.textfield.TextInputLayout
 import java.util.*
 
@@ -130,9 +131,20 @@ class ValidateableTextField : ConstraintLayout {
     fun getText(): String? {
         return binding?.etValidateableField?.text?.toString()
     }
+    fun setText(text: String?) {
+        binding?.etValidateableField?.setText(text)
+    }
+
 
     fun getSelectedDate(): Date? {
         return selectedDate
+    }
+    fun setSelectedDate(date: Date?) {
+        if(date != null) {
+            selectedDate = date
+            val dateStr = DateUtils.formatDateToString(date)
+            setText(dateStr)
+        }
     }
 
     fun setError(errorText: String?) {

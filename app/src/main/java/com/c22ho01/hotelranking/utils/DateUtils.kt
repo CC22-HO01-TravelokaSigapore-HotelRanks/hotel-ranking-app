@@ -9,7 +9,12 @@ object DateUtils {
         return SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(date)
     }
 
+    fun formatDateToString(date: Date): String {
+        return SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(date)
+    }
+
     fun parseISODateFromString(date: String): Date? {
         return SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault()).parse(date)
     }
+
 }

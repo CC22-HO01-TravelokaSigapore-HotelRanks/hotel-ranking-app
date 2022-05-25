@@ -75,4 +75,5 @@
     <string name="i_cant_hear_properly">I can’t hear properly</string>
     <string name="i_cant_see_clearly">I can’t see clearly</string>
     <string name="save">Save</string>
+    <string name="error_please_login">Something went wrong, please log in again.</string>
 </resources>

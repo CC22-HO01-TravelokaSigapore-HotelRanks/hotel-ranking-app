@@ -15,6 +15,7 @@ import com.c22ho01.hotelranking.databinding.FragmentLoginBinding
 import com.c22ho01.hotelranking.ui.home.HomeLoggedInActivity
 import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
 import com.c22ho01.hotelranking.viewmodel.auth.LoginViewModel
+import com.c22ho01.hotelranking.viewmodel.profile.ProfileViewModel
 import com.c22ho01.hotelranking.viewmodel.utils.TokenViewModel
 import com.google.android.material.snackbar.Snackbar
 
@@ -26,6 +27,7 @@ class LoginFragment : Fragment() {
     private lateinit var factory: ViewModelFactory
     private val loginViewModel: LoginViewModel by viewModels { factory }
     private val tokenViewModel: TokenViewModel by viewModels { factory }
+    private val profileViewModel: ProfileViewModel by viewModels { factory }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -76,6 +78,7 @@ class LoginFragment : Fragment() {
                     is Result.Success -> {
                         showLoading(false)
                         tokenViewModel.setToken(it.data.loginData?.token ?: "")
+                        profileViewModel.setProfileID(it.data.loginData?.userId ?: -1)
                         binding?.let { fragment ->
                             Snackbar.make(
                                 fragment.root,

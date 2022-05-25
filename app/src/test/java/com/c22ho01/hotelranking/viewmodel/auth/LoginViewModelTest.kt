@@ -43,7 +43,7 @@ class LoginViewModelTest {
     }
 
     @Test
-    fun `when all field is valid, should set formValid to true`() {
+    fun `when all fields is valid, should set formValid to true`() {
         loginViewModel.apply {
             setUsernameValid(true)
             setPasswordValid(true)
