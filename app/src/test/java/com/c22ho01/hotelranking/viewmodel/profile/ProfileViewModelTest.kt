@@ -19,7 +19,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 
@@ -46,7 +45,7 @@ class ProfileViewModelTest {
 
     @Before
     fun setUp() {
-        Mockito.`when`(tokenRepositoryMock.getToken()).thenReturn(flow { emit(dummyToken) })
+        `when`(tokenRepositoryMock.getToken()).thenReturn(flow { emit(dummyToken) })
         profileViewModel = ProfileViewModel(profileRepositoryMock, tokenRepositoryMock)
     }
 

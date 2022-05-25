@@ -1,5 +1,6 @@
 package com.c22ho01.hotelranking.data.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
@@ -63,8 +64,9 @@ class ProfileRepository(
             try {
                 val response = profileService.getUserById(
                     userToken,
-                    currentProfile.value?.id,
+                    currentProfile.value?.id ?: -1,
                 )
+                Log.d("ProfileRepository", "getProfile: $response")
                 if (response.isSuccessful) {
                     var profile = ProfileEntity.fromGetResponse(
                         response.body() ?: ProfileGetResponse(),

@@ -37,29 +37,33 @@ class ProfileCustomizeActivity : AppCompatActivity() {
     }
 
     private fun setupInitialCustomizationState() {
-        profileViewModel.loadProfile().observe(this) { result ->
-            when (result) {
-                is Result.Loading -> {
-                    showLoading(true)
-                }
-                is Result.Success -> {
-                    setupFieldValidationListener(result.data)
-                    setupFamilyRadioValidation(result.data.family)
-                    setupHobbiesChipGroupValidation(result.data.hobby)
-                    setupDisabilitiesChipGroupValidation(result.data.specialNeeds)
-                    showLoading(false)
-                }
-                is Result.Error -> {
-                    showLoading(false)
-                    binding?.let { fragment ->
-                        Snackbar.make(
-                            fragment.root,
-                            result.error,
-                            Snackbar.LENGTH_LONG,
-                        ).show()
+        profileViewModel.loadProfile().run {
+            if (this.hasObservers()) this.removeObservers(this@ProfileCustomizeActivity)
+            this.observe(this@ProfileCustomizeActivity) { result ->
+                when (result) {
+                    is Result.Loading -> {
+                        showLoading(true)
+                    }
+                    is Result.Success -> {
+                        setupFieldValidationListener(result.data)
+                        setupFamilyRadioValidation(result.data.family)
+                        setupHobbiesChipGroupValidation(result.data.hobby)
+                        setupDisabilitiesChipGroupValidation(result.data.specialNeeds)
+                        showLoading(false)
+                    }
+                    is Result.Error -> {
+                        showLoading(false)
+                        binding?.let { fragment ->
+                            Snackbar.make(
+                                fragment.root,
+                                result.error,
+                                Snackbar.LENGTH_LONG,
+                            ).show()
+                        }
                     }
                 }
             }
+
         }
     }
 
