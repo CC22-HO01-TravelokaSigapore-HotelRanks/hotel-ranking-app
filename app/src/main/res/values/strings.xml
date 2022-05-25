@@ -5,7 +5,6 @@
     <string name="rating">(4.0/5.0)</string>
     <string name="review">Review</string>
     <string name="facilities">Facilities</string>
-    <string name="username">Username</string>
     <string name="open_maps">Open Maps</string>
     <string name="login_to_your_existing_account">Login to your\nexisting account</string>
     <string name="please_fill_the_form_to_login">Please fill the form to login.</string>
