@@ -47,4 +47,6 @@
     <string name="light">Light</string>
     <string name="dark">Dark</string>
     <string name="sign_out">Sign out</string>
+    <string name="rating">%1$d</string>
+    <string name="price">Rp%1d$.000</string>
 </resources>
