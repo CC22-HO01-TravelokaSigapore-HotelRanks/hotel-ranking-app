@@ -29,4 +29,5 @@ class ProfileViewModel(
     fun loadProfile() = profileRepository.getProfile(_userToken)
     fun getCurrentProfile() = profileRepository.currentProfile
     fun setProfileID(profileId: Int) = profileRepository.setProfileId(profileId)
+    fun getProfileID() = getCurrentProfile().value?.id
 }

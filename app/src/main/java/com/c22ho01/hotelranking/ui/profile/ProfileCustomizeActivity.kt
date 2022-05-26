@@ -78,6 +78,9 @@ class ProfileCustomizeActivity : AppCompatActivity() {
         profileCustomViewModel.formValid.observe(this) {
             binding?.btnSaveProfileCustomization?.isEnabled = it
         }
+        binding?.btnSaveProfileCustomization?.setOnClickListener {
+            customizeProfile()
+        }
     }
 
     private fun setupFieldValidationListener(initialProfile: ProfileEntity) {
@@ -211,6 +214,42 @@ class ProfileCustomizeActivity : AppCompatActivity() {
                 }
             }
             binding?.cgDisabilitiesGroup?.addView(chip)
+        }
+    }
+
+    private fun customizeProfile() {
+        profileCustomViewModel.customizeProfile(
+            userToken = profileViewModel.userToken,
+            id = profileViewModel.getProfileID() ?: -1,
+        ).run {
+            if (this.hasObservers()) this.removeObservers(this@ProfileCustomizeActivity)
+            this.observe(this@ProfileCustomizeActivity) { result ->
+                when (result) {
+                    is Result.Loading -> {
+                        showLoading(true)
+                    }
+                    is Result.Success -> {
+                        showLoading(false)
+                        binding?.let { fragment ->
+                            Snackbar.make(
+                                fragment.root,
+                                getString(R.string.profile_customized_successfully),
+                                Snackbar.LENGTH_LONG,
+                            ).show()
+                        }
+                    }
+                    is Result.Error -> {
+                        showLoading(false)
+                        binding?.let { fragment ->
+                            Snackbar.make(
+                                fragment.root,
+                                result.error,
+                                Snackbar.LENGTH_LONG,
+                            ).show()
+                        }
+                    }
+                }
+            }
         }
     }
 

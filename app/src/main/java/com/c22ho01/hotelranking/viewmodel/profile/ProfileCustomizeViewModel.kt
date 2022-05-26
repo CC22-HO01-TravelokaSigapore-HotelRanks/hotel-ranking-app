@@ -9,7 +9,6 @@ import com.c22ho01.hotelranking.data.local.entity.DisabilityEntity
 import com.c22ho01.hotelranking.data.local.entity.HobbyEntity
 import com.c22ho01.hotelranking.data.local.entity.ProfileEntity
 import com.c22ho01.hotelranking.data.repository.ProfileRepository
-import com.c22ho01.hotelranking.utils.DateUtils
 import java.util.*
 
 class ProfileCustomizeViewModel(
@@ -114,18 +113,14 @@ class ProfileCustomizeViewModel(
 
     fun customizeProfile(
         userToken: String,
-        id: Int,
-        fullName: String,
-        nid: String,
-        birthDate: String,
-        family: Boolean,
+        id: Int
     ): LiveData<Result<ProfileEntity>> {
         val entity = ProfileEntity(
             id = id,
-            name = fullName,
-            nid = nid.toIntOrNull() ?: 0,
-            birthDate = DateUtils.parseDateFromString(birthDate),
-            family = family,
+            name = _fullName.value,
+            nid = _nid.value,
+            birthDate = _birthDate.value,
+            family = _family.value,
             hobby = _selectedHobbies.value,
             specialNeeds = _selectedDisabilities.value
         )
