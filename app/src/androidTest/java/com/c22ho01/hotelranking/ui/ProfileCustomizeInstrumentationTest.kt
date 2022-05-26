@@ -111,7 +111,10 @@ class ProfileCustomizeInstrumentationTest {
         onView(withId(R.id.btn_save_profile_customization)).check(matches(isEnabled()))
     }
 
+    @Test
+    fun whenProfileCustomizationIsSuccess_navigateToProfileFragment() {
 
+    }
 
     companion object {
         val mockWebServer = MockWebServer()

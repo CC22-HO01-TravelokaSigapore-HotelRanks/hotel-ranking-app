@@ -240,6 +240,7 @@ class ProfileCustomizeActivity : AppCompatActivity() {
                                 Snackbar.LENGTH_LONG,
                             ).show()
                         }
+                        finish()
                     }
                     is Result.Error -> {
                         showLoading(false)

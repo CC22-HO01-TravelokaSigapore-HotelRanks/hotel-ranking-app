@@ -64,8 +64,8 @@
 
                         <ImageView
                             android:id="@+id/imgProfile"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_width="65dp"
+                            android:layout_height="59dp"
                             tools:ignore="ContentDescription,ImageContrastCheck"
                             tools:src="@tools:sample/avatars" />
 
@@ -110,16 +110,17 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/prefer_with_family"
                 android:textColor="?attr/colorOnPrimary"
-                app:layout_constraintStart_toStartOf="@+id/materialCardView3"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/materialCardView3" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvPrefer"
                 style="@style/TextAppearance.HotelRanking.BodySmall"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:textColor="?attr/colorOnPrimary"
+                app:layout_constraintEnd_toEndOf="@+id/titlePrefer"
                 app:layout_constraintStart_toStartOf="@+id/titlePrefer"
                 app:layout_constraintTop_toBottomOf="@+id/titlePrefer"
                 tools:text="Yes" />
@@ -129,23 +130,59 @@
                 style="@style/TextAppearance.HotelRanking.LabelSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
                 android:text="@string/hobbies"
                 android:textColor="?attr/colorOnPrimary"
-                app:layout_constraintBottom_toBottomOf="@+id/titlePrefer"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/titlePrefer"
                 app:layout_constraintTop_toTopOf="@+id/titlePrefer" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvHobby"
                 style="@style/TextAppearance.HotelRanking.BodySmall"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:textColor="?attr/colorOnPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/titleHobbies"
                 app:layout_constraintTop_toBottomOf="@+id/titleHobbies"
                 tools:text="Eating, Traveling, Shopping" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/titleSpecialNeeds"
+                style="@style/TextAppearance.HotelRanking.LabelSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/special_needs"
+                android:textColor="?attr/colorOnPrimary"
+                app:layout_constraintStart_toStartOf="@id/tvPrefer"
+                app:layout_constraintTop_toBottomOf="@id/tvHobby" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvSpecialNeeds"
+                style="@style/TextAppearance.HotelRanking.BodySmall"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:textColor="?attr/colorOnPrimary"
+                app:layout_constraintEnd_toStartOf="@id/tvHobby"
+                app:layout_constraintStart_toStartOf="@id/titleSpecialNeeds"
+                app:layout_constraintTop_toBottomOf="@id/titleSpecialNeeds"
+                tools:text="I can't speak easily, I can't hear clearly" />
+
+            <Button
+                android:id="@+id/btnGoToCustomizeProfile"
+                style="@style/Widget.Material3.Button.ElevatedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/customize_your_profile"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvSpecialNeeds" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
