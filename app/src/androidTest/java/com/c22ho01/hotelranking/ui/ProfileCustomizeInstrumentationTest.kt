@@ -50,6 +50,10 @@ class ProfileCustomizeInstrumentationTest {
         IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
     }
 
+    private fun fillAllFieldWithValidValues() {
+
+    }
+
     @Test
     fun whenAllFieldsAreValid_saveButtonIsEnabled() {
         val mockResponse =
@@ -106,6 +110,8 @@ class ProfileCustomizeInstrumentationTest {
         )).check(matches(isChecked()))
         onView(withId(R.id.btn_save_profile_customization)).check(matches(isEnabled()))
     }
+
+
 
     companion object {
         val mockWebServer = MockWebServer()
