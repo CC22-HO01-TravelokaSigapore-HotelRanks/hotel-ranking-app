@@ -1,12 +1,16 @@
 package com.c22ho01.hotelranking.viewmodel.profile
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.MutableLiveData
 import androidx.test.filters.MediumTest
+import com.c22ho01.hotelranking.data.Result
+import com.c22ho01.hotelranking.data.local.entity.ProfileEntity
 import com.c22ho01.hotelranking.data.repository.ProfileRepository
 import com.c22ho01.hotelranking.utils.DataDummy
 import com.c22ho01.hotelranking.utils.MainCoroutineRuleUnitTest
 import com.c22ho01.hotelranking.utils.getOrAwaitValue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
@@ -30,6 +34,7 @@ class ProfileCustomizeViewModelTest {
     private lateinit var profileRepositoryMock: ProfileRepository
 
     private lateinit var profileCustomizeViewModel: ProfileCustomizeViewModel
+    private val dummyToken = "dummyToken"
 
     @Before
     fun setUp() {
@@ -63,6 +68,42 @@ class ProfileCustomizeViewModelTest {
     fun `when getAllDisabilityList should return disability list`() {
         val actualDisabilityList = profileCustomizeViewModel.getAllDisabilityList()
         Assert.assertEquals(DataDummy.provideDisabilityList(), actualDisabilityList)
+    }
+
+    @Test
+    fun `when customizeProfile should insert all fields value and not return null`() = mainCoroutineRulesUnitTest.scope.runTest {
+        val profileEntity = DataDummy.provideProfileEntity().copy(
+            hobby = DataDummy.provideHobbyList(),
+            specialNeeds = DataDummy.provideDisabilityList(),
+            userName = null,
+            email = null,
+            searchHistory = null,
+            stayHistory = null,
+            createdAt = null,
+            updatedAt = null,
+        )
+        profileCustomizeViewModel.apply {
+            setFullName(profileEntity.name!!)
+            setNid(profileEntity.nid!!)
+            setBirthDate(profileEntity.birthDate!!)
+            setFamily(profileEntity.family!!)
+            setSelectedHobbies(profileEntity.hobby!!)
+            setSelectedDisabilities(profileEntity.specialNeeds!!)
+        }
+
+        val expectedResult = MutableLiveData<Result<ProfileEntity>>()
+        expectedResult.value = Result.Success(
+            profileEntity
+        )
+
+        `when`(profileRepositoryMock.updateProfile(dummyToken, profileEntity)).thenReturn(
+            expectedResult
+        )
+
+        val actualResult = profileCustomizeViewModel.customizeProfile(dummyToken, profileEntity.id!!)
+
+        Assert.assertNotNull(actualResult)
+        Assert.assertEquals(expectedResult, actualResult)
     }
 
 }

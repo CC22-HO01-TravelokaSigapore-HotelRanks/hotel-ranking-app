@@ -10,8 +10,8 @@ import kotlinx.coroutines.launch
 
 @OptIn(InternalCoroutinesApi::class)
 class ProfileViewModel(
-    val profileRepository: ProfileRepository,
-    val tokenRepository: TokenRepository,
+    private val profileRepository: ProfileRepository,
+    private val tokenRepository: TokenRepository,
 ) : ViewModel() {
 
     private var _userToken: String = ""

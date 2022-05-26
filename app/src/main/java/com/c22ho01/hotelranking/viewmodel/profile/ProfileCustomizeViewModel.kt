@@ -27,8 +27,8 @@ class ProfileCustomizeViewModel(
     private var _birthDateValid = MutableLiveData(false)
     private var _familyValid = MutableLiveData(false)
 
-    private var _selectedHobbies = MutableLiveData<MutableList<HobbyEntity>>()
-    private var _selectedDisabilities = MutableLiveData<MutableList<DisabilityEntity>>()
+    private var _selectedHobbies = MutableLiveData<List<HobbyEntity?>>()
+    private var _selectedDisabilities = MutableLiveData<List<DisabilityEntity?>>()
 
     private fun checkEveryValidationValueTrue(): Boolean {
         return (_fullNameValid.value ?: false) &&
@@ -91,8 +91,16 @@ class ProfileCustomizeViewModel(
         _family.postValue(value)
     }
 
+    fun setSelectedHobbies(value: List<HobbyEntity?>) {
+        _selectedHobbies.postValue(value)
+    }
+
+    fun setSelectedDisabilities(value: List<DisabilityEntity?>) {
+        _selectedDisabilities.postValue(value)
+    }
+
     fun setHobbyChecked(hobby: HobbyEntity, checked: Boolean) {
-        val list = _selectedHobbies.value ?: mutableListOf()
+        val list = _selectedHobbies.value?.toMutableList() ?: mutableListOf()
         if (checked) {
             list.add(hobby)
         } else {
@@ -102,7 +110,7 @@ class ProfileCustomizeViewModel(
     }
 
     fun setDisabilityChecked(disability: DisabilityEntity, checked: Boolean) {
-        val list = _selectedDisabilities.value ?: mutableListOf()
+        val list = _selectedDisabilities.value?.toMutableList() ?: mutableListOf()
         if (checked) {
             list.add(disability)
         } else {
@@ -125,10 +133,12 @@ class ProfileCustomizeViewModel(
             specialNeeds = _selectedDisabilities.value
         )
 
-        return profileRepository.updateProfile(
+        val result = profileRepository.updateProfile(
             userToken = userToken,
             profile = entity
         )
+
+        return result
     }
 
 

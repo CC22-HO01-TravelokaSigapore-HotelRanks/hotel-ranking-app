@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.filters.MediumTest
 import com.c22ho01.hotelranking.data.Result
+import com.c22ho01.hotelranking.data.remote.response.profile.ProfilePutResponse
 import com.c22ho01.hotelranking.data.remote.retrofit.ProfileService
 import com.c22ho01.hotelranking.utils.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -64,13 +65,61 @@ class ProfileRepositoryTest {
         }
 
     @Test
-    fun `when setProfileId should change currentProfileId`() {
-        val expectedId = 101
-        val beforeId = profileRepository.currentProfile.getOrAwaitValue().id
-        profileRepository.setProfileId(expectedId)
+    fun `when setProfileId should change currentProfileId`() =
+        mainCoroutineRulesUnitTest.scope.runTest {
+            val expectedId = 101
+            val beforeId = profileRepository.currentProfile.getOrAwaitValue().id
+            profileRepository.setProfileId(expectedId)
 
-        val actualId = profileRepository.currentProfile.getOrAwaitValue().id
-        Assert.assertNotEquals(beforeId, actualId)
-        Assert.assertEquals(expectedId, actualId)
-    }
+            val actualId = profileRepository.currentProfile.getOrAwaitValue().id
+            Assert.assertNotEquals(beforeId, actualId)
+            Assert.assertEquals(expectedId, actualId)
+        }
+
+    @Test
+    fun `when updateProfile should change currentProfile and not return null`() =
+        mainCoroutineRulesUnitTest.scope.runTest {
+            val oldProfileEntity = DataDummy.provideProfileEntity()
+            val oldCurrentProfile = profileRepository.currentProfile.getOrAwaitValue()
+            val newProfileEntity = oldProfileEntity.copy(
+                name = "dummyName",
+                birthDate = DateUtils.parseDateFromString("2020-01-01"),
+                hobby = arrayListOf(
+                    profileRepository.hobbyList[2],
+                    profileRepository.hobbyList[3],
+                ),
+            )
+            val expectedResponse = ProfilePutResponse(message = "success" )
+
+            Mockito.`when`(
+                profileService.updateUserById(
+                    dummyToken,
+                    id = dummyUserId,
+                    name = newProfileEntity.name,
+                    birthDate = DateUtils.formatDateToStringDash(newProfileEntity.birthDate!!),
+                    nid = newProfileEntity.nid,
+                    family = newProfileEntity.family,
+                    hobby = newProfileEntity.hobby?.map { it?.fromResponseLabel }?.toList()
+                        ?.joinToString(","),
+                    specialNeeds = newProfileEntity.specialNeeds?.map { it?.fromResponseLabel }
+                        ?.toList()
+                        ?.joinToString(","),
+                    searchHistory = newProfileEntity.searchHistory?.joinToString(","),
+                    stayHistory = newProfileEntity.stayHistory?.joinToString(","),
+                )
+            ).thenReturn(
+                Response.success(expectedResponse)
+            )
+
+            profileRepository.updateProfile(
+                dummyToken,
+                newProfileEntity
+            ).captureValues {
+                Assert.assertNotNull(values)
+                Assert.assertEquals(arrayListOf(Result.Loading, Result.Success(newProfileEntity)), values)
+            }
+            val newCurrentProfile = profileRepository.currentProfile.getOrAwaitValue()
+            Assert.assertNotEquals(newCurrentProfile, oldCurrentProfile)
+            Assert.assertEquals(newCurrentProfile, newProfileEntity)
+        }
 }
