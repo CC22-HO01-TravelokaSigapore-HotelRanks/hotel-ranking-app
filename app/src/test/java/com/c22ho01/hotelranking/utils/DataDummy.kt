@@ -8,8 +8,8 @@ import com.c22ho01.hotelranking.data.remote.response.profile.ProfileData
 import com.c22ho01.hotelranking.data.remote.response.profile.ProfileGetResponse
 
 object DataDummy {
-    private const val dummyDateStr = "2022-05-25"
-    private const val dummyISODateStr = "2022-05-18T11:44:15.000Z"
+    const val dummyDateStr = "2022-05-25"
+    const val dummyISODateStr = "2022-05-18T11:44:15.000Z"
     private val dummyHobbies = arrayListOf("selfie", "hiking")
     private val dummyDisabilities = arrayListOf("tunawicara", "tunarungu")
 
