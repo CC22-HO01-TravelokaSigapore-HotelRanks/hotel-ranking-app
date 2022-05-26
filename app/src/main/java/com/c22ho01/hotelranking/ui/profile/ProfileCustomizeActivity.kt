@@ -12,6 +12,7 @@ import com.c22ho01.hotelranking.data.local.entity.DisabilityEntity
 import com.c22ho01.hotelranking.data.local.entity.HobbyEntity
 import com.c22ho01.hotelranking.data.local.entity.ProfileEntity
 import com.c22ho01.hotelranking.databinding.ActivityProfileCustomizeBinding
+import com.c22ho01.hotelranking.utils.wrapEspressoIdlingResource
 import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
 import com.c22ho01.hotelranking.viewmodel.profile.ProfileCustomizeViewModel
 import com.c22ho01.hotelranking.viewmodel.profile.ProfileViewModel
@@ -31,18 +32,18 @@ class ProfileCustomizeActivity : AppCompatActivity() {
         _binding = ActivityProfileCustomizeBinding.inflate(layoutInflater)
         setContentView(binding?.root)
         factory = ViewModelFactory.getInstance(this)
-        setupInitialCustomizationState()
-
+        loadProfileData()
         setupButtonValidation()
     }
 
     private fun setupInitialCustomizationState() {
-        loadProfileData()
-        profileViewModel.getCurrentProfile().observe(this) {
-            setupFieldValidationListener(it)
-            setupFamilyRadioValidation(it.family)
-            setupHobbiesChipGroupValidation(it.hobby)
-            setupDisabilitiesChipGroupValidation(it.specialNeeds)
+        wrapEspressoIdlingResource {
+            profileViewModel.getCurrentProfile().observe(this) {
+                setupFieldValidationListener(it)
+                setupFamilyRadioValidation(it.family)
+                setupHobbiesChipGroupValidation(it.hobby)
+                setupDisabilitiesChipGroupValidation(it.specialNeeds)
+            }
         }
     }
 
@@ -55,9 +56,11 @@ class ProfileCustomizeActivity : AppCompatActivity() {
                         showLoading(true)
                     }
                     is Result.Success -> {
+                        setupInitialCustomizationState()
                         showLoading(false)
                     }
                     is Result.Error -> {
+                        setupInitialCustomizationState()
                         showLoading(false)
                         binding?.let { fragment ->
                             Snackbar.make(
