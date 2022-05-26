@@ -104,7 +104,7 @@ class AuthRepositoryTest {
                     status = "success",
                     loginData = LoginData(
                         userId = 1,
-                        token = "token",
+                        accessToken = "token",
                     ),
                 )
             val expectedResult = Result.Success(dummyResponse)

@@ -77,7 +77,7 @@ class LoginFragment : Fragment() {
                     }
                     is Result.Success -> {
                         showLoading(false)
-                        tokenViewModel.setToken(it.data.loginData?.token ?: "")
+                        tokenViewModel.setToken(it.data.loginData?.accessToken ?: "")
                         profileViewModel.setProfileID(it.data.loginData?.userId ?: -1)
                         binding?.let { fragment ->
                             Snackbar.make(
