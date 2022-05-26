@@ -35,6 +35,9 @@ class ProfileCustomizeActivity : AppCompatActivity() {
         setContentView(binding?.root)
         factory = ViewModelFactory.getInstance(this)
         profileEntity = intent.getParcelableExtra<ProfileEntity>(EXTRA_PROFILE) as ProfileEntity
+        binding?.appbarMtProfileCustom?.setNavigationOnClickListener {
+            onBackPressed()
+        }
         setupInitialCustomizationState()
         setupButtonValidation()
     }
