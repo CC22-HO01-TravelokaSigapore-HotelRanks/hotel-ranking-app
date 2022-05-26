@@ -1,309 +1,357 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.ProfileFragment">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/titleProfile"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/navbar_profile"
-        android:textAppearance="@style/TextAppearance.HotelRanking.TitleLarge"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:paddingBottom="32dp">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardProfile"
-        style="@style/Widget.Material3.CardView.Filled"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:padding="16dp"
-        app:cardBackgroundColor="?attr/colorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/titleProfile"
-        app:layout_constraintTop_toBottomOf="@+id/titleProfile">
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/titleProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/navbar_profile"
+            android:textAppearance="@style/TextAppearance.HotelRanking.TitleLarge"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="16dp">
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardProfile"
+            style="@style/Widget.Material3.CardView.Filled"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:padding="16dp"
+            app:cardBackgroundColor="?attr/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/titleProfile"
+            app:layout_constraintTop_toBottomOf="@+id/titleProfile">
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/materialCardView3"
-                style="@style/Widget.Material3.CardView.Filled"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="?attr/colorPrimaryContainer"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_height="match_parent"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp">
 
-                <LinearLayout
+                <ProgressBar
+                    android:id="@+id/pbProfile"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:indeterminateTint="?attr/colorOnPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="16dp"
+                    android:indeterminate="true"
+                    android:layout_marginBottom="8dp"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="visible"/>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/materialCardView3"
+                    style="@style/Widget.Material3.CardView.Filled"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:padding="16dp">
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/cardHolderPhoto"
-                        style="@style/Widget.Material3.CardView.Elevated"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:padding="12dp"
-                        app:cardCornerRadius="45dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <ImageView
-                            android:id="@+id/imgProfile"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            tools:ignore="ContentDescription,ImageContrastCheck"
-                            tools:src="@tools:sample/avatars" />
-
-                    </com.google.android.material.card.MaterialCardView>
+                    app:cardBackgroundColor="?attr/colorPrimaryContainer"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/pbProfile">
 
                     <LinearLayout
-                        android:id="@+id/linearLayout"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:orientation="vertical"
-                        app:layout_constraintBottom_toBottomOf="@+id/cardHolderPhoto"
-                        app:layout_constraintStart_toEndOf="@+id/cardHolderPhoto"
-                        app:layout_constraintTop_toTopOf="@+id/cardHolderPhoto">
+                        android:gravity="center_vertical"
+                        android:padding="16dp">
 
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/tvName"
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/imgAvatar"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:elevation="4dp"
+                            android:src="@drawable/user_avatar"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="@style/TextAppearance.HotelRanking.BodyLarge"
-                            app:layout_constraintBottom_toTopOf="@+id/tvEmail"
-                            app:layout_constraintStart_toStartOf="@+id/tvEmail"
-                            tools:text="Kiki Abdullah" />
+                            android:layout_marginStart="8dp"
+                            android:orientation="vertical"
+                            app:layout_constraintBottom_toBottomOf="@+id/imgAvatar"
+                            app:layout_constraintStart_toEndOf="@+id/imgAvatar"
+                            app:layout_constraintTop_toTopOf="@+id/imgAvatar">
 
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/tvEmail"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="@style/TextAppearance.HotelRanking.BodySmall"
-                            android:textColor="?attr/colorOnSurfaceVariant"
-                            tools:text="kikyabdullah@gmail.com" />
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tvName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="@style/TextAppearance.HotelRanking.BodyLarge"
+                                app:layout_constraintBottom_toTopOf="@+id/tvEmail"
+                                app:layout_constraintStart_toStartOf="@+id/tvEmail"
+                                tools:text="Kiki Abdullah" />
 
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tvEmail"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="@style/TextAppearance.HotelRanking.BodySmall"
+                                android:textColor="?attr/colorOnSurfaceVariant"
+                                tools:text="kikyabdullah@gmail.com" />
+
+                        </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+                </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/titlePrefer"
-                style="@style/TextAppearance.HotelRanking.LabelSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/prefer_with_family"
-                android:textColor="?attr/colorOnPrimary"
-                app:layout_constraintStart_toStartOf="@+id/materialCardView3"
-                app:layout_constraintTop_toBottomOf="@id/materialCardView3" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/titlePrefer"
+                    style="@style/TextAppearance.HotelRanking.LabelSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/prefer_with_family"
+                    android:textColor="?attr/colorOnPrimary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/materialCardView3" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvPrefer"
-                style="@style/TextAppearance.HotelRanking.BodySmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textColor="?attr/colorOnPrimary"
-                app:layout_constraintStart_toStartOf="@+id/titlePrefer"
-                app:layout_constraintTop_toBottomOf="@+id/titlePrefer"
-                tools:text="Yes" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvPrefer"
+                    style="@style/TextAppearance.HotelRanking.BodySmall"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:textColor="?attr/colorOnPrimary"
+                    app:layout_constraintEnd_toEndOf="@+id/titlePrefer"
+                    app:layout_constraintStart_toStartOf="@+id/titlePrefer"
+                    app:layout_constraintTop_toBottomOf="@+id/titlePrefer"
+                    tools:text="Yes" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/titleHobbies"
-                style="@style/TextAppearance.HotelRanking.LabelSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:text="@string/hobbies"
-                android:textColor="?attr/colorOnPrimary"
-                app:layout_constraintBottom_toBottomOf="@+id/titlePrefer"
-                app:layout_constraintStart_toEndOf="@+id/titlePrefer"
-                app:layout_constraintTop_toTopOf="@+id/titlePrefer" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/titleHobbies"
+                    style="@style/TextAppearance.HotelRanking.LabelSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hobbies"
+                    android:textColor="?attr/colorOnPrimary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/titlePrefer"
+                    app:layout_constraintTop_toTopOf="@+id/titlePrefer" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvHobby"
-                style="@style/TextAppearance.HotelRanking.BodySmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textColor="?attr/colorOnPrimary"
-                app:layout_constraintStart_toStartOf="@+id/titleHobbies"
-                app:layout_constraintTop_toBottomOf="@+id/titleHobbies"
-                tools:text="Eating, Traveling, Shopping" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvHobby"
+                    style="@style/TextAppearance.HotelRanking.BodySmall"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:textColor="?attr/colorOnPrimary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/titleHobbies"
+                    app:layout_constraintTop_toBottomOf="@+id/titleHobbies"
+                    tools:text="Eating, Traveling, Shopping" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/titleSetting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/settings"
-        android:textAppearance="@style/TextAppearance.HotelRanking.TitleLarge"
-        app:layout_constraintStart_toStartOf="@+id/cardProfile"
-        app:layout_constraintTop_toBottomOf="@+id/cardProfile" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/titleSpecialNeeds"
+                    style="@style/TextAppearance.HotelRanking.LabelSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/special_needs"
+                    android:textColor="?attr/colorOnPrimary"
+                    app:layout_constraintStart_toStartOf="@id/tvPrefer"
+                    app:layout_constraintTop_toBottomOf="@id/tvHobby" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/materialCardView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/titleSetting"
-        app:layout_constraintTop_toBottomOf="@+id/titleSetting">
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvSpecialNeeds"
+                    style="@style/TextAppearance.HotelRanking.BodySmall"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="8dp"
+                    android:textColor="?attr/colorOnPrimary"
+                    app:layout_constraintEnd_toStartOf="@id/tvHobby"
+                    app:layout_constraintStart_toStartOf="@id/titleSpecialNeeds"
+                    app:layout_constraintTop_toBottomOf="@id/titleSpecialNeeds"
+                    tools:text="I can't speak easily, I can't hear clearly" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="16dp">
+                <Button
+                    android:id="@+id/btnGoToCustomizeProfile"
+                    style="@style/Widget.Material3.Button.ElevatedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/customize_your_profile"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvSpecialNeeds" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/titleTheme"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/theme"
-                android:textAppearance="@style/TextAppearance.HotelRanking.TitleMedium"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-            <ImageView
-                android:id="@+id/titleLight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:src="@drawable/ic_light_mode"
-                app:layout_constraintStart_toStartOf="@+id/titleTheme"
-                app:layout_constraintTop_toBottomOf="@+id/titleTheme"
-                app:tint="?attr/colorPrimary"
-                tools:ignore="ContentDescription" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/titleSetting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/settings"
+            android:textAppearance="@style/TextAppearance.HotelRanking.TitleLarge"
+            app:layout_constraintStart_toStartOf="@+id/cardProfile"
+            app:layout_constraintTop_toBottomOf="@+id/cardProfile" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/lightIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:text="@string/light"
-                android:textAppearance="@style/TextAppearance.HotelRanking.LabelMedium"
-                app:layout_constraintBottom_toBottomOf="@+id/titleLight"
-                app:layout_constraintStart_toEndOf="@+id/titleLight"
-                app:layout_constraintTop_toTopOf="@+id/titleLight" />
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/titleSetting"
+            app:layout_constraintTop_toBottomOf="@+id/titleSetting">
 
-            <ImageView
-                android:id="@+id/darkIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:src="@drawable/ic_dark_mode"
-                app:layout_constraintBottom_toBottomOf="@+id/switchTheme"
-                app:layout_constraintStart_toEndOf="@+id/switchTheme"
-                app:layout_constraintTop_toTopOf="@+id/switchTheme"
-                app:tint="?attr/colorPrimary"
-                tools:ignore="ContentDescription" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="16dp">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/titleDark"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:text="@string/dark"
-                android:textAppearance="@style/TextAppearance.HotelRanking.LabelMedium"
-                app:layout_constraintBottom_toBottomOf="@+id/darkIcon"
-                app:layout_constraintStart_toEndOf="@+id/darkIcon"
-                app:layout_constraintTop_toTopOf="@+id/darkIcon" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/titleTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/theme"
+                    android:textAppearance="@style/TextAppearance.HotelRanking.TitleMedium"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/switchTheme"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/lightIcon"
-                app:layout_constraintStart_toEndOf="@+id/lightIcon"
-                app:layout_constraintTop_toTopOf="@+id/lightIcon"
-                app:thumbTint="?attr/colorPrimary"
-                app:trackTint="?attr/colorSurfaceVariant" />
+                <ImageView
+                    android:id="@+id/titleLight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/ic_light_mode"
+                    app:layout_constraintStart_toStartOf="@+id/titleTheme"
+                    app:layout_constraintTop_toBottomOf="@+id/titleTheme"
+                    app:tint="?attr/colorPrimary"
+                    tools:ignore="ContentDescription" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/titleLanguage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/language"
-                android:textAppearance="@style/TextAppearance.HotelRanking.TitleMedium"
-                app:layout_constraintStart_toStartOf="@+id/titleLight"
-                app:layout_constraintTop_toBottomOf="@+id/divider" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/lightIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="@string/light"
+                    android:textAppearance="@style/TextAppearance.HotelRanking.LabelMedium"
+                    app:layout_constraintBottom_toBottomOf="@+id/titleLight"
+                    app:layout_constraintStart_toEndOf="@+id/titleLight"
+                    app:layout_constraintTop_toTopOf="@+id/titleLight" />
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:src="@drawable/ic_language"
-                app:layout_constraintStart_toStartOf="@+id/titleLanguage"
-                app:layout_constraintTop_toBottomOf="@+id/titleLanguage"
-                app:tint="?attr/colorPrimary"
-                tools:ignore="ContentDescription" />
+                <ImageView
+                    android:id="@+id/darkIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:src="@drawable/ic_dark_mode"
+                    app:layout_constraintBottom_toBottomOf="@+id/switchTheme"
+                    app:layout_constraintStart_toEndOf="@+id/switchTheme"
+                    app:layout_constraintTop_toTopOf="@+id/switchTheme"
+                    app:tint="?attr/colorPrimary"
+                    tools:ignore="ContentDescription" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvLanguage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:textAppearance="@style/TextAppearance.HotelRanking.LabelMedium"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-                app:layout_constraintStart_toEndOf="@+id/imageView2"
-                app:layout_constraintTop_toTopOf="@+id/imageView2"
-                tools:text="English(US)" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/titleDark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="@string/dark"
+                    android:textAppearance="@style/TextAppearance.HotelRanking.LabelMedium"
+                    app:layout_constraintBottom_toBottomOf="@+id/darkIcon"
+                    app:layout_constraintStart_toEndOf="@+id/darkIcon"
+                    app:layout_constraintTop_toTopOf="@+id/darkIcon" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/language_button"
-                style="@style/Widget.Material3.Button.OutlinedButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/change"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView2"
-                tools:ignore="TextContrastCheck" />
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/switchTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/lightIcon"
+                    app:layout_constraintStart_toEndOf="@+id/lightIcon"
+                    app:layout_constraintTop_toTopOf="@+id/lightIcon"
+                    app:thumbTint="?attr/colorPrimary"
+                    app:trackTint="?attr/colorSurfaceVariant" />
 
-            <View
-                android:id="@+id/divider"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="16dp"
-                android:background="?android:attr/listDivider"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/titleLight" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/titleLanguage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/language"
+                    android:textAppearance="@style/TextAppearance.HotelRanking.TitleMedium"
+                    app:layout_constraintStart_toStartOf="@+id/titleLight"
+                    app:layout_constraintTop_toBottomOf="@+id/divider" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/ic_language"
+                    app:layout_constraintStart_toStartOf="@+id/titleLanguage"
+                    app:layout_constraintTop_toBottomOf="@+id/titleLanguage"
+                    app:tint="?attr/colorPrimary"
+                    tools:ignore="ContentDescription" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnSignOut"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/sign_out"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvLanguage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:textAppearance="@style/TextAppearance.HotelRanking.LabelMedium"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+                    app:layout_constraintStart_toEndOf="@+id/imageView2"
+                    app:layout_constraintTop_toTopOf="@+id/imageView2"
+                    tools:text="English(US)" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/language_button"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/change"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView2"
+                    tools:ignore="TextContrastCheck" />
+
+                <View
+                    android:id="@+id/divider"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:background="?android:attr/listDivider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/titleLight" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSignOut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/sign_out"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

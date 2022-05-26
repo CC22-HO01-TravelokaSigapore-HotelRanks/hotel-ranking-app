@@ -1,0 +1,26 @@
+{
+  "message": "sucessfull request",
+  "data": {
+    "hobby": [
+      ""
+    ],
+    "search_history": [
+      ""
+    ],
+    "stay_history": [
+      ""
+    ],
+    "special_needs": [
+      ""
+    ],
+    "id": 106,
+    "name": null,
+    "birth_date": null,
+    "nid": null,
+    "family": false,
+    "email": "example@gmail.com",
+    "userName": "Awanama Wijaya",
+    "createdAt": "2022-05-18T11:44:15.000Z",
+    "updatedAt": "2022-05-18T11:44:15.000Z"
+  }
+}

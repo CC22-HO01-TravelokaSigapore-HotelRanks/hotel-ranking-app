@@ -43,7 +43,7 @@ class LoginViewModelTest {
     }
 
     @Test
-    fun `when all field is valid, should set formValid to true`() {
+    fun `when all fields is valid, should set formValid to true`() {
         loginViewModel.apply {
             setUsernameValid(true)
             setPasswordValid(true)
@@ -57,7 +57,7 @@ class LoginViewModelTest {
     fun `when submitLogin should not return null`() {
         val loginData = LoginData(
             userId = 1,
-            token = "dummyToken",
+            accessToken = "dummyToken",
         )
         val loginResponse = LoginResponse(
             loginData = loginData,

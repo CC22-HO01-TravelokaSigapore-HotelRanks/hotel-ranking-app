@@ -19,6 +19,6 @@ data class LoginData(
     @field:SerializedName("userId")
     val userId: Int? = null,
 
-    @field:SerializedName("token")
-    val token: String? = null
+    @field:SerializedName("accessToken")
+    val accessToken: String? = null
 )

@@ -9,7 +9,8 @@ import com.c22ho01.hotelranking.data.repository.TokenRepository
 import com.c22ho01.hotelranking.injection.RepositoryInjection
 import com.c22ho01.hotelranking.viewmodel.auth.LoginViewModel
 import com.c22ho01.hotelranking.viewmodel.auth.RegisterViewModel
-import com.c22ho01.hotelranking.viewmodel.profile.ProfileCustomizationViewModel
+import com.c22ho01.hotelranking.viewmodel.profile.ProfileCustomizeViewModel
+import com.c22ho01.hotelranking.viewmodel.profile.ProfileViewModel
 import com.c22ho01.hotelranking.viewmodel.utils.TokenViewModel
 
 class ViewModelFactory
@@ -31,8 +32,11 @@ private constructor(
             modelClass.isAssignableFrom(RegisterViewModel::class.java) -> {
                 RegisterViewModel(authRepository) as T
             }
-            modelClass.isAssignableFrom(ProfileCustomizationViewModel::class.java) -> {
-                ProfileCustomizationViewModel(profileRepository) as T
+            modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
+                ProfileViewModel(profileRepository, tokenRepository) as T
+            }
+            modelClass.isAssignableFrom(ProfileCustomizeViewModel::class.java) -> {
+                ProfileCustomizeViewModel(profileRepository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
