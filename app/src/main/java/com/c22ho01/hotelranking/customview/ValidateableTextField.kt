@@ -136,8 +136,8 @@ class ValidateableTextField : ConstraintLayout {
     }
 
 
-    fun getSelectedDate(): Date? {
-        return selectedDate
+    fun getSelectedDate(): Date {
+        return selectedDate ?: Date()
     }
     fun setSelectedDate(date: Date?) {
         if(date != null) {

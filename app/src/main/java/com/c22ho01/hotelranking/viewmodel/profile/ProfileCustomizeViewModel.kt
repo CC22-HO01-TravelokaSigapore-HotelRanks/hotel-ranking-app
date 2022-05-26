@@ -1,11 +1,16 @@
 package com.c22ho01.hotelranking.viewmodel.profile
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.c22ho01.hotelranking.data.Result
 import com.c22ho01.hotelranking.data.local.entity.DisabilityEntity
 import com.c22ho01.hotelranking.data.local.entity.HobbyEntity
+import com.c22ho01.hotelranking.data.local.entity.ProfileEntity
 import com.c22ho01.hotelranking.data.repository.ProfileRepository
+import com.c22ho01.hotelranking.utils.DateUtils
+import java.util.*
 
 class ProfileCustomizeViewModel(
     private val profileRepository: ProfileRepository
@@ -13,10 +18,16 @@ class ProfileCustomizeViewModel(
     private var _formValid: MediatorLiveData<Boolean> = MediatorLiveData()
     val formValid get() = _formValid
 
+    private var _fullName = MutableLiveData<String>()
+    private var _nid = MutableLiveData<Int>()
+    private var _birthDate = MutableLiveData<Date>(null)
+    private var _family = MutableLiveData(false)
+
     private var _fullNameValid = MutableLiveData(false)
     private var _nidValid = MutableLiveData(false)
     private var _birthDateValid = MutableLiveData(false)
     private var _familyValid = MutableLiveData(false)
+
     private var _selectedHobbies = MutableLiveData<MutableList<HobbyEntity>>()
     private var _selectedDisabilities = MutableLiveData<MutableList<DisabilityEntity>>()
 
@@ -65,6 +76,22 @@ class ProfileCustomizeViewModel(
         _familyValid.postValue(valid)
     }
 
+    fun setFullName(value: String) {
+        _fullName.postValue(value)
+    }
+
+    fun setNid(value: Int) {
+        _nid.postValue(value)
+    }
+
+    fun setBirthDate(value: Date) {
+        _birthDate.postValue(value)
+    }
+
+    fun setFamily(value: Boolean) {
+        _family.postValue(value)
+    }
+
     fun setHobbyChecked(hobby: HobbyEntity, checked: Boolean) {
         val list = _selectedHobbies.value ?: mutableListOf()
         if (checked) {
@@ -83,6 +110,30 @@ class ProfileCustomizeViewModel(
             list.remove(disability)
         }
         _selectedDisabilities.postValue(list)
+    }
+
+    fun customizeProfile(
+        userToken: String,
+        id: Int,
+        fullName: String,
+        nid: String,
+        birthDate: String,
+        family: Boolean,
+    ): LiveData<Result<ProfileEntity>> {
+        val entity = ProfileEntity(
+            id = id,
+            name = fullName,
+            nid = nid.toIntOrNull() ?: 0,
+            birthDate = DateUtils.parseDateFromString(birthDate),
+            family = family,
+            hobby = _selectedHobbies.value,
+            specialNeeds = _selectedDisabilities.value
+        )
+
+        return profileRepository.updateProfile(
+            userToken = userToken,
+            profile = entity
+        )
     }
 
 

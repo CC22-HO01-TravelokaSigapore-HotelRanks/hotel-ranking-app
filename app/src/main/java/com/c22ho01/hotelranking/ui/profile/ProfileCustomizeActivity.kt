@@ -82,31 +82,51 @@ class ProfileCustomizeActivity : AppCompatActivity() {
 
     private fun setupFieldValidationListener(initialProfile: ProfileEntity) {
         binding?.run {
-            vtfProfileCustomName.run {
-                addValidateListener {
-                    profileCustomViewModel.setFullNameValid(it)
+
+            vtfProfileCustomName.let { vtf ->
+                vtf.addValidateListener { valid ->
+                    profileCustomViewModel.apply {
+                        setFullNameValid(valid)
+                        setFullName(vtf.getText().toString())
+                    }
                 }
                 if (initialProfile.name?.isNotEmpty() == true) {
-                    setText(initialProfile.name)
-                    profileCustomViewModel.setFullNameValid(true)
+                    vtf.setText(initialProfile.name)
+                    profileCustomViewModel.apply {
+                        setFullNameValid(true)
+                        setFullName(initialProfile.name)
+                    }
                 }
             }
-            vtfProfileCustomBirthDate.run {
-                addValidateListener {
-                    profileCustomViewModel.setBirthDateValid(it)
+
+            vtfProfileCustomBirthDate.let { vtf ->
+                vtf.addValidateListener { valid ->
+                    profileCustomViewModel.apply {
+                        setBirthDateValid(valid)
+                        setBirthDate(vtf.getSelectedDate())
+                    }
                 }
                 if (initialProfile.birthDate != null) {
-                    setSelectedDate(initialProfile.birthDate)
-                    profileCustomViewModel.setBirthDateValid(true)
+                    vtf.setSelectedDate(initialProfile.birthDate)
+                    profileCustomViewModel.apply {
+                        setBirthDateValid(true)
+                        setBirthDate(initialProfile.birthDate)
+                    }
                 }
             }
-            vtfProfileCustomNid.run {
-                addValidateListener {
-                    profileCustomViewModel.setNidValid(it)
+            vtfProfileCustomNid.let { vtf ->
+                vtf.addValidateListener { valid ->
+                    profileCustomViewModel.apply {
+                        setNidValid(valid)
+                        setNid(vtf.getText()?.toIntOrNull() ?: 0)
+                    }
                 }
                 if (initialProfile.nid != null) {
-                    setText(initialProfile.nid.toString())
-                    profileCustomViewModel.setNidValid(true)
+                    vtf.setText(initialProfile.nid.toString())
+                    profileCustomViewModel.apply {
+                        setNidValid(true)
+                        setNid(initialProfile.nid)
+                    }
                 }
             }
         }
@@ -114,19 +134,21 @@ class ProfileCustomizeActivity : AppCompatActivity() {
 
     private fun setupFamilyRadioValidation(isYes: Boolean? = null) {
         binding?.rgPreferWithFamily?.run {
-            setOnCheckedChangeListener { _, checkedId ->
+            setOnCheckedChangeListener { _, _ ->
                 profileCustomViewModel.setFamilyValid(true)
             }
             if (isYes != null) {
                 when (isYes) {
                     true -> {
                         check(R.id.rb_prefer_with_family_yes)
-                        profileCustomViewModel.setFamilyValid(true)
                     }
                     false -> {
                         check(R.id.rb_prefer_with_family_no)
-                        profileCustomViewModel.setFamilyValid(true)
                     }
+                }
+                profileCustomViewModel.apply {
+                    setFamilyValid(true)
+                    setFamily(isYes)
                 }
             }
         }
