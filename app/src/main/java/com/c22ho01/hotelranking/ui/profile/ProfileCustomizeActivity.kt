@@ -27,55 +27,26 @@ class ProfileCustomizeActivity : AppCompatActivity() {
     private val profileCustomViewModel: ProfileCustomizeViewModel by viewModels { factory }
     private val profileViewModel: ProfileViewModel by viewModels { factory }
 
+    private lateinit var profileEntity: ProfileEntity
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityProfileCustomizeBinding.inflate(layoutInflater)
         setContentView(binding?.root)
         factory = ViewModelFactory.getInstance(this)
-        loadProfileData()
+        profileEntity = intent.getParcelableExtra<ProfileEntity>(EXTRA_PROFILE) as ProfileEntity
+        setupInitialCustomizationState()
         setupButtonValidation()
     }
 
     private fun setupInitialCustomizationState() {
-        wrapEspressoIdlingResource {
-            profileViewModel.getCurrentProfile().observe(this) {
-                setupFieldValidationListener(it)
-                setupFamilyRadioValidation(it.family)
-                setupHobbiesChipGroupValidation(it.hobby)
-                setupDisabilitiesChipGroupValidation(it.specialNeeds)
-            }
+        profileEntity.let {
+            setupFieldValidationListener(it)
+            setupFamilyRadioValidation(it.family)
+            setupHobbiesChipGroupValidation(it.hobby)
+            setupDisabilitiesChipGroupValidation(it.specialNeeds)
         }
     }
-
-    private fun loadProfileData() {
-        profileViewModel.loadProfile().run {
-            if (this.hasObservers()) this.removeObservers(this@ProfileCustomizeActivity)
-            this.observe(this@ProfileCustomizeActivity) { result ->
-                when (result) {
-                    is Result.Loading -> {
-                        showLoading(true)
-                    }
-                    is Result.Success -> {
-                        setupInitialCustomizationState()
-                        showLoading(false)
-                    }
-                    is Result.Error -> {
-                        setupInitialCustomizationState()
-                        showLoading(false)
-                        binding?.let { fragment ->
-                            Snackbar.make(
-                                fragment.root,
-                                result.error,
-                                Snackbar.LENGTH_LONG,
-                            ).show()
-                        }
-                    }
-                }
-            }
-
-        }
-    }
-
 
     private fun setupButtonValidation() {
         profileCustomViewModel.formValid.observe(this) {
@@ -87,51 +58,52 @@ class ProfileCustomizeActivity : AppCompatActivity() {
     }
 
     private fun setupFieldValidationListener(initialProfile: ProfileEntity) {
-        binding?.run {
+        wrapEspressoIdlingResource {
+            binding?.run {
+                vtfProfileCustomName.let { vtf ->
+                    vtf.addValidateListener { valid ->
+                        profileCustomViewModel.apply {
+                            setFullNameValid(valid)
+                            setFullName(vtf.getText().toString())
+                        }
+                    }
+                    if (initialProfile.name?.isNotEmpty() == true) {
+                        vtf.setText(initialProfile.name)
+                        profileCustomViewModel.apply {
+                            setFullNameValid(true)
+                            setFullName(initialProfile.name)
+                        }
+                    }
+                }
 
-            vtfProfileCustomName.let { vtf ->
-                vtf.addValidateListener { valid ->
-                    profileCustomViewModel.apply {
-                        setFullNameValid(valid)
-                        setFullName(vtf.getText().toString())
+                vtfProfileCustomBirthDate.let { vtf ->
+                    vtf.addValidateListener { valid ->
+                        profileCustomViewModel.apply {
+                            setBirthDateValid(valid)
+                            setBirthDate(vtf.getSelectedDate())
+                        }
+                    }
+                    if (initialProfile.birthDate != null) {
+                        vtf.setSelectedDate(initialProfile.birthDate)
+                        profileCustomViewModel.apply {
+                            setBirthDateValid(true)
+                            setBirthDate(initialProfile.birthDate)
+                        }
                     }
                 }
-                if (initialProfile.name?.isNotEmpty() == true) {
-                    vtf.setText(initialProfile.name)
-                    profileCustomViewModel.apply {
-                        setFullNameValid(true)
-                        setFullName(initialProfile.name)
+                vtfProfileCustomNid.let { vtf ->
+                    vtf.addValidateListener { valid ->
+                        profileCustomViewModel.apply {
+                            setNidValid(valid)
+                            setNid(vtf.getText()?.toIntOrNull() ?: 0)
+                        }
                     }
-                }
-            }
-
-            vtfProfileCustomBirthDate.let { vtf ->
-                vtf.addValidateListener { valid ->
-                    profileCustomViewModel.apply {
-                        setBirthDateValid(valid)
-                        setBirthDate(vtf.getSelectedDate())
-                    }
-                }
-                if (initialProfile.birthDate != null) {
-                    vtf.setSelectedDate(initialProfile.birthDate)
-                    profileCustomViewModel.apply {
-                        setBirthDateValid(true)
-                        setBirthDate(initialProfile.birthDate)
-                    }
-                }
-            }
-            vtfProfileCustomNid.let { vtf ->
-                vtf.addValidateListener { valid ->
-                    profileCustomViewModel.apply {
-                        setNidValid(valid)
-                        setNid(vtf.getText()?.toIntOrNull() ?: 0)
-                    }
-                }
-                if (initialProfile.nid != null) {
-                    vtf.setText(initialProfile.nid.toString())
-                    profileCustomViewModel.apply {
-                        setNidValid(true)
-                        setNid(initialProfile.nid)
+                    if (initialProfile.nid != null) {
+                        vtf.setText(initialProfile.nid.toString())
+                        profileCustomViewModel.apply {
+                            setNidValid(true)
+                            setNid(initialProfile.nid)
+                        }
                     }
                 }
             }
@@ -140,8 +112,11 @@ class ProfileCustomizeActivity : AppCompatActivity() {
 
     private fun setupFamilyRadioValidation(isYes: Boolean? = null) {
         binding?.rgPreferWithFamily?.run {
-            setOnCheckedChangeListener { _, _ ->
-                profileCustomViewModel.setFamilyValid(true)
+            setOnCheckedChangeListener { _, checkedId ->
+                profileCustomViewModel.apply {
+                    setFamilyValid(true)
+                    setFamily(checkedId == R.id.rb_prefer_with_family_yes)
+                }
             }
             if (isYes != null) {
                 when (isYes) {
@@ -279,5 +254,9 @@ class ProfileCustomizeActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    companion object {
+        const val EXTRA_PROFILE = "EXTRA_PROFILE"
     }
 }

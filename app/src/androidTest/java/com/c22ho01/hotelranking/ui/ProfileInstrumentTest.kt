@@ -8,6 +8,7 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.scrollTo
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.PickerActions
 import androidx.test.espresso.intent.Intents
@@ -62,6 +63,12 @@ class ProfileInstrumentTest {
 
     @Test
     fun whenGoToCustomizeProfileButtonIsClicked_goToCustomizeProfileActivity() {
+        val mockResponse =
+            MockResponse()
+                .setResponseCode(200)
+                .setBody(JsonConverter.readStringFromFile("profile_filled_success_response.json"))
+
+        mockWebServer.enqueue(mockResponse)
         onView(withId(R.id.btnGoToCustomizeProfile)).check(matches(isDisplayed())).perform(click())
         Intents.intended(hasComponent(ProfileCustomizeActivity::class.java.name))
     }
@@ -89,7 +96,6 @@ class ProfileInstrumentTest {
                 .setBody(JsonConverter.readStringFromFile("profile_default_success_response.json"))
         mockWebServer.enqueue(mockDefaultProfileResponse)
         onView(withId(R.id.btnGoToCustomizeProfile)).check(matches(isDisplayed())).perform(click())
-        mockWebServer.enqueue(mockDefaultProfileResponse)
         ValidateableTextFieldTest.run {
             onTextInput(R.id.vtf_profile_custom_name).perform(
                 ViewActions.typeText(dummyFullName),
@@ -127,19 +133,19 @@ class ProfileInstrumentTest {
                 withText(dummyDisability1),
                 ViewMatchers.withClassName(CoreMatchers.equalTo(Chip::class.java.name)),
             )
-        ).perform(click())
+        ).perform(scrollTo(), click())
         onView(
             CoreMatchers.allOf(
                 withText(dummyDisability2),
                 ViewMatchers.withClassName(CoreMatchers.equalTo(Chip::class.java.name)),
             )
-        ).perform(click())
-        val mockFilledProfileResponse =
+        ).perform(scrollTo(), click())
+        val mockProfilePutSuccessResponse =
             MockResponse()
                 .setResponseCode(200)
-                .setBody(JsonConverter.readStringFromFile("profile_filled_success_response.json"))
-        mockWebServer.enqueue(mockFilledProfileResponse)
-        onView(ViewMatchers.withId(R.id.btn_save_profile_customization)).perform(click())
+                .setBody(JsonConverter.readStringFromFile("profile_put_success_response.json"))
+        mockWebServer.enqueue(mockProfilePutSuccessResponse)
+        onView(ViewMatchers.withId(R.id.btn_save_profile_customization)).perform(scrollTo(), click())
         onView(withId(R.id.tvEmail)).check(matches(withText(dummyEmail)))
         onView(withId(R.id.tvName)).check(matches(withText(dummyFullName)))
         onView(withId(R.id.tvPrefer)).check(matches(withText(R.string.yes)))

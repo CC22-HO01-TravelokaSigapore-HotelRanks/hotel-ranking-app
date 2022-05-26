@@ -35,15 +35,8 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loadProfile()
-        setupButtonListener()
     }
 
-    private fun setupButtonListener() {
-        binding?.btnGoToCustomizeProfile?.setOnClickListener {
-            val intent = Intent(activity, ProfileCustomizeActivity::class.java)
-            startActivity(intent)
-        }
-    }
 
     private fun loadProfile() {
         profileViewModel.loadProfile().observe(viewLifecycleOwner) { result ->
@@ -82,6 +75,12 @@ class ProfileFragment : Fragment() {
                 }
                 tvPrefer.text =
                     if (profile.family == true) getString(R.string.yes) else getString(R.string.no)
+                btnGoToCustomizeProfile.setOnClickListener {
+                    val intent = Intent(activity, ProfileCustomizeActivity::class.java).apply {
+                        putExtra(ProfileCustomizeActivity.EXTRA_PROFILE, profile)
+                    }
+                    startActivity(intent)
+                }
             }
         }
     }
