@@ -1,16 +1,18 @@
 package com.c22ho01.hotelranking.ui.home
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.KeyEvent
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.paging.map
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.c22ho01.hotelranking.adapter.LoadingStateAdapter
 import com.c22ho01.hotelranking.adapter.SearchAdapter
+import com.c22ho01.hotelranking.data.Result
 import com.c22ho01.hotelranking.databinding.ActivitySearchBinding
 import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
 import com.c22ho01.hotelranking.viewmodel.hotel.SearchViewModel
@@ -18,7 +20,7 @@ import com.c22ho01.hotelranking.viewmodel.hotel.SearchViewModel
 class SearchActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySearchBinding
-
+    private lateinit var searchAdapter: SearchAdapter
     private val searchViewModel: SearchViewModel by viewModels {
         ViewModelFactory.getInstance(this)
     }
@@ -28,22 +30,27 @@ class SearchActivity : AppCompatActivity() {
         binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.searchBar.customSearchBar.requestFocus()
+        searchAdapter = SearchAdapter()
+        binding.rvSearch.apply {
+            layoutManager = LinearLayoutManager(this@SearchActivity)
+            adapter = searchAdapter
+//                .withLoadStateFooter(LoadingStateAdapter { searchAdapter.retry() })
+        }
 
+        binding.apply {
+            searchBar.customSearchBar.requestFocus()
+            btnCancel.setOnClickListener { onBackPressed() }
+        }
         setupAction()
     }
 
     private fun setupAction() {
         binding.searchBar.apply {
-            customSearchBar.setEndIconOnClickListener {
-                val keyword = etKeyword.text.toString().trim()
-                searchHotel(keyword)
-            }
-
-            etKeyword.setOnKeyListener { _, keyCode, event ->
+            etKeyword.setOnKeyListener { v, keyCode, event ->
                 if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
                     val keyword = etKeyword.text.toString().trim()
                     searchHotel(keyword)
+                    hideSoftKeyboard(v)
                     return@setOnKeyListener true
                 }
                 return@setOnKeyListener false
@@ -76,16 +83,25 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun searchHotel(keyword: String) {
-        val adapter = SearchAdapter()
-        binding.rvSearch.adapter = adapter
-        binding.rvSearch.layoutManager = LinearLayoutManager(this)
-        binding.rvSearch.adapter = adapter.withLoadStateFooter(
-            LoadingStateAdapter {
-                adapter.retry()
+        searchViewModel.hotelSearch(keyword).observe(this) {
+            when (it) {
+                is Result.Loading -> {
+
+                }
+                is Result.Success -> {
+                    val data = it.data.data
+                    searchAdapter.submitList(data)
+                }
+                else -> {
+
+                }
             }
-        )
-        searchViewModel.searchHotel(keyword).observe(this) {
-            adapter.submitData(lifecycle, it)
         }
+    }
+
+    private fun hideSoftKeyboard(view: View) {
+        val imm =
+            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }

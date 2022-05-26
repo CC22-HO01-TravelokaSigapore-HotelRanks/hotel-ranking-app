@@ -5,7 +5,6 @@ import androidx.lifecycle.liveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import androidx.paging.liveData
 import com.c22ho01.hotelranking.data.Result
 import com.c22ho01.hotelranking.data.remote.SearchPagingSource
 import com.c22ho01.hotelranking.data.remote.response.hotel.HotelData
@@ -36,15 +35,35 @@ class HotelRepository(private val hotelService: HotelService) {
         }
     }
 
-    fun searchHotel(keyword: String): LiveData<PagingData<HotelData>> {
-        return Pager(
+    fun hotelSearch(keyword: String): LiveData<Result<HotelResponse>> = liveData {
+        emit(Result.Loading)
+        wrapEspressoIdlingResource {
+            try {
+                val response = hotelService.hotelSearch(2, keyword)
+                if (response.isSuccessful) {
+                    emit(Result.Success(response.body() ?: HotelResponse()))
+                } else {
+                    val errorResponse = Gson().fromJson(
+                        response.errorBody()?.charStream(),
+                        HotelResponse::class.java
+                    )
+                    emit(Result.Error(errorResponse.message ?: "Error"))
+                }
+            } catch (e: Exception) {
+                emit(Result.Error(e.message.toString()))
+            }
+        }
+    }
+
+    fun searchHotel(keyword: String): LiveData<PagingData<HotelData>> = liveData {
+        Pager(
             config = PagingConfig(
                 pageSize = 5
             ),
             pagingSourceFactory = {
                 SearchPagingSource(hotelService, keyword)
             }
-        ).liveData
+        )
     }
 
     companion object {

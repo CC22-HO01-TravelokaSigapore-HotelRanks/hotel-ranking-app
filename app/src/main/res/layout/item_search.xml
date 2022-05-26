@@ -2,10 +2,12 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/Widget.Material3.CardView.Elevated"
+    style="?attr/materialCardViewElevatedStyle"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="16dp">
+    android:layout_height="135dp"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginBottom="16dp"
+    android:backgroundTint="?attr/colorSurface">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -13,8 +15,8 @@
 
         <ImageView
             android:id="@+id/imgHotel"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="130dp"
+            android:layout_height="0dp"
             android:contentDescription="@string/hotel_photo"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -23,46 +25,52 @@
             tools:srcCompat="@tools:sample/avatars" />
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardLocation"
+            android:id="@+id/cardRefund"
             style="@style/Widget.Material3.CardView.Filled"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="?attr/colorPrimary"
+            app:cardBackgroundColor="?attr/colorTertiaryContainer"
             app:cardCornerRadius="0dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvLocation"
+                android:id="@+id/tvRefund"
                 style="@style/TextAppearance.HotelRanking.LabelSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingVertical="2dp"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
-                android:textColor="?attr/colorOnPrimary"
-                tools:text="Bali" />
+                android:text="@string/free_refund"
+                android:textColor="?attr/colorOnTertiaryContainer" />
 
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvHotel"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:textAppearance="@style/TextAppearance.HotelRanking.TitleMedium"
+            android:layout_marginEnd="2dp"
+            android:textAppearance="@style/TextAppearance.HotelRanking.TitleSmall"
+            android:textColor="?attr/colorOnSurface"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imgHotel"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Sunset Beach Bali" />
+            tools:text="Sunset Beach Bali ddsdasdasdsaddsdsdsadsdsaddsdsdasdasds" />
 
         <RatingBar
             android:id="@+id/ratingBar"
-            style="@style/Widget.AppCompat.RatingBar.Small"
+            style="@android:style/Widget.Material.RatingBar.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
             android:isIndicator="true"
             android:numStars="5"
+            android:progressTint="?attr/colorPrimary"
+            android:rating="3"
             android:stepSize="0.1"
             app:layout_constraintStart_toStartOf="@+id/tvHotel"
             app:layout_constraintTop_toBottomOf="@+id/tvHotel" />
@@ -72,34 +80,66 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@string/rating"
             android:textAppearance="@style/TextAppearance.HotelRanking.LabelSmall"
+            android:textColor="?attr/colorOnSurfaceVariant"
             app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
             app:layout_constraintStart_toEndOf="@+id/ratingBar"
             app:layout_constraintTop_toTopOf="@+id/ratingBar"
             tools:text="0.0" />
 
-        <!--        <com.google.android.material.textview.MaterialTextView-->
-        <!--            android:id="@+id/tvFacilities"-->
-        <!--            android:layout_width="0dp"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginTop="4dp"-->
-        <!--            android:textAppearance="@style/TextAppearance.HotelRanking.BodySmall"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="@+id/ratingBar"-->
-        <!--            app:layout_constraintTop_toBottomOf="@+id/ratingBar"-->
-        <!--            tools:text="Pool • Parking • Cafe • Breakfast" />-->
+        <ImageView
+            android:id="@+id/locIcon"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_location"
+            app:layout_constraintStart_toStartOf="@+id/ratingBar"
+            app:layout_constraintTop_toBottomOf="@+id/ratingBar"
+            tools:ignore="ContentDescription" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvLocation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"
+            android:textAppearance="@style/TextAppearance.HotelRanking.LabelSmall"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/locIcon"
+            app:layout_constraintTop_toTopOf="@+id/locIcon"
+            tools:text="Bali" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/startFrom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/start_from"
+            android:textAppearance="@style/TextAppearance.HotelRanking.LabelMedium"
+            app:layout_constraintBottom_toBottomOf="@+id/tvPrice"
+            app:layout_constraintStart_toStartOf="@+id/locIcon"
+            app:layout_constraintTop_toTopOf="@+id/tvPrice" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/perNight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/night"
+            android:textAppearance="@style/TextAppearance.HotelRanking.BodySmall"
+            app:layout_constraintBottom_toBottomOf="@+id/tvPrice"
+            app:layout_constraintStart_toEndOf="@+id/tvPrice"
+            app:layout_constraintTop_toTopOf="@+id/tvPrice" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="@string/price"
+            android:layout_marginStart="4dp"
+            android:layout_marginBottom="4dp"
             android:textAppearance="@style/TextAppearance.HotelRanking.TitleMedium"
-            android:textColor="?attr/colorTertiary"
+            android:textColor="?attr/colorError"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/ratingBar"
+            app:layout_constraintStart_toEndOf="@+id/startFrom"
             tools:text="Rp500.000" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,6 +23,6 @@ object RepositoryInjection {
 
     fun provideHotelRepository(): HotelRepository {
         val apiService = APIConfig.getHotelApiService()
-        return HotelRepository(apiService)
+        return HotelRepository.getInstance(apiService)
     }
 }

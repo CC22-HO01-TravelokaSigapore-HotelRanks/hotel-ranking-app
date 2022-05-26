@@ -26,7 +26,7 @@
     <string name="menu">Menu</string>
     <string name="menu_description">Menu</string>
     <string name="hotel_recommendations">Hotel Recommendations</string>
-    <string name="trending">Trending</string>
+    <string name="top_rated">Top rated</string>
     <string name="near_your_location">Near your location</string>
     <string name="navbar_home">Home</string>
     <string name="navbar_order">Order</string>
@@ -47,7 +47,11 @@
     <string name="light">Light</string>
     <string name="dark">Dark</string>
     <string name="sign_out">Sign out</string>
-    <string name="rating">%1$d</string>
-    <string name="price">Rp%1d$.000</string>
+    <string name="rating">%1$f</string>
+    <string name="price">Rp%1$s.000</string>
     <string name="retry">Retry</string>
+    <string name="free_refund">Free Refund</string>
+    <string name="start_from">Start</string>
+    <string name="night">/night</string>
+    <string name="cancel">Cancel</string>
 </resources>

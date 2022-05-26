@@ -9,6 +9,7 @@ import com.c22ho01.hotelranking.data.repository.TokenRepository
 import com.c22ho01.hotelranking.injection.RepositoryInjection
 import com.c22ho01.hotelranking.viewmodel.auth.LoginViewModel
 import com.c22ho01.hotelranking.viewmodel.auth.RegisterViewModel
+import com.c22ho01.hotelranking.viewmodel.hotel.HomeViewModel
 import com.c22ho01.hotelranking.viewmodel.hotel.SearchViewModel
 import com.c22ho01.hotelranking.viewmodel.utils.TokenViewModel
 
@@ -33,6 +34,9 @@ private constructor(
             }
             modelClass.isAssignableFrom(SearchViewModel::class.java) -> {
                 SearchViewModel(hotelRepository) as T
+            }
+            modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
+                HomeViewModel(hotelRepository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

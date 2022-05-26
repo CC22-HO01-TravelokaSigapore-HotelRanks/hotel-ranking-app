@@ -2,29 +2,30 @@ package com.c22ho01.hotelranking.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.c22ho01.hotelranking.R
 import com.c22ho01.hotelranking.data.remote.response.hotel.HotelData
 import com.c22ho01.hotelranking.databinding.ItemSearchBinding
 
-class SearchAdapter : PagingDataAdapter<HotelData, SearchAdapter.ViewHolder>(DIFF_CALLBACK) {
+class SearchAdapter : ListAdapter<HotelData, SearchAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     class ViewHolder(private val binding: ItemSearchBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: HotelData) {
             binding.apply {
-                Glide.with(binding.root)
-                    .load(data.image.first())
-                    .transition(DrawableTransitionOptions.withCrossFade())
+                Glide.with(itemView)
+                    .load(data.image.first().trim())
+                    .centerCrop()
                     .into(imgHotel)
-                tvLocation.text = data.neighborhood
-                tvHotel.text = data.name
+                tvLocation.text = data.neighborhood.trim()
+                tvHotel.text = data.name.trim()
                 tvRating.text = data.star.toString()
-                tvPrice.text = data.pricePerNight.toString()
-                ratingBar.rating = data.star.toFloat()
+                val price = data.pricePerNight.toString()
+                tvPrice.text = itemView.resources.getString(R.string.price, price)
+                ratingBar.rating = data.star
             }
         }
     }

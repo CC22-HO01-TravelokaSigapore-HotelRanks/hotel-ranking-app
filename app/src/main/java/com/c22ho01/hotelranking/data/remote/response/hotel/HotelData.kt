@@ -25,7 +25,7 @@ data class HotelData(
     val neighborhood: String,
 
     @SerializedName("hotel_star")
-    val star: Double,
+    val star: Float,
 
     @SerializedName("price_per_night")
     val pricePerNight: Int,

@@ -9,15 +9,16 @@
         android:id="@+id/custom_search_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:endIconDrawable="@drawable/ic_search"
-        app:endIconMode="custom">
+        app:endIconMode="clear_text"
+        app:startIconDrawable="@drawable/ic_search">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etKeyword"
             style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/search_hint"
+            android:imeActionLabel="Search"
+            android:imeOptions="actionSearch"
             android:inputType="text"
             android:maxLines="1"
             tools:ignore="TextContrastCheck" />

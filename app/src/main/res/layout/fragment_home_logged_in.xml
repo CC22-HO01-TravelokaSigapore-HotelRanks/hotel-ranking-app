@@ -123,7 +123,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/trending"
+                android:text="@string/top_rated"
                 android:textAppearance="@style/TextAppearance.HotelRanking.TitleMedium"
                 app:layout_constraintStart_toStartOf="@+id/tvHotelRecommendation"
                 app:layout_constraintTop_toBottomOf="@+id/tvHotelRecommendation" />
@@ -141,7 +141,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvTrending"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
@@ -162,6 +162,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/rvTrending" />
 
             <ImageButton
+                android:id="@+id/imageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
