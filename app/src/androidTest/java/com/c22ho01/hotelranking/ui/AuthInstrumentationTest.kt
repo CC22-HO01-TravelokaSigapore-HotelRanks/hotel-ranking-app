@@ -28,7 +28,6 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 @LargeTest
 class AuthInstrumentationTest {
-    private val mockWebServer = MockWebServer()
 
     @get:Rule
     val activity = ActivityScenarioRule(AuthActivity::class.java)
@@ -44,7 +43,7 @@ class AuthInstrumentationTest {
     @Before
     fun setUp() {
         Intents.init()
-        mockWebServer.start(8080)
+        mockWebServer.start()
         IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
     }
 
@@ -216,10 +215,12 @@ class AuthInstrumentationTest {
     }
 
     companion object {
+        val mockWebServer = MockWebServer()
+
         @BeforeClass
         @JvmStatic
         fun setUpBaseUrl() {
-            APIConfig.BASE_URL = "http://localhost:8080"
+            APIConfig.BASE_URL = mockWebServer.url("/").toString()
         }
     }
 }

@@ -17,8 +17,10 @@ import com.c22ho01.hotelranking.ui.customview.ValidateableTextFieldTest
 import com.c22ho01.hotelranking.ui.profile.ProfileCustomizeActivity
 import com.c22ho01.hotelranking.utils.EspressoIdlingResource
 import com.c22ho01.hotelranking.utils.JsonConverter
+import com.google.android.material.chip.Chip
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
+import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.*
 import org.junit.runner.RunWith
@@ -27,8 +29,6 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 @LargeTest
 class ProfileCustomizeIInstrumentationTest {
-    private val mockWebServer = MockWebServer()
-
     @get:Rule
     val activity = ActivityScenarioRule(ProfileCustomizeActivity::class.java)
 
@@ -39,7 +39,7 @@ class ProfileCustomizeIInstrumentationTest {
     @Before
     fun setUp() {
         Intents.init()
-        mockWebServer.start(8080)
+        mockWebServer.start()
         IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
     }
 
@@ -71,7 +71,12 @@ class ProfileCustomizeIInstrumentationTest {
             matches(hasDescendant(withText("24/5/2022"))),
         )
         onView(withId(R.id.rb_prefer_with_family_yes)).perform(click())
-        onView(withText(dummyHobby)).perform(click())
+        onView(allOf(
+            withText(dummyHobby),
+            withClassName(equalTo(Chip::class.java.name)),
+            withEffectiveVisibility(Visibility.VISIBLE),
+            isDisplayed()
+        )).perform(click())
         onView(withId(R.id.btn_save_profile_customization)).check(matches(isEnabled()))
     }
 
@@ -94,15 +99,21 @@ class ProfileCustomizeIInstrumentationTest {
             )
         }
         onView(withId(R.id.rb_prefer_with_family_yes)).check(matches(isChecked()))
-        onView(withText(dummyHobby)).check(matches(isChecked()))
+        onView(allOf(
+            withText(dummyHobby),
+            withClassName(equalTo(Chip::class.java.name)),
+            withEffectiveVisibility(Visibility.VISIBLE),
+        )).check(matches(isChecked()))
         onView(withId(R.id.btn_save_profile_customization)).check(matches(isEnabled()))
     }
 
     companion object {
+        val mockWebServer = MockWebServer()
+
         @BeforeClass
         @JvmStatic
         fun setUpBaseUrl() {
-            APIConfig.BASE_URL = "http://localhost:8080"
+            APIConfig.BASE_URL = mockWebServer.url("/").toString()
         }
     }
 }

@@ -37,6 +37,16 @@ class ProfileCustomizeActivity : AppCompatActivity() {
     }
 
     private fun setupInitialCustomizationState() {
+        loadProfileData()
+        profileViewModel.getCurrentProfile().observe(this) {
+            setupFieldValidationListener(it)
+            setupFamilyRadioValidation(it.family)
+            setupHobbiesChipGroupValidation(it.hobby)
+            setupDisabilitiesChipGroupValidation(it.specialNeeds)
+        }
+    }
+
+    private fun loadProfileData() {
         profileViewModel.loadProfile().run {
             if (this.hasObservers()) this.removeObservers(this@ProfileCustomizeActivity)
             this.observe(this@ProfileCustomizeActivity) { result ->
@@ -45,10 +55,6 @@ class ProfileCustomizeActivity : AppCompatActivity() {
                         showLoading(true)
                     }
                     is Result.Success -> {
-                        setupFieldValidationListener(result.data)
-                        setupFamilyRadioValidation(result.data.family)
-                        setupHobbiesChipGroupValidation(result.data.hobby)
-                        setupDisabilitiesChipGroupValidation(result.data.specialNeeds)
                         showLoading(false)
                     }
                     is Result.Error -> {
@@ -127,10 +133,12 @@ class ProfileCustomizeActivity : AppCompatActivity() {
     }
 
     private fun setupHobbiesChipGroupValidation(initialSelected: List<HobbyEntity?>? = listOf()) {
+        binding?.cgHobbiesGroup?.removeAllViews()
         val hobbyList = profileCustomViewModel.getAllHobbyList()
         for (hobby in hobbyList) {
             val chip = Chip(this)
             val typedValue = TypedValue()
+
             theme.resolveAttribute(androidx.appcompat.R.attr.colorPrimary, typedValue, true)
             chip.apply {
                 text = getString(hobby.localizedLabel)
@@ -154,6 +162,7 @@ class ProfileCustomizeActivity : AppCompatActivity() {
     }
 
     private fun setupDisabilitiesChipGroupValidation(initialSelected: List<DisabilityEntity?>? = listOf()) {
+        binding?.cgDisabilitiesGroup?.removeAllViews()
         val disabilityList = profileCustomViewModel.getAllDisabilityList()
         for (disability in disabilityList) {
             val chip = Chip(this)

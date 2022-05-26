@@ -1,6 +1,5 @@
 package com.c22ho01.hotelranking.data.repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
@@ -10,15 +9,18 @@ import com.c22ho01.hotelranking.data.local.entity.DisabilityEntity
 import com.c22ho01.hotelranking.data.local.entity.HobbyEntity
 import com.c22ho01.hotelranking.data.local.entity.ProfileEntity
 import com.c22ho01.hotelranking.data.remote.response.profile.ProfileGetResponse
+import com.c22ho01.hotelranking.data.remote.response.profile.ProfilePutResponse
 import com.c22ho01.hotelranking.data.remote.retrofit.ProfileService
+import com.c22ho01.hotelranking.utils.DateUtils
 import com.c22ho01.hotelranking.utils.wrapEspressoIdlingResource
 import com.google.gson.Gson
+import java.util.*
 
 class ProfileRepository(
     private val profileService: ProfileService
 ) {
 
-    private var _currentProfile = MutableLiveData<ProfileEntity>()
+    private var _currentProfile = MutableLiveData(ProfileEntity())
     val currentProfile: LiveData<ProfileEntity>
         get() = _currentProfile
 
@@ -66,7 +68,6 @@ class ProfileRepository(
                     userToken,
                     currentProfile.value?.id ?: -1,
                 )
-                Log.d("ProfileRepository", "getProfile: $response")
                 if (response.isSuccessful) {
                     var profile = ProfileEntity.fromGetResponse(
                         response.body() ?: ProfileGetResponse(),
@@ -75,8 +76,7 @@ class ProfileRepository(
                     val hobbies = responseData?.hobby?.map { hobbyResponse ->
                         hobbyList.find { hobbyRepo ->
                             hobbyRepo.fromResponseLabel == hobbyResponse?.let { raw ->
-                                Regex("[^A-Za-z0-9 ]")
-                                    .replace(raw, "")
+                                Regex("[^A-Za-z0-9 ]").replace(raw, "")
                             }
                         }
                     }
@@ -84,8 +84,7 @@ class ProfileRepository(
                     val disabilities = responseData?.specialNeeds?.map { specialNeedsResponse ->
                         disabilityList.find { disabilityRepo ->
                             disabilityRepo.fromResponseLabel == specialNeedsResponse?.let { raw ->
-                                Regex("[^A-Za-z0-9 ]")
-                                    .replace(raw, "")
+                                Regex("[^A-Za-z0-9 ]").replace(raw, "")
                             }
                         }
                     }
@@ -108,6 +107,42 @@ class ProfileRepository(
             }
         }
     }
+
+    fun updateProfile(userToken: String, profile: ProfileEntity): LiveData<Result<ProfileEntity>> =
+        liveData {
+            wrapEspressoIdlingResource {
+                emit(Result.Loading)
+                try {
+                    val response = profileService.updateUserById(
+                        token = userToken,
+                        id = profile.id,
+                        name = profile.name,
+                        birthDate = DateUtils.formatDateToStringDash(profile.birthDate ?: Date()),
+                        nid = profile.nid,
+                        family = profile.family,
+                        hobby = profile.hobby?.map { it?.fromResponseLabel }?.toList()
+                            ?.joinToString(","),
+                        specialNeeds = profile.specialNeeds?.map { it?.fromResponseLabel }?.toList()
+                            ?.joinToString(","),
+                        searchHistory = profile.searchHistory?.joinToString(","),
+                        stayHistory = profile.stayHistory?.joinToString(","),
+                    )
+
+                    if (response.isSuccessful) {
+                        _currentProfile.postValue(profile)
+                        emit(Result.Success(profile))
+                    } else {
+                        val errorResponse = Gson().fromJson(
+                            response.errorBody()?.charStream(),
+                            ProfilePutResponse::class.java
+                        )
+                        emit(Result.Error(errorResponse.message ?: "Error"))
+                    }
+                } catch (e: Exception) {
+                    emit(Result.Error(e.message.toString()))
+                }
+            }
+        }
 
     fun setProfileId(profileId: Int) {
         _currentProfile.postValue(

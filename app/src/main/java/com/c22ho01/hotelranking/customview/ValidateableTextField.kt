@@ -142,7 +142,7 @@ class ValidateableTextField : ConstraintLayout {
     fun setSelectedDate(date: Date?) {
         if(date != null) {
             selectedDate = date
-            val dateStr = DateUtils.formatDateToString(date)
+            val dateStr = DateUtils.formatDateToStringSlash(date)
             setText(dateStr)
         }
     }
