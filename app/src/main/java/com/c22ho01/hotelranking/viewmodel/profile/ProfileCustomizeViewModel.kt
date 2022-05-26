@@ -121,10 +121,9 @@ class ProfileCustomizeViewModel(
 
     fun customizeProfile(
         userToken: String,
-        id: Int
+        profile: ProfileEntity,
     ): LiveData<Result<ProfileEntity>> {
-        val entity = ProfileEntity(
-            id = id,
+        val newProfile = profile.copy(
             name = _fullName.value,
             nid = _nid.value,
             birthDate = _birthDate.value,
@@ -133,12 +132,10 @@ class ProfileCustomizeViewModel(
             specialNeeds = _selectedDisabilities.value
         )
 
-        val result = profileRepository.updateProfile(
+        return profileRepository.updateProfile(
             userToken = userToken,
-            profile = entity
+            profile = newProfile,
         )
-
-        return result
     }
 
 

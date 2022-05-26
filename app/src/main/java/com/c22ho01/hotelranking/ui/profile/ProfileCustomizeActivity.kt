@@ -226,7 +226,7 @@ class ProfileCustomizeActivity : AppCompatActivity() {
     private fun customizeProfile() {
         profileCustomViewModel.customizeProfile(
             userToken = profileViewModel.userToken,
-            id = profileViewModel.getProfileID() ?: -1,
+            profile = profileViewModel.getCurrentProfile().value ?: ProfileEntity(),
         ).run {
             if (this.hasObservers()) this.removeObservers(this@ProfileCustomizeActivity)
             this.observe(this@ProfileCustomizeActivity) { result ->

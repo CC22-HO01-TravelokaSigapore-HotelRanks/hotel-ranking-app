@@ -100,7 +100,7 @@ class ProfileCustomizeViewModelTest {
             expectedResult
         )
 
-        val actualResult = profileCustomizeViewModel.customizeProfile(dummyToken, profileEntity.id!!)
+        val actualResult = profileCustomizeViewModel.customizeProfile(dummyToken, profileEntity)
 
         Assert.assertNotNull(actualResult)
         Assert.assertEquals(expectedResult, actualResult)
