@@ -190,34 +190,37 @@ class ProfileCustomizeActivity : AppCompatActivity() {
     }
 
     private fun setupDisabilitiesChipGroupValidation(initialSelected: List<DisabilityEntity?>? = listOf()) {
-        binding?.cgDisabilitiesGroup?.removeAllViews()
-        val disabilityList = profileCustomViewModel.getAllDisabilityList()
-        for (disability in disabilityList) {
-            val chip = Chip(this)
-            val typedValue = TypedValue()
-            theme.resolveAttribute(androidx.appcompat.R.attr.colorPrimary, typedValue, true)
-            chip.apply {
-                layoutParams = ChipGroup.LayoutParams(
-                    ChipGroup.LayoutParams.MATCH_PARENT,
-                    ChipGroup.LayoutParams.WRAP_CONTENT,
-                )
-                text = getString(disability.localizedLabel)
-                setChipIconResource(disability.icon)
-                isCloseIconVisible = false
-                isCheckable = true
-                setEnsureMinTouchTargetSize(false)
-                chipIconTint = ColorStateList.valueOf(typedValue.data)
-                setTextAppearance(R.style.TextAppearance_HotelRanking_LabelLarge)
-                setOnCheckedChangeListener { _, isChecked ->
-                    profileCustomViewModel.setDisabilityChecked(disability, isChecked)
+        wrapEspressoIdlingResource {
+            binding?.cgDisabilitiesGroup?.removeAllViews()
+            val disabilityList = profileCustomViewModel.getAllDisabilityList()
+            for (disability in disabilityList) {
+                val chip = Chip(this)
+                val typedValue = TypedValue()
+                theme.resolveAttribute(androidx.appcompat.R.attr.colorPrimary, typedValue, true)
+                chip.apply {
+                    layoutParams = ChipGroup.LayoutParams(
+                        ChipGroup.LayoutParams.MATCH_PARENT,
+                        ChipGroup.LayoutParams.WRAP_CONTENT,
+                    )
+                    text = getString(disability.localizedLabel)
+                    setChipIconResource(disability.icon)
+                    isCloseIconVisible = false
+                    isCheckable = true
+                    setEnsureMinTouchTargetSize(false)
+                    chipIconTint = ColorStateList.valueOf(typedValue.data)
+                    setTextAppearance(R.style.TextAppearance_HotelRanking_LabelLarge)
+                    setOnCheckedChangeListener { _, isChecked ->
+                        profileCustomViewModel.setDisabilityChecked(disability, isChecked)
+                    }
+                    if (initialSelected?.contains(disability) == true) {
+                        isChecked = true
+                        profileCustomViewModel.setDisabilityChecked(disability, true)
+                    }
                 }
-                if (initialSelected?.contains(disability) == true) {
-                    isChecked = true
-                    profileCustomViewModel.setDisabilityChecked(disability, true)
-                }
+                binding?.cgDisabilitiesGroup?.addView(chip)
             }
-            binding?.cgDisabilitiesGroup?.addView(chip)
         }
+
     }
 
     private fun customizeProfile() {

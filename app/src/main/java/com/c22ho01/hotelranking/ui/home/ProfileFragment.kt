@@ -40,9 +40,7 @@ class ProfileFragment : Fragment() {
 
     private fun setupButtonListener() {
         binding?.btnGoToCustomizeProfile?.setOnClickListener {
-            val intent = Intent(activity, ProfileCustomizeActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-            }
+            val intent = Intent(activity, ProfileCustomizeActivity::class.java)
             startActivity(intent)
         }
     }
@@ -75,11 +73,11 @@ class ProfileFragment : Fragment() {
         profileViewModel.getCurrentProfile().observe(viewLifecycleOwner) { profile ->
             binding?.run {
                 tvEmail.text = profile.email
-                tvName.text = profile.name
-                tvHobby.text = profile.hobby?.joinToString(", ") { h ->
+                tvName.text = profile.name ?: profile.userName
+                tvHobby.text = profile.hobby?.joinToString() { h ->
                     h?.localizedLabel?.let { getString(it) } ?: "-"
                 }
-                tvSpecialNeeds.text = profile.specialNeeds?.joinToString(", ") { sn ->
+                tvSpecialNeeds.text = profile.specialNeeds?.joinToString() { sn ->
                     sn?.localizedLabel?.let { getString(it) } ?: "-"
                 }
                 tvPrefer.text =

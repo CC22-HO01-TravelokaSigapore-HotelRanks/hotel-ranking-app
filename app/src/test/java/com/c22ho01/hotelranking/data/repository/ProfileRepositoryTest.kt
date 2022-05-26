@@ -100,10 +100,10 @@ class ProfileRepositoryTest {
                     nid = newProfileEntity.nid,
                     family = newProfileEntity.family,
                     hobby = newProfileEntity.hobby?.map { it?.fromResponseLabel }?.toList()
-                        ?.joinToString(","),
+                        ?.joinToString(),
                     specialNeeds = newProfileEntity.specialNeeds?.map { it?.fromResponseLabel }
                         ?.toList()
-                        ?.joinToString(","),
+                        ?.joinToString(),
                     searchHistory = newProfileEntity.searchHistory?.joinToString(","),
                     stayHistory = newProfileEntity.stayHistory?.joinToString(","),
                 )

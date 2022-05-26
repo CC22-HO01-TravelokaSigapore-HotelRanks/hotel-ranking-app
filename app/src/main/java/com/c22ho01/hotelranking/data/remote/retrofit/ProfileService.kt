@@ -14,6 +14,7 @@ interface ProfileService {
     ): Response<ProfileGetResponse>
 
     @PUT("user/{id}")
+    @FormUrlEncoded
     suspend fun updateUserById(
         @Header("Authorization") token: String,
         @Path("id") id: Int?,

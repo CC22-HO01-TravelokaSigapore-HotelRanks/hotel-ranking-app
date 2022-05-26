@@ -121,9 +121,9 @@ class ProfileRepository(
                         nid = profile.nid,
                         family = profile.family,
                         hobby = profile.hobby?.map { it?.fromResponseLabel }?.toList()
-                            ?.joinToString(","),
+                            ?.joinToString(),
                         specialNeeds = profile.specialNeeds?.map { it?.fromResponseLabel }?.toList()
-                            ?.joinToString(","),
+                            ?.joinToString(),
                         searchHistory = profile.searchHistory?.joinToString(","),
                         stayHistory = profile.stayHistory?.joinToString(","),
                     )
@@ -133,7 +133,7 @@ class ProfileRepository(
                         emit(Result.Success(profile))
                     } else {
                         val errorResponse = Gson().fromJson(
-                            response.errorBody()?.charStream(),
+                            response.raw().body.charStream(),
                             ProfilePutResponse::class.java
                         )
                         emit(Result.Error(errorResponse.message ?: "Error"))

@@ -14,7 +14,7 @@ object DateUtils {
     }
 
     fun formatDateToStringDash(date: Date): String {
-        return SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(date)
+        return SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(date)
     }
 
     fun parseISODateFromString(date: String): Date? {

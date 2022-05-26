@@ -50,10 +50,6 @@ class ProfileCustomizeInstrumentationTest {
         IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
     }
 
-    private fun fillAllFieldWithValidValues() {
-
-    }
-
     @Test
     fun whenAllFieldsAreValid_saveButtonIsEnabled() {
         val mockResponse =
@@ -109,11 +105,6 @@ class ProfileCustomizeInstrumentationTest {
             withEffectiveVisibility(Visibility.VISIBLE),
         )).check(matches(isChecked()))
         onView(withId(R.id.btn_save_profile_customization)).check(matches(isEnabled()))
-    }
-
-    @Test
-    fun whenProfileCustomizationIsSuccess_navigateToProfileFragment() {
-
     }
 
     companion object {
