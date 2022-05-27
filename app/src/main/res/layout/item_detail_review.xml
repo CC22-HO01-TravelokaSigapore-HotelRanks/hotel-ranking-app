@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginLeft="8dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginRight="8dp"
+    android:layout_marginBottom="4dp"
+    card_view:cardCornerRadius="0dp"
+    card_view:strokeWidth="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/itemUsername"
+            style="@style/TextAppearance.HotelRanking.LabelMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/username"
+            android:textStyle="bold"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent" />
+
+        <RatingBar
+            android:id="@+id/itemRating"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:numStars="5"
+            android:progressTint="@color/md_theme_light_primary"
+            android:rating="3"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@id/itemUsername" />
+
+        <TextView
+            android:id="@+id/ratingText"
+            style="@style/TextAppearance.HotelRanking.LabelSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/rating"
+            card_view:layout_constraintBottom_toBottomOf="@+id/itemRating"
+            card_view:layout_constraintStart_toEndOf="@id/itemRating"
+            card_view:layout_constraintTop_toTopOf="@+id/itemRating" />
+
+        <TextView
+            android:id="@+id/itemReview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="Lorem ipsum dolor sit amet"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@id/itemRating" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="8dp"
+            android:background="@android:color/darker_gray"
+            card_view:layout_constraintBottom_toTopOf="@id/itemUsername"
+            card_view:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="16dp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

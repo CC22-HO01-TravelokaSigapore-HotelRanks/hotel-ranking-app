@@ -5,18 +5,22 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.c22ho01.hotelranking.data.repository.AuthRepository
 import com.c22ho01.hotelranking.data.repository.HotelRepository
+import com.c22ho01.hotelranking.data.repository.ProfileRepository
 import com.c22ho01.hotelranking.data.repository.TokenRepository
 import com.c22ho01.hotelranking.injection.RepositoryInjection
 import com.c22ho01.hotelranking.viewmodel.auth.LoginViewModel
 import com.c22ho01.hotelranking.viewmodel.auth.RegisterViewModel
 import com.c22ho01.hotelranking.viewmodel.hotel.HomeViewModel
 import com.c22ho01.hotelranking.viewmodel.hotel.SearchViewModel
+import com.c22ho01.hotelranking.viewmodel.profile.ProfileCustomizeViewModel
+import com.c22ho01.hotelranking.viewmodel.profile.ProfileViewModel
 import com.c22ho01.hotelranking.viewmodel.utils.TokenViewModel
 
 class ViewModelFactory
 private constructor(
     private val authRepository: AuthRepository,
     private val tokenRepository: TokenRepository,
+    private val profileRepository: ProfileRepository,
     private val hotelRepository: HotelRepository
 ) : ViewModelProvider.NewInstanceFactory() {
 
@@ -38,6 +42,12 @@ private constructor(
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
                 HomeViewModel(hotelRepository) as T
             }
+            modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
+                ProfileViewModel(profileRepository, tokenRepository) as T
+            }
+            modelClass.isAssignableFrom(ProfileCustomizeViewModel::class.java) -> {
+                ProfileCustomizeViewModel(profileRepository) as T
+            }
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
     }
@@ -52,6 +62,8 @@ private constructor(
                     instance
                         ?: ViewModelFactory(
                             RepositoryInjection.provideAuthRepository(),
+                            RepositoryInjection.provideTokenRepository(context),
+                            RepositoryInjection.provideProfileRepository(),
                             RepositoryInjection.provideTokenRepository(context),
                             RepositoryInjection.provideHotelRepository()
                         )

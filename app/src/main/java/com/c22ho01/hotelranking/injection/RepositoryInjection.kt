@@ -7,6 +7,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.c22ho01.hotelranking.data.remote.retrofit.APIConfig
 import com.c22ho01.hotelranking.data.repository.AuthRepository
 import com.c22ho01.hotelranking.data.repository.HotelRepository
+import com.c22ho01.hotelranking.data.repository.ProfileRepository
 import com.c22ho01.hotelranking.data.repository.TokenRepository
 
 object RepositoryInjection {
@@ -19,6 +20,11 @@ object RepositoryInjection {
 
     fun provideTokenRepository(context: Context): TokenRepository {
         return TokenRepository.getInstance(context.dataStore)
+    }
+
+    fun provideProfileRepository(): ProfileRepository {
+        val apiService = APIConfig.getProfileAPIService()
+        return ProfileRepository.getInstance(apiService)
     }
 
     fun provideHotelRepository(): HotelRepository {

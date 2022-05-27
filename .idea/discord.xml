@@ -2,6 +2,8 @@
 <project version="4">
   <component name="DiscordProjectSettings">
     <option name="show" value="PROJECT_FILES" />
-    <option name="description" value="" />
+    <option name="nameOverrideEnabled" value="true" />
+    <option name="nameOverrideText" value="Mentorlessn't Capstone" />
+    <option name="description" value="Finally we got mentor... or is it?" />
   </component>
 </project>

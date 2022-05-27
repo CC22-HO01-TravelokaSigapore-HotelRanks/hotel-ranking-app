@@ -13,7 +13,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HotelRanking"
         android:usesCleartextTraffic="true"
+        tools:ignore="ExtraText"
         tools:targetApi="m">
+        android:theme="@style/Theme.HotelRanking">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="YOUR_API_KEY" />
+
+        <activity
+            android:name=".ui.profile.ProfileCustomizeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.detail.DetailActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.home.SearchActivity"
             android:exported="false" />
@@ -30,7 +42,6 @@
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

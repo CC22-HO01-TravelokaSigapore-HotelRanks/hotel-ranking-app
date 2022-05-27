@@ -9,6 +9,7 @@ import com.c22ho01.hotelranking.data.remote.response.auth.LoginResponse
 import com.c22ho01.hotelranking.data.remote.response.auth.RegisterResponse
 import com.c22ho01.hotelranking.data.remote.retrofit.AuthService
 import com.c22ho01.hotelranking.utils.EspressoIdlingResource
+import com.c22ho01.hotelranking.utils.MainCoroutineRuleUnitTest
 import com.c22ho01.hotelranking.utils.captureValues
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
@@ -30,8 +31,7 @@ class AuthRepositoryTest {
     var instantExecutorRule = InstantTaskExecutorRule()
 
     @get:Rule
-    var mainCoroutineRulesUnitTest =
-        com.c22ho01.hotelranking.utils.MainCoroutineRuleUnitTest(UnconfinedTestDispatcher())
+    var mainCoroutineRulesUnitTest = MainCoroutineRuleUnitTest(UnconfinedTestDispatcher())
 
     @Mock
     private lateinit var authService: AuthService
@@ -104,7 +104,7 @@ class AuthRepositoryTest {
                     status = "success",
                     loginData = LoginData(
                         userId = 1,
-                        token = "token",
+                        accessToken = "token",
                     ),
                 )
             val expectedResult = Result.Success(dummyResponse)

@@ -5,6 +5,12 @@
             <enum name="EMAIL" value="0" />
             <enum name="PASSWORD" value="1" />
             <enum name="PASSWORD_CONFIRMATION" value="2" />
+            <enum name="DATE" value="3" />
+        </attr>
+        <attr name="validFieldInputType" format="enum">
+            <enum name="TEXT" value="0" />
+            <enum name="NUMBER" value="1" />>
+            <enum name="DATE" value="2" />
         </attr>
         <attr name="validFieldValue" format="string" />
         <attr name="validFieldHint" format="string" />

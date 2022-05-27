@@ -16,22 +16,22 @@ class RegisterViewModel(private val authRepository: AuthRepository) : ViewModel(
 
     var formValid: MediatorLiveData<Boolean> = MediatorLiveData()
 
-    private fun checkAnyFormValueTrue(): Boolean {
+    private fun checkEveryValidationValueTrue(): Boolean {
         return _usernameValid.value ?: false && _emailValid.value ?: false && _passwordValid.value ?: false && _confirmPasswordValid.value ?: false
     }
 
     init {
         formValid.addSource(_usernameValid) {
-            formValid.value = checkAnyFormValueTrue()
+            formValid.value = checkEveryValidationValueTrue()
         }
         formValid.addSource(_emailValid) {
-            formValid.value = checkAnyFormValueTrue()
+            formValid.value = checkEveryValidationValueTrue()
         }
         formValid.addSource(_passwordValid) {
-            formValid.value = checkAnyFormValueTrue()
+            formValid.value = checkEveryValidationValueTrue()
         }
         formValid.addSource(_confirmPasswordValid) {
-            formValid.value = checkAnyFormValueTrue()
+            formValid.value = checkEveryValidationValueTrue()
         }
     }
 

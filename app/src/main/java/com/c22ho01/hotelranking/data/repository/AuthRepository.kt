@@ -50,7 +50,7 @@ class AuthRepository(private val authService: AuthService) {
                 } else {
                     val errorResponse = Gson().fromJson(
                         response.errorBody()?.charStream(),
-                        RegisterResponse::class.java
+                        LoginResponse::class.java
                     )
                     emit(Result.Error(errorResponse.message ?: "Error"))
                 }
