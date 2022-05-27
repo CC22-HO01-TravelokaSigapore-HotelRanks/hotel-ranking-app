@@ -129,7 +129,7 @@ class LoginFragment : Fragment() {
                     if (url?.contains("code=") == true) {
                         val injectScript =
                             "javascript:Android.onResult(200, document.body.children[0].innerText);"
-                        webView.loadUrl(injectScript);
+                        webView.loadUrl(injectScript)
                         authGoogleDialog.dismiss()
                     }
                 }
