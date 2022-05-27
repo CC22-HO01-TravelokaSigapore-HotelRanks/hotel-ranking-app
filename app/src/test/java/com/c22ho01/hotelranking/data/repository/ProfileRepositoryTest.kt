@@ -89,7 +89,7 @@ class ProfileRepositoryTest {
                     profileRepository.hobbyList[3],
                 ),
             )
-            val expectedResponse = ProfilePutResponse(message = "success" )
+            val expectedResponse = ProfilePutResponse(message = "success")
 
             Mockito.`when`(
                 profileService.updateUserById(
@@ -116,7 +116,10 @@ class ProfileRepositoryTest {
                 newProfileEntity
             ).captureValues {
                 Assert.assertNotNull(values)
-                Assert.assertEquals(arrayListOf(Result.Loading, Result.Success(newProfileEntity)), values)
+                Assert.assertEquals(
+                    arrayListOf(Result.Loading, Result.Success(newProfileEntity)),
+                    values
+                )
             }
             val newCurrentProfile = profileRepository.currentProfile.getOrAwaitValue()
             Assert.assertNotEquals(newCurrentProfile, oldCurrentProfile)

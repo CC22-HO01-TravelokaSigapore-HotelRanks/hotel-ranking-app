@@ -143,6 +143,7 @@ class ProfileRepository(
                 }
             }
         }
+
     fun setProfileId(profileId: Int) {
         _currentProfile.postValue(
             _currentProfile.value?.copy(id = profileId) ?: ProfileEntity(id = profileId)

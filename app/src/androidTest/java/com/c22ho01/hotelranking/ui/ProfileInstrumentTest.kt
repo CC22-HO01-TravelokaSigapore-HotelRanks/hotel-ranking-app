@@ -89,7 +89,7 @@ class ProfileInstrumentTest {
     }
 
     @Test
-    fun whenProfileIsCustomized_updateProfileData(){
+    fun whenProfileIsCustomized_updateProfileData() {
         val mockDefaultProfileResponse =
             MockResponse()
                 .setResponseCode(200)
@@ -145,7 +145,10 @@ class ProfileInstrumentTest {
                 .setResponseCode(200)
                 .setBody(JsonConverter.readStringFromFile("profile_put_success_response.json"))
         mockWebServer.enqueue(mockProfilePutSuccessResponse)
-        onView(ViewMatchers.withId(R.id.btn_save_profile_customization)).perform(scrollTo(), click())
+        onView(ViewMatchers.withId(R.id.btn_save_profile_customization)).perform(
+            scrollTo(),
+            click()
+        )
         onView(withId(R.id.tvEmail)).check(matches(withText(dummyEmail)))
         onView(withId(R.id.tvName)).check(matches(withText(dummyFullName)))
         onView(withId(R.id.tvPrefer)).check(matches(withText(R.string.yes)))

@@ -6,7 +6,7 @@ import androidx.annotation.StringRes
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class HobbyEntity (
+data class HobbyEntity(
     val id: Int,
     @StringRes val localizedLabel: Int,
     val fromResponseLabel: String,
