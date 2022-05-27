@@ -67,10 +67,10 @@ class ProfileFragment : Fragment() {
             binding?.run {
                 tvEmail.text = profile.email
                 tvName.text = profile.name ?: profile.userName
-                tvHobby.text = profile.hobby?.joinToString() { h ->
+                tvHobby.text = profile.hobby?.joinToString { h ->
                     h?.localizedLabel?.let { getString(it) } ?: "-"
                 }
-                tvSpecialNeeds.text = profile.specialNeeds?.joinToString() { sn ->
+                tvSpecialNeeds.text = profile.specialNeeds?.joinToString { sn ->
                     sn?.localizedLabel?.let { getString(it) } ?: "-"
                 }
                 tvPrefer.text =

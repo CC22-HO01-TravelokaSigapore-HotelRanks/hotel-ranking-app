@@ -13,9 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HotelRanking"
         android:usesCleartextTraffic="true"
-        tools:ignore="ExtraText"
         tools:targetApi="m">
-        android:theme="@style/Theme.HotelRanking">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="YOUR_API_KEY" />
