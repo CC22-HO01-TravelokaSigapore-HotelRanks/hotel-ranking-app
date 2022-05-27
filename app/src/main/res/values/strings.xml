@@ -51,7 +51,8 @@
     <string name="price">Rp%1$s.000</string>
     <string name="retry">Retry</string>
     <string name="free_refund">Free Refund</string>
-    <string name="start_from">Start</string>
+    <string name="start">Start</string>
     <string name="night">/night</string>
     <string name="cancel">Cancel</string>
+    <string name="start_from">Start from</string>
 </resources>

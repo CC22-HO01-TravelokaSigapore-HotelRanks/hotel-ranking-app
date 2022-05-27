@@ -45,6 +45,9 @@ class HomeGuestFragment : Fragment() {
             )
             adapter = cardAdapter
             setHasFixedSize(true)
+            addItemDecoration(
+                CardAdapter.MarginItemDecoration(48)
+            )
         }
 
         homeViewModel.getFiveStar().observe(viewLifecycleOwner) {

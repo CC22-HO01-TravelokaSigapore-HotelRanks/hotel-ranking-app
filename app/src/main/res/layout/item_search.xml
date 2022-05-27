@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="?attr/materialCardViewElevatedStyle"
     android:layout_width="match_parent"
-    android:layout_height="135dp"
+    android:layout_height="130dp"
     android:layout_marginHorizontal="16dp"
-    android:layout_marginBottom="16dp"
     android:backgroundTint="?attr/colorSurface">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,13 +35,12 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvRefund"
-                style="@style/TextAppearance.HotelRanking.LabelSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="4dp"
                 android:paddingVertical="2dp"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
                 android:text="@string/free_refund"
+                android:textAppearance="@style/TextAppearance.HotelRanking.LabelSmall"
                 android:textColor="?attr/colorOnTertiaryContainer" />
 
         </com.google.android.material.card.MaterialCardView>
@@ -91,7 +89,7 @@
             android:id="@+id/locIcon"
             android:layout_width="16dp"
             android:layout_height="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:src="@drawable/ic_location"
             app:layout_constraintStart_toStartOf="@+id/ratingBar"
             app:layout_constraintTop_toBottomOf="@+id/ratingBar"
@@ -113,7 +111,7 @@
             android:id="@+id/startFrom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/start_from"
+            android:text="@string/start"
             android:textAppearance="@style/TextAppearance.HotelRanking.LabelMedium"
             app:layout_constraintBottom_toBottomOf="@+id/tvPrice"
             app:layout_constraintStart_toStartOf="@+id/locIcon"

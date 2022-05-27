@@ -34,6 +34,9 @@ class SearchActivity : AppCompatActivity() {
         binding.rvSearch.apply {
             layoutManager = LinearLayoutManager(this@SearchActivity)
             adapter = searchAdapter
+            addItemDecoration(
+                SearchAdapter.MarginItemDecoration(48)
+            )
 //                .withLoadStateFooter(LoadingStateAdapter { searchAdapter.retry() })
         }
 

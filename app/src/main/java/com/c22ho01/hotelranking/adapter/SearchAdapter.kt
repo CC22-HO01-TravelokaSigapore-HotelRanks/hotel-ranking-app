@@ -1,6 +1,8 @@
 package com.c22ho01.hotelranking.adapter
 
+import android.graphics.Rect
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -44,6 +46,22 @@ class SearchAdapter : ListAdapter<HotelData, SearchAdapter.ViewHolder>(DIFF_CALL
             false
         )
         return ViewHolder(binding)
+    }
+
+    class MarginItemDecoration(private val spaceSize: Int) : RecyclerView.ItemDecoration() {
+        override fun getItemOffsets(
+            outRect: Rect,
+            view: View,
+            parent: RecyclerView,
+            state: RecyclerView.State
+        ) {
+            with(outRect) {
+                if (parent.getChildAdapterPosition(view) == 0) {
+                    top = spaceSize
+                }
+                bottom = spaceSize
+            }
+        }
     }
 
     companion object {
