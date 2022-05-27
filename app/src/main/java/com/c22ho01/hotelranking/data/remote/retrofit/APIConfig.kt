@@ -31,7 +31,7 @@ object APIConfig {
     }
 
     fun getProfileAPIService(): ProfileService {
-        val retrofit = getRetrofit(BASE_URL)
+        val retrofit = getRetrofit(AUTH_BASE_URL)
         return retrofit.create(ProfileService::class.java)
     }
 }

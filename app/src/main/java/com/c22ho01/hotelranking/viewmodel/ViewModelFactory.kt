@@ -64,7 +64,6 @@ private constructor(
                             RepositoryInjection.provideAuthRepository(),
                             RepositoryInjection.provideTokenRepository(context),
                             RepositoryInjection.provideProfileRepository(),
-                            RepositoryInjection.provideTokenRepository(context),
                             RepositoryInjection.provideHotelRepository()
                         )
                             .also { instance = it }
