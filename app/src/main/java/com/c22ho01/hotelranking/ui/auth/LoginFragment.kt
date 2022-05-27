@@ -3,9 +3,7 @@ package com.c22ho01.hotelranking.ui.auth
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -124,15 +122,6 @@ class LoginFragment : Fragment() {
                 "Mozilla/5.0 (Linux; Android 8.0; Pixel 2 Build/OPD3.170816.012) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Mobile Safari/537.36"
             loadUrl(APIConfig.BASE_URL + "user/login/google")
             webViewClient = object : WebViewClient() {
-                @Override
-                override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-                    if (url?.contains("code=") == true) {
-                        val code = url.split("code=")[1]
-                        Log.d("code", code)
-                        authGoogleDialog.dismiss()
-                    }
-                    super.onPageStarted(view, url, favicon)
-                }
 
                 @Override
                 override fun onPageFinished(view: WebView?, url: String?) {
