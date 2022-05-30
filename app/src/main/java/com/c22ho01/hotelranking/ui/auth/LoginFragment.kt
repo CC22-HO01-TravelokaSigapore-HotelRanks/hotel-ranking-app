@@ -3,7 +3,6 @@ package com.c22ho01.hotelranking.ui.auth
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -125,7 +124,32 @@ class LoginFragment : Fragment() {
     ) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             val account = GoogleSignIn.getSignedInAccountFromIntent(result.data)
-            Log.d("GoogleSignIn", "account: ${account.result.idToken}")
+            account.result.serverAuthCode?.let { code ->
+                loginViewModel.submitLoginByGoogle(code).run {
+                    if (this.hasObservers()) this.removeObservers(viewLifecycleOwner)
+                    this.observe(viewLifecycleOwner) {
+                        when (it) {
+                            is Result.Loading -> {
+                                showLoading(true)
+                            }
+                            is Result.Success -> {
+                                showLoading(false)
+                                loginSuccessCallback(it.data)
+                            }
+                            is Result.Error -> {
+                                showLoading(false)
+                                binding?.let { fragment ->
+                                    Snackbar.make(
+                                        fragment.root,
+                                        it.error,
+                                        Snackbar.LENGTH_LONG,
+                                    ).show()
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 

@@ -62,6 +62,28 @@ class AuthRepository(
         }
     }
 
+    fun submitLoginByGoogle(
+        code: String
+    ): LiveData<Result<LoginResponse>> = liveData {
+        emit(Result.Loading)
+        wrapEspressoIdlingResource {
+            try {
+                val response = authService.loginGoogle(code)
+                if (response.isSuccessful) {
+                    emit(Result.Success(response.body() ?: LoginResponse()))
+                } else {
+                    val errorResponse = Gson().fromJson(
+                        response.errorBody()?.charStream(),
+                        LoginResponse::class.java
+                    )
+                    emit(Result.Error(errorResponse.message ?: "Error"))
+                }
+            } catch (e: Exception) {
+                emit(Result.Error(e.message.toString()))
+            }
+        }
+    }
+
     companion object {
 
         @Volatile

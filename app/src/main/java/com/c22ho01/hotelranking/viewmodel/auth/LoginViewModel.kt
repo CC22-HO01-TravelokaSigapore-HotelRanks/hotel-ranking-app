@@ -43,4 +43,10 @@ class LoginViewModel(
     ): LiveData<Result<LoginResponse>> {
         return authRepository.submitLogin(userName, password)
     }
+
+    fun submitLoginByGoogle(
+        code: String,
+    ): LiveData<Result<LoginResponse>> {
+        return authRepository.submitLoginByGoogle(code)
+    }
 }
