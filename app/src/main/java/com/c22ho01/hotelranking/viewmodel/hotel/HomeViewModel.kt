@@ -8,8 +8,10 @@ import com.c22ho01.hotelranking.data.repository.HotelRepository
 
 class HomeViewModel(private val hotelRepository: HotelRepository) : ViewModel() {
 
-    fun getFiveStar(): LiveData<Result<HotelResponse>> {
-        return hotelRepository.getFiveStar()
-    }
+    val getFiveStar: LiveData<Result<HotelResponse>> = hotelRepository.getFiveStar()
+
+    val getTrending: LiveData<Result<HotelResponse>> = hotelRepository.getTrending()
+
+    val getAll: LiveData<Result<HotelResponse>> = hotelRepository.getAll()
 
 }

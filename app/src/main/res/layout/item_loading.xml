@@ -15,9 +15,9 @@
         android:textColor="?android:textColorPrimary"
         tools:text="Timeout" />
 
-    <ProgressBar
+    <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progress_bar"
-        style="@android:style/Widget.Holo.ProgressBar"
+        style="@style/Widget.Material3.CircularProgressIndicator.Small"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center" />

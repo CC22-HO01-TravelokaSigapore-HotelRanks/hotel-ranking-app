@@ -34,6 +34,7 @@ class SearchActivity : AppCompatActivity() {
         binding.rvSearch.apply {
             layoutManager = LinearLayoutManager(this@SearchActivity)
             adapter = searchAdapter
+            setHasFixedSize(false)
             addItemDecoration(
                 SearchAdapter.MarginItemDecoration(48)
             )

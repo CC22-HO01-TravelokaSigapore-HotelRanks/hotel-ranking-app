@@ -53,7 +53,7 @@
     <string name="dark">Dark</string>
     <string name="sign_out">Sign out</string>
     <string name="rating">%1$f</string>
-    <string name="price">Rp%1$s.000</string>
+    <string name="price">Rp%1$s.000,00</string>
     <string name="retry">Retry</string>
     <string name="free_refund">Free Refund</string>
     <string name="start">Start</string>
@@ -86,4 +86,6 @@
     <string name="profile_customized_successfully">Profile customized successfully!</string>
     <string name="special_needs">Special needs</string>
     <string name="customize_your_profile">Customize Your Profile</string>
+    <string name="trending">Trending</string>
+    <string name="distance">%1$.1fkm away</string>
 </resources>

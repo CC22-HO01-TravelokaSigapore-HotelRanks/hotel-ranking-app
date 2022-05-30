@@ -19,7 +19,47 @@ class HotelRepository(private val hotelService: HotelService) {
         emit(Result.Loading)
         wrapEspressoIdlingResource {
             try {
-                val response = hotelService.getFiveStar(5, 0)
+                val response = hotelService.getFiveStar(10, 0)
+                if (response.isSuccessful) {
+                    emit(Result.Success(response.body() ?: HotelResponse()))
+                } else {
+                    val errorResponse = Gson().fromJson(
+                        response.errorBody()?.charStream(),
+                        HotelResponse::class.java
+                    )
+                    emit(Result.Error(errorResponse.message ?: "Error"))
+                }
+            } catch (e: Exception) {
+                emit(Result.Error(e.message.toString()))
+            }
+        }
+    }
+
+    fun getTrending(): LiveData<Result<HotelResponse>> = liveData {
+        emit(Result.Loading)
+        wrapEspressoIdlingResource {
+            try {
+                val response = hotelService.getTrending(10, 0)
+                if (response.isSuccessful) {
+                    emit(Result.Success(response.body() ?: HotelResponse()))
+                } else {
+                    val errorResponse = Gson().fromJson(
+                        response.errorBody()?.charStream(),
+                        HotelResponse::class.java
+                    )
+                    emit(Result.Error(errorResponse.message ?: "Error"))
+                }
+            } catch (e: Exception) {
+                emit(Result.Error(e.message.toString()))
+            }
+        }
+    }
+
+    fun getAll(): LiveData<Result<HotelResponse>> = liveData {
+        emit(Result.Loading)
+        wrapEspressoIdlingResource {
+            try {
+                val response = hotelService.getAll(100, 0)
                 if (response.isSuccessful) {
                     emit(Result.Success(response.body() ?: HotelResponse()))
                 } else {

@@ -16,8 +16,8 @@ interface HotelService {
 
     @GET("search")
     suspend fun searchHotel(
-        @Query("offset") offset: Int,
 //        @Query("page") page: Int,
+        @Query("offset") offset: Int,
         @Query("keyword") keyword: String
     ): List<HotelData>
 
@@ -25,5 +25,17 @@ interface HotelService {
     suspend fun hotelSearch(
         @Query("offset") offset: Int,
         @Query("keyword") keyword: String
+    ): Response<HotelResponse>
+
+    @GET("trending")
+    suspend fun getTrending(
+        @Query("page") page: Int,
+        @Query("offset") offset: Int
+    ): Response<HotelResponse>
+
+    @GET("hotel/list")
+    suspend fun getAll(
+        @Query("page") page: Int,
+        @Query("offset") offset: Int
     ): Response<HotelResponse>
 }
