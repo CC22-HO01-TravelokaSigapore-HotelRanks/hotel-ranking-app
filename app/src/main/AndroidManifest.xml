@@ -4,6 +4,7 @@
     package="com.c22ho01.hotelranking">
 
     <application
+
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -38,14 +39,16 @@
             android:name=".ui.home.HomeGuestActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustPan">
+
+        </activity>
+        <activity
+            android:name=".ui.auth.AuthActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.auth.AuthActivity"
-            android:exported="true" />
     </application>
 
 </manifest>

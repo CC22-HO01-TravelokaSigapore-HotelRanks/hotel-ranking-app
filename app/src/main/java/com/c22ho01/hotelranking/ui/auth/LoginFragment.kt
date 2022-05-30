@@ -1,15 +1,13 @@
 package com.c22ho01.hotelranking.ui.auth
 
-import android.annotation.SuppressLint
-import android.app.Dialog
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.JavascriptInterface
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
@@ -17,17 +15,17 @@ import androidx.fragment.app.viewModels
 import com.c22ho01.hotelranking.R
 import com.c22ho01.hotelranking.data.Result
 import com.c22ho01.hotelranking.data.remote.response.auth.LoginResponse
-import com.c22ho01.hotelranking.data.remote.retrofit.APIConfig
 import com.c22ho01.hotelranking.databinding.FragmentLoginBinding
 import com.c22ho01.hotelranking.ui.home.HomeLoggedInActivity
+import com.c22ho01.hotelranking.utils.EnvUtils
 import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
 import com.c22ho01.hotelranking.viewmodel.auth.LoginViewModel
 import com.c22ho01.hotelranking.viewmodel.profile.ProfileViewModel
 import com.c22ho01.hotelranking.viewmodel.utils.TokenViewModel
+import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.snackbar.Snackbar
-import com.google.gson.Gson
 
 
 class LoginFragment : Fragment() {
@@ -49,11 +47,18 @@ class LoginFragment : Fragment() {
     ): View? {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         factory = ViewModelFactory.getInstance(requireContext())
+        gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestServerAuthCode(EnvUtils.getGsoClientId())
+            .requestIdToken(EnvUtils.getGsoClientId())
+            .requestEmail()
+            .build()
+        mGoogleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
         return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setupFieldListener()
         setupBtnListener()
     }
@@ -110,44 +115,21 @@ class LoginFragment : Fragment() {
     }
 
 
-    @SuppressLint("SetJavaScriptEnabled")
     private fun loginAccountGoogle() {
-        val authGoogleDialog = Dialog(requireContext())
-        authGoogleDialog.setContentView(R.layout.dialog_google_auth)
-
-        val webView = authGoogleDialog.findViewById<WebView>(R.id.wv_google_auth)
-        webView.apply {
-            settings.javaScriptEnabled = true
-            settings.userAgentString =
-                "Mozilla/5.0 (Linux; Android 8.0; Pixel 2 Build/OPD3.170816.012) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Mobile Safari/537.36"
-            loadUrl(APIConfig.BASE_URL + "user/login/google")
-            webViewClient = object : WebViewClient() {
-
-                @Override
-                override fun onPageFinished(view: WebView?, url: String?) {
-                    super.onPageFinished(view, url)
-                    if (url?.contains("code=") == true) {
-                        val injectScript =
-                            "javascript:Android.onResult(200, document.body.children[0].innerText);"
-                        webView.loadUrl(injectScript);
-                        authGoogleDialog.dismiss()
-                    }
-                }
-            }
-            addJavascriptInterface(WebViewResultListener(), "Android")
-        }
-        authGoogleDialog.show()
+        val signInIntent = mGoogleSignInClient.signInIntent
+        launchGoogleSignIn.launch(signInIntent)
     }
 
-    inner class WebViewResultListener {
-        @JavascriptInterface
-        fun onResult(code: Int, response: String?) {
-            val result: LoginResponse = Gson().fromJson(response, LoginResponse::class.java)
-            loginSuccessCallback(result)
+    private val launchGoogleSignIn = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val account = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+            Log.d("GoogleSignIn", "account: ${account.result.idToken}")
         }
     }
 
-    fun loginSuccessCallback(data: LoginResponse) {
+    private fun loginSuccessCallback(data: LoginResponse) {
         tokenViewModel.setToken(data.loginData?.accessToken ?: "")
         profileViewModel.setProfileID(data.loginData?.userId ?: -1)
         binding?.let { fragment ->
