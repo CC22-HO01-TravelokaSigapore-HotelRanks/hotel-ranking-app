@@ -2,12 +2,6 @@
 <project version="4">
   <component name="DiscordProjectSettings">
     <option name="show" value="ASK" />
-    <option name="nameOverrideEnabled" value="true" />
-    <option name="nameOverrideText" value="Mentorless Capstone" />
-    <option name="description" value="16 days without mentor and counting..." />
-    <option name="show" value="PROJECT_FILES" />
-    <option name="nameOverrideEnabled" value="true" />
-    <option name="nameOverrideText" value="Mentorless Capstone" />
-    <option name="description" value="15 days without mentor and counting..." />
+    <option name="description" value="" />
   </component>
 </project>
