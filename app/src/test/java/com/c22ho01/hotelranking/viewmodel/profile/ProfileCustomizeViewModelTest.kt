@@ -71,39 +71,40 @@ class ProfileCustomizeViewModelTest {
     }
 
     @Test
-    fun `when customizeProfile should insert all fields value and not return null`() = mainCoroutineRulesUnitTest.scope.runTest {
-        val profileEntity = DataDummy.provideProfileEntity().copy(
-            hobby = DataDummy.provideHobbyList(),
-            specialNeeds = DataDummy.provideDisabilityList(),
-            userName = null,
-            email = null,
-            searchHistory = null,
-            stayHistory = null,
-            createdAt = null,
-            updatedAt = null,
-        )
-        profileCustomizeViewModel.apply {
-            setFullName(profileEntity.name!!)
-            setNid(profileEntity.nid!!)
-            setBirthDate(profileEntity.birthDate!!)
-            setFamily(profileEntity.family!!)
-            setSelectedHobbies(profileEntity.hobby!!)
-            setSelectedDisabilities(profileEntity.specialNeeds!!)
+    fun `when customizeProfile should insert all fields value and not return null`() =
+        mainCoroutineRulesUnitTest.scope.runTest {
+            val profileEntity = DataDummy.provideProfileEntity().copy(
+                hobby = DataDummy.provideHobbyList(),
+                specialNeeds = DataDummy.provideDisabilityList(),
+                userName = null,
+                email = null,
+                searchHistory = null,
+                stayHistory = null,
+                createdAt = null,
+                updatedAt = null,
+            )
+            profileCustomizeViewModel.apply {
+                setFullName(profileEntity.name!!)
+                setNid(profileEntity.nid!!)
+                setBirthDate(profileEntity.birthDate!!)
+                setFamily(profileEntity.family!!)
+                setSelectedHobbies(profileEntity.hobby!!)
+                setSelectedDisabilities(profileEntity.specialNeeds!!)
+            }
+
+            val expectedResult = MutableLiveData<Result<ProfileEntity>>()
+            expectedResult.value = Result.Success(
+                profileEntity
+            )
+
+            `when`(profileRepositoryMock.updateProfile(dummyToken, profileEntity)).thenReturn(
+                expectedResult
+            )
+
+            val actualResult = profileCustomizeViewModel.customizeProfile(dummyToken, profileEntity)
+
+            Assert.assertNotNull(actualResult)
+            Assert.assertEquals(expectedResult, actualResult)
         }
-
-        val expectedResult = MutableLiveData<Result<ProfileEntity>>()
-        expectedResult.value = Result.Success(
-            profileEntity
-        )
-
-        `when`(profileRepositoryMock.updateProfile(dummyToken, profileEntity)).thenReturn(
-            expectedResult
-        )
-
-        val actualResult = profileCustomizeViewModel.customizeProfile(dummyToken, profileEntity)
-
-        Assert.assertNotNull(actualResult)
-        Assert.assertEquals(expectedResult, actualResult)
-    }
 
 }

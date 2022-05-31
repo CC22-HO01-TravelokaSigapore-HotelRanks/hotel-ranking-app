@@ -97,8 +97,8 @@
                 android:layout_marginTop="16dp"
                 app:layout_constraintTop_toBottomOf="@id/vtf_profile_custom_nid"
                 app:validFieldHint="@string/birth_date_req"
-                app:validFieldRequired="true"
                 app:validFieldInputType="DATE"
+                app:validFieldRequired="true"
                 app:validFieldValidateType="DATE" />
 
             <TextView
