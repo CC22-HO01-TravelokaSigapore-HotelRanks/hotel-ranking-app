@@ -21,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tvTitle"
             style="@style/TextAppearance.Material3.TitleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -40,12 +40,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.041"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle"
             android:src="@drawable/ic_baseline_location_on_24"
             app:tint="@color/md_theme_light_shadow" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/tvLocation"
             style="@style/TextAppearance.Material3.BodyLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
             app:tint="@color/md_theme_light_primary" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/tvRating"
             style="@style/TextAppearance.HotelRanking.LabelLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

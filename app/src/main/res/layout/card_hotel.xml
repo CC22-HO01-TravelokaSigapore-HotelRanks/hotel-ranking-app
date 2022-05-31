@@ -4,16 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="?attr/materialCardViewElevatedStyle"
     android:layout_width="150dp"
-    android:layout_height="wrap_content"
+    android:layout_height="264dp"
     android:layout_gravity="center"
-    android:layout_marginStart="16dp"
-    android:layout_marginEnd="16dp"
+    android:layout_marginVertical="4dp"
     android:backgroundTint="?attr/colorSurface">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="16dp">
+        android:layout_marginBottom="8dp">
 
         <ImageView
             android:id="@+id/image_hotel"
@@ -26,52 +25,58 @@
             tools:src="@color/md_theme_ref_tertiary80" />
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:alpha="0.9"
             app:cardBackgroundColor="?attr/colorPrimary"
             app:cardCornerRadius="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:strokeWidth="0dp">
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="4dp"
-                android:textAppearance="@style/TextAppearance.HotelRanking.LabelMedium"
-                tools:text="Jakarta"
-                tools:textColor="?attr/colorOnPrimary" />
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginVertical="4dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textAppearance="@style/TextAppearance.HotelRanking.LabelSmall"
+                android:textColor="?attr/colorOnPrimary"
+                tools:text="Jakarta" />
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/hotel_name"
+            android:id="@+id/tv_hotel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:textAppearance="@style/TextAppearance.HotelRanking.TitleMedium"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:textAppearance="@style/TextAppearance.HotelRanking.LabelMedium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/image_hotel"
-            tools:text="Dreampark Hotel Jakarta" />
+            tools:text="Dreampark Hotel Jakarta asfsadasd dasjndjasdn jnsdjnsa" />
 
         <RatingBar
             android:id="@+id/ratingbar"
             style="?attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:isIndicator="true"
             android:numStars="5"
             android:progressTint="?attr/colorPrimary"
-            android:rating="3.5"
+            android:rating="5"
             android:stepSize="0.1"
-            app:layout_constraintStart_toStartOf="@+id/hotel_name"
-            app:layout_constraintTop_toBottomOf="@+id/hotel_name" />
+            app:layout_constraintStart_toStartOf="@+id/tv_hotel"
+            app:layout_constraintTop_toBottomOf="@+id/tv_hotel" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_rating"
@@ -85,13 +90,23 @@
             tools:text="(3.5/5.0)" />
 
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/startFrom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/start"
+            android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+            app:layout_constraintBottom_toTopOf="@+id/tv_price"
+            app:layout_constraintStart_toStartOf="@+id/tv_price" />
+
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:textAppearance="@style/TextAppearance.HotelRanking.BodyMedium"
+            android:textColor="?attr/colorError"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/ratingbar"
-            app:layout_constraintTop_toBottomOf="@+id/ratingbar"
             tools:text="Rp100.000" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

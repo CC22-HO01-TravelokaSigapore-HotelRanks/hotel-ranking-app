@@ -11,9 +11,7 @@ import com.c22ho01.hotelranking.utils.wrapEspressoIdlingResource
 import com.google.gson.Gson
 
 
-class AuthRepository(
-    private val authService: AuthService
-) {
+class AuthRepository(private val authService: AuthService) {
 
     fun submitRegister(
         userName: String,
@@ -52,7 +50,29 @@ class AuthRepository(
                 } else {
                     val errorResponse = Gson().fromJson(
                         response.errorBody()?.charStream(),
-                        RegisterResponse::class.java
+                        LoginResponse::class.java
+                    )
+                    emit(Result.Error(errorResponse.message ?: "Error"))
+                }
+            } catch (e: Exception) {
+                emit(Result.Error(e.message.toString()))
+            }
+        }
+    }
+
+    fun submitLoginByGoogle(
+        code: String
+    ): LiveData<Result<LoginResponse>> = liveData {
+        emit(Result.Loading)
+        wrapEspressoIdlingResource {
+            try {
+                val response = authService.loginGoogle(code)
+                if (response.isSuccessful) {
+                    emit(Result.Success(response.body() ?: LoginResponse()))
+                } else {
+                    val errorResponse = Gson().fromJson(
+                        response.errorBody()?.charStream(),
+                        LoginResponse::class.java
                     )
                     emit(Result.Error(errorResponse.message ?: "Error"))
                 }

@@ -2,7 +2,6 @@
     <string name="app_name">Hotel Ranking</string>
     <string name="location">Location</string>
     <string name="hotel_name">Hotel Name</string>
-    <string name="rating">(4.0/5.0)</string>
     <string name="review">Review</string>
     <string name="facilities">Facilities</string>
     <string name="open_maps">Open Maps</string>
@@ -32,7 +31,7 @@
     <string name="menu">Menu</string>
     <string name="menu_description">Menu</string>
     <string name="hotel_recommendations">Hotel Recommendations</string>
-    <string name="trending">Trending</string>
+    <string name="top_rated">Top rated</string>
     <string name="near_your_location">Near your location</string>
     <string name="navbar_home">Home</string>
     <string name="navbar_order">Order</string>
@@ -53,6 +52,14 @@
     <string name="light">Light</string>
     <string name="dark">Dark</string>
     <string name="sign_out">Sign out</string>
+    <string name="rating">%1$f</string>
+    <string name="price">Rp%1$s.000,00</string>
+    <string name="retry">Retry</string>
+    <string name="free_refund">Free Refund</string>
+    <string name="start">Start</string>
+    <string name="night">/night</string>
+    <string name="cancel">Cancel</string>
+    <string name="start_from">Start from</string>
     <string name="profile_customization">Profile\nCustomization</string>
     <string name="we_provide_hotel">We will provide your hotel preference based on these informations.</string>
     <string name="required">*Required</string>
@@ -75,4 +82,10 @@
     <string name="i_cant_hear_properly">I can’t hear properly</string>
     <string name="i_cant_see_clearly">I can’t see clearly</string>
     <string name="save">Save</string>
+    <string name="error_please_login">Something went wrong, please log in again.</string>
+    <string name="profile_customized_successfully">Profile customized successfully!</string>
+    <string name="special_needs">Special needs</string>
+    <string name="customize_your_profile">Customize Your Profile</string>
+    <string name="trending">Trending</string>
+    <string name="distance">%1$.1fkm away</string>
 </resources>

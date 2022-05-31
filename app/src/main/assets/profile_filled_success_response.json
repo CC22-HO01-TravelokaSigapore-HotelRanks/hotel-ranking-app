@@ -1,0 +1,30 @@
+{
+  "message": "sucessfull request",
+  "data": {
+    "hobby": [
+      "selfie",
+      "hiking"
+    ],
+    "search_history": [
+      "dummy",
+      "dummy"
+    ],
+    "stay_history": [
+      "dummy",
+      "dummy"
+    ],
+    "special_needs": [
+      "tunadaksa",
+      "tunawicara"
+    ],
+    "id": 106,
+    "name": "Awanama Wijaya",
+    "birth_date": "2022-05-25",
+    "nid": 123456789,
+    "family": true,
+    "email": "example@gmail.com",
+    "userName": "awanama",
+    "createdAt": "2022-05-18T11:44:15.000Z",
+    "updatedAt": "2022-05-25T02:02:17.000Z"
+  }
+}

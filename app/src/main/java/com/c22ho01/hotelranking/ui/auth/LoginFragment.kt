@@ -1,22 +1,31 @@
 package com.c22ho01.hotelranking.ui.auth
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import com.c22ho01.hotelranking.R
 import com.c22ho01.hotelranking.data.Result
+import com.c22ho01.hotelranking.data.remote.response.auth.LoginResponse
 import com.c22ho01.hotelranking.databinding.FragmentLoginBinding
 import com.c22ho01.hotelranking.ui.home.HomeLoggedInActivity
+import com.c22ho01.hotelranking.utils.EnvUtils
 import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
 import com.c22ho01.hotelranking.viewmodel.auth.LoginViewModel
+import com.c22ho01.hotelranking.viewmodel.profile.ProfileViewModel
 import com.c22ho01.hotelranking.viewmodel.utils.TokenViewModel
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.snackbar.Snackbar
+
 
 class LoginFragment : Fragment() {
 
@@ -26,6 +35,10 @@ class LoginFragment : Fragment() {
     private lateinit var factory: ViewModelFactory
     private val loginViewModel: LoginViewModel by viewModels { factory }
     private val tokenViewModel: TokenViewModel by viewModels { factory }
+    private val profileViewModel: ProfileViewModel by viewModels { factory }
+
+    private lateinit var gso: GoogleSignInOptions
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,11 +46,18 @@ class LoginFragment : Fragment() {
     ): View? {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         factory = ViewModelFactory.getInstance(requireContext())
+        gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestServerAuthCode(EnvUtils.getGsoClientId())
+            .requestIdToken(EnvUtils.getGsoClientId())
+            .requestEmail()
+            .build()
+        mGoogleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
         return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setupFieldListener()
         setupBtnListener()
     }
@@ -48,9 +68,9 @@ class LoginFragment : Fragment() {
                 goToRegister()
             }
             btnLogin.setOnClickListener { loginAccount() }
+            btnGoogleSignin.setOnClickListener { loginAccountGoogle() }
         }
     }
-
 
     private fun setupFieldListener() {
         binding?.run {
@@ -62,6 +82,7 @@ class LoginFragment : Fragment() {
         }
     }
 
+
     private fun loginAccount() {
         loginViewModel.submitLogin(
             userName = binding?.vtfLoginUsername?.getText() ?: "",
@@ -69,35 +90,66 @@ class LoginFragment : Fragment() {
         ).run {
             if (this.hasObservers()) this.removeObservers(viewLifecycleOwner)
             this.observe(viewLifecycleOwner) {
-                when (it) {
-                    is Result.Loading -> {
-                        showLoading(true)
-                    }
-                    is Result.Success -> {
-                        showLoading(false)
-                        tokenViewModel.setToken(it.data.loginData?.token ?: "")
-                        binding?.let { fragment ->
-                            Snackbar.make(
-                                fragment.root,
-                                getString(R.string.login_success),
-                                Snackbar.LENGTH_SHORT
-                            ).show()
-                        }
-                        goToHome()
-                    }
-                    is Result.Error -> {
-                        showLoading(false)
-                        binding?.let { fragment ->
-                            Snackbar.make(
-                                fragment.root,
-                                it.error,
-                                Snackbar.LENGTH_LONG,
-                            ).show()
-                        }
+                processLoginObserverResult(it)
+            }
+        }
+    }
+
+
+    private fun loginAccountGoogle() {
+        val signInIntent = mGoogleSignInClient.signInIntent
+        launchGoogleSignIn.launch(signInIntent)
+    }
+
+    private val launchGoogleSignIn = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val account = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+            account.result.serverAuthCode?.let { code ->
+                loginViewModel.submitLoginByGoogle(code).run {
+                    if (this.hasObservers()) this.removeObservers(viewLifecycleOwner)
+                    this.observe(viewLifecycleOwner) {
+                        processLoginObserverResult(it)
                     }
                 }
             }
         }
+    }
+
+    private fun processLoginObserverResult(result: Result<LoginResponse> ) {
+        when (result) {
+            is Result.Loading -> {
+                showLoading(true)
+            }
+            is Result.Success -> {
+                showLoading(false)
+                loginSuccessCallback(result.data)
+            }
+            is Result.Error -> {
+                showLoading(false)
+                binding?.let { fragment ->
+                    Snackbar.make(
+                        fragment.root,
+                        result.error,
+                        Snackbar.LENGTH_LONG,
+                    ).show()
+                }
+            }
+        }
+    }
+
+    private fun loginSuccessCallback(data: LoginResponse) {
+        tokenViewModel.setToken(data.loginData?.accessToken ?: "")
+        profileViewModel.setProfileID(data.loginData?.userId ?: -1)
+        binding?.let { fragment ->
+            Snackbar.make(
+                fragment.root,
+                getString(R.string.login_success),
+                Snackbar.LENGTH_SHORT
+            ).show()
+        }
+        goToHome()
     }
 
     private fun goToHome() {

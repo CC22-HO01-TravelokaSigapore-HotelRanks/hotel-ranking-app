@@ -9,6 +9,7 @@ import com.c22ho01.hotelranking.data.remote.response.auth.LoginResponse
 import com.c22ho01.hotelranking.data.remote.response.auth.RegisterResponse
 import com.c22ho01.hotelranking.data.remote.retrofit.AuthService
 import com.c22ho01.hotelranking.utils.EspressoIdlingResource
+import com.c22ho01.hotelranking.utils.MainCoroutineRuleUnitTest
 import com.c22ho01.hotelranking.utils.captureValues
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
@@ -30,8 +31,7 @@ class AuthRepositoryTest {
     var instantExecutorRule = InstantTaskExecutorRule()
 
     @get:Rule
-    var mainCoroutineRulesUnitTest =
-        com.c22ho01.hotelranking.utils.MainCoroutineRuleUnitTest(UnconfinedTestDispatcher())
+    var mainCoroutineRulesUnitTest = MainCoroutineRuleUnitTest(UnconfinedTestDispatcher())
 
     @Mock
     private lateinit var authService: AuthService
@@ -39,6 +39,7 @@ class AuthRepositoryTest {
     private val dummyUserName = "dummyUserName"
     private val dummyEmail = "dummyEmail"
     private val dummyPassword = "dummyPassword"
+    private val dummyCode = "dummyCode"
 
     private lateinit var authRepository: AuthRepository
 
@@ -104,7 +105,7 @@ class AuthRepositoryTest {
                     status = "success",
                     loginData = LoginData(
                         userId = 1,
-                        token = "token",
+                        accessToken = "token",
                     ),
                 )
             val expectedResult = Result.Success(dummyResponse)
@@ -136,6 +137,51 @@ class AuthRepositoryTest {
             )
 
             authRepository.submitLogin(dummyUserName, dummyPassword).captureValues {
+                Assert.assertNotNull(values)
+                Assert.assertEquals(arrayListOf(Result.Loading, expectedResult), values)
+            }
+        }
+
+    @Test
+    fun `when submitLoginByGoogle`() = mainCoroutineRulesUnitTest.scope.runTest {
+        val dummyResponse =
+            LoginResponse(
+                message = "success",
+                status = "success",
+                loginData = LoginData(
+                    userId = 1,
+                    accessToken = "token",
+                ),
+            )
+        val expectedResult = Result.Success(dummyResponse)
+        Mockito.`when`(authService.loginGoogle(dummyCode))
+            .thenReturn(
+                Response.success(dummyResponse)
+            )
+        authRepository.submitLoginByGoogle(dummyCode).captureValues {
+            Assert.assertNotNull(values)
+            Assert.assertEquals(arrayListOf(Result.Loading, expectedResult), values)
+        }
+    }
+
+    @Test
+    fun `when submitLoginByGoogle error should return error result`() =
+        mainCoroutineRulesUnitTest.scope.runTest {
+            val dummyResponse =
+                LoginResponse(
+                    message = "Error!",
+                )
+            val expectedResult = Result.Error(dummyResponse.message!!)
+
+            val errorResponse = "{message: \"Error!\"}"
+            Mockito.`when`(authService.loginGoogle(dummyCode)).thenReturn(
+                Response.error(
+                    400,
+                    errorResponse.toResponseBody("application/json".toMediaTypeOrNull())
+                )
+            )
+
+            authRepository.submitLoginByGoogle(dummyCode).captureValues {
                 Assert.assertNotNull(values)
                 Assert.assertEquals(arrayListOf(Result.Loading, expectedResult), values)
             }
