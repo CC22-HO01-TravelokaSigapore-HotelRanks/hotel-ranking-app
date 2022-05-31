@@ -39,6 +39,7 @@ class AuthRepositoryTest {
     private val dummyUserName = "dummyUserName"
     private val dummyEmail = "dummyEmail"
     private val dummyPassword = "dummyPassword"
+    private val dummyCode = "dummyCode"
 
     private lateinit var authRepository: AuthRepository
 
@@ -136,6 +137,51 @@ class AuthRepositoryTest {
             )
 
             authRepository.submitLogin(dummyUserName, dummyPassword).captureValues {
+                Assert.assertNotNull(values)
+                Assert.assertEquals(arrayListOf(Result.Loading, expectedResult), values)
+            }
+        }
+
+    @Test
+    fun `when submitLoginByGoogle`() = mainCoroutineRulesUnitTest.scope.runTest {
+        val dummyResponse =
+            LoginResponse(
+                message = "success",
+                status = "success",
+                loginData = LoginData(
+                    userId = 1,
+                    accessToken = "token",
+                ),
+            )
+        val expectedResult = Result.Success(dummyResponse)
+        Mockito.`when`(authService.loginGoogle(dummyCode))
+            .thenReturn(
+                Response.success(dummyResponse)
+            )
+        authRepository.submitLoginByGoogle(dummyCode).captureValues {
+            Assert.assertNotNull(values)
+            Assert.assertEquals(arrayListOf(Result.Loading, expectedResult), values)
+        }
+    }
+
+    @Test
+    fun `when submitLoginByGoogle error should return error result`() =
+        mainCoroutineRulesUnitTest.scope.runTest {
+            val dummyResponse =
+                LoginResponse(
+                    message = "Error!",
+                )
+            val expectedResult = Result.Error(dummyResponse.message!!)
+
+            val errorResponse = "{message: \"Error!\"}"
+            Mockito.`when`(authService.loginGoogle(dummyCode)).thenReturn(
+                Response.error(
+                    400,
+                    errorResponse.toResponseBody("application/json".toMediaTypeOrNull())
+                )
+            )
+
+            authRepository.submitLoginByGoogle(dummyCode).captureValues {
                 Assert.assertNotNull(values)
                 Assert.assertEquals(arrayListOf(Result.Loading, expectedResult), values)
             }
