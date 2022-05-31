@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="?attr/materialCardViewElevatedStyle"
     android:layout_width="match_parent"
-    android:layout_height="130dp"
+    android:layout_height="115dp"
     android:layout_marginHorizontal="16dp"
     android:backgroundTint="?attr/colorSurface">
 
@@ -14,7 +14,7 @@
 
         <ImageView
             android:id="@+id/imgHotel"
-            android:layout_width="130dp"
+            android:layout_width="115dp"
             android:layout_height="0dp"
             android:contentDescription="@string/hotel_photo"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -50,9 +50,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="2dp"
-            android:textAppearance="@style/TextAppearance.HotelRanking.TitleSmall"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textAppearance="@style/TextAppearance.HotelRanking.LabelMedium"
             android:textColor="?attr/colorOnSurface"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imgHotel"
@@ -87,8 +89,8 @@
 
         <ImageView
             android:id="@+id/locIcon"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
             android:layout_marginTop="4dp"
             android:src="@drawable/ic_location"
             app:layout_constraintStart_toStartOf="@+id/ratingBar"
@@ -102,6 +104,7 @@
             android:layout_marginStart="2dp"
             android:layout_marginEnd="2dp"
             android:textAppearance="@style/TextAppearance.HotelRanking.LabelSmall"
+            app:layout_constraintBottom_toBottomOf="@+id/locIcon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/locIcon"
             app:layout_constraintTop_toTopOf="@+id/locIcon"
@@ -112,17 +115,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/start"
-            android:textAppearance="@style/TextAppearance.HotelRanking.LabelMedium"
-            app:layout_constraintBottom_toBottomOf="@+id/tvPrice"
-            app:layout_constraintStart_toStartOf="@+id/locIcon"
-            app:layout_constraintTop_toTopOf="@+id/tvPrice" />
+            android:textAppearance="@style/TextAppearance.HotelRanking.LabelSmall"
+            app:layout_constraintBottom_toTopOf="@+id/tvPrice"
+            app:layout_constraintStart_toStartOf="@+id/locIcon" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/perNight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/night"
-            android:textAppearance="@style/TextAppearance.HotelRanking.BodySmall"
+            android:textAppearance="@style/TextAppearance.HotelRanking.BodyMedium"
             app:layout_constraintBottom_toBottomOf="@+id/tvPrice"
             app:layout_constraintStart_toEndOf="@+id/tvPrice"
             app:layout_constraintTop_toTopOf="@+id/tvPrice" />
@@ -131,13 +133,12 @@
             android:id="@+id/tvPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
             android:layout_marginBottom="4dp"
-            android:textAppearance="@style/TextAppearance.HotelRanking.TitleMedium"
+            android:textAppearance="@style/TextAppearance.HotelRanking.BodyMedium"
             android:textColor="?attr/colorError"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/startFrom"
+            app:layout_constraintStart_toStartOf="@+id/startFrom"
             tools:text="Rp500.000" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

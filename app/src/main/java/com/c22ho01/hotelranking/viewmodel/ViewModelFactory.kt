@@ -22,7 +22,7 @@ private constructor(
     private val tokenRepository: TokenRepository,
     private val profileRepository: ProfileRepository,
     private val hotelRepository: HotelRepository
-) : ViewModelProvider.NewInstanceFactory() {
+) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

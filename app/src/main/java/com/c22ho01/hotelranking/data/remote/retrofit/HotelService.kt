@@ -16,7 +16,7 @@ interface HotelService {
 
     @GET("search")
     suspend fun searchHotel(
-//        @Query("page") page: Int,
+        @Query("page") page: Int,
         @Query("offset") offset: Int,
         @Query("keyword") keyword: String
     ): List<HotelData>

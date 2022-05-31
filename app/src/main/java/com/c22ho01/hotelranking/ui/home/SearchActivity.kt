@@ -21,31 +21,34 @@ class SearchActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySearchBinding
     private lateinit var searchAdapter: SearchAdapter
-    private val searchViewModel: SearchViewModel by viewModels {
-        ViewModelFactory.getInstance(this)
-    }
+    private lateinit var factory: ViewModelFactory
+    private val searchViewModel: SearchViewModel by viewModels { factory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        factory = ViewModelFactory.getInstance(this)
         searchAdapter = SearchAdapter()
+
+        setupView()
+        setupAction()
+    }
+
+    private fun setupView() {
         binding.rvSearch.apply {
             layoutManager = LinearLayoutManager(this@SearchActivity)
             adapter = searchAdapter
-            setHasFixedSize(false)
             addItemDecoration(
                 SearchAdapter.MarginItemDecoration(48)
             )
-//                .withLoadStateFooter(LoadingStateAdapter { searchAdapter.retry() })
         }
 
         binding.apply {
             searchBar.customSearchBar.requestFocus()
             btnCancel.setOnClickListener { onBackPressed() }
         }
-        setupAction()
     }
 
     private fun setupAction() {
@@ -101,6 +104,13 @@ class SearchActivity : AppCompatActivity() {
                 }
             }
         }
+//        try {
+//            searchViewModel.searchHotel(keyword).observe(this) {
+//                searchAdapter.submitData(lifecycle, it)
+//            }
+//        } catch (e: Exception) {
+//            error(e)
+//        }
     }
 
     private fun hideSoftKeyboard(view: View) {

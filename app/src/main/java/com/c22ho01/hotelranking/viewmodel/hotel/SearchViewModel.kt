@@ -12,6 +12,7 @@ import com.c22ho01.hotelranking.data.repository.HotelRepository
 
 class SearchViewModel(private val hotelRepository: HotelRepository) : ViewModel() {
 
+    // paging
     fun searchHotel(keyword: String): LiveData<PagingData<HotelData>> {
         return hotelRepository.searchHotel(keyword).cachedIn(viewModelScope)
     }

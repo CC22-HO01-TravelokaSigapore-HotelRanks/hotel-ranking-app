@@ -14,6 +14,22 @@ import com.c22ho01.hotelranking.databinding.ItemSearchBinding
 
 class SearchAdapter : ListAdapter<HotelData, SearchAdapter.ViewHolder>(DIFF_CALLBACK) {
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val binding = ItemSearchBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        return ViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val data = getItem(position)
+        if (data != null) {
+            holder.bind(data)
+        }
+    }
+
     class ViewHolder(private val binding: ItemSearchBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: HotelData) {
@@ -30,22 +46,6 @@ class SearchAdapter : ListAdapter<HotelData, SearchAdapter.ViewHolder>(DIFF_CALL
                 ratingBar.rating = data.star
             }
         }
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val data = getItem(position)
-        if (data != null) {
-            holder.bind(data)
-        }
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemSearchBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        )
-        return ViewHolder(binding)
     }
 
     class MarginItemDecoration(private val spaceSize: Int) : RecyclerView.ItemDecoration() {

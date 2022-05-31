@@ -9,6 +9,7 @@ class SearchPagingSource(
     private val hotelService: HotelService,
     private val keyword: String
 ) : PagingSource<Int, HotelData>() {
+
     override fun getRefreshKey(state: PagingState<Int, HotelData>): Int? {
         return state.anchorPosition?.let {
             val anchorPage = state.closestPageToPosition(it)
@@ -19,7 +20,7 @@ class SearchPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, HotelData> {
         return try {
             val page = params.key ?: INITIAL_PAGE_INDEX
-            val responseHotelData = hotelService.searchHotel(page, keyword)
+            val responseHotelData = hotelService.searchHotel(params.loadSize, page, keyword)
 
             LoadResult.Page(
                 data = responseHotelData,
