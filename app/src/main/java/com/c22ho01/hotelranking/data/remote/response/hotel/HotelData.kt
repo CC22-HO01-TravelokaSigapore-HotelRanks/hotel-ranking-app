@@ -1,7 +1,10 @@
 package com.c22ho01.hotelranking.data.remote.response.hotel
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class HotelData(
     @SerializedName("type_nearby_destination")
     val typeNearbyDestination: List<String>,
@@ -25,7 +28,7 @@ data class HotelData(
     val neighborhood: String,
 
     @SerializedName("hotel_star")
-    val star: Double,
+    val star: Float,
 
     @SerializedName("price_per_night")
     val pricePerNight: Int,
@@ -68,4 +71,4 @@ data class HotelData(
 
     @SerializedName("price_category")
     val priceCategory: Int
-)
+) : Parcelable

@@ -117,7 +117,10 @@ class ProfileRepository(
                         token = userToken,
                         id = profile.id,
                         name = profile.name,
-                        birthDate = DateUtils.formatDateToStringDash(profile.birthDate ?: Date()),
+                        birthDate = DateUtils.formatDateToStringDash(
+                            profile.birthDate
+                                ?: Date()
+                        ),
                         nid = profile.nid,
                         family = profile.family,
                         hobby = profile.hobby?.map { it?.fromResponseLabel }?.toList()
