@@ -6,11 +6,12 @@ import com.c22ho01.hotelranking.data.Result
 import com.c22ho01.hotelranking.data.remote.response.hotel.HotelResponse
 import com.c22ho01.hotelranking.data.repository.HotelRepository
 
-class HomeViewModel(private val hotelRepository: HotelRepository) : ViewModel() {
+class HomeViewModel(hotelRepository: HotelRepository) : ViewModel() {
 
-    fun fiveStarHotel(): LiveData<Result<HotelResponse>> =
-        hotelRepository.getFiveStar()
+    val getFiveStar: LiveData<Result<HotelResponse>> = hotelRepository.getFiveStar()
 
-    fun searchHotel(keyword: String): LiveData<Result<HotelResponse>> =
-        hotelRepository.searchHotel(keyword)
+    val getTrending: LiveData<Result<HotelResponse>> = hotelRepository.getTrending()
+
+    val getAll: LiveData<Result<HotelResponse>> = hotelRepository.getAll()
+
 }

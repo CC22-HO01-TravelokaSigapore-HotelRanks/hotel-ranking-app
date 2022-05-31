@@ -11,38 +11,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.c22ho01.hotelranking.R
 import com.c22ho01.hotelranking.data.remote.response.hotel.HotelData
-import com.c22ho01.hotelranking.databinding.CardHotelBinding
+import com.c22ho01.hotelranking.databinding.ItemSearchBinding
 import com.c22ho01.hotelranking.ui.detail.DetailActivity
 
-class CardAdapter : ListAdapter<HotelData, CardAdapter.ViewHolder>(COMPARATOR) {
-
-    class ViewHolder(private var binding: CardHotelBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: HotelData) {
-            binding.apply {
-                Glide.with(root)
-                    .load(data.image.first().trim())
-                    .centerCrop()
-                    .into(imageHotel)
-                tvLocation.text = data.neighborhood.trim()
-                tvHotel.text = data.name.trim()
-                tvRating.text = data.star.toString()
-                ratingbar.rating = data.star
-                val price = data.pricePerNight.toString()
-                tvPrice.text = itemView.resources.getString(R.string.price, price)
-
-            }
-            itemView.setOnClickListener {
-                Intent(itemView.context, DetailActivity::class.java).also {
-                    it.putExtra("extra_hotel", data)
-                    itemView.context.startActivity(it)
-                }
-            }
-        }
-    }
+class SearchAdapter : ListAdapter<HotelData, SearchAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = CardHotelBinding.inflate(
+        val binding = ItemSearchBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -52,7 +27,34 @@ class CardAdapter : ListAdapter<HotelData, CardAdapter.ViewHolder>(COMPARATOR) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = getItem(position)
-        holder.bind(data)
+        if (data != null) {
+            holder.bind(data)
+        }
+    }
+
+    class ViewHolder(private val binding: ItemSearchBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(data: HotelData) {
+            binding.apply {
+                Glide.with(itemView)
+                    .load(data.image.first().trim())
+                    .centerCrop()
+                    .into(imgHotel)
+                tvLocation.text = data.neighborhood.trim()
+                tvHotel.text = data.name.trim()
+                tvRating.text = data.star.toString()
+                val price = data.pricePerNight.toString()
+                tvPrice.text = itemView.resources.getString(R.string.price, price)
+                ratingBar.rating = data.star
+            }
+
+            itemView.setOnClickListener {
+                Intent(itemView.context, DetailActivity::class.java).also {
+                    it.putExtra("extra_hotel", data)
+                    itemView.context.startActivity(it)
+                }
+            }
+        }
     }
 
     class MarginItemDecoration(private val spaceSize: Int) : RecyclerView.ItemDecoration() {
@@ -64,23 +66,24 @@ class CardAdapter : ListAdapter<HotelData, CardAdapter.ViewHolder>(COMPARATOR) {
         ) {
             with(outRect) {
                 if (parent.getChildAdapterPosition(view) == 0) {
-                    left = spaceSize
+                    top = spaceSize
                 }
-                right = spaceSize
+                bottom = spaceSize
             }
         }
     }
 
     companion object {
-        val COMPARATOR = object : DiffUtil.ItemCallback<HotelData>() {
-            override fun areItemsTheSame(oldItem: HotelData, newItem: HotelData): Boolean {
-                return oldItem.id == newItem.id
-            }
+        private val DIFF_CALLBACK =
+            object : DiffUtil.ItemCallback<HotelData>() {
+                override fun areItemsTheSame(oldItem: HotelData, newItem: HotelData): Boolean {
+                    return oldItem.id == newItem.id
+                }
 
-            override fun areContentsTheSame(oldItem: HotelData, newItem: HotelData): Boolean {
-                return oldItem == newItem
-            }
+                override fun areContentsTheSame(oldItem: HotelData, newItem: HotelData): Boolean {
+                    return oldItem == newItem
+                }
 
-        }
+            }
     }
 }

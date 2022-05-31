@@ -120,7 +120,7 @@ class LoginFragment : Fragment() {
             settings.javaScriptEnabled = true
             settings.userAgentString =
                 "Mozilla/5.0 (Linux; Android 8.0; Pixel 2 Build/OPD3.170816.012) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Mobile Safari/537.36"
-            loadUrl(APIConfig.BASE_URL + "user/login/google")
+            loadUrl(APIConfig.AUTH_BASE_URL + "user/login/google")
             webViewClient = object : WebViewClient() {
 
                 @Override

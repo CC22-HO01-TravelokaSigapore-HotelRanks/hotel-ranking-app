@@ -11,9 +11,7 @@ import com.c22ho01.hotelranking.utils.wrapEspressoIdlingResource
 import com.google.gson.Gson
 
 
-class AuthRepository(
-    private val authService: AuthService
-) {
+class AuthRepository(private val authService: AuthService) {
 
     fun submitRegister(
         userName: String,
