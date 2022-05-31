@@ -90,25 +90,7 @@ class LoginFragment : Fragment() {
         ).run {
             if (this.hasObservers()) this.removeObservers(viewLifecycleOwner)
             this.observe(viewLifecycleOwner) {
-                when (it) {
-                    is Result.Loading -> {
-                        showLoading(true)
-                    }
-                    is Result.Success -> {
-                        showLoading(false)
-                        loginSuccessCallback(it.data)
-                    }
-                    is Result.Error -> {
-                        showLoading(false)
-                        binding?.let { fragment ->
-                            Snackbar.make(
-                                fragment.root,
-                                it.error,
-                                Snackbar.LENGTH_LONG,
-                            ).show()
-                        }
-                    }
-                }
+                processLoginObserverResult(it)
             }
         }
     }
@@ -128,26 +110,30 @@ class LoginFragment : Fragment() {
                 loginViewModel.submitLoginByGoogle(code).run {
                     if (this.hasObservers()) this.removeObservers(viewLifecycleOwner)
                     this.observe(viewLifecycleOwner) {
-                        when (it) {
-                            is Result.Loading -> {
-                                showLoading(true)
-                            }
-                            is Result.Success -> {
-                                showLoading(false)
-                                loginSuccessCallback(it.data)
-                            }
-                            is Result.Error -> {
-                                showLoading(false)
-                                binding?.let { fragment ->
-                                    Snackbar.make(
-                                        fragment.root,
-                                        it.error,
-                                        Snackbar.LENGTH_LONG,
-                                    ).show()
-                                }
-                            }
-                        }
+                        processLoginObserverResult(it)
                     }
+                }
+            }
+        }
+    }
+
+    private fun processLoginObserverResult(result: Result<LoginResponse> ) {
+        when (result) {
+            is Result.Loading -> {
+                showLoading(true)
+            }
+            is Result.Success -> {
+                showLoading(false)
+                loginSuccessCallback(result.data)
+            }
+            is Result.Error -> {
+                showLoading(false)
+                binding?.let { fragment ->
+                    Snackbar.make(
+                        fragment.root,
+                        result.error,
+                        Snackbar.LENGTH_LONG,
+                    ).show()
                 }
             }
         }

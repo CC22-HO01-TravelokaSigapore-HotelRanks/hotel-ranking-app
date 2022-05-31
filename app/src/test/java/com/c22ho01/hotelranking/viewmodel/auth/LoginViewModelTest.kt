@@ -36,6 +36,8 @@ class LoginViewModelTest {
 
     private val dummyEmail = "dummyEmail"
     private val dummyPassword = "dummyPassword"
+    private val dummyToken = "dummyToken"
+    private val dummyCode = "dummyCode"
 
     @Before
     fun setUp() {
@@ -57,7 +59,7 @@ class LoginViewModelTest {
     fun `when submitLogin should not return null`() {
         val loginData = LoginData(
             userId = 1,
-            accessToken = "dummyToken",
+            accessToken = dummyToken,
         )
         val loginResponse = LoginResponse(
             loginData = loginData,
@@ -71,6 +73,29 @@ class LoginViewModelTest {
             .thenReturn(expectedResult)
 
         val actualResult = loginViewModel.submitLogin(dummyEmail, dummyPassword).getOrAwaitValue()
+
+        Assert.assertNotNull(actualResult)
+        Assert.assertEquals(expectedResult.value, actualResult)
+    }
+
+    @Test
+    fun `when submitLoginByGoogle should not return null`() {
+        val loginData = LoginData(
+            userId = 1,
+            accessToken = dummyToken,
+        )
+        val loginResponse = LoginResponse(
+            loginData = loginData,
+            message = "dummyMessage",
+            status = "dummyStatus"
+        )
+        val expectedResult = MutableLiveData<Result<LoginResponse>>()
+        expectedResult.value = Result.Success(loginResponse)
+
+        Mockito.`when`(authRepositoryMock.submitLoginByGoogle(dummyCode))
+            .thenReturn(expectedResult)
+
+        val actualResult = loginViewModel.submitLoginByGoogle(dummyCode).getOrAwaitValue()
 
         Assert.assertNotNull(actualResult)
         Assert.assertEquals(expectedResult.value, actualResult)

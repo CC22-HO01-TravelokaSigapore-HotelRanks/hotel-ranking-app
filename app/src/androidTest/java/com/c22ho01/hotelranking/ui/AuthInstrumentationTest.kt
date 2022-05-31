@@ -1,5 +1,6 @@
 package com.c22ho01.hotelranking.ui
 
+import android.view.autofill.AutofillManager
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.*
@@ -11,12 +12,14 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
+import androidx.test.platform.app.InstrumentationRegistry
 import com.c22ho01.hotelranking.R
 import com.c22ho01.hotelranking.data.remote.retrofit.APIConfig
 import com.c22ho01.hotelranking.ui.auth.AuthActivity
 import com.c22ho01.hotelranking.ui.customview.ValidateableTextFieldTest
 import com.c22ho01.hotelranking.ui.customview.hasError
 import com.c22ho01.hotelranking.ui.home.HomeLoggedInActivity
+import com.c22ho01.hotelranking.ui.utils.DisableAutoFillAction
 import com.c22ho01.hotelranking.utils.EspressoIdlingResource
 import com.c22ho01.hotelranking.utils.JsonConverter
 import okhttp3.mockwebserver.MockResponse
@@ -45,6 +48,10 @@ class AuthInstrumentationTest {
         Intents.init()
         mockWebServer.start()
         IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val autofillManager: AutofillManager = context.getSystemService(AutofillManager::class.java)
+        autofillManager.disableAutofillServices()
+        autofillManager.cancel()
     }
 
     @After
@@ -59,19 +66,19 @@ class AuthInstrumentationTest {
         ValidateableTextFieldTest.run {
             onTextInput(R.id.vtf_register_username).perform(
                 typeText(dummyUsername),
-                closeSoftKeyboard(),
+                closeSoftKeyboard(), DisableAutoFillAction(),
             )
             onTextInput(R.id.vtf_register_email).perform(
                 typeText(dummyEmail),
-                closeSoftKeyboard(),
+                closeSoftKeyboard(), DisableAutoFillAction(),
             )
             onTextInput(R.id.vtf_register_password).perform(
                 typeText(dummyPassword),
-                closeSoftKeyboard(),
+                closeSoftKeyboard(), DisableAutoFillAction(),
             )
             onTextInput(R.id.vtf_register_confirm_password).perform(
                 typeText(dummyPassword),
-                closeSoftKeyboard(),
+                closeSoftKeyboard(), DisableAutoFillAction(),
             )
         }
     }
@@ -89,11 +96,11 @@ class AuthInstrumentationTest {
         ValidateableTextFieldTest.run {
             onTextInput(R.id.vtf_login_username).perform(
                 typeText(dummyUsername),
-                closeSoftKeyboard(),
+                closeSoftKeyboard(), DisableAutoFillAction(),
             )
             onTextInput(R.id.vtf_login_password).perform(
                 typeText(dummyPassword),
-                closeSoftKeyboard(),
+                closeSoftKeyboard(), DisableAutoFillAction(),
             )
         }
         onView(withId(R.id.btn_login)).check(matches(isEnabled()))
@@ -107,13 +114,13 @@ class AuthInstrumentationTest {
             onTextInput(R.id.vtf_login_username).perform(
                 typeText(dummyUsername),
                 clearText(),
-                closeSoftKeyboard(),
+                closeSoftKeyboard(), DisableAutoFillAction(),
             )
             onEditTextLayout(R.id.vtf_login_username).check(matches(hasError()))
             onTextInput(R.id.vtf_login_password).perform(
                 typeText(dummyPasswordInvalid),
                 clearText(),
-                closeSoftKeyboard(),
+                closeSoftKeyboard(), DisableAutoFillAction(),
             )
             onEditTextLayout(R.id.vtf_login_password).check(matches(hasError()))
         }
@@ -134,11 +141,11 @@ class AuthInstrumentationTest {
         ValidateableTextFieldTest.run {
             onTextInput(R.id.vtf_register_password).perform(
                 typeText(dummyPassword),
-                closeSoftKeyboard(),
+                closeSoftKeyboard(), DisableAutoFillAction(),
             )
             onTextInput(R.id.vtf_register_confirm_password).perform(
                 typeText(dummyPasswordInvalid),
-                closeSoftKeyboard(),
+                closeSoftKeyboard(), DisableAutoFillAction(),
             )
             onEditTextLayout(R.id.vtf_register_confirm_password).check(matches(hasError()))
         }
@@ -153,19 +160,19 @@ class AuthInstrumentationTest {
             onTextInput(R.id.vtf_register_username).perform(
                 typeText(dummyUsername),
                 clearText(),
-                closeSoftKeyboard(),
+                closeSoftKeyboard(), DisableAutoFillAction(),
             )
             onTextInput(R.id.vtf_register_email).perform(
                 typeText(dummyEmailInvalid),
-                closeSoftKeyboard(),
+                closeSoftKeyboard(), DisableAutoFillAction(),
             )
             onTextInput(R.id.vtf_register_password).perform(
                 typeText(dummyPasswordInvalid),
-                closeSoftKeyboard(),
+                closeSoftKeyboard(), DisableAutoFillAction(),
             )
             onTextInput(R.id.vtf_register_confirm_password).perform(
                 typeText(dummyPassword),
-                closeSoftKeyboard(),
+                closeSoftKeyboard(), DisableAutoFillAction(),
             )
 
             onEditTextLayout(R.id.vtf_register_username).check(matches(hasError()))
@@ -182,11 +189,11 @@ class AuthInstrumentationTest {
         ValidateableTextFieldTest.run {
             onTextInput(R.id.vtf_login_username).perform(
                 typeText(dummyUsername),
-                closeSoftKeyboard(),
+                closeSoftKeyboard(), DisableAutoFillAction(),
             )
             onTextInput(R.id.vtf_login_password).perform(
                 typeText(dummyPassword),
-                closeSoftKeyboard(),
+                closeSoftKeyboard(), DisableAutoFillAction(),
             )
         }
 
@@ -203,11 +210,11 @@ class AuthInstrumentationTest {
         ValidateableTextFieldTest.run {
             onTextInput(R.id.vtf_login_username).perform(
                 typeText(dummyUsername),
-                closeSoftKeyboard(),
+                closeSoftKeyboard(), DisableAutoFillAction(),
             )
             onTextInput(R.id.vtf_login_password).perform(
                 typeText(dummyPassword),
-                closeSoftKeyboard(),
+                closeSoftKeyboard(), DisableAutoFillAction(),
             )
         }
 
@@ -216,8 +223,8 @@ class AuthInstrumentationTest {
                 .setHttp2ErrorCode(500)
                 .setResponseCode(500)
                 .setBody(JsonConverter.readStringFromFile("login_error_response.json"))
-        onView(withId(R.id.btn_login)).perform(click())
         mockWebServer.enqueue(mockResponse)
+        onView(withId(R.id.btn_login)).perform(click(), DisableAutoFillAction())
         onView(withId(com.google.android.material.R.id.snackbar_text)).check(matches(isDisplayed()))
     }
 
@@ -243,7 +250,7 @@ class AuthInstrumentationTest {
                 .setResponseCode(500)
                 .setBody(JsonConverter.readStringFromFile("register_error_response.json"))
         mockWebServer.enqueue(mockResponse)
-        onView(withId(R.id.btn_register)).perform(click())
+        onView(withId(R.id.btn_register)).perform(click(), DisableAutoFillAction())
         onView(withId(com.google.android.material.R.id.snackbar_text)).check(matches(isDisplayed()))
     }
 
