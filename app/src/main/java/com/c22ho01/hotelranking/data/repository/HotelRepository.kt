@@ -2,13 +2,7 @@ package com.c22ho01.hotelranking.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
-import androidx.paging.liveData
 import com.c22ho01.hotelranking.data.Result
-import com.c22ho01.hotelranking.data.remote.SearchPagingSource
-import com.c22ho01.hotelranking.data.remote.response.hotel.HotelData
 import com.c22ho01.hotelranking.data.remote.response.hotel.HotelResponse
 import com.c22ho01.hotelranking.data.remote.retrofit.HotelService
 import com.c22ho01.hotelranking.utils.wrapEspressoIdlingResource
@@ -96,6 +90,7 @@ class HotelRepository(private val hotelService: HotelService) {
         }
     }
 
+    /*
     fun searchHotel(keyword: String): LiveData<PagingData<HotelData>> {
         return Pager(
             config = PagingConfig(
@@ -106,6 +101,7 @@ class HotelRepository(private val hotelService: HotelService) {
             }
         ).liveData
     }
+    */
 
     companion object {
 

@@ -1,5 +1,6 @@
 package com.c22ho01.hotelranking.adapter
 
+import android.content.Intent
 import android.graphics.Rect
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.c22ho01.hotelranking.R
 import com.c22ho01.hotelranking.data.remote.response.hotel.HotelData
 import com.c22ho01.hotelranking.databinding.CardHotelWithLocationBinding
+import com.c22ho01.hotelranking.ui.detail.DetailActivity
 import com.c22ho01.hotelranking.ui.home.HomeGuestFragment.Companion.USER_LAT
 import com.c22ho01.hotelranking.ui.home.HomeGuestFragment.Companion.USER_LONG
 import com.google.android.gms.maps.model.LatLng
@@ -46,6 +48,13 @@ class CardLocationAdapter : ListAdapter<HotelData, CardLocationAdapter.ViewHolde
                 ratingbar.rating = data.star
                 val price = data.pricePerNight.toString()
                 tvPrice.text = itemView.resources.getString(R.string.price, price)
+            }
+
+            itemView.setOnClickListener {
+                Intent(itemView.context, DetailActivity::class.java).also {
+                    it.putExtra("extra_hotel", data)
+                    itemView.context.startActivity(it)
+                }
             }
         }
     }
