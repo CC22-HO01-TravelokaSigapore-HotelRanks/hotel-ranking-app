@@ -114,7 +114,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:text="@string/hotel_recommendations"
-                android:textAppearance="@style/TextAppearance.HotelRanking.TitleLarge"
+                android:textAppearance="@style/TextAppearance.HotelRanking.HeadlineSmall"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardMenu" />
 
@@ -143,9 +143,7 @@
                 android:id="@+id/rvTopRated"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginVertical="16dp"
                 android:nestedScrollingEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -155,10 +153,11 @@
                 android:id="@+id/tvNearLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/near_your_location"
                 android:textAppearance="@style/TextAppearance.HotelRanking.TitleMedium"
-                app:layout_constraintStart_toStartOf="@+id/rvTopRated"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rvTopRated" />
 
             <ImageButton
@@ -177,9 +176,7 @@
                 android:id="@+id/rvNearLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginVertical="16dp"
                 android:nestedScrollingEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -189,10 +186,9 @@
                 android:id="@+id/rv_best_review"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginVertical="16dp"
                 android:nestedScrollingEnabled="false"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/materialTextView4" />
@@ -201,10 +197,11 @@
                 android:id="@+id/materialTextView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/best_review"
                 android:textAppearance="@style/TextAppearance.HotelRanking.TitleMedium"
-                app:layout_constraintStart_toStartOf="@+id/rvNearLocation"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rvNearLocation" />
 
             <ImageButton
