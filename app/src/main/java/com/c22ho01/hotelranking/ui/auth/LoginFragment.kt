@@ -117,7 +117,7 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun processLoginObserverResult(result: Result<LoginResponse> ) {
+    private fun processLoginObserverResult(result: Result<LoginResponse>) {
         when (result) {
             is Result.Loading -> {
                 showLoading(true)
