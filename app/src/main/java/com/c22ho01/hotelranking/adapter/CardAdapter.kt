@@ -30,7 +30,6 @@ class CardAdapter : ListAdapter<HotelData, CardAdapter.ViewHolder>(COMPARATOR) {
                 ratingbar.rating = data.star
                 val price = data.pricePerNight.toString()
                 tvPrice.text = itemView.resources.getString(R.string.price, price)
-
             }
 
             itemView.setOnClickListener {
