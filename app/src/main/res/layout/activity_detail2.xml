@@ -21,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvTitle"
+            android:id="@+id/tvHotelName"
             style="@style/TextAppearance.Material3.TitleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.041"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+            app:layout_constraintTop_toBottomOf="@+id/tvHotelName"
             android:src="@drawable/ic_baseline_location_on_24"
             app:tint="@color/md_theme_light_shadow" />
 
@@ -215,46 +215,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:tint="@color/md_theme_light_primary" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="24dp"
-                    app:layout_constraintTop_toBottomOf="@+id/facilitesCircleCard"
-                    tools:layout_editor_absoluteX="16dp">
-
-                    <com.google.android.flexbox.FlexboxLayout
-
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="24dp"
-                        app:justifyContent="space_between">
-
-                        <include layout="@layout/custom_menu" />
-
-                        <include layout="@layout/custom_menu" />
-
-                        <include layout="@layout/custom_menu" />
-
-                        <include layout="@layout/custom_menu" />
-                    </com.google.android.flexbox.FlexboxLayout>
-
-                    <com.google.android.flexbox.FlexboxLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:justifyContent="space_between">
-
-                        <include layout="@layout/custom_menu" />
-
-                        <include layout="@layout/custom_menu" />
-
-                        <include layout="@layout/custom_menu" />
-
-                        <include layout="@layout/custom_menu" />
-                    </com.google.android.flexbox.FlexboxLayout>
-
-                </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
