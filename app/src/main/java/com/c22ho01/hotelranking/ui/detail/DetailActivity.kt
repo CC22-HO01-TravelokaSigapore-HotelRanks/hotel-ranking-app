@@ -23,17 +23,14 @@ class DetailActivity : AppCompatActivity() {
         setData()
     }
 
-    private fun setImage(images:List<String>) {
-        var i = 0
-        for (image in images){
-
+    private fun setImage(images: List<String>) {
+        for ((i, image) in images.withIndex()) {
             if (i == 0) imageList.add(SlideModel(image)) else imageList.add(SlideModel(image.substring(1)))
-            i++
         }
         binding?.imageSlider?.setImageList(imageList, ScaleTypes.CENTER_CROP)
     }
 
-    private fun setData(){
+    private fun setData() {
         setImage(hotel.image)
         binding?.tvHotelName?.text = hotel.name
         binding?.tvLocation?.text = hotel.neighborhood

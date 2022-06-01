@@ -11,6 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <com.denzcoskun.imageslider.ImageSlider
             android:id="@+id/image_slider"
             android:layout_width="match_parent"
@@ -37,11 +38,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:src="@drawable/ic_baseline_location_on_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.041"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvHotelName"
-            android:src="@drawable/ic_baseline_location_on_24"
             app:tint="@color/md_theme_light_shadow" />
 
         <TextView
@@ -215,6 +216,116 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:tint="@color/md_theme_light_primary" />
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:scrollbars="none"
+                    app:layout_constraintTop_toBottomOf="@+id/facilitesCircleCard"
+                    tools:layout_editor_absoluteX="16dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:id="@+id/iconFreeRefund"
+                            android:layout_width="58dp"
+                            android:layout_height="58dp"
+                            android:layout_marginEnd="16dp"
+                            android:background="@drawable/ic_circle"
+                            android:src="@drawable/ic_money"
+                            tools:ignore="DuplicateSpeakableTextCheck" />
+
+                        <ImageButton
+                            android:id="@+id/iconBreakfast"
+                            android:layout_width="58dp"
+                            android:layout_height="58dp"
+                            android:layout_marginEnd="16dp"
+                            android:background="@drawable/ic_circle"
+                            android:src="@drawable/ic_breakfast"
+                            tools:ignore="DuplicateSpeakableTextCheck" />
+
+                        <ImageButton
+                            android:id="@+id/iconPool"
+                            android:layout_width="58dp"
+                            android:layout_height="58dp"
+                            android:layout_marginEnd="16dp"
+                            android:background="@drawable/ic_circle"
+                            android:src="@drawable/ic_pool"
+                            tools:ignore="DuplicateSpeakableTextCheck" />
+
+                        <ImageButton
+                            android:id="@+id/iconWifi"
+                            android:layout_width="58dp"
+                            android:layout_height="58dp"
+                            android:layout_marginEnd="16dp"
+                            android:background="@drawable/ic_circle"
+                            android:src="@drawable/ic_wifi"
+                            tools:ignore="DuplicateSpeakableTextCheck" />
+
+                        <ImageButton
+                            android:id="@+id/iconParking"
+                            android:layout_width="58dp"
+                            android:layout_height="58dp"
+                            android:layout_marginEnd="16dp"
+                            android:background="@drawable/ic_circle"
+                            android:src="@drawable/ic_car"
+                            tools:ignore="DuplicateSpeakableTextCheck" />
+
+                        <ImageButton
+                            android:id="@+id/iconSmoking"
+                            android:layout_width="58dp"
+                            android:layout_height="58dp"
+                            android:layout_marginEnd="16dp"
+                            android:background="@drawable/ic_circle"
+                            android:src="@drawable/ic_smoking"
+                            tools:ignore="DuplicateSpeakableTextCheck" />
+
+                        <ImageButton
+                            android:id="@+id/iconAirConditioner"
+                            android:layout_width="58dp"
+                            android:layout_height="58dp"
+                            android:layout_marginEnd="16dp"
+                            android:background="@drawable/ic_circle"
+                            android:src="@drawable/ic_baseline_ac_unit_24"
+                            tools:ignore="DuplicateSpeakableTextCheck" />
+                        <ImageButton
+                            android:id="@+id/iconWheelchairAccess"
+                            android:layout_width="58dp"
+                            android:layout_height="58dp"
+                            android:layout_marginEnd="16dp"
+                            android:background="@drawable/ic_circle"
+                            android:src="@drawable/ic_wheelchair"
+                            tools:ignore="DuplicateSpeakableTextCheck" />
+                        <ImageButton
+                            android:id="@+id/iconAverageBedSize"
+                            android:layout_width="58dp"
+                            android:layout_height="58dp"
+                            android:layout_marginEnd="16dp"
+                            android:background="@drawable/ic_circle"
+                            android:src="@drawable/ic_bed"
+                            tools:ignore="DuplicateSpeakableTextCheck" />
+                        <ImageButton
+                            android:id="@+id/iconStaffVaccinated"
+                            android:layout_width="58dp"
+                            android:layout_height="58dp"
+                            android:layout_marginEnd="16dp"
+                            android:background="@drawable/ic_circle"
+                            android:src="@drawable/ic_baseline_medical_services_24"
+                            tools:ignore="DuplicateSpeakableTextCheck" />
+                        <ImageButton
+                            android:id="@+id/iconChildArea"
+                            android:layout_width="58dp"
+                            android:layout_height="58dp"
+                            android:layout_marginEnd="16dp"
+                            android:background="@drawable/ic_circle"
+                            android:src="@drawable/ic_child"
+                            tools:ignore="DuplicateSpeakableTextCheck" />
+                    </LinearLayout>
+                </HorizontalScrollView>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
