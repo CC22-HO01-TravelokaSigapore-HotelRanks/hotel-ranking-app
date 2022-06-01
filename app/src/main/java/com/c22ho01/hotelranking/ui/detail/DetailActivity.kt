@@ -1,6 +1,7 @@
 package com.c22ho01.hotelranking.ui.detail
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.c22ho01.hotelranking.data.remote.response.hotel.HotelData
 import com.c22ho01.hotelranking.databinding.ActivityDetail2Binding
@@ -35,6 +36,21 @@ class DetailActivity : AppCompatActivity() {
         binding?.tvHotelName?.text = hotel.name
         binding?.tvLocation?.text = hotel.neighborhood
         binding?.tvRating?.text = hotel.star.toString()
+        setFeatures()
+    }
+
+    private fun setFeatures(){
+        if (!hotel.airConditioner) binding?.layoutFacilities?.removeView(binding?.iconAirConditioner)
+        if (!hotel.averageBedSize) binding?.layoutFacilities?.removeView(binding?.iconAverageBedSize)
+        if (!hotel.breakfast) binding?.layoutFacilities?.removeView(binding?.iconBreakfast)
+        if (!hotel.parking) binding?.layoutFacilities?.removeView(binding?.iconParking)
+        if (!hotel.childArea) binding?.layoutFacilities?.removeView(binding?.iconChildArea)
+        if (!hotel.smoking) binding?.layoutFacilities?.removeView(binding?.iconSmoking)
+        if (!hotel.pool) binding?.layoutFacilities?.removeView(binding?.iconPool)
+        if (!hotel.wheelChairAccess) binding?.layoutFacilities?.removeView(binding?.iconWheelchairAccess)
+        if (!hotel.freeRefund) binding?.layoutFacilities?.removeView(binding?.iconFreeRefund)
+        if (!hotel.staffVaccinated) binding?.layoutFacilities?.removeView(binding?.iconStaffVaccinated)
+        if (!hotel.wifi) binding?.layoutFacilities?.removeView(binding?.iconWifi)
     }
 
     companion object {
