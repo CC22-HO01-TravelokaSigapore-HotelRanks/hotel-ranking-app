@@ -19,13 +19,16 @@ class ProfileViewModel(
         get() = _userToken
 
     init {
+        loadToken()
+    }
+
+    fun loadToken() {
         viewModelScope.launch {
             tokenRepository.getToken().collect { token ->
                 _userToken = "Bearer $token"
             }
         }
     }
-
     fun loadProfile() = profileRepository.getProfile(_userToken)
     fun getCurrentProfile() = profileRepository.currentProfile
     fun setProfileID(profileId: Int) = profileRepository.setProfileId(profileId)

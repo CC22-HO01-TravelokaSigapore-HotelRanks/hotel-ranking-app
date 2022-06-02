@@ -13,6 +13,7 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import com.c22ho01.hotelranking.R
 import com.c22ho01.hotelranking.data.Result
+import com.c22ho01.hotelranking.data.local.entity.ProfileEntity
 import com.c22ho01.hotelranking.data.remote.response.auth.LoginResponse
 import com.c22ho01.hotelranking.databinding.FragmentLoginBinding
 import com.c22ho01.hotelranking.ui.home.HomeLoggedInActivity
@@ -117,13 +118,12 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun processLoginObserverResult(result: Result<LoginResponse> ) {
+    private fun processLoginObserverResult(result: Result<LoginResponse>) {
         when (result) {
             is Result.Loading -> {
                 showLoading(true)
             }
             is Result.Success -> {
-                showLoading(false)
                 loginSuccessCallback(result.data)
             }
             is Result.Error -> {
@@ -140,16 +140,49 @@ class LoginFragment : Fragment() {
     }
 
     private fun loginSuccessCallback(data: LoginResponse) {
-        tokenViewModel.setToken(data.loginData?.accessToken ?: "")
         profileViewModel.setProfileID(data.loginData?.userId ?: -1)
-        binding?.let { fragment ->
-            Snackbar.make(
-                fragment.root,
-                getString(R.string.login_success),
-                Snackbar.LENGTH_SHORT
-            ).show()
+
+        tokenViewModel.setToken(data.loginData?.accessToken ?: "").invokeOnCompletion {
+            profileViewModel.run {
+                loadToken()
+                loadProfile().run {
+                    if (this.hasObservers()) this.removeObservers(viewLifecycleOwner)
+                    this.observe(viewLifecycleOwner) {
+                        processProfileObserverResult(it)
+                    }
+                }
+            }
+
         }
-        goToHome()
+    }
+
+    private fun processProfileObserverResult(result: Result<ProfileEntity>) {
+        when (result) {
+            is Result.Loading -> {
+                showLoading(true)
+            }
+            is Result.Success -> {
+                showLoading(false)
+                binding?.let { fragment ->
+                    Snackbar.make(
+                        fragment.root,
+                        getString(R.string.login_success),
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }
+                goToHome()
+            }
+            is Result.Error -> {
+                showLoading(false)
+                binding?.let { fragment ->
+                    Snackbar.make(
+                        fragment.root,
+                        result.error,
+                        Snackbar.LENGTH_LONG,
+                    ).show()
+                }
+            }
+        }
     }
 
     private fun goToHome() {
