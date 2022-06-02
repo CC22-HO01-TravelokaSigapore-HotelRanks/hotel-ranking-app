@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -88,9 +87,9 @@ class SearchActivity : AppCompatActivity() {
                     before: Int,
                     count: Int
                 ) {
-                    val keyword = s.toString().trim()
-                    Log.e("CEK TEXT", keyword)
-                    searchHotel(keyword)
+//                    val keyword = s.toString().trim()
+//                    Log.e("CEK TEXT", keyword)
+//                    searchHotel(keyword)
                 }
 
                 override fun afterTextChanged(s: Editable?) {}
