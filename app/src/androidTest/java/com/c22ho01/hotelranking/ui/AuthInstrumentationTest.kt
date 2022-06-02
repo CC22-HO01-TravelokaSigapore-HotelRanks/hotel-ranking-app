@@ -202,6 +202,7 @@ class AuthInstrumentationTest {
             .setBody(JsonConverter.readStringFromFile("login_success_response.json"))
         mockWebServer.enqueue(mockResponse)
         onView(withId(R.id.btn_login)).perform(click())
+
         intended(hasComponent(HomeLoggedInActivity::class.java.name))
     }
 
@@ -260,7 +261,7 @@ class AuthInstrumentationTest {
         @BeforeClass
         @JvmStatic
         fun setUpBaseUrl() {
-            APIConfig.BASE_URL = mockWebServer.url("/").toString()
+            APIConfig.AUTH_BASE_URL = mockWebServer.url("/").toString()
         }
     }
 }
