@@ -88,4 +88,6 @@
     <string name="customize_your_profile">Customize Your Profile</string>
     <string name="trending">Trending</string>
     <string name="distance">%1$.1fkm away</string>
+    <string name="for_you">For You</string>
+    <string name="hotel_based_on_loves">Hotel recommendation based on things you loves in your adventure.</string>
 </resources>
