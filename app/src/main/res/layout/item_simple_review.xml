@@ -24,6 +24,8 @@
             android:text="@string/username"
             android:textColor="@color/md_theme_light_primaryContainer"
             android:textStyle="bold"
+            android:maxLines="1"
+            android:ellipsize="end"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent" />
 
@@ -45,8 +47,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Lorem ipsum dolor sit amet"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
             android:textColor="@color/md_theme_light_primaryContainer"
+            android:maxLines="3"
+            android:ellipsize="end"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@id/itemRating" />
 
