@@ -25,7 +25,8 @@
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/activity_home.xml" value="0.1" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/activity_home_guest.xml" value="0.264" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/activity_home_logged_in.xml" value="0.264" />
-        <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/activity_search.xml" value="0.72" />
+        <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/activity_profile_customize.xml" value="0.22" />
+        <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/activity_search.xml" value="0.264" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/card_hotel.xml" value="0.4" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/card_hotel_location.xml" value="0.21621621621621623" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/card_hotel_with_location.xml" value="0.4" />
@@ -33,6 +34,7 @@
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/card_menu.xml" value="0.2" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/custom_menu.xml" value="0.4" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/custom_search_bar.xml" value="0.264" />
+        <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/dialog_google_auth.xml" value="0.21621621621621623" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/fragment_dashboard.xml" value="0.16216216216216217" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/fragment_home.xml" value="0.264" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/fragment_home_guest.xml" value="0.21621621621621623" />
@@ -51,7 +53,16 @@
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/search_bar.xml" value="0.4" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/menu/bottom_nav_menu.xml" value="0.16216216216216217" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.16216216216216217" />
+        <entry key="..\:/Users/Tenessine/GudangKode/AndroidKotlin/hotel-ranking-app/app/src/main/res/layout/activity_detail2.xml" value="0.10833333333333334" />
+        <entry key="..\:/Users/Tenessine/GudangKode/AndroidKotlin/hotel-ranking-app/app/src/main/res/layout/activity_for_you.xml" value="0.2" />
         <entry key="..\:/Users/Tenessine/GudangKode/AndroidKotlin/hotel-ranking-app/app/src/main/res/layout/activity_main.xml" value="0.4" />
+        <entry key="..\:/Users/Tenessine/GudangKode/AndroidKotlin/hotel-ranking-app/app/src/main/res/layout/activity_profile_customize.xml" value="0.24947916666666667" />
+        <entry key="..\:/Users/Tenessine/GudangKode/AndroidKotlin/hotel-ranking-app/app/src/main/res/layout/activity_search.xml" value="0.1" />
+        <entry key="..\:/Users/Tenessine/GudangKode/AndroidKotlin/hotel-ranking-app/app/src/main/res/layout/fragment_list_review.xml" value="0.10833333333333334" />
+        <entry key="..\:/Users/Tenessine/GudangKode/AndroidKotlin/hotel-ranking-app/app/src/main/res/layout/fragment_preview_maps.xml" value="0.10833333333333334" />
+        <entry key="..\:/Users/Tenessine/GudangKode/AndroidKotlin/hotel-ranking-app/app/src/main/res/layout/item_detail_review.xml" value="0.10833333333333334" />
+        <entry key="..\:/Users/Tenessine/GudangKode/AndroidKotlin/hotel-ranking-app/app/src/main/res/layout/item_for_you.xml" value="0.264" />
+        <entry key="..\:/Users/Tenessine/GudangKode/AndroidKotlin/hotel-ranking-app/app/src/main/res/layout/item_search.xml" value="0.264" />
         <entry key="..\:/Users/Tenessine/GudangKode/AndroidKotlin/hotel-ranking-app/app/src/main/res/layout/fragment_profile.xml" value="0.2006340579710145" />
       </map>
     </option>
