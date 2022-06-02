@@ -10,9 +10,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:layout_height="match_parent">
 
         <com.denzcoskun.imageslider.ImageSlider
             android:id="@+id/image_slider"
@@ -102,27 +100,17 @@
                 android:layout_height="wrap_content"
                 android:padding="16dp">
 
-                <androidx.cardview.widget.CardView
-                    android:id="@id/reviewCircleCard"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/md_theme_light_primary"
-                    app:cardCornerRadius="45dp"
+                <ImageButton
+                    android:id="@+id/imageButtonReviews"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/ic_circle"
+                    android:contentDescription="@string/reviews_icon"
+                    android:src="@drawable/ic_baseline_checklist_24"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <ImageView
-                        android:id="@+id/reviewIcon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:contentDescription="@string/reviews_icon"
-                        android:src="@drawable/ic_baseline_checklist_24"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:tint="@color/md_theme_light_primaryContainer" />
-                </androidx.cardview.widget.CardView>
-
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/md_theme_light_primaryContainer"
+                    tools:ignore="DuplicateSpeakableTextCheck" />
 
                 <TextView
 
@@ -133,9 +121,9 @@
                     android:layout_marginStart="16dp"
                     android:text="@string/review"
                     android:textColor="@color/md_theme_light_primary"
-                    app:layout_constraintBottom_toBottomOf="@+id/reviewCircleCard"
-                    app:layout_constraintStart_toEndOf="@id/reviewCircleCard"
-                    app:layout_constraintTop_toTopOf="@+id/reviewCircleCard" />
+                    app:layout_constraintBottom_toBottomOf="@+id/imageButtonReviews"
+                    app:layout_constraintStart_toEndOf="@id/imageButtonReviews"
+                    app:layout_constraintTop_toTopOf="@+id/imageButtonReviews" />
 
                 <ImageView
                     android:id="@+id/reviewDetailIcon"
@@ -157,7 +145,7 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/reviewCircleCard"
+                    app:layout_constraintTop_toBottomOf="@+id/imageButtonReviews"
                     tools:listitem="@layout/item_simple_review" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -182,26 +170,17 @@
                 android:layout_height="wrap_content"
                 android:padding="16dp">
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/facilitiesCircleCard"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/md_theme_light_primary"
-                    app:cardCornerRadius="45dp"
+                <ImageButton
+                    android:id="@+id/imageButtonFacilities"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/ic_circle"
+                    android:contentDescription="@string/facilities_icon"
+                    android:src="@drawable/ic_baseline_stars_24"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <ImageView
-                        android:id="@+id/facilitiesIcon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:contentDescription="@string/facilities_icon"
-                        android:src="@drawable/ic_baseline_stars_24"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:tint="@color/md_theme_light_primaryContainer" />
-                </androidx.cardview.widget.CardView>
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/md_theme_light_primaryContainer"
+                    tools:ignore="DuplicateSpeakableTextCheck" />
 
 
                 <TextView
@@ -212,16 +191,16 @@
                     android:layout_marginStart="16dp"
                     android:text="@string/facilities"
                     android:textColor="@color/md_theme_light_primary"
-                    app:layout_constraintBottom_toBottomOf="@+id/facilitiesCircleCard"
-                    app:layout_constraintStart_toEndOf="@id/facilitiesCircleCard"
-                    app:layout_constraintTop_toTopOf="@+id/facilitiesCircleCard" />
+                    app:layout_constraintBottom_toBottomOf="@+id/imageButtonFacilities"
+                    app:layout_constraintStart_toEndOf="@id/imageButtonFacilities"
+                    app:layout_constraintTop_toTopOf="@+id/imageButtonFacilities" />
 
                 <HorizontalScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:scrollbars="none"
-                    app:layout_constraintTop_toBottomOf="@+id/facilitiesCircleCard"
+                    app:layout_constraintTop_toBottomOf="@+id/imageButtonFacilities"
                     tools:layout_editor_absoluteX="16dp">
 
                     <LinearLayout
@@ -351,8 +330,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
             android:backgroundTint="@color/md_theme_light_primaryContainer"
             app:cardElevation="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/facilitiesCard"
@@ -363,27 +344,17 @@
                 android:layout_height="wrap_content"
                 android:padding="16dp">
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/locationCircleCard"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/md_theme_light_primary"
-                    app:cardCornerRadius="45dp"
+                <ImageButton
+                    android:id="@+id/imageButtonLocation"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/ic_circle"
+                    android:contentDescription="@string/location_icon"
+                    android:src="@drawable/ic_baseline_map_24"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <ImageView
-                        android:contentDescription="@string/location_icon"
-                        android:id="@+id/locationIcon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:src="@drawable/ic_baseline_map_24"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:tint="@color/md_theme_light_primaryContainer" />
-
-                </androidx.cardview.widget.CardView>
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/md_theme_light_primaryContainer"
+                    tools:ignore="DuplicateSpeakableTextCheck" />
 
                 <TextView
                     android:id="@+id/locationTitle"
@@ -393,15 +364,15 @@
                     android:layout_marginStart="16dp"
                     android:text="@string/location"
                     android:textColor="@color/md_theme_light_primary"
-                    app:layout_constraintBottom_toBottomOf="@+id/locationCircleCard"
-                    app:layout_constraintStart_toEndOf="@id/locationCircleCard"
-                    app:layout_constraintTop_toTopOf="@+id/locationCircleCard" />
+                    app:layout_constraintBottom_toBottomOf="@+id/imageButtonLocation"
+                    app:layout_constraintStart_toEndOf="@id/imageButtonLocation"
+                    app:layout_constraintTop_toTopOf="@+id/imageButtonLocation" />
 
                 <ImageView
-                    android:contentDescription="@string/location_detail"
                     android:id="@+id/locationDetailIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/location_detail"
                     android:src="@drawable/ic_baseline_arrow_forward_ios_24"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -412,7 +383,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:layout_marginTop="15dp"
-                    app:layout_constraintTop_toBottomOf="@+id/locationCircleCard"
+                    app:layout_constraintTop_toBottomOf="@+id/imageButtonLocation"
                     tools:layout_editor_absoluteX="16dp" />
 
                 <Button

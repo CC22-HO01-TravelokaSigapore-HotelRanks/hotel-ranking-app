@@ -37,7 +37,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
         app:layout_constraintStart_toEndOf="@id/ratingBar"
         app:layout_constraintTop_toTopOf="@+id/ratingBar"
-        tools:text="4.0" />
+        tools:text="@string/rating" />
 
     <TextView
         android:id="@+id/totalReviews"

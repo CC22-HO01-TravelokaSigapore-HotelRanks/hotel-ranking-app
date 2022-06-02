@@ -3,6 +3,7 @@ package com.c22ho01.hotelranking.ui.detail
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.c22ho01.hotelranking.R
 import com.c22ho01.hotelranking.data.remote.response.hotel.HotelData
 import com.c22ho01.hotelranking.databinding.ActivityDetail2Binding
 import com.denzcoskun.imageslider.constants.ScaleTypes
@@ -35,7 +36,7 @@ class DetailActivity : AppCompatActivity() {
         setImage(hotel.image)
         binding?.tvHotelName?.text = hotel.name
         binding?.tvLocation?.text = hotel.neighborhood
-        binding?.tvRating?.text = hotel.star.toString()
+        binding?.tvRating?.text = resources.getString(R.string.rating, hotel.star)
         setFeatures()
     }
 
