@@ -6,6 +6,7 @@ import androidx.core.view.isVisible
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.c22ho01.hotelranking.R
 import com.c22ho01.hotelranking.databinding.ItemLoadingBinding
 
 class LoadingStateAdapter(private val retry: () -> Unit) :
@@ -32,7 +33,7 @@ class LoadingStateAdapter(private val retry: () -> Unit) :
 
         fun bind(loadState: LoadState) {
             if (loadState is LoadState.Error) {
-                binding.errorMsg.text = loadState.error.localizedMessage
+                binding.errorMsg.text = itemView.resources.getString(R.string.error_connection)
             }
             binding.progressBar.isVisible = loadState is LoadState.Loading
             binding.retryButton.isVisible = loadState is LoadState.Error

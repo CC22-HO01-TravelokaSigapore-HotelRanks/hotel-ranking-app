@@ -4,11 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.c22ho01.hotelranking.data.repository.ProfileRepository
 import com.c22ho01.hotelranking.data.repository.TokenRepository
-import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-@OptIn(InternalCoroutinesApi::class)
 class ProfileViewModel(
     private val profileRepository: ProfileRepository,
     private val tokenRepository: TokenRepository,
@@ -29,6 +27,7 @@ class ProfileViewModel(
             }
         }
     }
+
     fun loadProfile() = profileRepository.getProfile(_userToken)
     fun getCurrentProfile() = profileRepository.currentProfile
     fun setProfileID(profileId: Int) = profileRepository.setProfileId(profileId)
