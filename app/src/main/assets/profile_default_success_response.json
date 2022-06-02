@@ -20,6 +20,7 @@
     "family": false,
     "email": "example@gmail.com",
     "userName": "Awanama Wijaya",
+    "reviewCounter": 0,
     "createdAt": "2022-05-18T11:44:15.000Z",
     "updatedAt": "2022-05-18T11:44:15.000Z"
   }

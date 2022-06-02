@@ -49,5 +49,8 @@ data class ProfileData(
     val hobby: List<String?>? = null,
 
     @field:SerializedName("updatedAt")
-    val updatedAt: String? = null
+    val updatedAt: String? = null,
+
+    @field:SerializedName("reviewCounter")
+    val reviewCounter: Int? = null,
 )

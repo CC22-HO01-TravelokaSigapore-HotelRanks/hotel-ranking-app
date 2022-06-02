@@ -21,7 +21,8 @@ data class ProfileEntity(
     val stayHistory: List<String?>? = null,
     val specialNeeds: @RawValue List<DisabilityEntity?>? = null,
     val createdAt: Date? = null,
-    val updatedAt: Date? = null
+    val updatedAt: Date? = null,
+    val ratingCounter: Int? = null,
 ) : Parcelable {
     companion object {
         fun fromGetResponse(response: ProfileGetResponse): ProfileEntity {
