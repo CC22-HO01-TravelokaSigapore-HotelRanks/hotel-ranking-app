@@ -162,7 +162,7 @@ class ProfileInstrumentTest {
         @BeforeClass
         @JvmStatic
         fun setUpBaseUrl() {
-            APIConfig.BASE_URL = mockWebServer.url("/").toString()
+            APIConfig.AUTH_BASE_URL = mockWebServer.url("/").toString()
         }
     }
 }

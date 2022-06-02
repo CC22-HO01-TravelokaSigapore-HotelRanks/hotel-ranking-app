@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object APIConfig {
-    const val AUTH_BASE_URL = "https://test1-ywu6raktuq-uc.a.run.app/"
+    var AUTH_BASE_URL = "https://test1-ywu6raktuq-uc.a.run.app/"
     private const val HOTEL_BASE_URL = "https://hotel-test-ywu6raktuq-uc.a.run.app/"
 
     private fun getRetrofit(url: String): Retrofit {
