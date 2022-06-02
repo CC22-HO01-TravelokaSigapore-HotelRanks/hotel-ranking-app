@@ -21,6 +21,7 @@ import com.c22ho01.hotelranking.adapter.CardLocationAdapter
 import com.c22ho01.hotelranking.data.Result
 import com.c22ho01.hotelranking.data.remote.response.hotel.UserLocation
 import com.c22ho01.hotelranking.databinding.FragmentHomeLoggedInBinding
+import com.c22ho01.hotelranking.ui.foryou.ForYouActivity
 import com.c22ho01.hotelranking.ui.profile.ProfileCustomizeActivity
 import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
 import com.c22ho01.hotelranking.viewmodel.hotel.HomeViewModel
@@ -94,6 +95,10 @@ class HomeLoggedInFragment : Fragment() {
 
             btnCheckItOut.setOnClickListener {
                 scrollView.smoothScrollTo(0, tvHotelRecommendation.y.toInt())
+            }
+
+            btnForYou.setOnClickListener {
+                startActivity(Intent(activity, ForYouActivity::class.java))
             }
         }
     }
