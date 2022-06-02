@@ -34,7 +34,7 @@ class ListReviewAdapter : PagingDataAdapter<ReviewData, ListReviewAdapter.ViewHo
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: ReviewData) {
             binding.apply {
-                tvRating.text = "(${data.rating}.0 / 5.0)"
+                tvRating.text = itemView.resources.getString(R.string.rating, data.rating.toFloat().toString())
                 tvReview.text = data.text
                 tvUsername.text = data.name
                 ratingBar.rating = data.rating.toFloat()

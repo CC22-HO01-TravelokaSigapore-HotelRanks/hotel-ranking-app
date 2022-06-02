@@ -35,7 +35,7 @@ class DetailActivity : AppCompatActivity() {
 
         hotel = intent.getParcelableExtra<HotelData>(EXTRA_HOTEL) as HotelData
 
-        binding.reviewDetailIcon.setOnClickListener{
+        binding.reviewCard.setOnClickListener{
             val intent = Intent(this, ListReviewActivity::class.java)
             intent.putExtra(EXTRA_HOTEL,hotel)
             startActivity(intent)
