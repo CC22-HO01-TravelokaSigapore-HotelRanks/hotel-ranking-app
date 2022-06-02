@@ -197,10 +197,16 @@ class AuthInstrumentationTest {
             )
         }
 
-        val mockResponse = MockResponse()
+        val mockAuthResponse = MockResponse()
             .setResponseCode(200)
             .setBody(JsonConverter.readStringFromFile("login_success_response.json"))
-        mockWebServer.enqueue(mockResponse)
+        val mockProfileResponse = MockResponse()
+            .setResponseCode(200)
+            .setBody(JsonConverter.readStringFromFile("profile_default_success_response.json"))
+        mockWebServer.run {
+            enqueue(mockAuthResponse)
+            enqueue(mockProfileResponse)
+        }
         onView(withId(R.id.btn_login)).perform(click())
 
         intended(hasComponent(HomeLoggedInActivity::class.java.name))
