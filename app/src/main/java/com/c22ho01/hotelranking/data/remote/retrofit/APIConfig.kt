@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit
 object APIConfig {
     const val AUTH_BASE_URL = "https://test1-ywu6raktuq-uc.a.run.app/"
     private const val HOTEL_BASE_URL = "https://hotel-test-ywu6raktuq-uc.a.run.app/"
+    private const val REVIEW_BASE_URL = "https://review-ywu6raktuq-uc.a.run.app/"
 
     private fun getRetrofit(url: String): Retrofit {
         val loggingInterceptor =
@@ -38,5 +39,10 @@ object APIConfig {
     fun getProfileAPIService(): ProfileService {
         val retrofit = getRetrofit(AUTH_BASE_URL)
         return retrofit.create(ProfileService::class.java)
+    }
+
+    fun getReviewAPIService(): ReviewService {
+        val retrofit = getRetrofit(REVIEW_BASE_URL)
+        return retrofit.create(ReviewService::class.java)
     }
 }
