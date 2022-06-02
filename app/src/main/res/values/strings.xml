@@ -94,8 +94,10 @@
     <string name="it_looks_like">It looks like you haven\'t completed your profile. Completing your profile help us to know you better.</string>
     <string name="maybe_later">Maybe later</string>
     <string name="check_our">Check our new hotel recommendation feature to find your most desirable hotel.</string>
-    <string name="for_you">Just for you!</string>
+    <string name="just_for_you">Just for you!</string>
     <string name="we_will_give">We will give our best recommendation based on your review. Please provide at least 10 reviews to unlock this feature.</string>
     <string name="your_total_review">Your total review: %1$d</string>
     <string name="for_you_page">For you page</string>
+    <string name="for_you">For You</string>
+    <string name="hotel_based_on_loves">Hotel recommendation based on things you loves in your adventure.</string>
 </resources>

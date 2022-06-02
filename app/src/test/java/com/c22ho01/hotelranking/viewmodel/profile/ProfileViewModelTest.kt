@@ -79,4 +79,18 @@ class ProfileViewModelTest {
         Assert.assertEquals(expectedResult.value, actualResult)
     }
 
+    @Test
+    fun `when getProfileId should return current profile id in repository`() {
+        val profileDummy = DataDummy.provideProfileEntity()
+        val expectedResult = MutableLiveData<Int>()
+        expectedResult.value = profileDummy.id
+
+        `when`(profileRepositoryMock.currentProfile).thenReturn(
+            MutableLiveData(profileDummy)
+        )
+
+        val actualResult = profileViewModel.getProfileID()
+        Assert.assertEquals(expectedResult.value, actualResult)
+    }
+
 }

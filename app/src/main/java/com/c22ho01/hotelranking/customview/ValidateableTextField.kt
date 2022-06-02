@@ -91,12 +91,12 @@ class ValidateableTextField : ConstraintLayout {
             setText(valueText)
             transformationMethod = if (isObscure) PasswordTransformationMethod() else null
         }
-        setupInputType()
+        setupInputType(context)
 
         typedArray.recycle()
     }
 
-    private fun setupInputType() {
+    private fun setupInputType(context: Context) {
         when (inputType) {
             INPUT_TYPE_TEXT -> {
                 binding?.etValidateableField?.inputType = EditorInfo.TYPE_CLASS_TEXT

@@ -24,6 +24,7 @@
     "family": true,
     "email": "example@gmail.com",
     "userName": "awanama",
+    "reviewCounter": 0,
     "createdAt": "2022-05-18T11:44:15.000Z",
     "updatedAt": "2022-05-25T02:02:17.000Z"
   }
