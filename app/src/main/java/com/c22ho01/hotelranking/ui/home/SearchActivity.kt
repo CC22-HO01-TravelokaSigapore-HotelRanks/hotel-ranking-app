@@ -10,12 +10,16 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.c22ho01.hotelranking.adapter.LoadingStateAdapter
 import com.c22ho01.hotelranking.adapter.SearchAdapter
-import com.c22ho01.hotelranking.data.Result
 import com.c22ho01.hotelranking.databinding.ActivitySearchBinding
 import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
 import com.c22ho01.hotelranking.viewmodel.hotel.SearchViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class SearchActivity : AppCompatActivity() {
 
@@ -23,6 +27,7 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var searchAdapter: SearchAdapter
     private lateinit var factory: ViewModelFactory
     private val searchViewModel: SearchViewModel by viewModels { factory }
+    private lateinit var searchJob: Job
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +36,7 @@ class SearchActivity : AppCompatActivity() {
 
         factory = ViewModelFactory.getInstance(this)
         searchAdapter = SearchAdapter()
+        searchJob = Job()
 
         setupView()
         setupAction()
@@ -39,7 +45,11 @@ class SearchActivity : AppCompatActivity() {
     private fun setupView() {
         binding.rvSearch.apply {
             layoutManager = LinearLayoutManager(this@SearchActivity)
-            adapter = searchAdapter
+            adapter = searchAdapter.withLoadStateFooter(
+                footer = LoadingStateAdapter {
+                    searchAdapter.retry()
+                }
+            )
             addItemDecoration(
                 SearchAdapter.MarginItemDecoration(48)
             )
@@ -90,27 +100,12 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun searchHotel(keyword: String) {
-        searchViewModel.hotelSearch(keyword).observe(this) {
-            when (it) {
-                is Result.Loading -> {
-
-                }
-                is Result.Success -> {
-                    val data = it.data.data
-                    searchAdapter.submitList(data)
-                }
-                else -> {
-
-                }
+        searchJob.cancel()
+        searchJob = lifecycleScope.launch {
+            searchViewModel.searchHotel(keyword).collect {
+                searchAdapter.submitData(it)
             }
         }
-//        try {
-//            searchViewModel.searchHotel(keyword).observe(this) {
-//                searchAdapter.submitData(lifecycle, it)
-//            }
-//        } catch (e: Exception) {
-//            error(e)
-//        }
     }
 
     private fun hideSoftKeyboard(view: View) {
