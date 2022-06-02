@@ -30,7 +30,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:text="@string/cancel"
-            android:textAppearance="@style/TextAppearance.HotelRanking.LabelSmall" />
+            android:textAppearance="@style/TextAppearance.HotelRanking.LabelMedium" />
 
     </RelativeLayout>
 

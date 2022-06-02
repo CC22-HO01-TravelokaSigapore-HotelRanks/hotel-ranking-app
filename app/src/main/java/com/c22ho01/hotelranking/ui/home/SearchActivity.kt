@@ -2,8 +2,6 @@ package com.c22ho01.hotelranking.ui.home
 
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -72,7 +70,7 @@ class SearchActivity : AppCompatActivity() {
                 return@setOnKeyListener false
             }
 
-            etKeyword.addTextChangedListener(object : TextWatcher {
+            /*etKeyword.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
                     s: CharSequence?,
                     start: Int,
@@ -87,14 +85,15 @@ class SearchActivity : AppCompatActivity() {
                     before: Int,
                     count: Int
                 ) {
-//                    val keyword = s.toString().trim()
-//                    Log.e("CEK TEXT", keyword)
-//                    searchHotel(keyword)
+                    val keyword = s.toString().trim()
+                    Timer("SendRequest", false).schedule(1000) {
+                        searchHotel(keyword)
+                    }
                 }
 
                 override fun afterTextChanged(s: Editable?) {}
 
-            })
+            })*/
         }
     }
 

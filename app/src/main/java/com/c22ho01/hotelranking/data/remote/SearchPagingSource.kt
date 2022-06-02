@@ -22,7 +22,7 @@ class SearchPagingSource(
             val page = params.key ?: INITIAL_PAGE_INDEX
             val responseHotel = hotelService.searchHotel(params.loadSize, page, keyword)
 
-            if(responseHotel.isSuccessful) {
+            if (responseHotel.isSuccessful) {
                 val hotels = responseHotel.body()?.data ?: emptyList()
                 LoadResult.Page(
                     data = hotels,

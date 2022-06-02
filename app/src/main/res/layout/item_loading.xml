@@ -13,11 +13,10 @@
         android:layout_gravity="center"
         android:textAlignment="center"
         android:textColor="?android:textColorPrimary"
-        tools:text="Timeout" />
+        tools:text="Check your internet connection" />
 
-    <com.google.android.material.progressindicator.CircularProgressIndicator
+    <ProgressBar
         android:id="@+id/progress_bar"
-        style="@style/Widget.Material3.CircularProgressIndicator.Small"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center" />

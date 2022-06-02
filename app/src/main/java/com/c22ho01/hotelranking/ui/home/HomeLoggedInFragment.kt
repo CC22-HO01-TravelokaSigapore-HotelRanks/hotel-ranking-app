@@ -1,6 +1,9 @@
 package com.c22ho01.hotelranking.ui.home
 
 import android.Manifest
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
@@ -9,13 +12,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.c22ho01.hotelranking.adapter.CardAdapter
 import com.c22ho01.hotelranking.adapter.CardLocationAdapter
 import com.c22ho01.hotelranking.data.Result
 import com.c22ho01.hotelranking.data.remote.response.hotel.UserLocation
 import com.c22ho01.hotelranking.databinding.FragmentHomeLoggedInBinding
+import com.c22ho01.hotelranking.ui.profile.ProfileCustomizeActivity
 import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
 import com.c22ho01.hotelranking.viewmodel.hotel.HomeViewModel
 import com.c22ho01.hotelranking.viewmodel.profile.ProfileViewModel
@@ -27,8 +33,10 @@ class HomeLoggedInFragment : Fragment() {
     private var _binding: FragmentHomeLoggedInBinding? = null
     private val binding get() = _binding
     private lateinit var fusedLocation: FusedLocationProviderClient
-    private lateinit var factory: ViewModelFactory
+    private lateinit var topRatedAdapter: CardAdapter
+    private lateinit var trendingAdapter: CardAdapter
     private lateinit var locationAdapter: CardLocationAdapter
+    private lateinit var factory: ViewModelFactory
     private val homeViewModel: HomeViewModel by viewModels { factory }
     private val profileViewModel: ProfileViewModel by viewModels { factory }
     private lateinit var userLocation: UserLocation
@@ -41,6 +49,8 @@ class HomeLoggedInFragment : Fragment() {
         _binding = FragmentHomeLoggedInBinding.inflate(inflater, container, false)
         fusedLocation = LocationServices.getFusedLocationProviderClient(requireContext())
         factory = ViewModelFactory.getInstance(requireContext())
+        topRatedAdapter = CardAdapter()
+        trendingAdapter = CardAdapter()
         locationAdapter = CardLocationAdapter()
         userLocation = UserLocation()
         return binding?.root
@@ -49,17 +59,98 @@ class HomeLoggedInFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupAction()
         getMyLastLocation()
+        getTopRated()
+        getTrending()
+    }
 
-        binding?.rvNearLocation?.apply {
+    private fun setupAction() {
+        binding?.apply {
+            profileViewModel.getCurrentProfile().observe(viewLifecycleOwner) {
+                cardProfileCustomization.isVisible = it.name != null
+                (cardCheckItOut.layoutParams as ViewGroup.MarginLayoutParams)
+                    .setMargins(48, 24, 48, 0)
+            }
+
+            btnEditProfile.setOnClickListener {
+                startActivity(
+                    Intent(activity, ProfileCustomizeActivity::class.java)
+                )
+            }
+
+            btnMaybeLater.setOnClickListener {
+                cardProfileCustomization.animate()
+                    .alpha(0.0f)
+                    .setDuration(1000)
+                    .setListener(object : AnimatorListenerAdapter() {
+                        override fun onAnimationEnd(animation: Animator) {
+                            cardProfileCustomization.visibility = View.GONE
+                            (cardCheckItOut.layoutParams as ViewGroup.MarginLayoutParams)
+                                .setMargins(48, 24, 48, 0)
+                        }
+                    })
+            }
+
+            btnCheckItOut.setOnClickListener {
+                scrollView.smoothScrollTo(0, tvHotelRecommendation.y.toInt())
+            }
+        }
+    }
+
+    private fun getTopRated() {
+        binding?.rvTopRated?.apply {
             layoutManager = LinearLayoutManager(
                 context,
                 LinearLayoutManager.HORIZONTAL,
                 false
             )
-            adapter = locationAdapter
+            adapter = topRatedAdapter
             setHasFixedSize(true)
-            addItemDecoration(CardLocationAdapter.MarginItemDecoration(48))
+            addItemDecoration(CardAdapter.MarginItemDecoration(48))
+        }
+
+        homeViewModel.getFiveStar.observe(viewLifecycleOwner) {
+            when (it) {
+                is Result.Loading -> {
+                    //loading
+                }
+                is Result.Success -> {
+                    val data = it.data.data
+                    topRatedAdapter.submitList(data)
+                }
+                else -> {
+                    //error message
+                }
+            }
+        }
+    }
+
+    private fun getTrending() {
+        binding?.rvTrending?.apply {
+            layoutManager = LinearLayoutManager(
+                context,
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+            adapter = trendingAdapter
+            setHasFixedSize(true)
+            addItemDecoration(CardAdapter.MarginItemDecoration(48))
+        }
+
+        homeViewModel.getTrending.observe(viewLifecycleOwner) {
+            when (it) {
+                is Result.Loading -> {
+                    //loading
+                }
+                is Result.Success -> {
+                    val data = it.data.data
+                    trendingAdapter.submitList(data)
+                }
+                else -> {
+                    //error message
+                }
+            }
         }
     }
 
@@ -76,6 +167,17 @@ class HomeLoggedInFragment : Fragment() {
                         longitude = USER_LONG,
                         latitude = USER_LAT
                     )
+
+                    binding?.rvNearLocation?.apply {
+                        layoutManager = LinearLayoutManager(
+                            context,
+                            LinearLayoutManager.HORIZONTAL,
+                            false
+                        )
+                        adapter = locationAdapter
+                        setHasFixedSize(true)
+                        addItemDecoration(CardLocationAdapter.MarginItemDecoration(48))
+                    }
 
                     homeViewModel.getLocation(userLocation).observe(viewLifecycleOwner) {
                         when (it) {
