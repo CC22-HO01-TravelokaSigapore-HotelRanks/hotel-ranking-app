@@ -20,7 +20,7 @@ class SearchAdapter : PagingDataAdapter<HotelData, SearchAdapter.ViewHolder>(DIF
         val binding = ItemSearchBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
-            true
+            false
         )
         return ViewHolder(binding)
     }

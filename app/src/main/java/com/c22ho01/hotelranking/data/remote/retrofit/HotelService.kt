@@ -1,6 +1,5 @@
 package com.c22ho01.hotelranking.data.remote.retrofit
 
-import com.c22ho01.hotelranking.data.remote.response.hotel.HotelData
 import com.c22ho01.hotelranking.data.remote.response.hotel.HotelResponse
 import com.c22ho01.hotelranking.data.remote.response.hotel.UserLocation
 import retrofit2.Response
@@ -23,7 +22,7 @@ interface HotelService {
         @Query("page") page: Int,
         @Query("offset") offset: Int,
         @Query("keyword") keyword: String
-    ): List<HotelData>
+    ): Response<HotelResponse>
 
     @GET("search")
     suspend fun hotelSearch(
