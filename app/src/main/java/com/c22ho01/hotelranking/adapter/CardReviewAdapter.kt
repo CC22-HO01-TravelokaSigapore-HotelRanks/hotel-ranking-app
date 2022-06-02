@@ -16,7 +16,7 @@ class CardReviewAdapter : ListAdapter<ReviewData, CardReviewAdapter.ViewHolder>(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: ReviewData) {
             binding.apply {
-                itemUsername.text = data.name
+                tvUsername.text = data.name
                 itemReview.text = data.text
                 itemRating.rating = data.rating.toFloat()
             }

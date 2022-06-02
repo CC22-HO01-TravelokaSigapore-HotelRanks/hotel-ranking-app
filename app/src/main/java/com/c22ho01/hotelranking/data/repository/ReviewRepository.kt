@@ -2,11 +2,17 @@ package com.c22ho01.hotelranking.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.c22ho01.hotelranking.data.Result
+import com.c22ho01.hotelranking.data.remote.ReviewPagingSource
+import com.c22ho01.hotelranking.data.remote.response.review.ReviewData
 import com.c22ho01.hotelranking.data.remote.response.review.ReviewResponse
 import com.c22ho01.hotelranking.data.remote.retrofit.ReviewService
 import com.c22ho01.hotelranking.utils.wrapEspressoIdlingResource
 import com.google.gson.Gson
+import kotlinx.coroutines.flow.Flow
 
 class ReviewRepository(private val reviewService: ReviewService) {
 
@@ -28,6 +34,18 @@ class ReviewRepository(private val reviewService: ReviewService) {
                 emit(Result.Error(e.message.toString()))
             }
         }
+    }
+
+    fun getHotelReviewPaging(hotelId: Int): Flow<PagingData<ReviewData>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 10,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = {
+                ReviewPagingSource(reviewService, hotelId)
+            }
+        ).flow
     }
 
     companion object {

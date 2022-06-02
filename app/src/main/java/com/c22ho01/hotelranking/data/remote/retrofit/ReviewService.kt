@@ -14,4 +14,12 @@ interface ReviewService {
         @Query("offset") offset: Int
 
     ): Response<ReviewResponse>
+
+//    @GET("reviews/{hotelId}")
+//    suspend fun getHotelReviewsPaging(
+//        @Path("hotelId") hotelId: Int,
+//        @Query("page") page: Int,
+//        @Query("offset") offset: Int
+//
+//    ): Response<ReviewResponse>
 }
