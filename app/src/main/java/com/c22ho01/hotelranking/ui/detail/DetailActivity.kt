@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.c22ho01.hotelranking.R
 import com.c22ho01.hotelranking.adapter.CardReviewAdapter
@@ -32,6 +33,10 @@ class DetailActivity : AppCompatActivity() {
         factory = ViewModelFactory.getInstance(this)
 
         cardReviewAdapter = CardReviewAdapter()
+
+        binding?.topAppBar?.setNavigationOnClickListener {
+            finish()
+        }
 
         hotel = intent.getParcelableExtra<HotelData>(EXTRA_HOTEL) as HotelData
 
