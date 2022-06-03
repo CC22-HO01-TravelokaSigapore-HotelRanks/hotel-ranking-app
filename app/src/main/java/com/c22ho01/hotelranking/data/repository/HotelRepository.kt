@@ -11,8 +11,8 @@ import com.c22ho01.hotelranking.data.remote.response.hotel.HotelData
 import com.c22ho01.hotelranking.data.remote.response.hotel.HotelResponse
 import com.c22ho01.hotelranking.data.remote.response.hotel.UserLocation
 import com.c22ho01.hotelranking.data.remote.retrofit.HotelService
+import com.c22ho01.hotelranking.utils.ErrorUtils
 import com.c22ho01.hotelranking.utils.wrapEspressoIdlingResource
-import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
 
 class HotelRepository(private val hotelService: HotelService) {
@@ -25,11 +25,8 @@ class HotelRepository(private val hotelService: HotelService) {
                 if (response.isSuccessful) {
                     emit(Result.Success(response.body() ?: HotelResponse()))
                 } else {
-                    val errorResponse = Gson().fromJson(
-                        response.errorBody()?.charStream(),
-                        HotelResponse::class.java
-                    )
-                    emit(Result.Error(errorResponse.message ?: "Error"))
+                    val error = ErrorUtils.showErrorFromResponse(response)
+                    emit(Result.Error(error))
                 }
             } catch (e: Exception) {
                 emit(Result.Error(e.message.toString()))
@@ -45,11 +42,8 @@ class HotelRepository(private val hotelService: HotelService) {
                 if (response.isSuccessful) {
                     emit(Result.Success(response.body() ?: HotelResponse()))
                 } else {
-                    val errorResponse = Gson().fromJson(
-                        response.errorBody()?.charStream(),
-                        HotelResponse::class.java
-                    )
-                    emit(Result.Error(errorResponse.message ?: "Error"))
+                    val error = ErrorUtils.showErrorFromResponse(response)
+                    emit(Result.Error(error))
                 }
             } catch (e: Exception) {
                 emit(Result.Error(e.message.toString()))
@@ -65,11 +59,8 @@ class HotelRepository(private val hotelService: HotelService) {
                 if (response.isSuccessful) {
                     emit(Result.Success(response.body() ?: HotelResponse()))
                 } else {
-                    val errorResponse = Gson().fromJson(
-                        response.errorBody()?.charStream(),
-                        HotelResponse::class.java
-                    )
-                    emit(Result.Error(errorResponse.message ?: "Error"))
+                    val error = ErrorUtils.showErrorFromResponse(response)
+                    emit(Result.Error(error))
                 }
             } catch (e: Exception) {
                 emit(Result.Error(e.message.toString()))
@@ -85,11 +76,8 @@ class HotelRepository(private val hotelService: HotelService) {
                 if (response.isSuccessful) {
                     emit(Result.Success(response.body() ?: HotelResponse()))
                 } else {
-                    val errorResponse = Gson().fromJson(
-                        response.errorBody()?.charStream(),
-                        HotelResponse::class.java
-                    )
-                    emit(Result.Error(errorResponse.message ?: "Error"))
+                    val error = ErrorUtils.showErrorFromResponse(response)
+                    emit(Result.Error(error))
                 }
             } catch (e: Exception) {
                 emit(Result.Error(e.message.toString()))

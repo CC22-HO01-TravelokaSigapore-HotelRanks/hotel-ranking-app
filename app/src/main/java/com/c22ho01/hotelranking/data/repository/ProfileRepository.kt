@@ -9,11 +9,10 @@ import com.c22ho01.hotelranking.data.local.entity.DisabilityEntity
 import com.c22ho01.hotelranking.data.local.entity.HobbyEntity
 import com.c22ho01.hotelranking.data.local.entity.ProfileEntity
 import com.c22ho01.hotelranking.data.remote.response.profile.ProfileGetResponse
-import com.c22ho01.hotelranking.data.remote.response.profile.ProfilePutResponse
 import com.c22ho01.hotelranking.data.remote.retrofit.ProfileService
 import com.c22ho01.hotelranking.utils.DateUtils
+import com.c22ho01.hotelranking.utils.ErrorUtils
 import com.c22ho01.hotelranking.utils.wrapEspressoIdlingResource
-import com.google.gson.Gson
 import java.util.*
 
 class ProfileRepository(
@@ -96,11 +95,8 @@ class ProfileRepository(
                     _currentProfile.postValue(profile)
                     emit(Result.Success(profile))
                 } else {
-                    val errorResponse = Gson().fromJson(
-                        response.errorBody()?.charStream(),
-                        ProfileGetResponse::class.java
-                    )
-                    emit(Result.Error(errorResponse.message ?: "Error"))
+                    val error = ErrorUtils.showErrorFromResponse(response)
+                    emit(Result.Error(error))
                 }
             } catch (e: Exception) {
                 emit(Result.Error(e.message.toString()))
@@ -135,11 +131,8 @@ class ProfileRepository(
                         _currentProfile.postValue(profile)
                         emit(Result.Success(profile))
                     } else {
-                        val errorResponse = Gson().fromJson(
-                            response.raw().body.charStream(),
-                            ProfilePutResponse::class.java
-                        )
-                        emit(Result.Error(errorResponse.message ?: "Error"))
+                        val error = ErrorUtils.showErrorFromResponse(response)
+                        emit(Result.Error(error))
                     }
                 } catch (e: Exception) {
                     emit(Result.Error(e.message.toString()))

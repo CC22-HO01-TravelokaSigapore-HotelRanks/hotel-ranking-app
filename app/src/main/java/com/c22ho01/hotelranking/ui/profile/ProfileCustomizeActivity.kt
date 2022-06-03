@@ -43,11 +43,13 @@ class ProfileCustomizeActivity : AppCompatActivity() {
     }
 
     private fun setupInitialCustomizationState() {
-        profileEntity.let {
-            setupFieldValidationListener(it)
-            setupFamilyRadioValidation(it.family)
-            setupHobbiesChipGroupValidation(it.hobby)
-            setupDisabilitiesChipGroupValidation(it.specialNeeds)
+        wrapEspressoIdlingResource {
+            profileEntity.let {
+                setupFieldValidationListener(it)
+                setupFamilyRadioValidation(it.family)
+                setupHobbiesChipGroupValidation(it.hobby)
+                setupDisabilitiesChipGroupValidation(it.specialNeeds)
+            }
         }
     }
 
@@ -61,52 +63,50 @@ class ProfileCustomizeActivity : AppCompatActivity() {
     }
 
     private fun setupFieldValidationListener(initialProfile: ProfileEntity) {
-        wrapEspressoIdlingResource {
-            binding?.run {
-                vtfProfileCustomName.let { vtf ->
-                    vtf.addValidateListener { valid ->
-                        profileCustomViewModel.apply {
-                            setFullNameValid(valid)
-                            setFullName(vtf.getText().toString())
-                        }
-                    }
-                    if (initialProfile.name?.isNotEmpty() == true) {
-                        vtf.setText(initialProfile.name)
-                        profileCustomViewModel.apply {
-                            setFullNameValid(true)
-                            setFullName(initialProfile.name)
-                        }
+        binding?.run {
+            vtfProfileCustomName.let { vtf ->
+                vtf.addValidateListener { valid ->
+                    profileCustomViewModel.apply {
+                        setFullNameValid(valid)
+                        setFullName(vtf.getText().toString())
                     }
                 }
+                if (initialProfile.name?.isNotEmpty() == true) {
+                    vtf.setText(initialProfile.name)
+                    profileCustomViewModel.apply {
+                        setFullNameValid(true)
+                        setFullName(initialProfile.name)
+                    }
+                }
+            }
 
-                vtfProfileCustomBirthDate.let { vtf ->
-                    vtf.addValidateListener { valid ->
-                        profileCustomViewModel.apply {
-                            setBirthDateValid(valid)
-                            setBirthDate(vtf.getSelectedDate())
-                        }
-                    }
-                    if (initialProfile.birthDate != null) {
-                        vtf.setSelectedDate(initialProfile.birthDate)
-                        profileCustomViewModel.apply {
-                            setBirthDateValid(true)
-                            setBirthDate(initialProfile.birthDate)
-                        }
+            vtfProfileCustomBirthDate.let { vtf ->
+                vtf.addValidateListener { valid ->
+                    profileCustomViewModel.apply {
+                        setBirthDateValid(valid)
+                        setBirthDate(vtf.getSelectedDate())
                     }
                 }
-                vtfProfileCustomNid.let { vtf ->
-                    vtf.addValidateListener { valid ->
-                        profileCustomViewModel.apply {
-                            setNidValid(valid)
-                            setNid(vtf.getText()?.toIntOrNull() ?: 0)
-                        }
+                if (initialProfile.birthDate != null) {
+                    vtf.setSelectedDate(initialProfile.birthDate)
+                    profileCustomViewModel.apply {
+                        setBirthDateValid(true)
+                        setBirthDate(initialProfile.birthDate)
                     }
-                    if (initialProfile.nid != null) {
-                        vtf.setText(initialProfile.nid.toString())
-                        profileCustomViewModel.apply {
-                            setNidValid(true)
-                            setNid(initialProfile.nid)
-                        }
+                }
+            }
+            vtfProfileCustomNid.let { vtf ->
+                vtf.addValidateListener { valid ->
+                    profileCustomViewModel.apply {
+                        setNidValid(valid)
+                        setNid(vtf.getText()?.toIntOrNull() ?: 0)
+                    }
+                }
+                if (initialProfile.nid != null) {
+                    vtf.setText(initialProfile.nid.toString())
+                    profileCustomViewModel.apply {
+                        setNidValid(true)
+                        setNid(initialProfile.nid)
                     }
                 }
             }
@@ -168,35 +168,33 @@ class ProfileCustomizeActivity : AppCompatActivity() {
     }
 
     private fun setupDisabilitiesChipGroupValidation(initialSelected: List<DisabilityEntity?>? = listOf()) {
-        wrapEspressoIdlingResource {
-            binding?.cgDisabilitiesGroup?.removeAllViews()
-            val disabilityList = profileCustomViewModel.getAllDisabilityList()
-            for (disability in disabilityList) {
-                val chip = Chip(this)
-                val typedValue = TypedValue()
-                theme.resolveAttribute(androidx.appcompat.R.attr.colorPrimary, typedValue, true)
-                chip.apply {
-                    layoutParams = ChipGroup.LayoutParams(
-                        ChipGroup.LayoutParams.MATCH_PARENT,
-                        ChipGroup.LayoutParams.WRAP_CONTENT,
-                    )
-                    text = getString(disability.localizedLabel)
-                    setChipIconResource(disability.icon)
-                    isCloseIconVisible = false
-                    isCheckable = true
-                    setEnsureMinTouchTargetSize(false)
-                    chipIconTint = ColorStateList.valueOf(typedValue.data)
-                    setTextAppearance(R.style.TextAppearance_HotelRanking_LabelLarge)
-                    setOnCheckedChangeListener { _, isChecked ->
-                        profileCustomViewModel.setDisabilityChecked(disability, isChecked)
-                    }
-                    if (initialSelected?.contains(disability) == true) {
-                        isChecked = true
-                        profileCustomViewModel.setDisabilityChecked(disability, true)
-                    }
+        binding?.cgDisabilitiesGroup?.removeAllViews()
+        val disabilityList = profileCustomViewModel.getAllDisabilityList()
+        for (disability in disabilityList) {
+            val chip = Chip(this)
+            val typedValue = TypedValue()
+            theme.resolveAttribute(androidx.appcompat.R.attr.colorPrimary, typedValue, true)
+            chip.apply {
+                layoutParams = ChipGroup.LayoutParams(
+                    ChipGroup.LayoutParams.MATCH_PARENT,
+                    ChipGroup.LayoutParams.WRAP_CONTENT,
+                )
+                text = getString(disability.localizedLabel)
+                setChipIconResource(disability.icon)
+                isCloseIconVisible = false
+                isCheckable = true
+                setEnsureMinTouchTargetSize(false)
+                chipIconTint = ColorStateList.valueOf(typedValue.data)
+                setTextAppearance(R.style.TextAppearance_HotelRanking_LabelLarge)
+                setOnCheckedChangeListener { _, isChecked ->
+                    profileCustomViewModel.setDisabilityChecked(disability, isChecked)
                 }
-                binding?.cgDisabilitiesGroup?.addView(chip)
+                if (initialSelected?.contains(disability) == true) {
+                    isChecked = true
+                    profileCustomViewModel.setDisabilityChecked(disability, true)
+                }
             }
+            binding?.cgDisabilitiesGroup?.addView(chip)
         }
 
     }
