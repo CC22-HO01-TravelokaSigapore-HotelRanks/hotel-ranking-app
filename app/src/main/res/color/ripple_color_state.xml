@@ -3,12 +3,12 @@
 
     <!-- Selected. -->
     <item android:alpha="0.12" android:color="?attr/colorOnSurfaceVariant" android:state_pressed="true" android:state_selected="true" />
-    <item android:alpha="0.12" android:color="?attr/colorOnSurfaceVariant" android:state_focused="true" android:state_selected="true" />
-    <item android:alpha="0.08" android:color="?attr/colorOnSurfaceVariant" android:state_hovered="true" android:state_selected="true" />
+    <!--    <item android:alpha="0.12" android:color="?attr/colorOnSurfaceVariant" android:state_focused="true" android:state_selected="true" />-->
+    <!--    <item android:alpha="0.08" android:color="?attr/colorOnSurfaceVariant" android:state_hovered="true" android:state_selected="true" />-->
 
-    <!-- Unselected. -->
-    <item android:alpha="0.12" android:color="?attr/colorOnSurfaceVariant" android:state_pressed="true" />
-    <item android:alpha="0.12" android:color="?attr/colorOnSurfaceVariant" android:state_focused="true" />
-    <item android:alpha="0.08" android:color="?attr/colorOnSurfaceVariant" android:state_hovered="true" />
+    <!--    &lt;!&ndash; Unselected. &ndash;&gt;-->
+    <!--    <item android:alpha="0.12" android:color="?attr/colorOnSurfaceVariant" android:state_pressed="true" />-->
+    <!--    <item android:alpha="0.12" android:color="?attr/colorOnSurfaceVariant" android:state_focused="true" />-->
+    <!--    <item android:alpha="0.08" android:color="?attr/colorOnSurfaceVariant" android:state_hovered="true" />-->
     <item android:color="@android:color/transparent" />
 </selector>

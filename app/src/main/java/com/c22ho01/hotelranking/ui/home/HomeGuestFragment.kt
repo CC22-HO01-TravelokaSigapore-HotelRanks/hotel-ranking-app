@@ -1,20 +1,14 @@
 package com.c22ho01.hotelranking.ui.home
 
-import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.c22ho01.hotelranking.adapter.CardAdapter
-import com.c22ho01.hotelranking.adapter.CardLocationAdapter
 import com.c22ho01.hotelranking.data.Result
 import com.c22ho01.hotelranking.databinding.FragmentHomeGuestBinding
 import com.c22ho01.hotelranking.ui.auth.AuthActivity
@@ -31,7 +25,8 @@ class HomeGuestFragment : Fragment() {
     private lateinit var fusedLocation: FusedLocationProviderClient
     private lateinit var topRatedAdapter: CardAdapter
     private lateinit var trendingAdapter: CardAdapter
-    private lateinit var locationAdapter: CardLocationAdapter
+
+    //    private lateinit var locationAdapter: CardLocationAdapter
     private lateinit var factory: ViewModelFactory
     private val homeViewModel: HomeViewModel by viewModels { factory }
 
@@ -45,14 +40,14 @@ class HomeGuestFragment : Fragment() {
         factory = ViewModelFactory.getInstance(requireContext())
         topRatedAdapter = CardAdapter()
         trendingAdapter = CardAdapter()
-        locationAdapter = CardLocationAdapter()
+//        locationAdapter = CardLocationAdapter()
         return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        getMyLastLocation()
+//        getMyLastLocation()
 
         // card top-rated
         binding?.rvTopRated?.apply {
@@ -69,9 +64,14 @@ class HomeGuestFragment : Fragment() {
         homeViewModel.getFiveStar.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Loading -> {
-                    //loading
+                    binding?.rvTopRated?.visibility = View.GONE
                 }
                 is Result.Success -> {
+                    binding?.apply {
+                        shimmerTopRated.stopShimmer()
+                        shimmerTopRated.visibility = View.GONE
+                        rvTopRated.visibility = View.VISIBLE
+                    }
                     val data = it.data.data
                     topRatedAdapter.submitList(data)
                 }
@@ -96,9 +96,14 @@ class HomeGuestFragment : Fragment() {
         homeViewModel.getTrending.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Loading -> {
-                    //loading
+                    binding?.rvTrending?.visibility = View.GONE
                 }
                 is Result.Success -> {
+                    binding?.apply {
+                        shimmerTrending.stopShimmer()
+                        shimmerTrending.visibility = View.GONE
+                        rvTrending.visibility = View.VISIBLE
+                    }
                     val data = it.data.data
                     trendingAdapter.submitList(data)
                 }
@@ -108,7 +113,7 @@ class HomeGuestFragment : Fragment() {
             }
         }
 
-        binding?.rvNearLocation?.apply {
+        /*binding?.rvNearLocation?.apply {
             layoutManager = LinearLayoutManager(
                 context,
                 LinearLayoutManager.HORIZONTAL,
@@ -132,7 +137,7 @@ class HomeGuestFragment : Fragment() {
                     //error message
                 }
             }
-        }
+        }*/
 
         binding?.loginHereBtn?.setOnClickListener {
             Intent(activity, AuthActivity::class.java).also {
@@ -141,7 +146,7 @@ class HomeGuestFragment : Fragment() {
         }
     }
 
-    private fun getMyLastLocation() {
+    /*private fun getMyLastLocation() {
         if (checkPermission(Manifest.permission.ACCESS_FINE_LOCATION) &&
             checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
         ) {
@@ -184,7 +189,7 @@ class HomeGuestFragment : Fragment() {
             requireContext(),
             permission
         ) == PackageManager.PERMISSION_GRANTED
-    }
+    }*/
 
     override fun onDestroyView() {
         super.onDestroyView()
