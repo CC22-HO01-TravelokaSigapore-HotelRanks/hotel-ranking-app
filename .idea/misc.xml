@@ -10,6 +10,7 @@
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/drawable/forum-24px.xml" value="0.1725" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/drawable/home-24px.xml" value="0.1095" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/drawable/ic_account.xml" value="0.1095" />
+        <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/drawable/ic_bookmark.xml" value="0.137" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/drawable/ic_chat.xml" value="0.1725" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/drawable/ic_circle.xml" value="0.2435" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.1295" />
@@ -24,6 +25,7 @@
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/drawable/ic_search.xml" value="0.2435" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/drawable/ic_star.xml" value="0.2475" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/drawable/ic_traveloka.xml" value="0.193" />
+        <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/drawable/search_bar.xml" value="0.185" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/activity_home.xml" value="0.1" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/activity_home_guest.xml" value="0.264" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/activity_home_logged_in.xml" value="0.264" />
@@ -40,7 +42,7 @@
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/fragment_dashboard.xml" value="0.16216216216216217" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/fragment_home.xml" value="0.264" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/fragment_home_guest.xml" value="0.21621621621621623" />
-        <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/fragment_home_logged_in.xml" value="0.264" />
+        <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/fragment_home_logged_in.xml" value="0.39287671232876714" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/fragment_list_review.xml" value="0.1" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/fragment_login.xml" value="0.264" />
         <entry key="..\:/LEARNING/Android/HotelRanking/app/src/main/res/layout/fragment_notifications.xml" value="0.16216216216216217" />

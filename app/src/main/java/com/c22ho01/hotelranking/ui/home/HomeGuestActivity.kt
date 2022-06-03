@@ -27,5 +27,7 @@ class HomeGuestActivity : AppCompatActivity() {
         binding.searchBar.setOnClickListener {
             startActivity(Intent(this, SearchActivity::class.java))
         }
+
+//        navView.menu.getItem(4).isEnabled = false
     }
 }
