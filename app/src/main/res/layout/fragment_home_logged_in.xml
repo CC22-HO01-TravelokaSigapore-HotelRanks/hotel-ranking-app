@@ -261,15 +261,41 @@
             app:layout_constraintTop_toTopOf="@+id/tvTopRated"
             tools:ignore="ContentDescription,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvTopRated"
+        <FrameLayout
+            android:id="@+id/topRated"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="16dp"
-            android:nestedScrollingEnabled="false"
+            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvTopRated" />
+            app:layout_constraintTop_toBottomOf="@+id/tvTopRated">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvTopRated"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmerTopRated"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:shimmer_highlight_alpha="?attr/colorPrimary">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <include layout="@layout/card_shimmer" />
+
+                    <include layout="@layout/card_shimmer" />
+
+                    <include layout="@layout/card_shimmer" />
+
+                </LinearLayout>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+        </FrameLayout>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvTrending"
@@ -280,7 +306,7 @@
             android:text="@string/trending"
             android:textAppearance="@style/TextAppearance.HotelRanking.TitleMedium"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rvTopRated" />
+            app:layout_constraintTop_toBottomOf="@id/topRated" />
 
         <ImageButton
             android:id="@+id/btnTrending"
@@ -294,15 +320,41 @@
             app:layout_constraintTop_toTopOf="@+id/tvTrending"
             tools:ignore="ContentDescription,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvTrending"
+        <FrameLayout
+            android:id="@+id/trending"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="16dp"
-            android:nestedScrollingEnabled="false"
+            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvTrending" />
+            app:layout_constraintTop_toBottomOf="@+id/tvTrending">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvTrending"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmerTrending"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:shimmer_highlight_alpha="?attr/colorPrimary">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <include layout="@layout/card_shimmer" />
+
+                    <include layout="@layout/card_shimmer" />
+
+                    <include layout="@layout/card_shimmer" />
+
+                </LinearLayout>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+        </FrameLayout>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvNearLocation"
@@ -313,7 +365,7 @@
             android:text="@string/near_your_location"
             android:textAppearance="@style/TextAppearance.HotelRanking.TitleMedium"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rvTrending" />
+            app:layout_constraintTop_toBottomOf="@id/trending" />
 
         <ImageButton
             android:id="@+id/btnNearLocation"
@@ -327,16 +379,43 @@
             app:layout_constraintTop_toTopOf="@+id/tvNearLocation"
             tools:ignore="ContentDescription,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvNearLocation"
+        <FrameLayout
+            android:id="@+id/location"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginVertical="16dp"
-            android:nestedScrollingEnabled="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvNearLocation" />
+            app:layout_constraintTop_toBottomOf="@+id/tvNearLocation">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvNearLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmerLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:shimmer_highlight_alpha="?attr/colorPrimary">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <include layout="@layout/card_shimmer" />
+
+                    <include layout="@layout/card_shimmer" />
+
+                    <include layout="@layout/card_shimmer" />
+
+                </LinearLayout>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+        </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

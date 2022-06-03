@@ -125,9 +125,14 @@ class HomeLoggedInFragment : Fragment() {
         homeViewModel.getFiveStar.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Loading -> {
-                    //loading
+                    binding?.rvTopRated?.visibility = View.GONE
                 }
                 is Result.Success -> {
+                    binding?.apply {
+                        shimmerTopRated.stopShimmer()
+                        shimmerTopRated.visibility = View.GONE
+                        rvTopRated.visibility = View.VISIBLE
+                    }
                     val data = it.data.data
                     topRatedAdapter.submitList(data)
                 }
@@ -153,9 +158,14 @@ class HomeLoggedInFragment : Fragment() {
         homeViewModel.getTrending.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Loading -> {
-                    //loading
+                    binding?.rvTrending?.visibility = View.GONE
                 }
                 is Result.Success -> {
+                    binding?.apply {
+                        shimmerTrending.stopShimmer()
+                        shimmerTrending.visibility = View.GONE
+                        rvTrending.visibility = View.VISIBLE
+                    }
                     val data = it.data.data
                     trendingAdapter.submitList(data)
                 }
@@ -194,9 +204,14 @@ class HomeLoggedInFragment : Fragment() {
                     homeViewModel.getLocation(userLocation).observe(viewLifecycleOwner) {
                         when (it) {
                             is Result.Loading -> {
-                                //loading
+                                binding?.rvNearLocation?.visibility = View.GONE
                             }
                             is Result.Success -> {
+                                binding?.apply {
+                                    shimmerLocation.stopShimmer()
+                                    shimmerLocation.visibility = View.GONE
+                                    rvNearLocation.visibility = View.VISIBLE
+                                }
                                 val data = it.data.data
                                 locationAdapter.submitList(data)
                             }
