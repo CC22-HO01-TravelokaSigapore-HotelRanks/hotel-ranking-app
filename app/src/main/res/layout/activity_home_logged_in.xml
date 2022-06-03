@@ -99,7 +99,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment_activity_home_logged_in"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="0dp"
@@ -109,7 +109,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appBarDivider"
-        app:navGraph="@navigation/logged_in_navigation"
-        tools:ignore="FragmentTagUsage" />
+        app:navGraph="@navigation/logged_in_navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

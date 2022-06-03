@@ -2,7 +2,7 @@ package com.c22ho01.hotelranking.ui.home
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.c22ho01.hotelranking.R
 import com.c22ho01.hotelranking.databinding.ActivityHomeLoggedInBinding
@@ -20,7 +20,8 @@ class HomeLoggedInActivity : AppCompatActivity() {
 
         val navView: BottomNavigationView = binding.navView
 
-        val navController = findNavController(R.id.nav_host_fragment_activity_home_logged_in)
-        navView.setupWithNavController(navController)
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment_activity_home_logged_in) as NavHostFragment
+        navView.setupWithNavController(navHostFragment.navController)
     }
 }
