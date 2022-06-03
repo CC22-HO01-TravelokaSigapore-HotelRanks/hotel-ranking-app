@@ -40,7 +40,6 @@
     <string name="navbar_profile">Profile</string>
     <string name="hotel_photo">Hotel photo</string>
     <string name="check_it_out">Check it out!</string>
-    <string name="best_review">Best review</string>
     <string name="settings">Settings</string>
     <string name="theme">Theme</string>
     <string name="language">Language</string>
@@ -82,7 +81,6 @@
     <string name="i_cant_hear_properly">I can’t hear properly</string>
     <string name="i_cant_see_clearly">I can’t see clearly</string>
     <string name="save">Save</string>
-    <string name="error_please_login">Something went wrong, please log in again.</string>
     <string name="profile_customized_successfully">Profile customized successfully!</string>
     <string name="special_needs">Special needs</string>
     <string name="customize_your_profile">Customize Your Profile</string>
@@ -96,7 +94,6 @@
     <string name="check_our">Check our new hotel recommendation feature to find your most desirable hotel.</string>
     <string name="just_for_you">Just for you!</string>
     <string name="we_will_give">We will give our best recommendation based on your review. Please provide at least 10 reviews to unlock this feature.</string>
-    <string name="your_total_review">Your total review: %1$d</string>
     <string name="for_you_page">For you page</string>
     <string name="for_you">For You</string>
     <string name="hotel_based_on_loves">Hotel recommendation based on things you loves in your adventure.</string>
