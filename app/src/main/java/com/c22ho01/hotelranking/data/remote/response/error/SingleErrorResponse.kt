@@ -4,11 +4,11 @@ import com.google.gson.annotations.SerializedName
 
 data class SingleErrorResponse(
 
-	@field:SerializedName("message")
-	val message: String? = null,
+    @field:SerializedName("message")
+    val message: String? = null,
 
-	@field:SerializedName("text")
-	val text: String? = null
+    @field:SerializedName("text")
+    val text: String? = null
 ) : ErrorResponse {
-	override fun getError() = message ?: text
+    override fun getError() = message ?: text
 }
