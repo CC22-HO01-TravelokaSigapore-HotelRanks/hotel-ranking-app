@@ -21,7 +21,7 @@ class ReviewPagingSource(private val reviewService: ReviewService, private val h
                 reviewService.getHotelReviews(hotelId, params.loadSize, position)
 
             if (responseReviewData.isSuccessful) {
-                val reviews = responseReviewData.body()?.results ?: emptyList()
+                val reviews = responseReviewData.body()?.data ?: emptyList()
                 LoadResult.Page(
                     data = reviews,
                     prevKey = if (position == INITIAL_PAGE_INDEX) null else position - 1,
