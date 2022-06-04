@@ -29,10 +29,10 @@
 
     <TextView
         android:id="@+id/ratingText"
-        android:textAppearance="@style/TextAppearance.HotelRanking.LabelMedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:textAppearance="@style/TextAppearance.HotelRanking.LabelMedium"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
         app:layout_constraintStart_toEndOf="@id/ratingBar"
