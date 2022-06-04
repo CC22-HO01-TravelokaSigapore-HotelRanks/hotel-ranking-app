@@ -17,58 +17,57 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/itemUsername"
+            android:id="@+id/tvUsername"
             style="@style/TextAppearance.HotelRanking.LabelMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="@string/username"
             android:textStyle="bold"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintHorizontal_bias="0.0"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent" />
 
         <RatingBar
-            android:id="@+id/itemRating"
+            android:id="@+id/ratingBar"
             style="@style/Widget.AppCompat.RatingBar.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:numStars="5"
             android:progressTint="@color/md_theme_light_primary"
             android:rating="3"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@id/itemUsername" />
+            card_view:layout_constraintTop_toBottomOf="@id/tvUsername" />
 
         <TextView
-            android:id="@+id/ratingText"
+            android:id="@+id/tvRating"
             style="@style/TextAppearance.HotelRanking.LabelSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="@string/rating"
-            card_view:layout_constraintBottom_toBottomOf="@+id/itemRating"
-            card_view:layout_constraintStart_toEndOf="@id/itemRating"
-            card_view:layout_constraintTop_toTopOf="@+id/itemRating" />
+            card_view:layout_constraintBottom_toBottomOf="@+id/ratingBar"
+            card_view:layout_constraintStart_toEndOf="@id/ratingBar"
+            card_view:layout_constraintTop_toTopOf="@+id/ratingBar" />
 
         <TextView
-            android:id="@+id/itemReview"
+            android:id="@+id/tvReview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
             android:text="Lorem ipsum dolor sit amet"
+            card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@id/itemRating" />
+            card_view:layout_constraintTop_toBottomOf="@id/ratingBar" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginBottom="8dp"
             android:background="@android:color/darker_gray"
-            card_view:layout_constraintBottom_toTopOf="@id/itemUsername"
+            card_view:layout_constraintBottom_toTopOf="@id/tvUsername"
             card_view:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="16dp" />
 

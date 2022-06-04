@@ -3,10 +3,7 @@ package com.c22ho01.hotelranking.viewmodel
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.c22ho01.hotelranking.data.repository.AuthRepository
-import com.c22ho01.hotelranking.data.repository.HotelRepository
-import com.c22ho01.hotelranking.data.repository.ProfileRepository
-import com.c22ho01.hotelranking.data.repository.TokenRepository
+import com.c22ho01.hotelranking.data.repository.*
 import com.c22ho01.hotelranking.injection.RepositoryInjection
 import com.c22ho01.hotelranking.viewmodel.auth.LoginViewModel
 import com.c22ho01.hotelranking.viewmodel.auth.RegisterViewModel
@@ -14,6 +11,7 @@ import com.c22ho01.hotelranking.viewmodel.hotel.HomeViewModel
 import com.c22ho01.hotelranking.viewmodel.hotel.SearchViewModel
 import com.c22ho01.hotelranking.viewmodel.profile.ProfileCustomizeViewModel
 import com.c22ho01.hotelranking.viewmodel.profile.ProfileViewModel
+import com.c22ho01.hotelranking.viewmodel.review.ReviewViewModel
 import com.c22ho01.hotelranking.viewmodel.utils.TokenViewModel
 
 class ViewModelFactory
@@ -21,7 +19,8 @@ private constructor(
     private val authRepository: AuthRepository,
     private val tokenRepository: TokenRepository,
     private val profileRepository: ProfileRepository,
-    private val hotelRepository: HotelRepository
+    private val hotelRepository: HotelRepository,
+    private val reviewRepository: ReviewRepository
 ) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
@@ -48,6 +47,9 @@ private constructor(
             modelClass.isAssignableFrom(ProfileCustomizeViewModel::class.java) -> {
                 ProfileCustomizeViewModel(profileRepository) as T
             }
+            modelClass.isAssignableFrom(ReviewViewModel::class.java) -> {
+                ReviewViewModel(reviewRepository) as T
+            }
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
     }
@@ -64,7 +66,8 @@ private constructor(
                             RepositoryInjection.provideAuthRepository(),
                             RepositoryInjection.provideTokenRepository(context),
                             RepositoryInjection.provideProfileRepository(),
-                            RepositoryInjection.provideHotelRepository()
+                            RepositoryInjection.provideHotelRepository(),
+                            RepositoryInjection.provideReviewRepository()
                         )
                             .also { instance = it }
                 }

@@ -1,313 +1,425 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context=".ui.detail.DetailActivity">
 
-    <ImageView
-        android:id="@+id/imageView"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="174dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/textView"
-        style="@style/TextAppearance.Material3.TitleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/hotel_name"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:menu="@menu/detail_option_menu"
+            app:navigationIcon="@drawable/ic_back"
+            app:title="@string/hotel_name" />
 
-    <ImageView
-        android:id="@+id/hotelLocationIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.041"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:srcCompat="@drawable/ic_baseline_location_on_24" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-    <TextView
-        android:id="@+id/textView2"
-        style="@style/TextAppearance.Material3.BodyLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="@string/location"
-        app:layout_constraintBottom_toBottomOf="@+id/hotelLocationIcon"
-        app:layout_constraintStart_toEndOf="@+id/hotelLocationIcon"
-        app:layout_constraintTop_toTopOf="@+id/hotelLocationIcon" />
-
-    <ImageView
-        android:id="@+id/ratingBar"
-        style="?android:attr/ratingBarStyleIndicator"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/ic_baseline_star_24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hotelLocationIcon"
-        app:tint="@color/md_theme_light_primary" />
-
-    <TextView
-        android:id="@+id/textView3"
-        style="@style/TextAppearance.HotelRanking.LabelLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="@string/rating"
-        app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
-        app:layout_constraintStart_toEndOf="@+id/ratingBar"
-        app:layout_constraintTop_toTopOf="@+id/ratingBar" />
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/reviewCard"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/md_theme_light_primaryContainer"
-        app:cardElevation="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ratingBar"
-        app:strokeWidth="0dp">
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:layout_height="match_parent">
 
-            <androidx.cardview.widget.CardView
-                android:id="@id/reviewCircleCard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/md_theme_light_primary"
-                app:cardCornerRadius="45dp"
+            <com.denzcoskun.imageslider.ImageSlider
+                android:id="@+id/image_slider"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:iss_delay="0"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/reviewIcon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:src="@drawable/ic_baseline_checklist_24"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/md_theme_light_primaryContainer" />
-            </androidx.cardview.widget.CardView>
-
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/reviewTitle"
-                style="@style/TextAppearance.Material3.TitleMedium"
+                android:id="@+id/tvHotelName"
+                style="@style/TextAppearance.Material3.TitleLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="@string/review"
-                android:textColor="@color/md_theme_light_primary"
-                app:layout_constraintBottom_toBottomOf="@+id/reviewCircleCard"
-                app:layout_constraintStart_toEndOf="@id/reviewCircleCard"
-                app:layout_constraintTop_toTopOf="@+id/reviewCircleCard" />
+                android:layout_marginTop="16dp"
+                android:text="@string/hotel_name"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image_slider" />
 
             <ImageView
-                android:id="@+id/reviewDetailIcon"
+                android:id="@+id/hotelLocationIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_arrow_forward_ios_24"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/md_theme_light_primary" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
                 android:layout_marginTop="8dp"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:contentDescription="@string/location_icon"
+                android:src="@drawable/ic_baseline_location_on_24"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.041"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/reviewCircleCard"
-                tools:listitem="@layout/item_simple_review" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/facilitiesCard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/md_theme_light_primaryContainer"
-        app:cardElevation="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reviewCard"
-        app:strokeWidth="0dp">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/facilitesCircleCard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/md_theme_light_primary"
-                app:cardCornerRadius="45dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/facilitiesIcon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:src="@drawable/ic_baseline_stars_24"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/md_theme_light_primaryContainer" />
-            </androidx.cardview.widget.CardView>
-
+                app:layout_constraintTop_toBottomOf="@+id/tvHotelName"
+                app:tint="@color/md_theme_light_shadow" />
 
             <TextView
-                android:id="@+id/facilitiesTitle"
-                style="@style/TextAppearance.Material3.TitleMedium"
+                android:id="@+id/tvLocation"
+                style="@style/TextAppearance.Material3.BodyLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="@string/facilities"
-                android:textColor="@color/md_theme_light_primary"
-                app:layout_constraintBottom_toBottomOf="@+id/facilitesCircleCard"
-                app:layout_constraintStart_toEndOf="@id/facilitesCircleCard"
-                app:layout_constraintTop_toTopOf="@+id/facilitesCircleCard" />
-
-            <ImageView
-                android:id="@+id/facilitiesDetailIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_arrow_forward_ios_24"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/md_theme_light_primary" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="16dp"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintTop_toBottomOf="@+id/facilitesCircleCard"
-                tools:layout_editor_absoluteX="16dp"
-                tools:listitem="@layout/item_features" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/md_theme_light_primaryContainer"
-        app:cardElevation="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/facilitiesCard"
-        app:strokeWidth="0dp">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/locationCircleCard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/md_theme_light_primary"
-                app:cardCornerRadius="45dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/locationIcon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:src="@drawable/ic_baseline_map_24"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/md_theme_light_primaryContainer" />
-
-            </androidx.cardview.widget.CardView>
-
-            <TextView
-                android:id="@+id/locationTitle"
-                style="@style/TextAppearance.Material3.TitleMedium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
                 android:text="@string/location"
-                android:textColor="@color/md_theme_light_primary"
-                app:layout_constraintBottom_toBottomOf="@+id/locationCircleCard"
-                app:layout_constraintStart_toEndOf="@id/locationCircleCard"
-                app:layout_constraintTop_toTopOf="@+id/locationCircleCard" />
+                app:layout_constraintBottom_toBottomOf="@+id/hotelLocationIcon"
+                app:layout_constraintStart_toEndOf="@+id/hotelLocationIcon"
+                app:layout_constraintTop_toTopOf="@+id/hotelLocationIcon" />
 
             <ImageView
-                android:id="@+id/locationDetailIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_arrow_forward_ios_24"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/ratingBar"
+                style="?android:attr/ratingBarStyleIndicator"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:contentDescription="@string/rating_icon"
+                android:src="@drawable/ic_baseline_star_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/hotelLocationIcon"
                 app:tint="@color/md_theme_light_primary" />
 
-            <FrameLayout
-                android:id="@+id/frame_previewMaps"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginTop="15dp"
-                app:layout_constraintTop_toBottomOf="@+id/locationCircleCard"
-                tools:layout_editor_absoluteX="16dp" />
-
-            <Button
-                android:id="@+id/btn_login"
+            <TextView
+                android:id="@+id/tvRating"
+                style="@style/TextAppearance.HotelRanking.LabelLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/rating"
+                app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
+                app:layout_constraintStart_toEndOf="@+id/ratingBar"
+                app:layout_constraintTop_toTopOf="@+id/ratingBar" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/reviewCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:enabled="false"
-                android:text="@string/open_maps"
-                app:layout_constraintEnd_toEndOf="@+id/frame_previewMaps"
-                app:layout_constraintStart_toStartOf="@+id/frame_previewMaps"
-                app:layout_constraintTop_toBottomOf="@+id/frame_previewMaps"
-                tools:enabled="true" />
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/md_theme_light_primaryContainer"
+                app:cardElevation="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ratingBar"
+                app:strokeWidth="0dp">
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                    <ImageButton
+                        android:id="@+id/imageButtonReviews"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/ic_circle"
+                        android:contentDescription="@string/reviews_icon"
+                        android:src="@drawable/ic_baseline_checklist_24"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/md_theme_light_primaryContainer"
+                        tools:ignore="DuplicateSpeakableTextCheck" />
+
+                    <TextView
+
+                        android:id="@+id/reviewTitle"
+                        style="@style/TextAppearance.Material3.TitleMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="@string/review"
+                        android:textColor="@color/md_theme_light_primary"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageButtonReviews"
+                        app:layout_constraintStart_toEndOf="@id/imageButtonReviews"
+                        app:layout_constraintTop_toTopOf="@+id/imageButtonReviews" />
+
+                    <ImageView
+                        android:id="@+id/reviewDetailIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/all_reviews"
+                        android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/md_theme_light_primary" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvReview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="16dp"
+                        android:layout_marginTop="16dp"
+                        android:nestedScrollingEnabled="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageButtonReviews" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/facilitiesCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/md_theme_light_primaryContainer"
+                app:cardElevation="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/reviewCard"
+                app:strokeWidth="0dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                    <ImageButton
+                        android:id="@+id/imageButtonFacilities"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/ic_circle"
+                        android:contentDescription="@string/facilities_icon"
+                        android:src="@drawable/ic_baseline_stars_24"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/md_theme_light_primaryContainer"
+                        tools:ignore="DuplicateSpeakableTextCheck" />
+
+
+                    <TextView
+                        android:id="@+id/facilitiesTitle"
+                        style="@style/TextAppearance.Material3.TitleMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="@string/facilities"
+                        android:textColor="@color/md_theme_light_primary"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageButtonFacilities"
+                        app:layout_constraintStart_toEndOf="@id/imageButtonFacilities"
+                        app:layout_constraintTop_toTopOf="@+id/imageButtonFacilities" />
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:scrollbars="none"
+                        app:layout_constraintTop_toBottomOf="@+id/imageButtonFacilities"
+                        tools:layout_editor_absoluteX="16dp">
+
+                        <LinearLayout
+                            android:id="@+id/layoutFacilities"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <ImageButton
+                                android:id="@+id/iconFreeRefund"
+                                android:layout_width="58dp"
+                                android:layout_height="58dp"
+                                android:layout_marginEnd="8dp"
+                                android:background="@drawable/ic_circle"
+                                android:contentDescription="@string/free_refund"
+                                android:src="@drawable/ic_money"
+                                tools:ignore="DuplicateSpeakableTextCheck" />
+
+                            <ImageButton
+                                android:id="@+id/iconBreakfast"
+                                android:layout_width="58dp"
+                                android:layout_height="58dp"
+                                android:layout_marginEnd="8dp"
+                                android:background="@drawable/ic_circle"
+                                android:contentDescription="@string/breakfast"
+                                android:src="@drawable/ic_breakfast"
+                                tools:ignore="DuplicateSpeakableTextCheck" />
+
+                            <ImageButton
+                                android:id="@+id/iconPool"
+                                android:layout_width="58dp"
+                                android:layout_height="58dp"
+                                android:layout_marginEnd="8dp"
+                                android:background="@drawable/ic_circle"
+                                android:contentDescription="@string/swimming"
+                                android:src="@drawable/ic_pool"
+                                tools:ignore="DuplicateSpeakableTextCheck" />
+
+                            <ImageButton
+                                android:id="@+id/iconWifi"
+                                android:layout_width="58dp"
+                                android:layout_height="58dp"
+                                android:layout_marginEnd="8dp"
+                                android:background="@drawable/ic_circle"
+                                android:contentDescription="@string/wifi"
+                                android:src="@drawable/ic_wifi"
+                                tools:ignore="DuplicateSpeakableTextCheck" />
+
+                            <ImageButton
+                                android:id="@+id/iconParking"
+                                android:layout_width="58dp"
+                                android:layout_height="58dp"
+                                android:layout_marginEnd="8dp"
+                                android:background="@drawable/ic_circle"
+                                android:contentDescription="@string/parking"
+                                android:src="@drawable/ic_car"
+                                tools:ignore="DuplicateSpeakableTextCheck" />
+
+                            <ImageButton
+                                android:id="@+id/iconSmoking"
+                                android:layout_width="58dp"
+                                android:layout_height="58dp"
+                                android:layout_marginEnd="8dp"
+                                android:background="@drawable/ic_circle"
+                                android:contentDescription="@string/smoking_area"
+                                android:src="@drawable/ic_smoking"
+                                tools:ignore="DuplicateSpeakableTextCheck" />
+
+                            <ImageButton
+                                android:id="@+id/iconAirConditioner"
+                                android:layout_width="58dp"
+                                android:layout_height="58dp"
+                                android:layout_marginEnd="8dp"
+                                android:background="@drawable/ic_circle"
+                                android:contentDescription="@string/air_conditioner"
+                                android:src="@drawable/ic_baseline_ac_unit_24"
+                                tools:ignore="DuplicateSpeakableTextCheck" />
+
+                            <ImageButton
+                                android:id="@+id/iconWheelchairAccess"
+                                android:layout_width="58dp"
+                                android:layout_height="58dp"
+                                android:layout_marginEnd="8dp"
+                                android:background="@drawable/ic_circle"
+                                android:contentDescription="@string/wheelchair_access"
+                                android:src="@drawable/ic_wheelchair"
+                                tools:ignore="DuplicateSpeakableTextCheck" />
+
+                            <ImageButton
+                                android:id="@+id/iconAverageBedSize"
+                                android:layout_width="58dp"
+                                android:layout_height="58dp"
+                                android:layout_marginEnd="8dp"
+                                android:background="@drawable/ic_circle"
+                                android:contentDescription="@string/average_bed_size"
+                                android:src="@drawable/ic_bed"
+                                tools:ignore="DuplicateSpeakableTextCheck" />
+
+                            <ImageButton
+                                android:id="@+id/iconStaffVaccinated"
+                                android:layout_width="58dp"
+                                android:layout_height="58dp"
+                                android:layout_marginEnd="8dp"
+                                android:background="@drawable/ic_circle"
+                                android:contentDescription="@string/staff_vaccinated"
+                                android:src="@drawable/ic_baseline_medical_services_24"
+                                tools:ignore="DuplicateSpeakableTextCheck" />
+
+                            <ImageButton
+                                android:id="@+id/iconChildArea"
+                                android:layout_width="58dp"
+                                android:layout_height="58dp"
+                                android:layout_marginEnd="8dp"
+                                android:background="@drawable/ic_circle"
+                                android:contentDescription="@string/child_area"
+                                android:src="@drawable/ic_child"
+                                tools:ignore="DuplicateSpeakableTextCheck" />
+                        </LinearLayout>
+                    </HorizontalScrollView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="@color/md_theme_light_primaryContainer"
+                app:cardElevation="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/facilitiesCard"
+                app:strokeWidth="0dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                    <ImageButton
+                        android:id="@+id/imageButtonLocation"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/ic_circle"
+                        android:contentDescription="@string/location_icon"
+                        android:src="@drawable/ic_baseline_map_24"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/md_theme_light_primaryContainer"
+                        tools:ignore="DuplicateSpeakableTextCheck" />
+
+                    <TextView
+                        android:id="@+id/locationTitle"
+                        style="@style/TextAppearance.Material3.TitleMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="@string/location"
+                        android:textColor="@color/md_theme_light_primary"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageButtonLocation"
+                        app:layout_constraintStart_toEndOf="@id/imageButtonLocation"
+                        app:layout_constraintTop_toTopOf="@+id/imageButtonLocation" />
+
+                    <ImageView
+                        android:id="@+id/locationDetailIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/location_detail"
+                        android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/md_theme_light_primary" />
+
+                    <FrameLayout
+                        android:id="@+id/frame_previewMaps"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_marginTop="15dp"
+                        app:layout_constraintTop_toBottomOf="@+id/imageButtonLocation"
+                        tools:layout_editor_absoluteX="16dp" />
+
+                    <Button
+                        android:id="@+id/btn_login"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:enabled="false"
+                        android:text="@string/open_maps"
+                        app:layout_constraintEnd_toEndOf="@+id/frame_previewMaps"
+                        app:layout_constraintStart_toStartOf="@+id/frame_previewMaps"
+                        app:layout_constraintTop_toBottomOf="@+id/frame_previewMaps"
+                        tools:enabled="true" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.core.widget.NestedScrollView>
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

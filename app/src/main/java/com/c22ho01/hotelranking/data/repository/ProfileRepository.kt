@@ -29,7 +29,7 @@ class ProfileRepository(
         HobbyEntity(3, R.string.eating, "eating", R.drawable.ic_baseline_local_dining_24),
         HobbyEntity(4, R.string.traveling, "traveling", R.drawable.ic_baseline_card_travel_24),
         HobbyEntity(5, R.string.shopping, "shopping", R.drawable.ic_baseline_shopping_cart_24),
-        HobbyEntity(6, R.string.swimming, "swimming", R.drawable.ic_baseline_pool_24),
+        HobbyEntity(6, R.string.swimming, "swimming", R.drawable.ic_pool),
     )
     val disabilityList: List<DisabilityEntity> = arrayListOf(
         DisabilityEntity(
