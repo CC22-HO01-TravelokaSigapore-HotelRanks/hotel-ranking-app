@@ -5,12 +5,14 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.c22ho01.hotelranking.R
 import com.c22ho01.hotelranking.adapter.CardReviewAdapter
 import com.c22ho01.hotelranking.data.Result
 import com.c22ho01.hotelranking.data.remote.response.hotel.HotelData
 import com.c22ho01.hotelranking.databinding.ActivityDetail2Binding
+import com.c22ho01.hotelranking.ui.auth.LoginFragment
 import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
 import com.c22ho01.hotelranking.viewmodel.review.ReviewViewModel
 import com.denzcoskun.imageslider.constants.ScaleTypes
@@ -76,6 +78,8 @@ class DetailActivity : AppCompatActivity() {
             addItemDecoration(CardReviewAdapter.MarginItemDecoration(0))
         }
 
+
+
         setImage(hotel.image)
         binding.tvHotelName.text = hotel.name
         binding.tvLocation.text = hotel.neighborhood
@@ -105,7 +109,7 @@ class DetailActivity : AppCompatActivity() {
                     //loading
                 }
                 is Result.Success -> {
-                    val data = it.data.results
+                    val data = it.data.data
                     cardReviewAdapter.submitList(data)
                     binding.rvReview.adapter = cardReviewAdapter
 
