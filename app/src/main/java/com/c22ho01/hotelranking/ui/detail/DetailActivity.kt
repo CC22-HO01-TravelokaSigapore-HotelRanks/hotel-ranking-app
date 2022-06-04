@@ -77,6 +77,8 @@ class DetailActivity : AppCompatActivity() {
             addItemDecoration(CardReviewAdapter.MarginItemDecoration(16.dpToPx))
         }
 
+
+
         setImage(hotel.image)
         binding.tvHotelName.text = hotel.name
         binding.tvLocation.text = hotel.neighborhood
