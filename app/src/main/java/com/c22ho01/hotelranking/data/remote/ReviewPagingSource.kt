@@ -17,16 +17,17 @@ class ReviewPagingSource(private val reviewService: ReviewService, private val h
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ReviewData> {
         return try {
             val position = params.key ?: INITIAL_PAGE_INDEX
-            val responseReviewData = reviewService.getHotelReviews(hotelId, params.loadSize, position)
+            val responseReviewData =
+                reviewService.getHotelReviews(hotelId, params.loadSize, position)
 
-            if (responseReviewData.isSuccessful){
+            if (responseReviewData.isSuccessful) {
                 val reviews = responseReviewData.body()?.results ?: emptyList()
                 LoadResult.Page(
                     data = reviews,
                     prevKey = if (position == INITIAL_PAGE_INDEX) null else position - 1,
-                    nextKey = if (reviews.isNullOrEmpty()) null else position + 1
+                    nextKey = if (reviews.isEmpty()) null else position + 1
                 )
-            }else{
+            } else {
                 LoadResult.Error(Exception(responseReviewData.message()))
             }
         } catch (exception: Exception) {

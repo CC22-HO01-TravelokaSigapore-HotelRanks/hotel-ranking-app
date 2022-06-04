@@ -20,13 +20,19 @@ class SearchPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, HotelData> {
         return try {
             val page = params.key ?: INITIAL_PAGE_INDEX
-            val responseHotelData = hotelService.searchHotel(params.loadSize, page, keyword)
+            val responseHotel = hotelService.searchHotel(params.loadSize, page, keyword)
 
-            LoadResult.Page(
-                data = responseHotelData,
-                prevKey = null,
-                nextKey = if (responseHotelData.isEmpty()) null else page + 1
-            )
+            if (responseHotel.isSuccessful) {
+                val hotels = responseHotel.body()?.data ?: emptyList()
+                LoadResult.Page(
+                    data = hotels,
+                    prevKey = if (page == INITIAL_PAGE_INDEX) null else page - 1,
+                    nextKey = if (hotels.isEmpty()) null else page + 1
+                )
+            } else {
+                LoadResult.Error(Exception(responseHotel.message()))
+            }
+
         } catch (e: Exception) {
             return LoadResult.Error(e)
         }

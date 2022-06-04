@@ -17,6 +17,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
+            android:name=".ui.foryou.ForYouActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".ui.detail.ListReviewActivity"
             android:exported="false" />
 
@@ -46,7 +50,6 @@
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

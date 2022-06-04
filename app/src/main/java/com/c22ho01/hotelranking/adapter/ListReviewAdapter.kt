@@ -1,6 +1,5 @@
 package com.c22ho01.hotelranking.adapter
 
-import android.content.res.Resources
 import android.graphics.Rect
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +11,8 @@ import com.c22ho01.hotelranking.R
 import com.c22ho01.hotelranking.data.remote.response.review.ReviewData
 import com.c22ho01.hotelranking.databinding.ItemDetailReviewBinding
 
-class ListReviewAdapter : PagingDataAdapter<ReviewData, ListReviewAdapter.ViewHolder>(DIFF_CALLBACK) {
+class ListReviewAdapter :
+    PagingDataAdapter<ReviewData, ListReviewAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemDetailReviewBinding.inflate(
@@ -34,7 +34,8 @@ class ListReviewAdapter : PagingDataAdapter<ReviewData, ListReviewAdapter.ViewHo
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: ReviewData) {
             binding.apply {
-                tvRating.text = itemView.resources.getString(R.string.rating, data.rating.toFloat().toString())
+                tvRating.text =
+                    itemView.resources.getString(R.string.rating, data.rating.toFloat().toString())
                 tvReview.text = data.text
                 tvUsername.text = data.name
                 ratingBar.rating = data.rating.toFloat()

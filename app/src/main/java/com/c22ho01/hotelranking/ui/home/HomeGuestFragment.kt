@@ -28,7 +28,7 @@ class HomeGuestFragment : Fragment() {
     private var _binding: FragmentHomeGuestBinding? = null
     private val binding get() = _binding
     private lateinit var fusedLocation: FusedLocationProviderClient
-    private lateinit var cardAdapter: CardAdapter
+    private lateinit var topRatedAdapter: CardAdapter
     private lateinit var trendingAdapter: CardAdapter
     private lateinit var locationAdapter: CardLocationAdapter
     private lateinit var factory: ViewModelFactory
@@ -42,7 +42,7 @@ class HomeGuestFragment : Fragment() {
         _binding = FragmentHomeGuestBinding.inflate(inflater, container, false)
         fusedLocation = LocationServices.getFusedLocationProviderClient(requireContext())
         factory = ViewModelFactory.getInstance(requireContext())
-        cardAdapter = CardAdapter()
+        topRatedAdapter = CardAdapter()
         trendingAdapter = CardAdapter()
         locationAdapter = CardLocationAdapter()
         return binding?.root
@@ -60,7 +60,7 @@ class HomeGuestFragment : Fragment() {
                 LinearLayoutManager.HORIZONTAL,
                 false
             )
-            adapter = cardAdapter
+            adapter = topRatedAdapter
             setHasFixedSize(true)
             addItemDecoration(CardAdapter.MarginItemDecoration(48))
         }
@@ -72,7 +72,7 @@ class HomeGuestFragment : Fragment() {
                 }
                 is Result.Success -> {
                     val data = it.data.data
-                    cardAdapter.submitList(data)
+                    topRatedAdapter.submitList(data)
                 }
                 else -> {
                     //error message

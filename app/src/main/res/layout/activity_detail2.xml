@@ -7,19 +7,19 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     tools:context=".ui.detail.DetailActivity">
+
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title="@string/hotel_name"
             app:menu="@menu/detail_option_menu"
             app:navigationIcon="@drawable/ic_back"
-            style="@style/Widget.MaterialComponents.Toolbar.Primary"
-            />
+            app:title="@string/hotel_name" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -27,6 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">

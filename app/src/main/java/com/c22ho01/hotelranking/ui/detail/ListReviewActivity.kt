@@ -35,7 +35,7 @@ class ListReviewActivity : AppCompatActivity() {
         setReviews()
     }
 
-    private fun setData(){
+    private fun setData() {
         binding.hotelName.text = hotel.name
         binding.ratingText.text = resources.getString(R.string.rating, hotel.star.toString())
     }
@@ -49,7 +49,7 @@ class ListReviewActivity : AppCompatActivity() {
             )
         }
         job.cancel()
-        job = lifecycleScope.launch{
+        job = lifecycleScope.launch {
             reviewViewModel.getHotelReviewPaging(hotel.id).collect {
                 itemReviewAdapter.submitData(it)
             }

@@ -20,7 +20,7 @@ data class ReviewData(
 
     @SerializedName("user_id")
     val user_id: Int,
-    
+
     @SerializedName("name")
     val name: String,
 )

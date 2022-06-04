@@ -16,6 +16,7 @@ class ReviewViewModel(private val reviewRepository: ReviewRepository) : ViewMode
     fun getHotelReviews(hotelId: Int): LiveData<Result<ReviewResponse>> {
         return reviewRepository.getHotelReviews(hotelId)
     }
+
     fun getHotelReviewPaging(hotelId: Int): Flow<PagingData<ReviewData>> {
         return reviewRepository.getHotelReviewPaging(hotelId).cachedIn(viewModelScope)
     }

@@ -5,8 +5,8 @@ import android.graphics.Rect
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.c22ho01.hotelranking.R
@@ -14,7 +14,7 @@ import com.c22ho01.hotelranking.data.remote.response.hotel.HotelData
 import com.c22ho01.hotelranking.databinding.ItemSearchBinding
 import com.c22ho01.hotelranking.ui.detail.DetailActivity
 
-class SearchAdapter : ListAdapter<HotelData, SearchAdapter.ViewHolder>(DIFF_CALLBACK) {
+class SearchAdapter : PagingDataAdapter<HotelData, SearchAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemSearchBinding.inflate(
@@ -32,7 +32,7 @@ class SearchAdapter : ListAdapter<HotelData, SearchAdapter.ViewHolder>(DIFF_CALL
         }
     }
 
-    class ViewHolder(private val binding: ItemSearchBinding) :
+    inner class ViewHolder(private val binding: ItemSearchBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: HotelData) {
             binding.apply {

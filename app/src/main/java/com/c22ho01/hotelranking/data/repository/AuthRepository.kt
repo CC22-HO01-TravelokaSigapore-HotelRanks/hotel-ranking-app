@@ -7,8 +7,8 @@ import com.c22ho01.hotelranking.data.Result
 import com.c22ho01.hotelranking.data.remote.response.auth.LoginResponse
 import com.c22ho01.hotelranking.data.remote.response.auth.RegisterResponse
 import com.c22ho01.hotelranking.data.remote.retrofit.AuthService
+import com.c22ho01.hotelranking.utils.ErrorUtils
 import com.c22ho01.hotelranking.utils.wrapEspressoIdlingResource
-import com.google.gson.Gson
 
 
 class AuthRepository(private val authService: AuthService) {
@@ -25,11 +25,8 @@ class AuthRepository(private val authService: AuthService) {
                 if (response.isSuccessful) {
                     emit(Result.Success(response.body() ?: RegisterResponse()))
                 } else {
-                    val errorResponse = Gson().fromJson(
-                        response.errorBody()?.charStream(),
-                        RegisterResponse::class.java
-                    )
-                    emit(Result.Error(errorResponse.message ?: "Error"))
+                    val error = ErrorUtils.showErrorFromResponse(response)
+                    emit(Result.Error(error))
                 }
             } catch (e: Exception) {
                 emit(Result.Error(e.message.toString()))
@@ -48,11 +45,8 @@ class AuthRepository(private val authService: AuthService) {
                 if (response.isSuccessful) {
                     emit(Result.Success(response.body() ?: LoginResponse()))
                 } else {
-                    val errorResponse = Gson().fromJson(
-                        response.errorBody()?.charStream(),
-                        LoginResponse::class.java
-                    )
-                    emit(Result.Error(errorResponse.message ?: "Error"))
+                    val error = ErrorUtils.showErrorFromResponse(response)
+                    emit(Result.Error(error))
                 }
             } catch (e: Exception) {
                 emit(Result.Error(e.message.toString()))
@@ -70,11 +64,8 @@ class AuthRepository(private val authService: AuthService) {
                 if (response.isSuccessful) {
                     emit(Result.Success(response.body() ?: LoginResponse()))
                 } else {
-                    val errorResponse = Gson().fromJson(
-                        response.errorBody()?.charStream(),
-                        LoginResponse::class.java
-                    )
-                    emit(Result.Error(errorResponse.message ?: "Error"))
+                    val error = ErrorUtils.showErrorFromResponse(response)
+                    emit(Result.Error(error))
                 }
             } catch (e: Exception) {
                 emit(Result.Error(e.message.toString()))

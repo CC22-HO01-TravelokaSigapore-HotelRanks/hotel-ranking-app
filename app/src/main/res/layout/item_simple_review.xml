@@ -21,11 +21,11 @@
             style="@style/TextAppearance.HotelRanking.LabelMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="@string/username"
             android:textColor="@color/md_theme_light_primaryContainer"
             android:textStyle="bold"
-            android:maxLines="1"
-            android:ellipsize="end"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent" />
 
@@ -48,8 +48,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:ellipsize="end"
-            android:minLines="3"
             android:maxLines="3"
+            android:minLines="3"
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
             android:textColor="@color/md_theme_light_primaryContainer"
             card_view:layout_constraintBottom_toBottomOf="parent"

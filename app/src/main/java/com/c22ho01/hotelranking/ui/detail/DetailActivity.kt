@@ -23,7 +23,7 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var hotel: HotelData
     private lateinit var factory: ViewModelFactory
     private val reviewViewModel: ReviewViewModel by viewModels { factory }
-    private lateinit var cardReviewAdapter : CardReviewAdapter
+    private lateinit var cardReviewAdapter: CardReviewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,12 +35,12 @@ class DetailActivity : AppCompatActivity() {
 
         hotel = intent.getParcelableExtra<HotelData>(EXTRA_HOTEL) as HotelData
 
-        binding.reviewCard.setOnClickListener{
+        binding.reviewCard.setOnClickListener {
             val intent = Intent(this, ListReviewActivity::class.java)
-            intent.putExtra(EXTRA_HOTEL,hotel)
+            intent.putExtra(EXTRA_HOTEL, hotel)
             startActivity(intent)
         }
-        
+
         binding.topAppBar.apply {
             title = hotel.name
             setNavigationOnClickListener {
@@ -53,7 +53,13 @@ class DetailActivity : AppCompatActivity() {
 
     private fun setImage(images: List<String>) {
         for ((i, image) in images.withIndex()) {
-            if (i == 0) imageList.add(SlideModel(image)) else imageList.add(SlideModel(image.substring(1)))
+            if (i == 0) imageList.add(SlideModel(image)) else imageList.add(
+                SlideModel(
+                    image.substring(
+                        1
+                    )
+                )
+            )
         }
         binding.imageSlider.setImageList(imageList, ScaleTypes.CENTER_CROP)
     }
@@ -74,7 +80,7 @@ class DetailActivity : AppCompatActivity() {
         binding.tvHotelName.text = hotel.name
         binding.tvLocation.text = hotel.neighborhood
         binding.tvRating.text = resources.getString(R.string.rating, hotel.star.toString())
-        
+
         setFeatures()
     }
 
