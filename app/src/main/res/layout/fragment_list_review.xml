@@ -18,22 +18,21 @@
 
     <ImageView
         android:id="@+id/ratingBar"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginTop="16dp"
         android:src="@drawable/ic_baseline_star_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/hotelName"
-        app:tint="@color/md_theme_light_primary"
+        app:tint="?attr/colorPrimary"
         tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/ratingText"
-        style="@style/TextAppearance.HotelRanking.TitleMedium"
+        style="@style/TextAppearance.HotelRanking.LabelMedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:textStyle="bold"
+        android:layout_marginStart="4dp"
         app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
         app:layout_constraintStart_toEndOf="@id/ratingBar"
         app:layout_constraintTop_toTopOf="@+id/ratingBar"
@@ -41,7 +40,7 @@
 
     <TextView
         android:id="@+id/totalReviews"
-        style="@style/TextAppearance.HotelRanking.TitleMedium"
+        style="@style/TextAppearance.HotelRanking.LabelMedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
