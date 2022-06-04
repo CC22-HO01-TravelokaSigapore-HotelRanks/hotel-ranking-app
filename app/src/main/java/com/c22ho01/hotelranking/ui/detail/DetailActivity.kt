@@ -106,7 +106,7 @@ class DetailActivity : AppCompatActivity() {
                     //loading
                 }
                 is Result.Success -> {
-                    val data = it.data.results
+                    val data = it.data.data
                     cardReviewAdapter.submitList(data)
                     binding.rvReview.adapter = cardReviewAdapter
 

@@ -400,7 +400,7 @@
                 android:id="@+id/shimmerLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:shimmer_duration="500"
+                app:shimmer_duration="700"
                 app:shimmer_highlight_alpha="?attr/colorOnSurface">
 
                 <LinearLayout
