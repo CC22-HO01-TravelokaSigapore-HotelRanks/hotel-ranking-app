@@ -1,0 +1,148 @@
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="?attr/materialCardViewFilledStyle"
+    android:layout_width="150dp"
+    android:layout_height="250dp"
+    android:layout_gravity="center_vertical"
+    android:layout_marginVertical="4dp"
+    android:layout_marginStart="16dp"
+    android:backgroundTint="?attr/colorSurfaceVariant">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="8dp">
+
+        <ImageView
+            android:id="@+id/image_hotel"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:background="?attr/colorOnSurfaceVariant"
+            android:contentDescription="@string/hotel_photo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_hotel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="?attr/colorOnSurfaceVariant"
+            android:lines="1"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_hotel"
+            tools:ignore="SmallSp" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/oke"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="32dp"
+            android:background="?attr/colorOnSurfaceVariant"
+            android:lines="1"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_hotel"
+            tools:ignore="SmallSp" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/ratingbar"
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="?attr/colorOnSurfaceVariant"
+            android:lines="1"
+            android:textSize="8sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_hotel"
+            app:layout_constraintTop_toBottomOf="@id/oke"
+            tools:ignore="SmallSp" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/ratingbar1"
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:background="?attr/colorOnSurfaceVariant"
+            android:lines="1"
+            android:textSize="8sp"
+            app:layout_constraintBottom_toBottomOf="@+id/ratingbar"
+            app:layout_constraintStart_toEndOf="@+id/ratingbar"
+            app:layout_constraintTop_toTopOf="@+id/ratingbar"
+            tools:ignore="SmallSp" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/ratingbar2"
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:background="?attr/colorOnSurfaceVariant"
+            android:lines="1"
+            android:textSize="8sp"
+            app:layout_constraintBottom_toBottomOf="@+id/ratingbar1"
+            app:layout_constraintStart_toEndOf="@+id/ratingbar1"
+            app:layout_constraintTop_toTopOf="@+id/ratingbar1"
+            tools:ignore="SmallSp" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/ratingbar3"
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:background="?attr/colorOnSurfaceVariant"
+            android:lines="1"
+            android:textSize="8sp"
+            app:layout_constraintBottom_toBottomOf="@+id/ratingbar2"
+            app:layout_constraintStart_toEndOf="@+id/ratingbar2"
+            app:layout_constraintTop_toTopOf="@+id/ratingbar2"
+            app:layout_constraintVertical_bias="1.0"
+            tools:ignore="SmallSp" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/ratingbar4"
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:background="?attr/colorOnSurfaceVariant"
+            android:lines="1"
+            android:textSize="8sp"
+            app:layout_constraintBottom_toBottomOf="@+id/ratingbar3"
+            app:layout_constraintStart_toEndOf="@+id/ratingbar3"
+            app:layout_constraintTop_toTopOf="@+id/ratingbar3"
+            tools:ignore="SmallSp" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_rating"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:background="?attr/colorOnSurfaceVariant"
+            android:textSize="8sp"
+            app:layout_constraintBottom_toBottomOf="@+id/ratingbar"
+            app:layout_constraintStart_toEndOf="@+id/ratingbar4"
+            app:layout_constraintTop_toTopOf="@+id/ratingbar"
+            tools:ignore="SmallSp" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:background="?attr/colorOnSurfaceVariant"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/ratingbar" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
