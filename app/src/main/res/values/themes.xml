@@ -68,6 +68,12 @@
         <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
     </style>
 
+    <style name="Theme.HotelRanking.SplashScreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">?android:attr/colorBackground</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/rocket_launch</item>
+        <item name="postSplashScreenTheme">@style/Theme.HotelRanking</item>
+    </style>
+
     <style name="Widget.App.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
         <item name="android:background">?android:attr/windowBackground</item>
         <item name="itemActiveIndicatorStyle">
