@@ -25,8 +25,6 @@ class HomeGuestFragment : Fragment() {
     private lateinit var fusedLocation: FusedLocationProviderClient
     private lateinit var topRatedAdapter: CardAdapter
     private lateinit var trendingAdapter: CardAdapter
-
-    //    private lateinit var locationAdapter: CardLocationAdapter
     private lateinit var factory: ViewModelFactory
     private val homeViewModel: HomeViewModel by viewModels { factory }
 
@@ -40,14 +38,11 @@ class HomeGuestFragment : Fragment() {
         factory = ViewModelFactory.getInstance(requireContext())
         topRatedAdapter = CardAdapter()
         trendingAdapter = CardAdapter()
-//        locationAdapter = CardLocationAdapter()
         return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-//        getMyLastLocation()
 
         // card top-rated
         binding?.rvTopRated?.apply {
@@ -113,83 +108,12 @@ class HomeGuestFragment : Fragment() {
             }
         }
 
-        /*binding?.rvNearLocation?.apply {
-            layoutManager = LinearLayoutManager(
-                context,
-                LinearLayoutManager.HORIZONTAL,
-                false
-            )
-            adapter = locationAdapter
-            setHasFixedSize(true)
-            addItemDecoration(CardLocationAdapter.MarginItemDecoration(16.dpToPx))
-        }
-
-        homeViewModel.getAll.observe(viewLifecycleOwner) {
-            when (it) {
-                is Result.Loading -> {
-                    //loading
-                }
-                is Result.Success -> {
-                    val data = it.data.data
-                    locationAdapter.submitList(data)
-                }
-                else -> {
-                    //error message
-                }
-            }
-        }*/
-
         binding?.loginHereBtn?.setOnClickListener {
             Intent(activity, AuthActivity::class.java).also {
                 startActivity(it)
             }
         }
     }
-
-    /*private fun getMyLastLocation() {
-        if (checkPermission(Manifest.permission.ACCESS_FINE_LOCATION) &&
-            checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
-        ) {
-            fusedLocation.lastLocation.addOnSuccessListener { location: Location? ->
-                if (location != null) {
-                    USER_LAT = location.latitude
-                    USER_LONG = location.longitude
-                } else {
-                    // no location found
-                }
-            }
-        } else {
-            requestPermissionLauncher.launch(
-                arrayOf(
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                )
-            )
-        }
-    }
-
-    private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestMultiplePermissions()
-    ) { permissions ->
-        when {
-            permissions[Manifest.permission.ACCESS_FINE_LOCATION] ?: false -> {
-                getMyLastLocation()
-            }
-            permissions[Manifest.permission.ACCESS_COARSE_LOCATION] ?: false -> {
-                getMyLastLocation()
-            }
-            else -> {
-                // no location granted
-            }
-        }
-    }
-
-    private fun checkPermission(permission: String): Boolean {
-        return ContextCompat.checkSelfPermission(
-            requireContext(),
-            permission
-        ) == PackageManager.PERMISSION_GRANTED
-    }*/
 
     override fun onDestroyView() {
         super.onDestroyView()

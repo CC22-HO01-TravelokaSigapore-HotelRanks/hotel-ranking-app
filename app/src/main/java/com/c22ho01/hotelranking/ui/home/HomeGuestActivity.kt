@@ -10,7 +10,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.c22ho01.hotelranking.R
 import com.c22ho01.hotelranking.databinding.ActivityHomeGuestBinding
 import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
-import com.c22ho01.hotelranking.viewmodel.utils.TokenViewModel
+import com.c22ho01.hotelranking.viewmodel.profile.ProfileViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -19,12 +19,12 @@ class HomeGuestActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeGuestBinding
     private lateinit var factory: ViewModelFactory
-    private val tokenViewModel by viewModels<TokenViewModel> { factory }
+    private val profileViewModel by viewModels<ProfileViewModel> { factory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         factory = ViewModelFactory.getInstance(this)
         lifecycleScope.launch {
-            tokenViewModel.getToken().collect {
+            profileViewModel.getSavedProfileId().collect {
                 if (it != null) {
                     startActivity(
                         Intent(
