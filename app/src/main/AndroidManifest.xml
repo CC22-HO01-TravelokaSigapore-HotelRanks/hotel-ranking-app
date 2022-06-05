@@ -43,13 +43,13 @@
         <activity
             android:name=".ui.home.HomeLoggedInActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui.home.HomeGuestActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustPan"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -58,7 +58,7 @@
         <activity
             android:name=".ui.auth.AuthActivity"
             android:exported="false"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop" />
     </application>
 
 </manifest>
