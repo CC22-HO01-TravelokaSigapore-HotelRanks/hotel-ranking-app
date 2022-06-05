@@ -24,13 +24,18 @@ class HomeGuestActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         factory = ViewModelFactory.getInstance(this)
         lifecycleScope.launch {
-            profileViewModel.getSavedProfileId().collect {
-                if (it != null) {
+            profileViewModel.getSavedProfileId().collect { id ->
+                if (id != null) {
                     startActivity(
                         Intent(
                             this@HomeGuestActivity, HomeLoggedInActivity::class.java
-                        )
+                        ).also {
+                            it.putExtra(ProfileFragment.USER_ID, id)
+                            it.flags =
+                                Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                        }
                     )
+                    overridePendingTransition(0, 0)
                 }
             }
         }

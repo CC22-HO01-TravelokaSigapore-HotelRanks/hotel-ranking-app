@@ -17,6 +17,7 @@ import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
 import com.c22ho01.hotelranking.viewmodel.profile.ProfileViewModel
 import com.c22ho01.hotelranking.viewmodel.utils.TokenViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 
@@ -51,13 +52,23 @@ class ProfileFragment : Fragment() {
 
     private fun signOut() {
         binding?.btnSignOut?.setOnClickListener {
-            lifecycleScope.launch {
-                tokenViewModel.deleteToken()
-                profileViewModel.deleteSavedProfileId()
-            }
-            startActivity(Intent(requireContext(), AuthActivity::class.java).also {
-                it.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-            })
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle(resources.getString(R.string.logout_title))
+                .setMessage(resources.getString(R.string.logout_message))
+                .setNegativeButton(resources.getString(R.string.logout_cancel)) { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .setPositiveButton(resources.getString(R.string.logout_ok)) { _, _ ->
+                    lifecycleScope.launch {
+                        tokenViewModel.deleteToken()
+                        profileViewModel.deleteSavedProfileId()
+                    }
+                    startActivity(Intent(requireContext(), AuthActivity::class.java).also {
+                        it.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                    })
+                    activity?.overridePendingTransition(0, 0)
+                }
+                .show()
         }
     }
 
@@ -127,5 +138,9 @@ class ProfileFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    companion object {
+        const val USER_ID = "user_id"
     }
 }

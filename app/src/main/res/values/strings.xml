@@ -50,7 +50,7 @@
     <string name="hobbies">Hobbies:</string>
     <string name="light">Light</string>
     <string name="dark">Dark</string>
-    <string name="sign_out">Sign out</string>
+    <string name="sign_out"> Logout</string>
     <string name="rating">(%1$s / 5.0)</string>
     <string name="price">Rp%1$s.000,00</string>
     <string name="retry">Try again</string>
@@ -112,4 +112,8 @@
     <string name="for_you_page">For you page</string>
     <string name="for_you">For You</string>
     <string name="hotel_based_on_loves">Hotel recommendation based on things you loves in your adventure.</string>
+    <string name="logout_title">Logout</string>
+    <string name="logout_message">Are you sure you want to logout?</string>
+    <string name="logout_cancel">Cancel</string>
+    <string name="logout_ok">Logout</string>
 </resources>
