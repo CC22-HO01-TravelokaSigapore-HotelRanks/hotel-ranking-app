@@ -42,7 +42,7 @@ interface HotelService {
         @Query("offset") offset: Int
     ): Response<HotelResponse>
 
-    @POST("byLocation")
+    @POST("by-location")
     suspend fun getLocation(
         @Body location: UserLocation
     ): Response<HotelResponse>
