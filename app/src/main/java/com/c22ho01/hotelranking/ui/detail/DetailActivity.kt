@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.c22ho01.hotelranking.R
 import com.c22ho01.hotelranking.adapter.CardReviewAdapter
@@ -34,6 +35,16 @@ class DetailActivity : AppCompatActivity() {
         cardReviewAdapter = CardReviewAdapter()
 
         hotel = intent.getParcelableExtra<HotelData>(EXTRA_HOTEL) as HotelData
+
+        val fragmentManager = supportFragmentManager
+        val previewMapsFragment = PreviewMapsFragment()
+        fragmentManager.commit {
+            add(
+                R.id.frame_previewMaps,
+                previewMapsFragment,
+                PreviewMapsFragment::class.java.simpleName
+            )
+        }
 
         binding.reviewCard.setOnClickListener {
             val intent = Intent(this, ListReviewActivity::class.java)
