@@ -13,6 +13,7 @@ import com.c22ho01.hotelranking.data.Result
 import com.c22ho01.hotelranking.data.remote.response.hotel.HotelData
 import com.c22ho01.hotelranking.databinding.ActivityDetail2Binding
 import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
+import com.c22ho01.hotelranking.viewmodel.hotel.DetailViewModel
 import com.c22ho01.hotelranking.viewmodel.review.ReviewViewModel
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
@@ -24,6 +25,7 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var hotel: HotelData
     private lateinit var factory: ViewModelFactory
     private val reviewViewModel: ReviewViewModel by viewModels { factory }
+    private val detailViewModel: DetailViewModel by viewModels()
     private lateinit var cardReviewAdapter: CardReviewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,15 +38,9 @@ class DetailActivity : AppCompatActivity() {
 
         hotel = intent.getParcelableExtra<HotelData>(EXTRA_HOTEL) as HotelData
 
-        val fragmentManager = supportFragmentManager
-        val previewMapsFragment = PreviewMapsFragment()
-        fragmentManager.commit {
-            add(
-                R.id.frame_previewMaps,
-                previewMapsFragment,
-                PreviewMapsFragment::class.java.simpleName
-            )
-        }
+        detailViewModel.setHotel(hotel)
+
+        setMapsFragment()
 
         binding.reviewCard.setOnClickListener {
             val intent = Intent(this, ListReviewActivity::class.java)
@@ -73,6 +69,18 @@ class DetailActivity : AppCompatActivity() {
             )
         }
         binding.imageSlider.setImageList(imageList, ScaleTypes.CENTER_CROP)
+    }
+
+    private fun setMapsFragment(){
+        val fragmentManager = supportFragmentManager
+        val previewMapsFragment = PreviewMapsFragment()
+        fragmentManager.commit {
+            add(
+                R.id.frame_previewMaps,
+                previewMapsFragment,
+                PreviewMapsFragment::class.java.simpleName
+            )
+        }
     }
 
     private fun setData() {
@@ -116,7 +124,7 @@ class DetailActivity : AppCompatActivity() {
                     //loading
                 }
                 is Result.Success -> {
-                    val data = it.data.results
+                    val data = it.data.data
                     cardReviewAdapter.submitList(data)
                     binding.rvReview.adapter = cardReviewAdapter
 
