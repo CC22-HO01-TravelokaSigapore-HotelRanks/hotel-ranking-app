@@ -90,7 +90,7 @@ class HomeLoggedInFragment : Fragment() {
             btnMaybeLater.setOnClickListener {
                 cardProfileCustomization.animate()
                     .alpha(0f)
-                    .setDuration(1000)
+                    .setDuration(500)
                     .setListener(object : AnimatorListenerAdapter() {
                         override fun onAnimationEnd(animation: Animator) {
                             cardProfileCustomization.visibility = View.GONE
@@ -101,7 +101,7 @@ class HomeLoggedInFragment : Fragment() {
             btnCheckItOut.setOnClickListener {
                 val target = tvHotelRecommendation.y.toInt()
                 ObjectAnimator.ofInt(scrollView, "scrollY", target)
-                    .setDuration(1000).start()
+                    .setDuration(700).start()
             }
 
             btnForYou.setOnClickListener {

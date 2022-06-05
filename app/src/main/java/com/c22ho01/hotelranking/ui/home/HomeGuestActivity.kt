@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -22,6 +23,8 @@ class HomeGuestActivity : AppCompatActivity() {
     private val profileViewModel by viewModels<ProfileViewModel> { factory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        installSplashScreen()
         factory = ViewModelFactory.getInstance(this)
         lifecycleScope.launch {
             profileViewModel.getSavedProfileId().collect { id ->
@@ -31,15 +34,12 @@ class HomeGuestActivity : AppCompatActivity() {
                             this@HomeGuestActivity, HomeLoggedInActivity::class.java
                         ).also {
                             it.putExtra(ProfileFragment.USER_ID, id)
-                            it.flags =
-                                Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                            Intent.FLAG_ACTIVITY_CLEAR_TASK and Intent.FLAG_ACTIVITY_NO_ANIMATION
                         }
                     )
-                    overridePendingTransition(0, 0)
                 }
             }
         }
-        super.onCreate(savedInstanceState)
         binding = ActivityHomeGuestBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
