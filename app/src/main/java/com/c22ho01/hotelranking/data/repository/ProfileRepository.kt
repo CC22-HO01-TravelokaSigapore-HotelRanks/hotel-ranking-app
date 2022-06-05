@@ -155,7 +155,7 @@ class ProfileRepository(
         )
     }
 
-    private val profileIdPref = intPreferencesKey(ProfileRepository.PREF_PROFILE_ID)
+    private val profileIdPref = intPreferencesKey(PREF_PROFILE_ID)
 
     fun getSavedProfileId(): Flow<Int?> = settingPreferences.data.map { it[profileIdPref] }
     suspend fun setSavedProfileId(id: Int) {

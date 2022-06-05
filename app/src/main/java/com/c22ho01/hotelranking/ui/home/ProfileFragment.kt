@@ -7,13 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.c22ho01.hotelranking.R
 import com.c22ho01.hotelranking.data.Result
 import com.c22ho01.hotelranking.databinding.FragmentProfileBinding
+import com.c22ho01.hotelranking.ui.auth.AuthActivity
 import com.c22ho01.hotelranking.ui.profile.ProfileCustomizeActivity
 import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
 import com.c22ho01.hotelranking.viewmodel.profile.ProfileViewModel
+import com.c22ho01.hotelranking.viewmodel.utils.TokenViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment() {
 
@@ -22,6 +27,7 @@ class ProfileFragment : Fragment() {
 
     private lateinit var factory: ViewModelFactory
     private val profileViewModel: ProfileViewModel by viewModels { factory }
+    private val tokenViewModel by viewModels<TokenViewModel> { factory }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,8 +45,21 @@ class ProfileFragment : Fragment() {
         } else {
             initializeProfileData()
         }
+
+        signOut()
     }
 
+    private fun signOut() {
+        binding?.btnSignOut?.setOnClickListener {
+            lifecycleScope.launch {
+                tokenViewModel.deleteToken()
+                profileViewModel.deleteSavedProfileId()
+            }
+            startActivity(Intent(requireContext(), AuthActivity::class.java).also {
+                it.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            })
+        }
+    }
 
     private fun loadProfile() {
         profileViewModel.loadProfile().observe(viewLifecycleOwner) { result ->
@@ -54,13 +73,7 @@ class ProfileFragment : Fragment() {
                 }
                 is Result.Error -> {
                     showLoading(false)
-                    binding?.let { fragment ->
-                        Snackbar.make(
-                            fragment.root,
-                            result.error,
-                            Snackbar.LENGTH_LONG,
-                        ).show()
-                    }
+                    showSnackbar(result.error)
                 }
             }
         }
@@ -98,6 +111,16 @@ class ProfileFragment : Fragment() {
             binding?.run {
                 pbProfile.visibility = View.INVISIBLE
             }
+        }
+    }
+
+    private fun showSnackbar(text: String) {
+        val bottomNavigationView =
+            activity?.findViewById<BottomNavigationView>(R.id.nav_view)
+        bottomNavigationView?.let {
+            Snackbar.make(it, text, Snackbar.LENGTH_SHORT).apply {
+                anchorView = bottomNavigationView
+            }.show()
         }
     }
 

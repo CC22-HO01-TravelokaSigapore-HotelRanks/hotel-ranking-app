@@ -18,21 +18,21 @@
 
     <ImageView
         android:id="@+id/ratingBar"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:layout_marginTop="16dp"
         android:src="@drawable/ic_baseline_star_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/hotelName"
-        app:tint="@color/md_theme_light_primary"
+        app:tint="?attr/colorPrimary"
         tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/ratingText"
-        style="@style/TextAppearance.HotelRanking.TitleMedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:textAppearance="@style/TextAppearance.HotelRanking.LabelMedium"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
         app:layout_constraintStart_toEndOf="@id/ratingBar"
@@ -41,10 +41,10 @@
 
     <TextView
         android:id="@+id/totalReviews"
-        style="@style/TextAppearance.HotelRanking.TitleMedium"
+        style="@style/TextAppearance.HotelRanking.LabelMedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
         app:layout_constraintStart_toEndOf="@id/ratingText"
         app:layout_constraintTop_toTopOf="@+id/ratingBar"
@@ -55,9 +55,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ratingBar"
-        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteX="16dp"
         tools:listitem="@layout/item_detail_review" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

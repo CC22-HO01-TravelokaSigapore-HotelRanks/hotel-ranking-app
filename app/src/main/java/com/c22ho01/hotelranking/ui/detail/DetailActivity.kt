@@ -13,6 +13,7 @@ import com.c22ho01.hotelranking.data.remote.response.hotel.HotelData
 import com.c22ho01.hotelranking.databinding.ActivityDetail2Binding
 import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
 import com.c22ho01.hotelranking.viewmodel.review.ReviewViewModel
+import com.c22ho01.hotelranking.viewmodel.utils.dpToPx
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
 
@@ -73,7 +74,7 @@ class DetailActivity : AppCompatActivity() {
                 false
             )
             setHasFixedSize(true)
-            addItemDecoration(CardReviewAdapter.MarginItemDecoration(0))
+            addItemDecoration(CardReviewAdapter.MarginItemDecoration(16.dpToPx))
         }
 
 
