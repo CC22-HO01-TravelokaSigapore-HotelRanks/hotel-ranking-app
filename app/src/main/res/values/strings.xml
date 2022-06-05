@@ -115,4 +115,5 @@
     <string name="for_you_page">For you page</string>
     <string name="for_you">For You</string>
     <string name="hotel_based_on_loves">Hotel recommendation based on things you loves in your adventure.</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>

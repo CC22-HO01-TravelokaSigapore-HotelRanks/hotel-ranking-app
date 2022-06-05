@@ -41,12 +41,7 @@ class DetailActivity : AppCompatActivity() {
         detailViewModel.setHotel(hotel)
 
         setMapsFragment()
-
-        binding.reviewCard.setOnClickListener {
-            val intent = Intent(this, ListReviewActivity::class.java)
-            intent.putExtra(EXTRA_HOTEL, hotel)
-            startActivity(intent)
-        }
+        onClickListener()
 
         binding.topAppBar.apply {
             title = hotel.name
@@ -56,6 +51,20 @@ class DetailActivity : AppCompatActivity() {
         }
 
         setData()
+    }
+
+    private fun onClickListener(){
+        binding.reviewCard.setOnClickListener {
+            val intent = Intent(this, ListReviewActivity::class.java)
+            intent.putExtra(EXTRA_HOTEL, hotel)
+            startActivity(intent)
+        }
+
+        binding.mapsCard.setOnClickListener {
+            val intent = Intent(this, MapsActivity::class.java)
+            intent.putExtra(EXTRA_HOTEL, hotel)
+            startActivity(intent)
+        }
     }
 
     private fun setImage(images: List<String>) {

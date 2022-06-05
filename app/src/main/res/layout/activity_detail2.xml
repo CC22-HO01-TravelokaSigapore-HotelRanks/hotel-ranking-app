@@ -151,8 +151,9 @@
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/all_reviews"
                         android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageButtonReviews"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/imageButtonReviews"
                         app:tint="@color/md_theme_light_primary" />
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -344,6 +345,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/mapsCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -393,8 +395,9 @@
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/location_detail"
                         android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageButtonLocation"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/imageButtonLocation"
                         app:tint="@color/md_theme_light_primary" />
 
                     <FrameLayout

@@ -36,6 +36,6 @@ class ReviewPagingSource(private val reviewService: ReviewService, private val h
     }
 
     private companion object {
-        const val INITIAL_PAGE_INDEX = 1
+        const val INITIAL_PAGE_INDEX = 0
     }
 }
