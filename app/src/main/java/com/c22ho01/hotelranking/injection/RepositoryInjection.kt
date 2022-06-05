@@ -19,9 +19,9 @@ object RepositoryInjection {
         return TokenRepository.getInstance(context.dataStore)
     }
 
-    fun provideProfileRepository(): ProfileRepository {
+    fun provideProfileRepository(context: Context): ProfileRepository {
         val apiService = APIConfig.getProfileAPIService()
-        return ProfileRepository.getInstance(apiService)
+        return ProfileRepository.getInstance(apiService, context.dataStore)
     }
 
     fun provideHotelRepository(): HotelRepository {

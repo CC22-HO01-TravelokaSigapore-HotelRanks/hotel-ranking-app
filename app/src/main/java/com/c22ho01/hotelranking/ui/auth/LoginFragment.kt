@@ -140,7 +140,10 @@ class LoginFragment : Fragment() {
     }
 
     private fun loginSuccessCallback(data: LoginResponse) {
-        profileViewModel.setProfileID(data.loginData?.userId ?: -1)
+        profileViewModel.run {
+            setProfileID(data.loginData?.userId ?: -1)
+            setSavedProfileId(data.loginData?.userId ?: -1)
+        }
 
         tokenViewModel.setToken(data.loginData?.accessToken ?: "").invokeOnCompletion {
             profileViewModel.run {
