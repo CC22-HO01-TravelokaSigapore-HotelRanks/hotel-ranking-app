@@ -151,8 +151,9 @@
                 android:id="@+id/shimmerTopRated"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:shimmer_duration="500"
-                app:shimmer_highlight_alpha="?attr/colorOnSurface">
+                app:shimmer_duration="700"
+                app:shimmer_highlight_alpha="?attr/colorOnBackground"
+                app:shimmer_tilt="50">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -212,8 +213,9 @@
                 android:id="@+id/shimmerTrending"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:shimmer_duration="500"
-                app:shimmer_highlight_alpha="?attr/colorOnSurface">
+                app:shimmer_duration="700"
+                app:shimmer_highlight_alpha="?attr/colorOnBackground"
+                app:shimmer_tilt="50">
 
                 <LinearLayout
                     android:layout_width="match_parent"

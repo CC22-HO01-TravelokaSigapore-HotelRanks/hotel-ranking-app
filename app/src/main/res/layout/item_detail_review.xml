@@ -22,8 +22,6 @@
             android:layout_marginTop="16dp"
             android:text="@string/username"
             android:textStyle="bold"
-            card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintHorizontal_bias="0.0"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent" />
 
@@ -34,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:numStars="5"
-            android:progressTint="@color/md_theme_light_primary"
+            android:progressTint="?attr/colorPrimary"
             android:rating="3"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@id/tvUsername" />
@@ -44,7 +42,7 @@
             style="@style/TextAppearance.HotelRanking.LabelSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:text="@string/rating"
             card_view:layout_constraintBottom_toBottomOf="@+id/ratingBar"
             card_view:layout_constraintStart_toEndOf="@id/ratingBar"
