@@ -1,7 +1,10 @@
 package com.c22ho01.hotelranking.viewmodel.profile
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.c22ho01.hotelranking.data.repository.PreferenceRepository
 import com.c22ho01.hotelranking.data.repository.ProfileRepository
 import com.c22ho01.hotelranking.data.repository.TokenRepository
 import kotlinx.coroutines.flow.collect
@@ -10,6 +13,7 @@ import kotlinx.coroutines.launch
 class ProfileViewModel(
     private val profileRepository: ProfileRepository,
     private val tokenRepository: TokenRepository,
+    private val preferenceRepository: PreferenceRepository
 ) : ViewModel() {
 
     private var _userToken: String = ""
@@ -38,4 +42,14 @@ class ProfileViewModel(
         viewModelScope.launch { profileRepository.setSavedProfileId(id) }
 
     fun deleteSavedProfileId() = viewModelScope.launch { profileRepository.deleteSavedProfileId() }
+
+    fun getThemeSettings(): LiveData<Boolean> {
+        return preferenceRepository.getThemeSetting().asLiveData()
+    }
+
+    fun saveThemeSetting(isDarkMode: Boolean) {
+        viewModelScope.launch {
+            preferenceRepository.saveThemeSetting(isDarkMode)
+        }
+    }
 }

@@ -20,7 +20,8 @@ private constructor(
     private val tokenRepository: TokenRepository,
     private val profileRepository: ProfileRepository,
     private val hotelRepository: HotelRepository,
-    private val reviewRepository: ReviewRepository
+    private val reviewRepository: ReviewRepository,
+    private val preferenceRepository: PreferenceRepository
 ) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
@@ -39,10 +40,10 @@ private constructor(
                 SearchViewModel(hotelRepository) as T
             }
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
-                HomeViewModel(hotelRepository) as T
+                HomeViewModel(hotelRepository, profileRepository) as T
             }
             modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
-                ProfileViewModel(profileRepository, tokenRepository) as T
+                ProfileViewModel(profileRepository, tokenRepository, preferenceRepository) as T
             }
             modelClass.isAssignableFrom(ProfileCustomizeViewModel::class.java) -> {
                 ProfileCustomizeViewModel(profileRepository) as T
@@ -67,7 +68,8 @@ private constructor(
                             RepositoryInjection.provideTokenRepository(context),
                             RepositoryInjection.provideProfileRepository(context),
                             RepositoryInjection.provideHotelRepository(),
-                            RepositoryInjection.provideReviewRepository()
+                            RepositoryInjection.provideReviewRepository(),
+                            RepositoryInjection.providePreferenceRepository(context)
                         )
                             .also { instance = it }
                 }

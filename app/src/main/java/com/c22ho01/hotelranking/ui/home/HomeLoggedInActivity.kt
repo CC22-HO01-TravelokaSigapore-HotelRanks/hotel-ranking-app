@@ -15,7 +15,6 @@ class HomeLoggedInActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityHomeLoggedInBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

@@ -112,6 +112,23 @@ class ProfileRepository(
         }
     }
 
+    fun getUserById(token: String, id: Int): LiveData<Result<ProfileGetResponse>> = liveData {
+        emit(Result.Loading)
+        wrapEspressoIdlingResource {
+            try {
+                val response = profileService.getUserById(token, id)
+                if (response.isSuccessful) {
+                    emit(Result.Success(response.body() ?: ProfileGetResponse()))
+                } else {
+                    val error = ErrorUtils.showErrorFromResponse(response)
+                    emit(Result.Error(error))
+                }
+            } catch (e: Exception) {
+                emit(Result.Error(e.message.toString()))
+            }
+        }
+    }
+
     fun updateProfile(userToken: String, profile: ProfileEntity): LiveData<Result<ProfileEntity>> =
         liveData {
             wrapEspressoIdlingResource {

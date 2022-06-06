@@ -116,4 +116,7 @@
     <string name="logout_message">Are you sure you want to logout?</string>
     <string name="logout_cancel">Cancel</string>
     <string name="logout_ok">Logout</string>
+    <string name="morning">Good morning,</string>
+    <string name="afternoon">Good afternoon,</string>
+    <string name="evening">Good evening,</string>
 </resources>

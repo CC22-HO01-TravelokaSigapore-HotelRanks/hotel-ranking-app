@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -41,12 +42,17 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (profileViewModel.getCurrentProfile().value?.id == null) {
+        if (profileViewModel.getCurrentProfile().value?.id != null) {
             loadProfile()
         } else {
             initializeProfileData()
         }
 
+        profileViewModel.getThemeSettings().observe(viewLifecycleOwner) {
+            isDarkMode(it)
+        }
+
+        switchTheme()
         signOut()
     }
 
@@ -136,12 +142,24 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    private fun switchTheme() {
+        binding?.switchTheme?.setOnCheckedChangeListener { _, isChecked ->
+            profileViewModel.saveThemeSetting(isChecked)
+        }
+    }
+
+    private fun isDarkMode(state: Boolean) {
+        if (state) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            binding?.switchTheme?.isChecked = true
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            binding?.switchTheme?.isChecked = false
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-    }
-
-    companion object {
-        const val USER_ID = "user_id"
     }
 }

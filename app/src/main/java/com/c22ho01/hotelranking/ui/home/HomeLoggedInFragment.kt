@@ -18,23 +18,24 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.c22ho01.hotelranking.R
 import com.c22ho01.hotelranking.adapter.CardAdapter
 import com.c22ho01.hotelranking.adapter.CardLocationAdapter
 import com.c22ho01.hotelranking.data.Result
-import com.c22ho01.hotelranking.data.local.entity.ProfileEntity
 import com.c22ho01.hotelranking.data.remote.response.hotel.UserLocation
+import com.c22ho01.hotelranking.data.remote.response.profile.ProfileData
 import com.c22ho01.hotelranking.databinding.FragmentHomeLoggedInBinding
 import com.c22ho01.hotelranking.ui.foryou.ForYouActivity
 import com.c22ho01.hotelranking.ui.profile.ProfileCustomizeActivity
 import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
 import com.c22ho01.hotelranking.viewmodel.hotel.HomeViewModel
-import com.c22ho01.hotelranking.viewmodel.profile.ProfileViewModel
 import com.c22ho01.hotelranking.viewmodel.utils.TokenViewModel
 import com.c22ho01.hotelranking.viewmodel.utils.dpToPx
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.util.*
 
 class HomeLoggedInFragment : Fragment() {
 
@@ -46,11 +47,11 @@ class HomeLoggedInFragment : Fragment() {
     private lateinit var locationAdapter: CardLocationAdapter
     private lateinit var factory: ViewModelFactory
     private val homeViewModel by viewModels<HomeViewModel> { factory }
-    private val profileViewModel by viewModels<ProfileViewModel> { factory }
     private val tokenViewModel by viewModels<TokenViewModel> { factory }
-    private lateinit var userLocation: UserLocation
-    private lateinit var profile: ProfileEntity
     private lateinit var token: String
+    private var userId: Int? = null
+    private lateinit var userLocation: UserLocation
+    private lateinit var userProfile: ProfileData
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,12 +65,15 @@ class HomeLoggedInFragment : Fragment() {
         trendingAdapter = CardAdapter()
         locationAdapter = CardLocationAdapter()
         userLocation = UserLocation()
+        userProfile = ProfileData()
         return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        userId = requireActivity().intent?.getIntExtra(USER_ID, -1)
+        getToken()
         setupAction()
         getMyLastLocation()
         getTopRated()
@@ -77,11 +81,45 @@ class HomeLoggedInFragment : Fragment() {
         getUserRecommendation()
     }
 
+    private fun getToken() {
+        lifecycleScope.launch {
+            tokenViewModel.getToken().collect {
+                if (it != null) {
+                    token = it
+                }
+            }
+        }
+    }
+
+    private fun showEditProfile() {
+        if (userId != null) {
+            homeViewModel.getUserById("Bearer $token", userId ?: -1)
+                .observe(viewLifecycleOwner) {
+                    if (it is Result.Success) {
+                        userProfile = it.data.profileData ?: ProfileData()
+                        val name = it.data.profileData?.name
+                        binding?.apply {
+                            tvName.text = name
+                            cardProfileCustomization.isVisible = name == null
+                        }
+                    }
+                }
+        }
+    }
+
     private fun setupAction() {
+        showEditProfile()
         binding?.apply {
-            profileViewModel.getCurrentProfile().observe(viewLifecycleOwner) {
-                profile = it
-                cardProfileCustomization.isVisible = profile.name == null
+            when (Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) {
+                in 1..11 -> {
+                    tvGreetings.text = requireActivity().resources.getString(R.string.morning)
+                }
+                in 12..17 -> {
+                    tvGreetings.text = requireActivity().resources.getString(R.string.afternoon)
+                }
+                in 18..24 -> {
+                    tvGreetings.text = requireActivity().resources.getString(R.string.evening)
+                }
             }
 
             btnEditProfile.setOnClickListener {
@@ -90,14 +128,14 @@ class HomeLoggedInFragment : Fragment() {
                         activity,
                         ProfileCustomizeActivity::class.java
                     )
-                        .putExtra(ProfileCustomizeActivity.EXTRA_PROFILE, profile)
+                        .putExtra(ProfileCustomizeActivity.EXTRA_PROFILE, userProfile)
                 )
             }
 
             btnMaybeLater.setOnClickListener {
                 cardProfileCustomization.animate()
                     .alpha(0f)
-                    .setDuration(500)
+                    .setDuration(300)
                     .setListener(object : AnimatorListenerAdapter() {
                         override fun onAnimationEnd(animation: Animator) {
                             cardProfileCustomization.visibility = View.GONE
@@ -108,7 +146,7 @@ class HomeLoggedInFragment : Fragment() {
             btnCheckItOut.setOnClickListener {
                 val target = tvHotelRecommendation.y.toInt()
                 ObjectAnimator.ofInt(scrollView, "scrollY", target)
-                    .setDuration(700).start()
+                    .setDuration(500).start()
             }
 
             btnForYou.setOnClickListener {
@@ -211,14 +249,6 @@ class HomeLoggedInFragment : Fragment() {
                         addItemDecoration(CardLocationAdapter.MarginItemDecoration(16.dpToPx))
                     }
 
-                    lifecycleScope.launch {
-                        tokenViewModel.getToken().collect {
-                            if (it != null) {
-                                token = it
-                            }
-                        }
-                    }
-
                     homeViewModel.getLocation("Bearer $token", userLocation)
                         .observe(viewLifecycleOwner) {
                             when (it) {
@@ -284,5 +314,6 @@ class HomeLoggedInFragment : Fragment() {
     companion object {
         var USER_LAT: Double? = null
         var USER_LONG: Double? = null
+        const val USER_ID = "user_id"
     }
 }
