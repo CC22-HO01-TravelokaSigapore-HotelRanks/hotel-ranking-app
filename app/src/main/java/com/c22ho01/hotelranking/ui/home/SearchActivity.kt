@@ -62,6 +62,7 @@ class SearchActivity : AppCompatActivity() {
         binding.searchBar.apply {
             etKeyword.setOnKeyListener { v, keyCode, event ->
                 if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                    binding.progressIndicator.visibility = View.VISIBLE
                     val keyword = etKeyword.text.toString().trim()
                     searchHotel(keyword)
                     hideSoftKeyboard(v)

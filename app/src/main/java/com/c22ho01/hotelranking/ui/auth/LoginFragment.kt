@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -68,7 +69,10 @@ class LoginFragment : Fragment() {
             btnGoToCreateAcc.setOnClickListener {
                 goToRegister()
             }
-            btnLogin.setOnClickListener { loginAccount() }
+            btnLogin.setOnClickListener {
+                hideSoftKeyboard(it)
+                loginAccount()
+            }
             btnGoogleSignin.setOnClickListener { loginAccountGoogle() }
         }
     }
@@ -186,11 +190,11 @@ class LoginFragment : Fragment() {
     }
 
     private fun goToHome() {
-        val intent =
-            Intent(activity, HomeLoggedInActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-            }
-        startActivity(intent)
+        startActivity(Intent(requireActivity(), HomeLoggedInActivity::class.java).also {
+            it.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                    Intent.FLAG_ACTIVITY_NEW_TASK
+        })
+        requireActivity().finish()
     }
 
     private fun goToRegister() {
@@ -220,6 +224,12 @@ class LoginFragment : Fragment() {
                 btnLogin.isEnabled = loginViewModel.formValid.value ?: false
             }
         }
+    }
+
+    private fun hideSoftKeyboard(view: View) {
+        val imm =
+            activity?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     override fun onDestroy() {

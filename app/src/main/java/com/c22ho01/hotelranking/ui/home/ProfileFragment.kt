@@ -7,13 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.c22ho01.hotelranking.R
 import com.c22ho01.hotelranking.data.Result
 import com.c22ho01.hotelranking.databinding.FragmentProfileBinding
+import com.c22ho01.hotelranking.ui.auth.AuthActivity
 import com.c22ho01.hotelranking.ui.profile.ProfileCustomizeActivity
 import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
 import com.c22ho01.hotelranking.viewmodel.profile.ProfileViewModel
+import com.c22ho01.hotelranking.viewmodel.utils.TokenViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment() {
 
@@ -22,6 +28,7 @@ class ProfileFragment : Fragment() {
 
     private lateinit var factory: ViewModelFactory
     private val profileViewModel: ProfileViewModel by viewModels { factory }
+    private val tokenViewModel by viewModels<TokenViewModel> { factory }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,8 +46,32 @@ class ProfileFragment : Fragment() {
         } else {
             initializeProfileData()
         }
+
+        signOut()
     }
 
+    private fun signOut() {
+        binding?.btnSignOut?.setOnClickListener {
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle(resources.getString(R.string.logout_title))
+                .setMessage(resources.getString(R.string.logout_message))
+                .setNegativeButton(resources.getString(R.string.logout_cancel)) { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .setPositiveButton(resources.getString(R.string.logout_ok)) { _, _ ->
+                    lifecycleScope.launch {
+                        tokenViewModel.deleteToken()
+                        profileViewModel.deleteSavedProfileId()
+                    }
+                    startActivity(Intent(requireActivity(), AuthActivity::class.java).also {
+                        it.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                                Intent.FLAG_ACTIVITY_NEW_TASK
+                    })
+                    requireActivity().finish()
+                }
+                .show()
+        }
+    }
 
     private fun loadProfile() {
         profileViewModel.loadProfile().observe(viewLifecycleOwner) { result ->
@@ -54,13 +85,7 @@ class ProfileFragment : Fragment() {
                 }
                 is Result.Error -> {
                     showLoading(false)
-                    binding?.let { fragment ->
-                        Snackbar.make(
-                            fragment.root,
-                            result.error,
-                            Snackbar.LENGTH_LONG,
-                        ).show()
-                    }
+                    showSnackbar(result.error)
                 }
             }
         }
@@ -101,8 +126,22 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    private fun showSnackbar(text: String) {
+        val bottomNavigationView =
+            activity?.findViewById<BottomNavigationView>(R.id.nav_view)
+        bottomNavigationView?.let {
+            Snackbar.make(it, text, Snackbar.LENGTH_SHORT).apply {
+                anchorView = bottomNavigationView
+            }.show()
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    companion object {
+        const val USER_ID = "user_id"
     }
 }

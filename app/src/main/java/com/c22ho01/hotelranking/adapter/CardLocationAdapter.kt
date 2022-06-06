@@ -2,6 +2,7 @@ package com.c22ho01.hotelranking.adapter
 
 import android.content.Intent
 import android.graphics.Rect
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +14,8 @@ import com.c22ho01.hotelranking.R
 import com.c22ho01.hotelranking.data.remote.response.hotel.HotelData
 import com.c22ho01.hotelranking.databinding.CardHotelWithLocationBinding
 import com.c22ho01.hotelranking.ui.detail.DetailActivity
-import com.c22ho01.hotelranking.ui.home.HomeGuestFragment.Companion.USER_LAT
-import com.c22ho01.hotelranking.ui.home.HomeGuestFragment.Companion.USER_LONG
+import com.c22ho01.hotelranking.ui.home.HomeLoggedInFragment.Companion.USER_LAT
+import com.c22ho01.hotelranking.ui.home.HomeLoggedInFragment.Companion.USER_LONG
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.SphericalUtil
 
@@ -42,12 +43,15 @@ class CardLocationAdapter : ListAdapter<HotelData, CardLocationAdapter.ViewHolde
                     ).div(1000)
                 }
                 tvLocation.text = data.neighborhood.trim()
-                tvDistance.text = itemView.resources.getString(R.string.distance, distance)
+                tvDistance.text =
+                    itemView.resources.getString(R.string.distance, distance)
                 tvHotel.text = data.name.trim()
                 tvRating.text = data.star.toString()
                 ratingbar.rating = data.star
                 val price = data.pricePerNight.toString()
                 tvPrice.text = itemView.resources.getString(R.string.price, price)
+                Log.e("CEK USER LAT LONG: ", userLatLng.toString())
+                Log.e("CEK HOTEL LAT LONG: ", hotelLatLng.toString())
             }
 
             itemView.setOnClickListener {

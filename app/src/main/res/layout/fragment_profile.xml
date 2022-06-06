@@ -8,8 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="32dp">
+        android:layout_height="wrap_content">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/titleProfile"
@@ -85,15 +84,6 @@
                                 tools:ignore="ContentDescription" />
 
                         </com.google.android.material.card.MaterialCardView>
-
-                        <!--<de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/imgAvatar"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:src="@drawable/user_avatar"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />-->
 
                         <LinearLayout
                             android:id="@+id/linearLayout"
@@ -198,14 +188,16 @@
                     app:layout_constraintTop_toBottomOf="@id/titleSpecialNeeds"
                     tools:text="I can't speak easily, I can't hear clearly" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnGoToCustomizeProfile"
-                    style="@style/Widget.Material3.Button.ElevatedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
+                    android:layout_marginBottom="8dp"
+                    android:backgroundTint="?attr/colorPrimaryContainer"
                     android:text="@string/customize_your_profile"
-                    android:textAppearance="?attr/textAppearanceLabelLarge"
+                    android:textColor="?attr/colorOnPrimaryContainer"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvSpecialNeeds" />
 
@@ -242,7 +234,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/theme"
-                    android:textAppearance="@style/TextAppearance.HotelRanking.TitleMedium"
+                    android:textAppearance="@style/TextAppearance.HotelRanking.TitleSmall"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -293,6 +286,7 @@
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/switchTheme"
+                    style="@style/Widget.Material3.CompoundButton.Switch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -308,7 +302,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="@string/language"
-                    android:textAppearance="@style/TextAppearance.HotelRanking.TitleMedium"
+                    android:textAppearance="@style/TextAppearance.HotelRanking.TitleSmall"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@+id/titleLight"
                     app:layout_constraintTop_toBottomOf="@+id/divider" />
 
@@ -362,10 +357,11 @@
             android:id="@+id/btnSignOut"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="32dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
             android:text="@string/sign_out"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
