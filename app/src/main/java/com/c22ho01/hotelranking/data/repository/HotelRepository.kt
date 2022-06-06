@@ -85,6 +85,26 @@ class HotelRepository(private val hotelService: HotelService) {
         }
     }
 
+    fun getForYou(
+        userToken: String,
+        userLocation: UserLocation
+    ): LiveData<Result<HotelResponse>> = liveData {
+        emit(Result.Loading)
+        wrapEspressoIdlingResource {
+            try {
+                val response = hotelService.getForYou(userToken, userLocation)
+                if (response.isSuccessful) {
+                    emit(Result.Success(response.body() ?: HotelResponse()))
+                } else {
+                    val error = ErrorUtils.showErrorFromResponse(response)
+                    emit(Result.Error(error))
+                }
+            } catch (e: Exception) {
+                emit(Result.Error(e.message.toString()))
+            }
+        }
+    }
+
     fun getUserRecommendation(token: String, id: Int): LiveData<Result<HotelResponse>> = liveData {
         emit(Result.Loading)
         wrapEspressoIdlingResource {

@@ -49,4 +49,10 @@ interface HotelService {
         @Header("Authorization") token: String,
         @Path("hotelId") hotelId: Int
     ): Response<HotelResponse>
+
+    @POST("for-you")
+    suspend fun getForYou(
+        @Header("Authorization") token: String,
+        @Body location: UserLocation
+    ): Response<HotelResponse>
 }
