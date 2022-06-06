@@ -15,8 +15,8 @@ class HomeViewModel(private val hotelRepository: HotelRepository) : ViewModel() 
 
     val getAll: LiveData<Result<HotelResponse>> = hotelRepository.getAll()
 
-    fun getLocation(userLocation: UserLocation): LiveData<Result<HotelResponse>> {
-        return hotelRepository.getNearbyLocation(userLocation)
+    fun getLocation(token: String, userLocation: UserLocation): LiveData<Result<HotelResponse>> {
+        return hotelRepository.getNearbyLocation(token, userLocation)
     }
 
     fun getUserRecommendation(token: String, id: Int): LiveData<Result<HotelResponse>> {

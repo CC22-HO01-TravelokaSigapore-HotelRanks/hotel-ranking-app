@@ -35,6 +35,7 @@ interface HotelService {
 
     @POST("by-location")
     suspend fun getLocation(
+        @Header("Authorization") token: String,
         @Body location: UserLocation
     ): Response<HotelResponse>
 

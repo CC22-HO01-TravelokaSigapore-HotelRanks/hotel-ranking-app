@@ -8,7 +8,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +16,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.c22ho01.hotelranking.adapter.CardAdapter
 import com.c22ho01.hotelranking.adapter.CardLocationAdapter
@@ -29,9 +29,12 @@ import com.c22ho01.hotelranking.ui.profile.ProfileCustomizeActivity
 import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
 import com.c22ho01.hotelranking.viewmodel.hotel.HomeViewModel
 import com.c22ho01.hotelranking.viewmodel.profile.ProfileViewModel
+import com.c22ho01.hotelranking.viewmodel.utils.TokenViewModel
 import com.c22ho01.hotelranking.viewmodel.utils.dpToPx
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class HomeLoggedInFragment : Fragment() {
 
@@ -42,10 +45,12 @@ class HomeLoggedInFragment : Fragment() {
     private lateinit var trendingAdapter: CardAdapter
     private lateinit var locationAdapter: CardLocationAdapter
     private lateinit var factory: ViewModelFactory
-    private val homeViewModel: HomeViewModel by viewModels { factory }
-    private val profileViewModel: ProfileViewModel by viewModels { factory }
+    private val homeViewModel by viewModels<HomeViewModel> { factory }
+    private val profileViewModel by viewModels<ProfileViewModel> { factory }
+    private val tokenViewModel by viewModels<TokenViewModel> { factory }
     private lateinit var userLocation: UserLocation
     private lateinit var profile: ProfileEntity
+    private lateinit var token: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -195,9 +200,6 @@ class HomeLoggedInFragment : Fragment() {
                         latitude = USER_LAT
                     )
 
-                    Log.e("CEK LAT: ", USER_LAT.toString())
-                    Log.e("CEK LONG: ", USER_LONG.toString())
-
                     binding?.rvNearLocation?.apply {
                         layoutManager = LinearLayoutManager(
                             context,
@@ -209,25 +211,34 @@ class HomeLoggedInFragment : Fragment() {
                         addItemDecoration(CardLocationAdapter.MarginItemDecoration(16.dpToPx))
                     }
 
-                    homeViewModel.getLocation(userLocation).observe(viewLifecycleOwner) {
-                        when (it) {
-                            is Result.Loading -> {
-                                binding?.rvNearLocation?.visibility = View.GONE
-                            }
-                            is Result.Success -> {
-                                binding?.apply {
-                                    shimmerLocation.stopShimmer()
-                                    shimmerLocation.visibility = View.GONE
-                                    rvNearLocation.visibility = View.VISIBLE
-                                }
-                                val data = it.data.data
-                                locationAdapter.submitList(data)
-                            }
-                            else -> {
-                                //error message
+                    lifecycleScope.launch {
+                        tokenViewModel.getToken().collect {
+                            if (it != null) {
+                                token = it
                             }
                         }
                     }
+
+                    homeViewModel.getLocation("Bearer $token", userLocation)
+                        .observe(viewLifecycleOwner) {
+                            when (it) {
+                                is Result.Loading -> {
+                                    binding?.rvNearLocation?.visibility = View.GONE
+                                }
+                                is Result.Success -> {
+                                    binding?.apply {
+                                        shimmerLocation.stopShimmer()
+                                        shimmerLocation.visibility = View.GONE
+                                        rvNearLocation.visibility = View.VISIBLE
+                                    }
+                                    val data = it.data.data
+                                    locationAdapter.submitList(data)
+                                }
+                                else -> {
+                                    //error message
+                                }
+                            }
+                        }
                 } else {
                     // no location found
                 }
