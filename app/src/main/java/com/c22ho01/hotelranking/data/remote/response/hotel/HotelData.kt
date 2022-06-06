@@ -73,6 +73,7 @@ data class HotelData(
     val priceCategory: Int
 ) : Parcelable
 
+@Parcelize
 data class UserLocation(
     @SerializedName("user_id")
     val userId: Int? = null,
@@ -83,4 +84,4 @@ data class UserLocation(
     @SerializedName("longitude")
     val latitude: Double? = null
 
-)
+) : Parcelable

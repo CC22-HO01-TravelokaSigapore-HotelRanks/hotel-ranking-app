@@ -3,10 +3,7 @@ package com.c22ho01.hotelranking.data.remote.retrofit
 import com.c22ho01.hotelranking.data.remote.response.hotel.HotelResponse
 import com.c22ho01.hotelranking.data.remote.response.hotel.UserLocation
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 
 interface HotelService {
@@ -44,6 +41,12 @@ interface HotelService {
 
     @POST("byLocation")
     suspend fun getLocation(
+        @Body location: UserLocation
+    ): Response<HotelResponse>
+
+    @POST("for-you")
+    suspend fun getForYou(
+        @Header("Authorization") token: String,
         @Body location: UserLocation
     ): Response<HotelResponse>
 }

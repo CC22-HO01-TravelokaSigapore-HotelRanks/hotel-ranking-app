@@ -29,6 +29,7 @@ class HomeGuestActivity : AppCompatActivity() {
         lifecycleScope.launch {
             profileViewModel.getSavedProfileId().collect { id ->
                 if (id != null) {
+                    profileViewModel.setProfileID(id)
                     startActivity(
                         Intent(
                             this@HomeGuestActivity, HomeLoggedInActivity::class.java

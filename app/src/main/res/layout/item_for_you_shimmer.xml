@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="?attr/materialCardViewElevatedStyle"
+    android:layout_width="match_parent"
+    android:layout_height="115dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    android:backgroundTint="?attr/colorSurface"
+    app:cardElevation="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/im_hotel_img"
+            android:layout_width="115dp"
+            android:layout_height="0dp"
+            android:contentDescription="@string/hotel_photo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="?attr/colorSurfaceVariant"/>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mcv_location"
+            style="@style/Widget.Material3.CardView.Filled"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            app:cardBackgroundColor="?attr/colorOnSurfaceVariant"
+            app:cardCornerRadius="0dp"
+            app:layout_constraintEnd_toEndOf="@id/im_hotel_img"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_hotel_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="2dp"
+            android:background="?attr/colorOnSurfaceVariant"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/im_hotel_img"
+            app:layout_constraintTop_toTopOf="@id/im_hotel_img" />
+
+        <RatingBar
+            android:id="@+id/rb_rating"
+            style="@android:style/Widget.Material.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:progressTint="?attr/colorOnSurfaceVariant"
+            android:rating="3"
+            android:stepSize="0.1"
+            app:layout_constraintStart_toStartOf="@+id/tv_hotel_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_hotel_name" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_rating_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textAppearance="@style/TextAppearance.HotelRanking.LabelSmall"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            app:layout_constraintBottom_toBottomOf="@+id/rb_rating"
+            app:layout_constraintStart_toEndOf="@+id/rb_rating"
+            app:layout_constraintTop_toTopOf="@+id/rb_rating"
+            tools:text="0.0" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_start_from"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="?attr/colorOnSurfaceVariant"
+            app:layout_constraintBottom_toTopOf="@+id/tvPrice"
+            app:layout_constraintStart_toStartOf="@+id/rb_rating" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvPrice"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:background="?attr/colorOnSurfaceVariant"
+            app:layout_constraintBottom_toBottomOf="@id/im_hotel_img"
+            app:layout_constraintStart_toStartOf="@+id/tv_start_from" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_per_night"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorOnSurfaceVariant"
+            app:layout_constraintBottom_toBottomOf="@+id/tvPrice"
+            app:layout_constraintStart_toEndOf="@+id/tvPrice"
+            app:layout_constraintTop_toTopOf="@+id/tvPrice" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

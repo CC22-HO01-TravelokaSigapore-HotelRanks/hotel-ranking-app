@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,7 +58,10 @@ class HomeLoggedInFragment : Fragment() {
         topRatedAdapter = CardAdapter()
         trendingAdapter = CardAdapter()
         locationAdapter = CardLocationAdapter()
-        userLocation = UserLocation()
+        userLocation = UserLocation(
+            userId = profileViewModel.getProfileID(),
+        )
+        Log.d("HomeLoggedInFragment", "onCreateView: $userLocation")
         return binding?.root
     }
 
@@ -105,7 +109,9 @@ class HomeLoggedInFragment : Fragment() {
             }
 
             btnForYou.setOnClickListener {
-                startActivity(Intent(activity, ForYouActivity::class.java))
+                val intent = Intent(activity, ForYouActivity::class.java)
+                intent.putExtra(ForYouActivity.USER_LOCATION_EXTRA, userLocation)
+                startActivity(intent)
             }
         }
     }
@@ -184,7 +190,7 @@ class HomeLoggedInFragment : Fragment() {
                 if (location != null) {
                     USER_LAT = location.latitude
                     USER_LONG = location.longitude
-                    userLocation = UserLocation(
+                    userLocation = userLocation.copy(
                         userId = profileViewModel.getProfileID(),
                         longitude = USER_LONG,
                         latitude = USER_LAT
