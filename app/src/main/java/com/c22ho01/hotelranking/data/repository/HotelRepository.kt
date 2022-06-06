@@ -105,6 +105,40 @@ class HotelRepository(private val hotelService: HotelService) {
         }
     }
 
+    fun getUserRecommendation(token: String, id: Int): LiveData<Result<HotelResponse>> = liveData {
+        emit(Result.Loading)
+        wrapEspressoIdlingResource {
+            try {
+                val response = hotelService.getUserRecommendation(token, id)
+                if (response.isSuccessful) {
+                    emit(Result.Success(response.body() ?: HotelResponse()))
+                } else {
+                    val error = ErrorUtils.showErrorFromResponse(response)
+                    emit(Result.Error(error))
+                }
+            } catch (e: Exception) {
+                emit(Result.Error(e.message.toString()))
+            }
+        }
+    }
+
+    fun getSimilar(token: String, hotelId: Int): LiveData<Result<HotelResponse>> = liveData {
+        emit(Result.Loading)
+        wrapEspressoIdlingResource {
+            try {
+                val response = hotelService.getSimilar(token, hotelId)
+                if (response.isSuccessful) {
+                    emit(Result.Success(response.body() ?: HotelResponse()))
+                } else {
+                    val error = ErrorUtils.showErrorFromResponse(response)
+                    emit(Result.Error(error))
+                }
+            } catch (e: Exception) {
+                emit(Result.Error(e.message.toString()))
+            }
+        }
+    }
+
     fun searchHotel(keyword: String): Flow<PagingData<HotelData>> {
         return Pager(
             config = PagingConfig(

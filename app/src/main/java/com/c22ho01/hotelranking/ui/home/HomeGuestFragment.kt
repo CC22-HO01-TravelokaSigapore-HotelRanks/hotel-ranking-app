@@ -119,9 +119,4 @@ class HomeGuestFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
-    companion object {
-        var USER_LAT: Double? = null
-        var USER_LONG: Double? = null
-    }
 }

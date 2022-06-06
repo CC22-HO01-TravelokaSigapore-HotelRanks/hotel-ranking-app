@@ -21,12 +21,6 @@ interface HotelService {
         @Query("keyword") keyword: String
     ): Response<HotelResponse>
 
-    @GET("search")
-    suspend fun hotelSearch(
-        @Query("offset") offset: Int,
-        @Query("keyword") keyword: String
-    ): Response<HotelResponse>
-
     @GET("trending")
     suspend fun getTrending(
         @Query("page") page: Int,
@@ -39,9 +33,21 @@ interface HotelService {
         @Query("offset") offset: Int
     ): Response<HotelResponse>
 
-    @POST("byLocation")
+    @POST("by-location")
     suspend fun getLocation(
         @Body location: UserLocation
+    ): Response<HotelResponse>
+
+    @POST("user-recommendation/{id}")
+    suspend fun getUserRecommendation(
+        @Header("Authorization") token: String,
+        @Path("id") id: Int
+    ): Response<HotelResponse>
+
+    @POST("hotel-recommendation/{hotelId}")
+    suspend fun getSimilar(
+        @Header("Authorization") token: String,
+        @Path("hotelId") hotelId: Int
     ): Response<HotelResponse>
 
     @POST("for-you")

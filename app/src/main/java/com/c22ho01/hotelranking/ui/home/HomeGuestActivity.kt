@@ -35,9 +35,12 @@ class HomeGuestActivity : AppCompatActivity() {
                             this@HomeGuestActivity, HomeLoggedInActivity::class.java
                         ).also {
                             it.putExtra(ProfileFragment.USER_ID, id)
-                            Intent.FLAG_ACTIVITY_CLEAR_TASK and Intent.FLAG_ACTIVITY_NO_ANIMATION
+                            it.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or
+                                    Intent.FLAG_ACTIVITY_NEW_TASK
                         }
                     )
+                    overridePendingTransition(0, 0)
+                    finish()
                 }
             }
         }

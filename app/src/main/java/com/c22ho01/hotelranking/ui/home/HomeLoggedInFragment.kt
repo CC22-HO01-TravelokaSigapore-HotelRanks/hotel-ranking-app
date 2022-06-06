@@ -61,7 +61,6 @@ class HomeLoggedInFragment : Fragment() {
         userLocation = UserLocation(
             userId = profileViewModel.getProfileID(),
         )
-        Log.d("HomeLoggedInFragment", "onCreateView: $userLocation")
         return binding?.root
     }
 
@@ -72,6 +71,7 @@ class HomeLoggedInFragment : Fragment() {
         getMyLastLocation()
         getTopRated()
         getTrending()
+        getUserRecommendation()
     }
 
     private fun setupAction() {
@@ -182,6 +182,10 @@ class HomeLoggedInFragment : Fragment() {
         }
     }
 
+    private fun getUserRecommendation() {
+
+    }
+
     private fun getMyLastLocation() {
         if (checkPermission(Manifest.permission.ACCESS_FINE_LOCATION) &&
             checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -195,6 +199,9 @@ class HomeLoggedInFragment : Fragment() {
                         longitude = USER_LONG,
                         latitude = USER_LAT
                     )
+
+                    Log.e("CEK LAT: ", USER_LAT.toString())
+                    Log.e("CEK LONG: ", USER_LONG.toString())
 
                     binding?.rvNearLocation?.apply {
                         layoutManager = LinearLayoutManager(

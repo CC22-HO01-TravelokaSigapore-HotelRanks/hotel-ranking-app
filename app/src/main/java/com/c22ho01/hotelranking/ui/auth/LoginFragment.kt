@@ -193,9 +193,11 @@ class LoginFragment : Fragment() {
     }
 
     private fun goToHome() {
-        startActivity(Intent(requireContext(), HomeLoggedInActivity::class.java).also {
-            it.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK and Intent.FLAG_ACTIVITY_NO_ANIMATION
+        startActivity(Intent(requireActivity(), HomeLoggedInActivity::class.java).also {
+            it.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or
+                    Intent.FLAG_ACTIVITY_NEW_TASK
         })
+//        requireActivity().finish()
     }
 
     private fun goToRegister() {
