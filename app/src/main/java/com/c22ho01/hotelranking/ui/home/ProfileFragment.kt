@@ -64,7 +64,7 @@ class ProfileFragment : Fragment() {
                         profileViewModel.deleteSavedProfileId()
                     }
                     startActivity(Intent(requireActivity(), AuthActivity::class.java).also {
-                        it.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                        it.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or
                                 Intent.FLAG_ACTIVITY_NEW_TASK
                     })
                     requireActivity().finish()
