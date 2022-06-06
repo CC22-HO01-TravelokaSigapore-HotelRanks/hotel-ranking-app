@@ -1,236 +1,221 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.home.HomeGuestFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardCheckItOut"
-            style="?attr/materialCardViewFilledStyle"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginVertical="24dp"
-            app:cardBackgroundColor="?attr/colorTertiary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent">
 
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardCheckItOut"
+                style="?attr/materialCardViewFilledStyle"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:cardBackgroundColor="?attr/colorTertiary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/not_logged_in"
-                    android:textAppearance="?attr/textAppearanceBodyMedium"
-                    android:textColor="?attr/colorOnTertiary" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/login_here_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/login_here"
-                    android:textColor="?attr/colorOnTertiaryContainer"
-                    app:backgroundTint="?attr/colorTertiaryContainer" />
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardMenu"
-            style="?attr/materialCardViewFilledStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="16dp"
-            app:cardBackgroundColor="?attr/colorPrimaryContainer"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardCheckItOut">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="24dp">
-
-                <com.google.android.flexbox.FlexboxLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="24dp"
-                    app:justifyContent="space_between">
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-                    <include layout="@layout/custom_menu" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/not_logged_in"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:textColor="?attr/colorOnTertiary" />
 
-                    <include layout="@layout/custom_menu" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/login_here_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/login_here"
+                        android:textColor="?attr/colorOnTertiaryContainer"
+                        app:backgroundTint="?attr/colorTertiaryContainer" />
+                </LinearLayout>
 
-                    <include layout="@layout/custom_menu" />
+            </com.google.android.material.card.MaterialCardView>
 
-                    <include layout="@layout/custom_menu" />
-                </com.google.android.flexbox.FlexboxLayout>
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardMenu"
+                style="?attr/materialCardViewFilledStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                app:cardBackgroundColor="?attr/colorPrimaryContainer"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardCheckItOut">
 
-                <com.google.android.flexbox.FlexboxLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:justifyContent="space_between">
+                    android:orientation="vertical"
+                    android:padding="24dp">
 
-                    <include layout="@layout/custom_menu" />
+                    <com.google.android.flexbox.FlexboxLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="24dp"
+                        app:justifyContent="space_between">
 
-                    <include layout="@layout/custom_menu" />
+                        <include layout="@layout/custom_menu" />
 
-                    <include layout="@layout/custom_menu" />
+                        <include layout="@layout/custom_menu" />
 
-                    <include layout="@layout/custom_menu" />
-                </com.google.android.flexbox.FlexboxLayout>
+                        <include layout="@layout/custom_menu" />
 
-            </LinearLayout>
+                        <include layout="@layout/custom_menu" />
+                    </com.google.android.flexbox.FlexboxLayout>
 
-        </com.google.android.material.card.MaterialCardView>
+                    <com.google.android.flexbox.FlexboxLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:justifyContent="space_between">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvHotelRecommendation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:text="@string/hotel_recommendations"
-            android:textAppearance="@style/TextAppearance.HotelRanking.HeadlineSmall"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardMenu" />
+                        <include layout="@layout/custom_menu" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvTopRated"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/top_rated"
-            android:textAppearance="@style/TextAppearance.HotelRanking.TitleMedium"
-            app:layout_constraintStart_toStartOf="@+id/tvHotelRecommendation"
-            app:layout_constraintTop_toBottomOf="@+id/tvHotelRecommendation" />
+                        <include layout="@layout/custom_menu" />
 
-        <ImageButton
-            android:id="@+id/btnTopRated"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:backgroundTint="@android:color/transparent"
-            android:src="@drawable/ic_forward"
-            app:layout_constraintBottom_toBottomOf="@+id/tvTopRated"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvTopRated"
-            tools:ignore="ContentDescription,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                        <include layout="@layout/custom_menu" />
 
-        <FrameLayout
-            android:id="@+id/topRated"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvTopRated">
+                        <include layout="@layout/custom_menu" />
+                    </com.google.android.flexbox.FlexboxLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvHotelRecommendation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/hotel_recommendations"
+                android:textAppearance="@style/TextAppearance.HotelRanking.HeadlineSmall"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardMenu" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvTopRated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/top_rated"
+                android:textAppearance="@style/TextAppearance.HotelRanking.TitleMedium"
+                app:layout_constraintStart_toStartOf="@+id/tvHotelRecommendation"
+                app:layout_constraintTop_toBottomOf="@+id/tvHotelRecommendation" />
+
+            <ImageButton
+                android:id="@+id/btnTopRated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@android:color/transparent"
+                android:src="@drawable/ic_forward"
+                app:layout_constraintBottom_toBottomOf="@+id/tvTopRated"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvTopRated"
+                tools:ignore="ContentDescription,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvTopRated"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimmerTopRated"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:shimmer_duration="700"
-                app:shimmer_highlight_alpha="?attr/colorOnBackground"
-                app:shimmer_tilt="50">
+                android:layout_marginVertical="16dp"
+                android:nestedScrollingEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTopRated" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvTrending"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/trending"
+                android:textAppearance="@style/TextAppearance.HotelRanking.TitleMedium"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rvTopRated" />
 
-                    <include layout="@layout/card_shimmer" />
-
-                    <include layout="@layout/card_shimmer" />
-
-                    <include layout="@layout/card_shimmer" />
-
-                </LinearLayout>
-
-            </com.facebook.shimmer.ShimmerFrameLayout>
-        </FrameLayout>
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvTrending"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/trending"
-            android:textAppearance="@style/TextAppearance.HotelRanking.TitleMedium"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/topRated" />
-
-        <ImageButton
-            android:id="@+id/btnTrending"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:backgroundTint="@android:color/transparent"
-            android:src="@drawable/ic_forward"
-            app:layout_constraintBottom_toBottomOf="@+id/tvTrending"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvTrending"
-            tools:ignore="ContentDescription,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-        <FrameLayout
-            android:id="@+id/trending"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvTrending">
+            <ImageButton
+                android:id="@+id/btnTrending"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@android:color/transparent"
+                android:src="@drawable/ic_forward"
+                app:layout_constraintBottom_toBottomOf="@+id/tvTrending"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvTrending"
+                tools:ignore="ContentDescription,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvTrending"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimmerTrending"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:shimmer_duration="700"
-                app:shimmer_highlight_alpha="?attr/colorOnBackground"
-                app:shimmer_tilt="50">
+                android:layout_marginVertical="16dp"
+                android:nestedScrollingEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTrending" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvNearLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/near_your_location"
+                android:textAppearance="@style/TextAppearance.HotelRanking.TitleMedium"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rvTrending" />
 
-                    <include layout="@layout/card_shimmer" />
+            <ImageButton
+                android:id="@+id/btnNearLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@android:color/transparent"
+                android:src="@drawable/ic_forward"
+                app:layout_constraintBottom_toBottomOf="@+id/tvNearLocation"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvNearLocation"
+                tools:ignore="ContentDescription,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
-                    <include layout="@layout/card_shimmer" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvNearLocation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="16dp"
+                android:nestedScrollingEnabled="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvNearLocation" />
 
-                    <include layout="@layout/card_shimmer" />
-
-                </LinearLayout>
-
-            </com.facebook.shimmer.ShimmerFrameLayout>
-        </FrameLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

@@ -65,7 +65,7 @@ private constructor(
                         ?: ViewModelFactory(
                             RepositoryInjection.provideAuthRepository(),
                             RepositoryInjection.provideTokenRepository(context),
-                            RepositoryInjection.provideProfileRepository(context),
+                            RepositoryInjection.provideProfileRepository(),
                             RepositoryInjection.provideHotelRepository(),
                             RepositoryInjection.provideReviewRepository()
                         )

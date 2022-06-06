@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.c22ho01.hotelranking.R
 import com.c22ho01.hotelranking.adapter.CardReviewAdapter
@@ -12,8 +13,8 @@ import com.c22ho01.hotelranking.data.Result
 import com.c22ho01.hotelranking.data.remote.response.hotel.HotelData
 import com.c22ho01.hotelranking.databinding.ActivityDetail2Binding
 import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
+import com.c22ho01.hotelranking.viewmodel.hotel.DetailViewModel
 import com.c22ho01.hotelranking.viewmodel.review.ReviewViewModel
-import com.c22ho01.hotelranking.viewmodel.utils.dpToPx
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
 
@@ -24,6 +25,7 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var hotel: HotelData
     private lateinit var factory: ViewModelFactory
     private val reviewViewModel: ReviewViewModel by viewModels { factory }
+    private val detailViewModel: DetailViewModel by viewModels()
     private lateinit var cardReviewAdapter: CardReviewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,11 +38,10 @@ class DetailActivity : AppCompatActivity() {
 
         hotel = intent.getParcelableExtra<HotelData>(EXTRA_HOTEL) as HotelData
 
-        binding.reviewCard.setOnClickListener {
-            val intent = Intent(this, ListReviewActivity::class.java)
-            intent.putExtra(EXTRA_HOTEL, hotel)
-            startActivity(intent)
-        }
+        detailViewModel.setHotel(hotel)
+
+        setMapsFragment()
+        onClickListener()
 
         binding.topAppBar.apply {
             title = hotel.name
@@ -50,6 +51,20 @@ class DetailActivity : AppCompatActivity() {
         }
 
         setData()
+    }
+
+    private fun onClickListener() {
+        binding.reviewCard.setOnClickListener {
+            val intent = Intent(this, ListReviewActivity::class.java)
+            intent.putExtra(EXTRA_HOTEL, hotel)
+            startActivity(intent)
+        }
+
+        binding.mapsCard.setOnClickListener {
+            val intent = Intent(this, MapsActivity::class.java)
+            intent.putExtra(EXTRA_HOTEL, hotel)
+            startActivity(intent)
+        }
     }
 
     private fun setImage(images: List<String>) {
@@ -65,6 +80,18 @@ class DetailActivity : AppCompatActivity() {
         binding.imageSlider.setImageList(imageList, ScaleTypes.CENTER_CROP)
     }
 
+    private fun setMapsFragment() {
+        val fragmentManager = supportFragmentManager
+        val previewMapsFragment = PreviewMapsFragment()
+        fragmentManager.commit {
+            add(
+                R.id.frame_previewMaps,
+                previewMapsFragment,
+                PreviewMapsFragment::class.java.simpleName
+            )
+        }
+    }
+
     private fun setData() {
         getReviews()
         binding.rvReview.apply {
@@ -74,10 +101,8 @@ class DetailActivity : AppCompatActivity() {
                 false
             )
             setHasFixedSize(true)
-            addItemDecoration(CardReviewAdapter.MarginItemDecoration(16.dpToPx))
+            addItemDecoration(CardReviewAdapter.MarginItemDecoration(0))
         }
-
-
 
         setImage(hotel.image)
         binding.tvHotelName.text = hotel.name

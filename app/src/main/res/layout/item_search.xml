@@ -54,7 +54,6 @@
             android:layout_marginEnd="2dp"
             android:ellipsize="end"
             android:maxLines="2"
-            android:minLines="2"
             android:textAppearance="@style/TextAppearance.HotelRanking.LabelMedium"
             android:textColor="?attr/colorOnSurface"
             app:layout_constraintEnd_toEndOf="parent"

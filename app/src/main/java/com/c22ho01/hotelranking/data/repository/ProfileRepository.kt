@@ -1,9 +1,5 @@
 package com.c22ho01.hotelranking.data.repository
 
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
@@ -17,13 +13,10 @@ import com.c22ho01.hotelranking.data.remote.retrofit.ProfileService
 import com.c22ho01.hotelranking.utils.DateUtils
 import com.c22ho01.hotelranking.utils.ErrorUtils
 import com.c22ho01.hotelranking.utils.wrapEspressoIdlingResource
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import java.util.*
 
 class ProfileRepository(
-    private val profileService: ProfileService,
-    private val settingPreferences: DataStore<Preferences>
+    private val profileService: ProfileService
 ) {
 
     private var _currentProfile = MutableLiveData(ProfileEntity())
@@ -100,7 +93,6 @@ class ProfileRepository(
                         specialNeeds = disabilities?.toList()
                     )
                     _currentProfile.postValue(profile)
-                    setSavedProfileId(profile.id ?: -1)
                     emit(Result.Success(profile))
                 } else {
                     val error = ErrorUtils.showErrorFromResponse(response)
@@ -137,7 +129,6 @@ class ProfileRepository(
 
                     if (response.isSuccessful) {
                         _currentProfile.postValue(profile)
-                        setSavedProfileId(profile.id ?: -1)
                         emit(Result.Success(profile))
                     } else {
                         val error = ErrorUtils.showErrorFromResponse(response)
@@ -155,33 +146,17 @@ class ProfileRepository(
         )
     }
 
-    private val profileIdPref = intPreferencesKey(PREF_PROFILE_ID)
-
-    fun getSavedProfileId(): Flow<Int?> = settingPreferences.data.map { it[profileIdPref] }
-    suspend fun setSavedProfileId(id: Int) {
-        settingPreferences.edit { it[profileIdPref] = id }
-    }
-
-    suspend fun deleteSavedProfileId() {
-        settingPreferences.edit { it.remove(profileIdPref) }
-    }
-
     companion object {
-        const val PREF_PROFILE_ID = "PREF_PROFILE_ID"
 
         @Volatile
         private var instance: ProfileRepository? = null
 
-        fun getInstance(
-            profileService: ProfileService,
-            settingPreferences: DataStore<Preferences>
-        ): ProfileRepository =
+        fun getInstance(profileService: ProfileService): ProfileRepository =
             instance
                 ?: synchronized(this) {
                     instance
                         ?: ProfileRepository(
                             profileService,
-                            settingPreferences
                         )
                             .also { instance = it }
                 }

@@ -32,10 +32,4 @@ class ProfileViewModel(
     fun getCurrentProfile() = profileRepository.currentProfile
     fun setProfileID(profileId: Int) = profileRepository.setProfileId(profileId)
     fun getProfileID() = getCurrentProfile().value?.id
-
-    fun getSavedProfileId() = profileRepository.getSavedProfileId()
-    fun setSavedProfileId(id: Int) =
-        viewModelScope.launch { profileRepository.setSavedProfileId(id) }
-
-    fun deleteSavedProfileId() = viewModelScope.launch { profileRepository.deleteSavedProfileId() }
 }
