@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -185,10 +186,12 @@ class HomeLoggedInFragment : Fragment() {
                     USER_LAT = location.latitude
                     USER_LONG = location.longitude
                     userLocation = UserLocation(
-                        userId = profileViewModel.getProfileID(),
                         longitude = USER_LONG,
                         latitude = USER_LAT
                     )
+
+                    Log.e("CEK LAT: ", USER_LAT.toString())
+                    Log.e("CEK LONG: ", USER_LONG.toString())
 
                     binding?.rvNearLocation?.apply {
                         layoutManager = LinearLayoutManager(
