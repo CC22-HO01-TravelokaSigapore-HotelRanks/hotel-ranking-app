@@ -16,21 +16,18 @@
         android:theme="@style/Theme.HotelRanking"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+        <activity
+            android:name=".ui.foryou.ForYouActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.detail.ListReviewActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="YOUR_API_KEY" />
 
-        <activity
-            android:name=".ui.detail.MapsActivity"
-            android:exported="false"
-            android:label="@string/title_activity_maps" />
-        <activity
-            android:name=".ui.foryou.ForYouActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.detail.ListReviewActivity"
-            android:exported="false" />
         <activity
             android:name=".ui.profile.ProfileCustomizeActivity"
             android:exported="false" />
@@ -55,7 +52,6 @@
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

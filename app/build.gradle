@@ -17,7 +17,6 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField "String", "API_KEY", '"AIzaSyBYKFeUp4aaOTuUWHMnZdXZg9s7XC3PJ4Y"'
     }
 
     buildFeatures {
@@ -138,4 +137,5 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.13.2'
     implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
     implementation 'io.github.cdimascio:dotenv-kotlin:6.3.1'
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
 }
