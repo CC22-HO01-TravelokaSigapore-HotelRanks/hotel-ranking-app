@@ -116,4 +116,6 @@
     <string name="logout_message">Are you sure you want to logout?</string>
     <string name="logout_cancel">Cancel</string>
     <string name="logout_ok">Logout</string>
+    <string name="enter_your_comment">Enter your comment</string>
+    <string name="post">Post</string>
 </resources>

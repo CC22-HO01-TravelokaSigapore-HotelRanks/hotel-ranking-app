@@ -2,6 +2,7 @@ package com.c22ho01.hotelranking.ui.detail
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -11,11 +12,13 @@ import com.c22ho01.hotelranking.adapter.CardReviewAdapter
 import com.c22ho01.hotelranking.data.Result
 import com.c22ho01.hotelranking.data.remote.response.hotel.HotelData
 import com.c22ho01.hotelranking.databinding.ActivityDetail2Binding
+import com.c22ho01.hotelranking.databinding.SheetPostReviewBinding
 import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
 import com.c22ho01.hotelranking.viewmodel.review.ReviewViewModel
 import com.c22ho01.hotelranking.viewmodel.utils.dpToPx
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
+import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class DetailActivity : AppCompatActivity() {
 
@@ -40,6 +43,21 @@ class DetailActivity : AppCompatActivity() {
             val intent = Intent(this, ListReviewActivity::class.java)
             intent.putExtra(EXTRA_HOTEL, hotel)
             startActivity(intent)
+        }
+
+        binding.btnPost.setOnClickListener {
+            val bottomSheetDialog = BottomSheetDialog(
+                this@DetailActivity, R.style.BottomSheetDialogTheme
+            )
+
+            val bottomSheetBinding = SheetPostReviewBinding.inflate(LayoutInflater.from(this))
+            bottomSheetBinding.button.setOnClickListener{
+                val text = bottomSheetBinding.tvComment.text
+                Toast.makeText(this@DetailActivity, text, Toast.LENGTH_SHORT).show()
+                bottomSheetDialog.dismiss()
+            }
+            bottomSheetDialog.setContentView(bottomSheetBinding.bottomSheet)
+            bottomSheetDialog.show()
         }
 
         binding.topAppBar.apply {
