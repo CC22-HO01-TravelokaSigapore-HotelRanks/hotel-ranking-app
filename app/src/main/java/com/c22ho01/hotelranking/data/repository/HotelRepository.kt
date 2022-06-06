@@ -97,6 +97,18 @@ class HotelRepository(private val hotelService: HotelService) {
         ).flow
     }
 
+//    fun searchHotel(keyword: String): LiveData<Result<PagingData<HotelData>>> = liveData {
+//        Pager(
+//            config = PagingConfig(
+//                pageSize = 10,
+//                enablePlaceholders = false
+//            ),
+//            pagingSourceFactory = {
+//                SearchPagingSource(hotelService, keyword)
+//            }
+//        ).liveData
+//    }
+
     companion object {
 
         @Volatile

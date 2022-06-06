@@ -48,7 +48,6 @@
         <activity
             android:name=".ui.home.HomeGuestActivity"
             android:exported="true"
-            android:launchMode="singleTop"
             android:theme="@style/Theme.HotelRanking.SplashScreen"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
@@ -58,8 +57,7 @@
         </activity>
         <activity
             android:name=".ui.auth.AuthActivity"
-            android:exported="false"
-            android:launchMode="singleTop" />
+            android:exported="false" />
     </application>
 
 </manifest>
