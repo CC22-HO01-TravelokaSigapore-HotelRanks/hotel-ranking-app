@@ -34,7 +34,7 @@ class HomeGuestActivity : AppCompatActivity() {
                             this@HomeGuestActivity, HomeLoggedInActivity::class.java
                         ).also {
                             it.putExtra(ProfileFragment.USER_ID, id)
-                            it.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                            it.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or
                                     Intent.FLAG_ACTIVITY_NEW_TASK
                         }
                     )

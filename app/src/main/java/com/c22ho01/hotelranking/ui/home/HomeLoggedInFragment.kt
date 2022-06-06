@@ -69,6 +69,7 @@ class HomeLoggedInFragment : Fragment() {
         getMyLastLocation()
         getTopRated()
         getTrending()
+        getUserRecommendation()
     }
 
     private fun setupAction() {
@@ -175,6 +176,10 @@ class HomeLoggedInFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun getUserRecommendation() {
+
     }
 
     private fun getMyLastLocation() {
