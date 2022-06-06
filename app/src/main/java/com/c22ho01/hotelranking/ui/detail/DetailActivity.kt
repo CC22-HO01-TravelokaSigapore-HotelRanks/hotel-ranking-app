@@ -53,7 +53,7 @@ class DetailActivity : AppCompatActivity() {
         setData()
     }
 
-    private fun onClickListener(){
+    private fun onClickListener() {
         binding.reviewCard.setOnClickListener {
             val intent = Intent(this, ListReviewActivity::class.java)
             intent.putExtra(EXTRA_HOTEL, hotel)
@@ -80,7 +80,7 @@ class DetailActivity : AppCompatActivity() {
         binding.imageSlider.setImageList(imageList, ScaleTypes.CENTER_CROP)
     }
 
-    private fun setMapsFragment(){
+    private fun setMapsFragment() {
         val fragmentManager = supportFragmentManager
         val previewMapsFragment = PreviewMapsFragment()
         fragmentManager.commit {

@@ -10,9 +10,9 @@ class DetailViewModel : ViewModel() {
     private val _hotelData = MutableLiveData<HotelData>()
     val hotelData: LiveData<HotelData> = _hotelData
 
-    fun setHotel (hotelData: HotelData){
+    fun setHotel(hotelData: HotelData) {
         this._hotelData.value = hotelData
     }
 
-    fun getHotel () = hotelData
+    fun getHotel() = hotelData
 }

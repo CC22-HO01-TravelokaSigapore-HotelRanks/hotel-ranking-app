@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.c22ho01.hotelranking.R
-import com.c22ho01.hotelranking.data.remote.response.hotel.HotelData
 import com.c22ho01.hotelranking.viewmodel.hotel.DetailViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -29,7 +28,7 @@ class PreviewMapsFragment : Fragment() {
          * user has installed Google Play services and returned to the app.
          */
         var hotel = LatLng(-8.685924978406074, 115.16562524113574)
-        detailViewModel.getHotel().observe(viewLifecycleOwner){
+        detailViewModel.getHotel().observe(viewLifecycleOwner) {
             hotel = LatLng(it.latitude, it.longitude)
             googleMap.addMarker(MarkerOptions().position(hotel).title(it.name))
         }
