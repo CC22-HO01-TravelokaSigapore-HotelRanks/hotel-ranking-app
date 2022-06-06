@@ -18,5 +18,4 @@ class HomeViewModel(private val hotelRepository: HotelRepository) : ViewModel() 
     fun getLocation(userLocation: UserLocation): LiveData<Result<HotelResponse>> {
         return hotelRepository.getNearbyLocation(userLocation)
     }
-
 }
