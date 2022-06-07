@@ -60,6 +60,7 @@ class HomeLoggedInFragment : Fragment() {
         _binding = FragmentHomeLoggedInBinding.inflate(inflater, container, false)
         fusedLocation = LocationServices.getFusedLocationProviderClient(requireContext())
         factory = ViewModelFactory.getInstance(requireContext())
+        token = "a"
         topRatedAdapter = CardAdapter()
         trendingAdapter = CardAdapter()
         locationAdapter = CardLocationAdapter()
