@@ -22,7 +22,6 @@ import com.c22ho01.hotelranking.adapter.CardAdapter
 import com.c22ho01.hotelranking.adapter.CardLocationAdapter
 import com.c22ho01.hotelranking.data.Result
 import com.c22ho01.hotelranking.data.remote.response.hotel.UserLocation
-import com.c22ho01.hotelranking.data.remote.response.profile.ProfileData
 import com.c22ho01.hotelranking.databinding.FragmentHomeLoggedInBinding
 import com.c22ho01.hotelranking.ui.foryou.ForYouActivity
 import com.c22ho01.hotelranking.ui.profile.ProfileCustomizeActivity
@@ -46,7 +45,6 @@ class HomeLoggedInFragment : Fragment() {
     private val homeViewModel by viewModels<HomeViewModel> { factory }
     private val profileViewModel by viewModels<ProfileViewModel> { factory }
     private lateinit var userLocation: UserLocation
-    private lateinit var userProfile: ProfileData
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,7 +58,7 @@ class HomeLoggedInFragment : Fragment() {
         trendingAdapter = CardAdapter()
         locationAdapter = CardLocationAdapter()
         userLocation = UserLocation()
-        userProfile = ProfileData()
+
         return binding?.root
     }
 
@@ -76,23 +74,29 @@ class HomeLoggedInFragment : Fragment() {
 
 
     private fun setupAction() {
-        profileViewModel.getCurrentProfile().observe(viewLifecycleOwner) {
+        profileViewModel.getCurrentProfile().observe(viewLifecycleOwner) { profile ->
             binding?.apply {
-                tvName.text = requireActivity().resources.getString(R.string.name, userProfile.name)
-                cardProfileCustomization.isVisible = userProfile.name == null
+                tvName.text = requireActivity().resources.getString(R.string.name, profile.name)
+                cardProfileCustomization.isVisible = profile.name == null
 
-                val review = userProfile.reviewCounter
+                val review = profile.ratingCounter ?: 0
                 tvCounter.text = requireActivity().resources.getString(
                     R.string.review_counter,
                     review
                 )
 
-                if (review != null) {
-                    reviewIndicator.progress = review.times(10)
-                    if (review <= 10) {
-                        reviewIndicator.isVisible = true
-                        btnForYou.isEnabled = false
-                    }
+                reviewIndicator.progress = review.times(10)
+                if (review <= 10) {
+                    reviewIndicator.isVisible = true
+                    btnForYou.isEnabled = false
+                    btnForYou.isClickable = false
+                }
+
+                btnEditProfile.setOnClickListener {
+                    startActivity(
+                        Intent(activity, ProfileCustomizeActivity::class.java)
+                            .putExtra(ProfileCustomizeActivity.EXTRA_PROFILE, profile)
+                    )
                 }
             }
         }
@@ -113,12 +117,7 @@ class HomeLoggedInFragment : Fragment() {
                 }
             }
 
-            btnEditProfile.setOnClickListener {
-                startActivity(
-                    Intent(activity, ProfileCustomizeActivity::class.java)
-                        .putExtra(ProfileCustomizeActivity.EXTRA_PROFILE, userProfile)
-                )
-            }
+
 
             btnMaybeLater.setOnClickListener {
                 cardProfileCustomization.animate()
