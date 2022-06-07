@@ -73,6 +73,26 @@ class AuthRepository(private val authService: AuthService) {
         }
     }
 
+    fun submitRefreshLogin(
+        refreshToken: String
+    ): LiveData<Result<LoginResponse>> = liveData {
+        emit(Result.Loading)
+        wrapEspressoIdlingResource {
+            try {
+                val submittedCookie = "refreshToken=$refreshToken"
+                val response = authService.refreshLogin(submittedCookie)
+                if (response.isSuccessful) {
+                    emit(Result.Success(response.body() ?: LoginResponse()))
+                } else {
+                    val error = ErrorUtils.showErrorFromResponse(response)
+                    emit(Result.Error(error))
+                }
+            } catch (e: Exception) {
+                emit(Result.Error(e.message.toString()))
+            }
+        }
+    }
+
     companion object {
 
         @Volatile

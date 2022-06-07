@@ -25,4 +25,9 @@ interface AuthService {
         @Field("email") email: String,
         @Field("password") password: String
     ): Response<RegisterResponse>
+
+    @GET("user/login/refresh-login")
+    suspend fun refreshLogin(
+        @Header("Cookie") cookie: String
+    ): Response<LoginResponse>
 }

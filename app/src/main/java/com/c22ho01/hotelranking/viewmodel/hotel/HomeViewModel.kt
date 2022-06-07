@@ -11,7 +11,7 @@ import com.c22ho01.hotelranking.data.repository.ProfileRepository
 
 class HomeViewModel(
     private val hotelRepository: HotelRepository,
-    private val profileRepository: ProfileRepository
+    private val profileRepository: ProfileRepository,
 ) : ViewModel() {
 
     val getFiveStar: LiveData<Result<HotelResponse>> = hotelRepository.getFiveStar()
