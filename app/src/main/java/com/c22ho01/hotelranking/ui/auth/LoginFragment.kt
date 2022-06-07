@@ -154,7 +154,7 @@ class LoginFragment : Fragment() {
             setSavedProfileId(data.loginData?.userId ?: -1)
         }
 
-        tokenViewModel.setToken(data.loginData?.accessToken ?: "").invokeOnCompletion {
+        tokenViewModel.setAccessToken(data.loginData?.accessToken ?: "").invokeOnCompletion {
             profileViewModel.run {
                 loadToken()
                 loadProfile().run {

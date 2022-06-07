@@ -29,6 +29,7 @@ class HomeGuestActivity : AppCompatActivity() {
         installSplashScreen()
         binding = ActivityHomeGuestBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        executeRefreshLogin()
 
         lifecycleScope.launch {
             profileViewModel.getSavedProfileId().collect { id ->
@@ -66,5 +67,9 @@ class HomeGuestActivity : AppCompatActivity() {
         binding.searchBar.setOnClickListener {
             startActivity(Intent(this, SearchActivity::class.java))
         }
+    }
+
+    private fun executeRefreshLogin() {
+        TODO("Not yet implemented")
     }
 }

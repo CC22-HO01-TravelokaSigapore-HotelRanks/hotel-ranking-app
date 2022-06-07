@@ -66,7 +66,7 @@ class ProfileFragment : Fragment() {
                 }
                 .setPositiveButton(resources.getString(R.string.logout_ok)) { _, _ ->
                     lifecycleScope.launch {
-                        tokenViewModel.deleteToken()
+                        tokenViewModel.deleteAccessToken()
                         profileViewModel.deleteSavedProfileId()
                     }
                     startActivity(Intent(requireActivity(), AuthActivity::class.java).also {

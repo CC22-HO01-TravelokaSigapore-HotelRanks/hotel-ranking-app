@@ -45,7 +45,7 @@ class TokenViewModelTest {
             flow { emit(dummyToken) }
         )
 
-        val actualToken = tokenViewModel.getToken().asLiveData().getOrAwaitValue()
+        val actualToken = tokenViewModel.getAccessToken().asLiveData().getOrAwaitValue()
         Assert.assertEquals(dummyToken, actualToken)
     }
 }

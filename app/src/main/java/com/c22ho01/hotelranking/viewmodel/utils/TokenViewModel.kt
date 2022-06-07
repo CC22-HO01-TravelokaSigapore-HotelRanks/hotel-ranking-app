@@ -8,7 +8,20 @@ import kotlinx.coroutines.launch
 class TokenViewModel(
     private val tokenRepository: TokenRepository,
 ) : ViewModel() {
-    fun getToken() = tokenRepository.getToken()
-    fun setToken(token: String) = viewModelScope.launch { tokenRepository.setToken(token) }
-    fun deleteToken() = viewModelScope.launch { tokenRepository.deleteToken() }
+    fun getAccessToken() = tokenRepository.getToken(TokenRepository.PREF_ACCESS_TOKEN)
+    fun getRefreshToken() = tokenRepository.getToken(TokenRepository.PREF_REFRESH_TOKEN)
+
+    fun setAccessToken(token: String) = viewModelScope.launch {
+        tokenRepository.setToken(token, TokenRepository.PREF_ACCESS_TOKEN)
+    }
+    fun setRefreshToken(token: String) = viewModelScope.launch {
+        tokenRepository.setToken(token, TokenRepository.PREF_REFRESH_TOKEN)
+    }
+
+    fun deleteAccessToken() = viewModelScope.launch {
+        tokenRepository.deleteToken(TokenRepository.PREF_ACCESS_TOKEN)
+    }
+    fun deleteRefreshToken() = viewModelScope.launch {
+        tokenRepository.deleteToken(TokenRepository.PREF_REFRESH_TOKEN)
+    }
 }
