@@ -1,33 +1,31 @@
 package com.c22ho01.hotelranking.adapter
 
 import android.content.Intent
-import android.graphics.Rect
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.c22ho01.hotelranking.R
 import com.c22ho01.hotelranking.data.remote.response.hotel.HotelData
-import com.c22ho01.hotelranking.databinding.CardHotelBinding
+import com.c22ho01.hotelranking.databinding.ItemForYouBinding
 import com.c22ho01.hotelranking.ui.detail.DetailActivity
 
-class CardAdapter : ListAdapter<HotelData, CardAdapter.ViewHolder>(COMPARATOR) {
+class ListForYouAdapter : ListAdapter<HotelData, ListForYouAdapter.ViewHolder>(DIFF_CALLBACK) {
 
-    class ViewHolder(private var binding: CardHotelBinding) :
+    class ViewHolder(private var binding: ItemForYouBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: HotelData) {
             binding.apply {
                 Glide.with(root)
                     .load(data.image.first().trim())
                     .centerCrop()
-                    .into(imageHotel)
+                    .into(imHotelImg)
                 tvLocation.text = data.neighborhood.trim()
-                tvHotel.text = data.name.trim()
-                tvRating.text = data.star.toString()
-                ratingbar.rating = data.star
+                tvHotelName.text = data.name.trim()
+                tvRatingScore.text = data.star.toString()
+                rbRating.rating = data.star
                 val price = data.pricePerNight.toString()
                 tvPrice.text = itemView.resources.getString(R.string.price, price)
             }
@@ -42,10 +40,10 @@ class CardAdapter : ListAdapter<HotelData, CardAdapter.ViewHolder>(COMPARATOR) {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = CardHotelBinding.inflate(
+        val binding = ItemForYouBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
-            false
+            false,
         )
         return ViewHolder(binding)
     }
@@ -55,32 +53,17 @@ class CardAdapter : ListAdapter<HotelData, CardAdapter.ViewHolder>(COMPARATOR) {
         holder.bind(data)
     }
 
-    class MarginItemDecoration(private val spaceSize: Int) : RecyclerView.ItemDecoration() {
-        override fun getItemOffsets(
-            outRect: Rect,
-            view: View,
-            parent: RecyclerView,
-            state: RecyclerView.State
-        ) {
-            with(outRect) {
-                if (parent.getChildAdapterPosition(view) == 0) {
-                    left = spaceSize
-                }
-                right = spaceSize
-            }
-        }
-    }
-
     companion object {
-        val COMPARATOR = object : DiffUtil.ItemCallback<HotelData>() {
-            override fun areItemsTheSame(oldItem: HotelData, newItem: HotelData): Boolean {
-                return oldItem.id == newItem.id
-            }
+        private val DIFF_CALLBACK =
+            object : ItemCallback<HotelData>() {
+                override fun areItemsTheSame(oldItem: HotelData, newItem: HotelData): Boolean {
+                    return oldItem.id == newItem.id
+                }
 
-            override fun areContentsTheSame(oldItem: HotelData, newItem: HotelData): Boolean {
-                return oldItem == newItem
-            }
+                override fun areContentsTheSame(oldItem: HotelData, newItem: HotelData): Boolean {
+                    return oldItem == newItem
+                }
 
-        }
+            }
     }
 }
