@@ -86,35 +86,57 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardProfileCustomization">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="16dp">
 
+                <ImageView
+                    android:id="@+id/iconWeather"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvName"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tvGreetings"
+                    app:tint="?attr/colorOnTertiary"
+                    tools:ignore="ContentDescription"
+                    tools:src="@drawable/ic_sunrise" />
+
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvGreetings"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:textAppearance="?attr/textAppearanceTitleMedium"
                     android:textColor="?attr/colorOnTertiary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/iconWeather"
+                    app:layout_constraintTop_toTopOf="parent"
                     tools:text="Good Evening," />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvName"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
                     android:textAppearance="?attr/textAppearanceHeadlineSmall"
                     android:textColor="?attr/colorOnTertiary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tvGreetings"
+                    app:layout_constraintTop_toBottomOf="@id/tvGreetings"
                     tools:text="Kiki Abdullah." />
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvCheck"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
                     android:text="@string/check_our"
                     android:textAppearance="?attr/textAppearanceBodyMedium"
-                    android:textColor="?attr/colorOnTertiary" />
+                    android:textColor="?attr/colorOnTertiary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvName" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnCheckItOut"
@@ -125,8 +147,10 @@
                     android:textColor="?attr/colorOnTertiaryContainer"
                     app:backgroundTint="?attr/colorTertiaryContainer"
                     app:icon="@drawable/ic_down"
-                    app:iconTint="?attr/colorOnTertiaryContainer" />
-            </LinearLayout>
+                    app:iconTint="?attr/colorOnTertiaryContainer"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvCheck" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -232,9 +256,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?attr/textAppearanceBodyMedium"
-                    android:textColor="?attr/colorOnPrimaryContainer"
+                    android:textColor="?attr/colorTertiary"
                     android:textStyle="bold"
                     tools:text="Your total review: 12" />
+
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/reviewIndicator"
+                    style="@style/Widget.Material3.LinearProgressIndicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:visibility="gone"
+                    app:indicatorColor="?attr/colorTertiary"
+                    app:trackColor="?attr/colorPrimaryContainer"
+                    tools:progress="10"
+                    tools:visibility="visible" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnForYou"

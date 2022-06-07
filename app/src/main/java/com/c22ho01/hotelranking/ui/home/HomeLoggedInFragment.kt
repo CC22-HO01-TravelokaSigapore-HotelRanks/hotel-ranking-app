@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,7 +50,6 @@ class HomeLoggedInFragment : Fragment() {
     private val homeViewModel by viewModels<HomeViewModel> { factory }
     private val tokenViewModel by viewModels<TokenViewModel> { factory }
     private lateinit var token: String
-    private var userId: Int? = null
     private lateinit var userLocation: UserLocation
     private lateinit var userProfile: ProfileData
 
@@ -70,10 +70,9 @@ class HomeLoggedInFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Log.e("HOME LOGGED IN: ", "CREATED")
         super.onViewCreated(view, savedInstanceState)
 
-        userId = requireActivity().intent?.getIntExtra(USER_ID, -1)
-        getToken()
         setupAction()
         getMyLastLocation()
         getTopRated()
@@ -91,34 +90,48 @@ class HomeLoggedInFragment : Fragment() {
         }
     }
 
-    private fun showEditProfile() {
-        if (userId != null) {
-            homeViewModel.getUserById("Bearer $token", userId ?: -1)
-                .observe(viewLifecycleOwner) {
-                    if (it is Result.Success) {
-                        userProfile = it.data.profileData ?: ProfileData()
-                        val name = it.data.profileData?.name
-                        binding?.apply {
-                            tvName.text = name
-                            cardProfileCustomization.isVisible = name == null
+    private fun setupAction() {
+        val userId = requireActivity().intent?.getIntExtra(USER_ID, -1)
+        getToken()
+        homeViewModel.getUserById("Bearer $token", userId ?: -1)
+            .observe(viewLifecycleOwner) {
+                if (it is Result.Success) {
+                    userProfile = it.data.profileData ?: ProfileData()
+                    binding?.apply {
+                        tvName.text = userProfile.name
+                        cardProfileCustomization.isVisible = userProfile.name == null
+
+                        val review = userProfile.reviewCounter
+                        Log.e("REVIEW: ", review.toString())
+                        tvCounter.text = requireActivity().resources.getString(
+                            R.string.review_counter,
+                            review
+                        )
+
+                        if (review != null) {
+                            reviewIndicator.progress = review.times(10)
+                            if (review <= 10) {
+                                reviewIndicator.isVisible = true
+                                btnForYou.isEnabled = false
+                            }
                         }
                     }
                 }
-        }
-    }
+            }
 
-    private fun setupAction() {
-        showEditProfile()
         binding?.apply {
             when (Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) {
                 in 1..11 -> {
                     tvGreetings.text = requireActivity().resources.getString(R.string.morning)
+                    iconWeather.setImageResource(R.drawable.ic_sunrise)
                 }
                 in 12..17 -> {
                     tvGreetings.text = requireActivity().resources.getString(R.string.afternoon)
+                    iconWeather.setImageResource(R.drawable.ic_light_mode)
                 }
                 in 18..24 -> {
                     tvGreetings.text = requireActivity().resources.getString(R.string.evening)
+                    iconWeather.setImageResource(R.drawable.ic_dark_mode)
                 }
             }
 

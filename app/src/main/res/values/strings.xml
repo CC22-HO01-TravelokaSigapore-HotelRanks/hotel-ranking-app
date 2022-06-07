@@ -119,4 +119,5 @@
     <string name="morning">Good morning,</string>
     <string name="afternoon">Good afternoon,</string>
     <string name="evening">Good evening,</string>
+    <string name="review_counter">Your total review: %1$d</string>
 </resources>
