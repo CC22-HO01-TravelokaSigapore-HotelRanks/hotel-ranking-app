@@ -67,8 +67,8 @@ class HomeLoggedInFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupAction()
         getMyLastLocation()
+        setupAction()
         getTopRated()
         getTrending()
         getUserRecommendation()
@@ -78,7 +78,7 @@ class HomeLoggedInFragment : Fragment() {
     private fun setupAction() {
         profileViewModel.getCurrentProfile().observe(viewLifecycleOwner) {
             binding?.apply {
-                tvName.text = userProfile.name
+                tvName.text = requireActivity().resources.getString(R.string.name, userProfile.name)
                 cardProfileCustomization.isVisible = userProfile.name == null
 
                 val review = userProfile.reviewCounter
@@ -115,10 +115,7 @@ class HomeLoggedInFragment : Fragment() {
 
             btnEditProfile.setOnClickListener {
                 startActivity(
-                    Intent(
-                        activity,
-                        ProfileCustomizeActivity::class.java
-                    )
+                    Intent(activity, ProfileCustomizeActivity::class.java)
                         .putExtra(ProfileCustomizeActivity.EXTRA_PROFILE, userProfile)
                 )
             }
@@ -141,7 +138,11 @@ class HomeLoggedInFragment : Fragment() {
             }
 
             btnForYou.setOnClickListener {
-                startActivity(Intent(activity, ForYouActivity::class.java))
+                startActivity(
+                    Intent(activity, ForYouActivity::class.java).also {
+                        it.putExtra(ForYouActivity.USER_LOCATION_EXTRA, userLocation)
+                    }
+                )
             }
         }
     }

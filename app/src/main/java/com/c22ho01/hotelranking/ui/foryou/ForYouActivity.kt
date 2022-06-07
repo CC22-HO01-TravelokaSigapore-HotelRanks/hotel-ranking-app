@@ -73,7 +73,7 @@ class ForYouActivity : AppCompatActivity() {
     }
 
 
-    fun showLoading(isLoading: Boolean) {
+    private fun showLoading(isLoading: Boolean) {
         if (isLoading) {
             binding?.run {
                 sflForYou.apply {

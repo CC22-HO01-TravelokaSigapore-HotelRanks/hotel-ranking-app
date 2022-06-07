@@ -54,84 +54,27 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_hotel"
             tools:ignore="SmallSp" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/ratingbar"
-            android:layout_width="10dp"
+        <RatingBar
+            android:id="@+id/ratingBar"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:background="?attr/colorOnSurfaceVariant"
-            android:lines="1"
-            android:textSize="8sp"
-            app:layout_constraintStart_toStartOf="@+id/tv_hotel"
-            app:layout_constraintTop_toBottomOf="@id/oke"
-            tools:ignore="SmallSp" />
-
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/ratingbar1"
-            android:layout_width="10dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:background="?attr/colorOnSurfaceVariant"
-            android:lines="1"
-            android:textSize="8sp"
-            app:layout_constraintBottom_toBottomOf="@+id/ratingbar"
-            app:layout_constraintStart_toEndOf="@+id/ratingbar"
-            app:layout_constraintTop_toTopOf="@+id/ratingbar"
-            tools:ignore="SmallSp" />
-
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/ratingbar2"
-            android:layout_width="10dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:background="?attr/colorOnSurfaceVariant"
-            android:lines="1"
-            android:textSize="8sp"
-            app:layout_constraintBottom_toBottomOf="@+id/ratingbar1"
-            app:layout_constraintStart_toEndOf="@+id/ratingbar1"
-            app:layout_constraintTop_toTopOf="@+id/ratingbar1"
-            tools:ignore="SmallSp" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/ratingbar3"
-            android:layout_width="10dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="8dp"
-            android:background="?attr/colorOnSurfaceVariant"
-            android:lines="1"
-            android:textSize="8sp"
-            app:layout_constraintBottom_toBottomOf="@+id/ratingbar2"
-            app:layout_constraintStart_toEndOf="@+id/ratingbar2"
-            app:layout_constraintTop_toTopOf="@+id/ratingbar2"
-            app:layout_constraintVertical_bias="1.0"
-            tools:ignore="SmallSp" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/ratingbar4"
-            android:layout_width="10dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:background="?attr/colorOnSurfaceVariant"
-            android:lines="1"
-            android:textSize="8sp"
-            app:layout_constraintBottom_toBottomOf="@+id/ratingbar3"
-            app:layout_constraintStart_toEndOf="@+id/ratingbar3"
-            app:layout_constraintTop_toTopOf="@+id/ratingbar3"
-            tools:ignore="SmallSp" />
+            android:progressTint="?attr/colorOnSurfaceVariant"
+            android:rating="5"
+            app:layout_constraintStart_toStartOf="@+id/oke"
+            app:layout_constraintTop_toBottomOf="@+id/oke" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_rating"
-            android:layout_width="20dp"
+            android:layout_width="18dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:background="?attr/colorOnSurfaceVariant"
-            android:textSize="8sp"
-            app:layout_constraintBottom_toBottomOf="@+id/ratingbar"
-            app:layout_constraintStart_toEndOf="@+id/ratingbar4"
-            app:layout_constraintTop_toTopOf="@+id/ratingbar"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
+            app:layout_constraintStart_toEndOf="@+id/ratingBar"
+            app:layout_constraintTop_toTopOf="@+id/ratingBar"
             tools:ignore="SmallSp" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -142,7 +85,7 @@
             android:background="?attr/colorOnSurfaceVariant"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/ratingbar" />
+            app:layout_constraintStart_toStartOf="@+id/ratingBar" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>
