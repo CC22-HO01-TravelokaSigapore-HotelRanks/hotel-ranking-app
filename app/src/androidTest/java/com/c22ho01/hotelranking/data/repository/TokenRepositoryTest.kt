@@ -41,7 +41,7 @@ class TokenRepositoryTest {
     private lateinit var testDataStore: DataStore<Preferences>
 
     private lateinit var tokenRepository: TokenRepository
-    private val tokenPreference = stringPreferencesKey(TokenRepository.PREF_TOKEN)
+    private val tokenPreference = stringPreferencesKey(TokenRepository.PREF_ACCESS_TOKEN)
     private val testToken = "testToken"
 
     @Before

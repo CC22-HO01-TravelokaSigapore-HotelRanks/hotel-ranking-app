@@ -8,7 +8,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -61,6 +60,7 @@ class HomeLoggedInFragment : Fragment() {
         _binding = FragmentHomeLoggedInBinding.inflate(inflater, container, false)
         fusedLocation = LocationServices.getFusedLocationProviderClient(requireContext())
         factory = ViewModelFactory.getInstance(requireContext())
+        token = "a"
         topRatedAdapter = CardAdapter()
         trendingAdapter = CardAdapter()
         locationAdapter = CardLocationAdapter()
@@ -81,7 +81,7 @@ class HomeLoggedInFragment : Fragment() {
 
     private fun getToken() {
         lifecycleScope.launch {
-            tokenViewModel.getToken().collect {
+            tokenViewModel.getAccessToken().collect {
                 if (it != null) {
                     token = it
                 }
