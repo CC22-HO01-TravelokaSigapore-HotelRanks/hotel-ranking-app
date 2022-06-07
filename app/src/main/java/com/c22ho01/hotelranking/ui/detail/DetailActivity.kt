@@ -51,7 +51,7 @@ class DetailActivity : AppCompatActivity() {
             )
 
             val bottomSheetBinding = SheetPostReviewBinding.inflate(LayoutInflater.from(this))
-            bottomSheetBinding.button.setOnClickListener{
+            bottomSheetBinding.button.setOnClickListener {
                 val text = bottomSheetBinding.tvComment.text
                 Toast.makeText(this@DetailActivity, text, Toast.LENGTH_SHORT).show()
                 bottomSheetDialog.dismiss()
