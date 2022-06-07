@@ -19,6 +19,10 @@ object RepositoryInjection {
         return TokenRepository.getInstance(context.dataStore)
     }
 
+    fun providePreferenceRepository(context: Context): PreferenceRepository {
+        return PreferenceRepository.getInstance(context.dataStore)
+    }
+
     fun provideProfileRepository(context: Context): ProfileRepository {
         val apiService = APIConfig.getProfileAPIService()
         return ProfileRepository.getInstance(apiService, context.dataStore)

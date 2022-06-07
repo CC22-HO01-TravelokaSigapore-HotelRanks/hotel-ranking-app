@@ -5,9 +5,14 @@ import androidx.lifecycle.ViewModel
 import com.c22ho01.hotelranking.data.Result
 import com.c22ho01.hotelranking.data.remote.response.hotel.HotelResponse
 import com.c22ho01.hotelranking.data.remote.response.hotel.UserLocation
+import com.c22ho01.hotelranking.data.remote.response.profile.ProfileGetResponse
 import com.c22ho01.hotelranking.data.repository.HotelRepository
+import com.c22ho01.hotelranking.data.repository.ProfileRepository
 
-class HomeViewModel(private val hotelRepository: HotelRepository) : ViewModel() {
+class HomeViewModel(
+    private val hotelRepository: HotelRepository,
+    private val profileRepository: ProfileRepository
+) : ViewModel() {
 
     val getFiveStar: LiveData<Result<HotelResponse>> = hotelRepository.getFiveStar()
 
@@ -15,11 +20,15 @@ class HomeViewModel(private val hotelRepository: HotelRepository) : ViewModel() 
 
     val getAll: LiveData<Result<HotelResponse>> = hotelRepository.getAll()
 
-    fun getLocation(userLocation: UserLocation): LiveData<Result<HotelResponse>> {
-        return hotelRepository.getNearbyLocation(userLocation)
+    fun getLocation(token: String, userLocation: UserLocation): LiveData<Result<HotelResponse>> {
+        return hotelRepository.getNearbyLocation(token, userLocation)
     }
 
     fun getUserRecommendation(token: String, id: Int): LiveData<Result<HotelResponse>> {
         return hotelRepository.getUserRecommendation(token, id)
+    }
+
+    fun getUserById(token: String, id: Int): LiveData<Result<ProfileGetResponse>> {
+        return profileRepository.getUserById(token, id)
     }
 }

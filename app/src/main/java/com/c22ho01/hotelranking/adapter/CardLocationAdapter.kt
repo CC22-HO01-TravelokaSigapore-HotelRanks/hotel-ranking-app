@@ -2,7 +2,6 @@ package com.c22ho01.hotelranking.adapter
 
 import android.content.Intent
 import android.graphics.Rect
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,8 +49,6 @@ class CardLocationAdapter : ListAdapter<HotelData, CardLocationAdapter.ViewHolde
                 ratingbar.rating = data.star
                 val price = data.pricePerNight.toString()
                 tvPrice.text = itemView.resources.getString(R.string.price, price)
-                Log.e("CEK USER LAT LONG: ", userLatLng.toString())
-                Log.e("CEK HOTEL LAT LONG: ", hotelLatLng.toString())
             }
 
             itemView.setOnClickListener {

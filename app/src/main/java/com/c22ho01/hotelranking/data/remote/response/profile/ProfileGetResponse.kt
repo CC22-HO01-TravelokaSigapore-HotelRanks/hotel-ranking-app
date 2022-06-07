@@ -1,6 +1,8 @@
 package com.c22ho01.hotelranking.data.remote.response.profile
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
 data class ProfileGetResponse(
     @field:SerializedName("data")
@@ -10,6 +12,7 @@ data class ProfileGetResponse(
     val message: String? = null
 )
 
+@Parcelize
 data class ProfileData(
 
     @field:SerializedName("search_history")
@@ -53,4 +56,4 @@ data class ProfileData(
 
     @field:SerializedName("reviewCounter")
     val reviewCounter: Int? = null,
-)
+) : Parcelable

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
@@ -19,23 +20,27 @@ import kotlinx.coroutines.launch
 class HomeGuestActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeGuestBinding
-    private lateinit var factory: ViewModelFactory
-    private val profileViewModel by viewModels<ProfileViewModel> { factory }
+    private val profileViewModel by viewModels<ProfileViewModel> {
+        ViewModelFactory.getInstance(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
-        factory = ViewModelFactory.getInstance(this)
+        binding = ActivityHomeGuestBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         lifecycleScope.launch {
             profileViewModel.getSavedProfileId().collect { id ->
                 if (id != null) {
                     profileViewModel.setProfileID(id)
                     startActivity(
                         Intent(
-                            this@HomeGuestActivity, HomeLoggedInActivity::class.java
-                        ).also {
-                            it.putExtra(ProfileFragment.USER_ID, id)
-                            it.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or
+                            this@HomeGuestActivity,
+                            HomeLoggedInActivity::class.java
+                        ).also { intent ->
+                            intent.putExtra(HomeLoggedInFragment.USER_ID, id)
+                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or
                                     Intent.FLAG_ACTIVITY_NEW_TASK
                         }
                     )
@@ -44,8 +49,14 @@ class HomeGuestActivity : AppCompatActivity() {
                 }
             }
         }
-        binding = ActivityHomeGuestBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+
+        profileViewModel.getThemeSettings().observe(this) {
+            if (it == true) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
 
         val navView: BottomNavigationView = binding.navView
         val navHostFragment = supportFragmentManager

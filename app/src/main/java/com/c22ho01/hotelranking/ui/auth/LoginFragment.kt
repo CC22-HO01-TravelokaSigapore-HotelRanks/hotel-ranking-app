@@ -18,6 +18,7 @@ import com.c22ho01.hotelranking.data.local.entity.ProfileEntity
 import com.c22ho01.hotelranking.data.remote.response.auth.LoginResponse
 import com.c22ho01.hotelranking.databinding.FragmentLoginBinding
 import com.c22ho01.hotelranking.ui.home.HomeLoggedInActivity
+import com.c22ho01.hotelranking.ui.home.HomeLoggedInFragment
 import com.c22ho01.hotelranking.utils.EnvUtils
 import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
 import com.c22ho01.hotelranking.viewmodel.auth.LoginViewModel
@@ -27,6 +28,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.snackbar.Snackbar
+import kotlin.properties.Delegates
 
 
 class LoginFragment : Fragment() {
@@ -38,6 +40,7 @@ class LoginFragment : Fragment() {
     private val loginViewModel: LoginViewModel by viewModels { factory }
     private val tokenViewModel: TokenViewModel by viewModels { factory }
     private val profileViewModel: ProfileViewModel by viewModels { factory }
+    private var userId by Delegates.notNull<Int>()
 
     private lateinit var gso: GoogleSignInOptions
     private lateinit var mGoogleSignInClient: GoogleSignInClient
@@ -69,6 +72,7 @@ class LoginFragment : Fragment() {
             btnGoToCreateAcc.setOnClickListener {
                 goToRegister()
             }
+
             btnLogin.setOnClickListener {
                 hideSoftKeyboard(it)
                 loginAccount()
@@ -144,6 +148,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun loginSuccessCallback(data: LoginResponse) {
+        userId = data.loginData?.userId ?: -1
         profileViewModel.run {
             setProfileID(data.loginData?.userId ?: -1)
             setSavedProfileId(data.loginData?.userId ?: -1)
@@ -193,11 +198,13 @@ class LoginFragment : Fragment() {
     }
 
     private fun goToHome() {
+
         startActivity(Intent(requireActivity(), HomeLoggedInActivity::class.java).also {
+            it.putExtra(HomeLoggedInFragment.USER_ID, userId)
             it.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or
                     Intent.FLAG_ACTIVITY_NEW_TASK
         })
-//        requireActivity().finish()
+        requireActivity().finish()
     }
 
     private fun goToRegister() {
