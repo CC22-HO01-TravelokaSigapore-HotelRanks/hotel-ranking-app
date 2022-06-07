@@ -18,6 +18,7 @@ import com.c22ho01.hotelranking.data.local.entity.ProfileEntity
 import com.c22ho01.hotelranking.data.remote.response.auth.LoginResponse
 import com.c22ho01.hotelranking.databinding.FragmentLoginBinding
 import com.c22ho01.hotelranking.ui.home.HomeLoggedInActivity
+import com.c22ho01.hotelranking.ui.home.HomeLoggedInFragment
 import com.c22ho01.hotelranking.utils.EnvUtils
 import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
 import com.c22ho01.hotelranking.viewmodel.auth.LoginViewModel
@@ -199,7 +200,7 @@ class LoginFragment : Fragment() {
     private fun goToHome() {
 
         startActivity(Intent(requireActivity(), HomeLoggedInActivity::class.java).also {
-            it.putExtra("user_id", userId)
+            it.putExtra(HomeLoggedInFragment.USER_ID, userId)
             it.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or
                     Intent.FLAG_ACTIVITY_NEW_TASK
         })

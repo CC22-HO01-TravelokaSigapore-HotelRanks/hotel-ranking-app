@@ -70,7 +70,6 @@ class HomeLoggedInFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        Log.e("HOME LOGGED IN: ", "CREATED")
         super.onViewCreated(view, savedInstanceState)
 
         setupAction()
@@ -102,7 +101,6 @@ class HomeLoggedInFragment : Fragment() {
                         cardProfileCustomization.isVisible = userProfile.name == null
 
                         val review = userProfile.reviewCounter
-                        Log.e("REVIEW: ", review.toString())
                         tvCounter.text = requireActivity().resources.getString(
                             R.string.review_counter,
                             review

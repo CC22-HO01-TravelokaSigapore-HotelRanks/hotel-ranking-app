@@ -39,7 +39,7 @@ class HomeGuestActivity : AppCompatActivity() {
                             this@HomeGuestActivity,
                             HomeLoggedInActivity::class.java
                         ).also { intent ->
-                            intent.putExtra("user_id", id)
+                            intent.putExtra(HomeLoggedInFragment.USER_ID, id)
                             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or
                                     Intent.FLAG_ACTIVITY_NEW_TASK
                         }
