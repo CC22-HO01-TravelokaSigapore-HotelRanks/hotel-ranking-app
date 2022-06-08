@@ -1,9 +1,6 @@
 package com.c22ho01.hotelranking.viewmodel.profile
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.c22ho01.hotelranking.data.repository.PreferenceRepository
 import com.c22ho01.hotelranking.data.repository.ProfileRepository
 import com.c22ho01.hotelranking.data.repository.TokenRepository
@@ -26,7 +23,7 @@ class ProfileViewModel(
 
     fun loadToken() {
         viewModelScope.launch {
-            tokenRepository.getToken().collect { token ->
+            tokenRepository.getToken().asFlow().collect { token ->
                 _userToken = "Bearer $token"
             }
         }

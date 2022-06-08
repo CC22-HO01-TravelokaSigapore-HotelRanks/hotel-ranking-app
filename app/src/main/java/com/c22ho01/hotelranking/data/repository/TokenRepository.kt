@@ -4,7 +4,8 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
-import kotlinx.coroutines.flow.Flow
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
 import kotlinx.coroutines.flow.map
 
 class TokenRepository(
@@ -23,9 +24,9 @@ class TokenRepository(
 
     fun getToken(
         tokenType: String = DEFAULT_ACCESSED_PREF
-    ): Flow<String?> {
+    ): LiveData<String?> {
         val accessedPref = accessedPref(tokenType)
-        return settingPreferences.data.map { it[accessedPref] }
+        return settingPreferences.data.map { it[accessedPref] }.asLiveData()
     }
 
     suspend fun setToken(

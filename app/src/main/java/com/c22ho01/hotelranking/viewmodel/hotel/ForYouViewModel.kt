@@ -1,6 +1,7 @@
 package com.c22ho01.hotelranking.viewmodel.hotel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
 import com.c22ho01.hotelranking.data.remote.response.hotel.UserLocation
 import com.c22ho01.hotelranking.data.repository.HotelRepository
@@ -21,7 +22,7 @@ class ForYouViewModel(
 
     fun loadToken() {
         viewModelScope.launch {
-            tokenRepository.getToken().collect { token ->
+            tokenRepository.getToken().asFlow().collect { token ->
                 _userToken = "Bearer $token"
             }
         }

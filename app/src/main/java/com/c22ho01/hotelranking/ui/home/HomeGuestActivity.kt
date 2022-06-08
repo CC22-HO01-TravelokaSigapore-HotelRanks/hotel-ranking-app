@@ -6,7 +6,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.c22ho01.hotelranking.R
@@ -20,8 +19,6 @@ import com.c22ho01.hotelranking.viewmodel.profile.ProfileViewModel
 import com.c22ho01.hotelranking.viewmodel.utils.TokenViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 class HomeGuestActivity : AppCompatActivity() {
 
@@ -58,14 +55,12 @@ class HomeGuestActivity : AppCompatActivity() {
     }
 
     private fun executeRefreshLogin() {
-        lifecycleScope.launch {
-            tokenViewModel.getRefreshToken().collect { token ->
-                token?.let {
-                    loginViewModel.submitRefreshLogin(it).run {
-                        if (this.hasObservers()) this.removeObservers(this@HomeGuestActivity)
-                        this.observe(this@HomeGuestActivity) { result ->
-                            processLoginObserverResult(result)
-                        }
+        tokenViewModel.getRefreshToken().observe(this) {
+            if (it?.isNotBlank() == true) {
+                loginViewModel.submitRefreshLogin(it).run {
+                    if (this.hasObservers()) this.removeObservers(this@HomeGuestActivity)
+                    this.observe(this@HomeGuestActivity) { result ->
+                        processLoginObserverResult(result)
                     }
                 }
             }
@@ -75,13 +70,13 @@ class HomeGuestActivity : AppCompatActivity() {
     private fun processLoginObserverResult(result: Result<LoginResponse>) {
         when (result) {
             is Result.Loading -> {
-                showLoading(true)
+//                showLoading(true)
             }
             is Result.Success -> {
                 loginSuccessCallback(result.data)
             }
             is Result.Error -> {
-                showLoading(false)
+//                showLoading(false)
             }
         }
     }
@@ -94,7 +89,6 @@ class HomeGuestActivity : AppCompatActivity() {
         }
 
         tokenViewModel.run {
-            setRefreshToken(data.loginData?.refreshToken ?: "")
             setAccessToken(data.loginData?.accessToken ?: "").invokeOnCompletion {
                 profileViewModel.run {
                     loadToken()
@@ -112,7 +106,7 @@ class HomeGuestActivity : AppCompatActivity() {
     private fun processProfileObserverResult(result: Result<ProfileEntity>) {
         when (result) {
             is Result.Loading -> {
-                showLoading(true)
+//                showLoading(true)
             }
             is Result.Success -> {
                 showLoading(false)
@@ -124,7 +118,7 @@ class HomeGuestActivity : AppCompatActivity() {
                 goToHome()
             }
             is Result.Error -> {
-                showLoading(false)
+//                showLoading(false)
             }
         }
     }
