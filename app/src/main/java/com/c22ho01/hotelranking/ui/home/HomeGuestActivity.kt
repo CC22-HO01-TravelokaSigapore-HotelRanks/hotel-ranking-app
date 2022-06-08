@@ -55,8 +55,10 @@ class HomeGuestActivity : AppCompatActivity() {
     }
 
     private fun executeRefreshLogin() {
+        var isExecuted = false
         tokenViewModel.getRefreshToken().observe(this) {
-            if (it?.isNotBlank() == true) {
+            if (it?.isNotBlank() == true && !isExecuted) {
+                isExecuted = true
                 loginViewModel.submitRefreshLogin(it).run {
                     if (this.hasObservers()) this.removeObservers(this@HomeGuestActivity)
                     this.observe(this@HomeGuestActivity) { result ->
