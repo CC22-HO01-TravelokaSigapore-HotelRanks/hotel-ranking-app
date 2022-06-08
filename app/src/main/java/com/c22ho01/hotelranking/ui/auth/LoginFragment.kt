@@ -104,6 +104,7 @@ class LoginFragment : Fragment() {
 
     private fun loginAccountGoogle() {
         val signInIntent = mGoogleSignInClient.signInIntent
+        mGoogleSignInClient.signOut()
         launchGoogleSignIn.launch(signInIntent)
     }
 
