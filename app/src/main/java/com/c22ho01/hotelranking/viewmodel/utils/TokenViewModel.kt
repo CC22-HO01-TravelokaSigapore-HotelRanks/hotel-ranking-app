@@ -14,6 +14,7 @@ class TokenViewModel(
     fun setAccessToken(token: String) = viewModelScope.launch {
         tokenRepository.setToken(token, TokenRepository.PREF_ACCESS_TOKEN)
     }
+
     fun setRefreshToken(token: String) = viewModelScope.launch {
         tokenRepository.setToken(token, TokenRepository.PREF_REFRESH_TOKEN)
     }
@@ -21,6 +22,7 @@ class TokenViewModel(
     fun deleteAccessToken() = viewModelScope.launch {
         tokenRepository.deleteToken(TokenRepository.PREF_ACCESS_TOKEN)
     }
+
     fun deleteRefreshToken() = viewModelScope.launch {
         tokenRepository.deleteToken(TokenRepository.PREF_REFRESH_TOKEN)
     }

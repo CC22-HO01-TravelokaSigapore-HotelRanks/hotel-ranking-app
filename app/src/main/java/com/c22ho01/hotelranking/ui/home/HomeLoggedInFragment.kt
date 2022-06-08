@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -240,7 +241,8 @@ class HomeLoggedInFragment : Fragment() {
                         addItemDecoration(CardLocationAdapter.MarginItemDecoration(16.dpToPx))
                     }
 
-                    homeViewModel.getLocation("Bearer ${profileViewModel.userToken}", userLocation)
+                    Log.e("CEK TOKEN: ", profileViewModel.userToken)
+                    homeViewModel.getLocation(profileViewModel.userToken, userLocation)
                         .observe(viewLifecycleOwner) {
                             when (it) {
                                 is Result.Loading -> {
