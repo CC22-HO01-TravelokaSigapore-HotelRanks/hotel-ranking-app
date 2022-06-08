@@ -90,15 +90,16 @@ class HomeGuestActivity : AppCompatActivity() {
 
         tokenViewModel.run {
             setAccessToken(data.loginData?.accessToken ?: "").invokeOnCompletion {
-                profileViewModel.run {
-                    loadToken()
-                    loadProfile().run {
-                        if (this.hasObservers()) this.removeObservers(this@HomeGuestActivity)
-                        this.observe(this@HomeGuestActivity) {
-                            processProfileObserverResult(it)
-                        }
-                    }
-                }
+                goToHome()
+//                profileViewModel.run {
+//                    loadToken()
+//                    loadProfile().run {
+//                        if (this.hasObservers()) this.removeObservers(this@HomeGuestActivity)
+//                        this.observe(this@HomeGuestActivity) {
+//                            processProfileObserverResult(it)
+//                        }
+//                    }
+//                }
             }
         }
     }
