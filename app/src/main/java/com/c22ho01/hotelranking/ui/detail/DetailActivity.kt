@@ -44,12 +44,7 @@ class DetailActivity : AppCompatActivity() {
 
         hotel = intent.getParcelableExtra<HotelData>(EXTRA_HOTEL) as HotelData
 
-        val profileId = profileViewModel.getProfileID()
-        if (profileId != null){
-            binding.btnPost.setOnClickListener {
-                openBottomSheet(profileId.toInt())
-            }
-        }
+        checkLoginStatus()
 
         binding.reviewCard.setOnClickListener {
             val intent = Intent(this, ListReviewActivity::class.java)
@@ -65,6 +60,17 @@ class DetailActivity : AppCompatActivity() {
         }
 
         setData()
+    }
+
+    private fun checkLoginStatus(){
+        val profileId = profileViewModel.getProfileID()
+        if (profileId != null){
+            binding.btnPost.setOnClickListener {
+                openBottomSheet(profileId.toInt())
+            }
+        }else {
+            binding.layoutReview.removeView(binding.btnPost)
+        }
     }
 
     private fun openBottomSheet(profileId: Int) {
