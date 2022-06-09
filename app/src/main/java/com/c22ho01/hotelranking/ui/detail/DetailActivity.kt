@@ -15,6 +15,7 @@ import com.c22ho01.hotelranking.data.remote.response.hotel.HotelData
 import com.c22ho01.hotelranking.databinding.ActivityDetail2Binding
 import com.c22ho01.hotelranking.databinding.SheetPostReviewBinding
 import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
+import com.c22ho01.hotelranking.viewmodel.profile.ProfileViewModel
 import com.c22ho01.hotelranking.viewmodel.review.ReviewViewModel
 import com.c22ho01.hotelranking.viewmodel.utils.dpToPx
 import com.denzcoskun.imageslider.constants.ScaleTypes
@@ -29,6 +30,7 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var hotel: HotelData
     private lateinit var factory: ViewModelFactory
     private val reviewViewModel: ReviewViewModel by viewModels { factory }
+    private val profileViewModel: ProfileViewModel by viewModels { factory }
     private lateinit var cardReviewAdapter: CardReviewAdapter
     private lateinit var bottomSheetDialog: BottomSheetDialog
 
@@ -42,14 +44,17 @@ class DetailActivity : AppCompatActivity() {
 
         hotel = intent.getParcelableExtra<HotelData>(EXTRA_HOTEL) as HotelData
 
+        val profileId = profileViewModel.getProfileID()
+        if (profileId != null){
+            binding.btnPost.setOnClickListener {
+                openBottomSheet(profileId.toInt())
+            }
+        }
+
         binding.reviewCard.setOnClickListener {
             val intent = Intent(this, ListReviewActivity::class.java)
             intent.putExtra(EXTRA_HOTEL, hotel)
             startActivity(intent)
-        }
-
-        binding.btnPost.setOnClickListener {
-            openBottomSheet()
         }
 
         binding.topAppBar.apply {
@@ -62,7 +67,7 @@ class DetailActivity : AppCompatActivity() {
         setData()
     }
 
-    private fun openBottomSheet() {
+    private fun openBottomSheet(profileId: Int) {
         bottomSheetDialog = BottomSheetDialog(
             this@DetailActivity, R.style.BottomSheetDialogTheme
         )
@@ -74,21 +79,21 @@ class DetailActivity : AppCompatActivity() {
 
 
             if (text.isEmpty()) {
-                Toast.makeText(this@DetailActivity, "Please enter your comment", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@DetailActivity, "Please enter your comment", Toast.LENGTH_LONG)
+                    .show()
             } else {
-                postReview(text , rating)
-                //Toast.makeText(this@DetailActivity, text, Toast.LENGTH_LONG).show()
+                postReview(text, rating, profileId)
             }
         }
         bottomSheetDialog.setContentView(bottomSheetBinding.bottomSheet)
         bottomSheetDialog.show()
     }
 
-    private fun postReview(text: String, rating: Int) {
+    private fun postReview(text: String, rating: Int, profileId:Int) {
         reviewViewModel.postReview(
-            "",
+            profileViewModel.userToken,
             hotel.id,
-            128,
+            profileId,
             text,
             rating
         ).observe(this) {
