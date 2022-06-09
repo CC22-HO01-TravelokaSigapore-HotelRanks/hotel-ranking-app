@@ -2,6 +2,7 @@ package com.c22ho01.hotelranking.ui.detail
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -19,6 +20,7 @@ import com.c22ho01.hotelranking.viewmodel.utils.dpToPx
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import kotlin.math.roundToInt
 
 class DetailActivity : AppCompatActivity() {
 
@@ -28,6 +30,7 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var factory: ViewModelFactory
     private val reviewViewModel: ReviewViewModel by viewModels { factory }
     private lateinit var cardReviewAdapter: CardReviewAdapter
+    private lateinit var bottomSheetDialog: BottomSheetDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,18 +49,7 @@ class DetailActivity : AppCompatActivity() {
         }
 
         binding.btnPost.setOnClickListener {
-            val bottomSheetDialog = BottomSheetDialog(
-                this@DetailActivity, R.style.BottomSheetDialogTheme
-            )
-
-            val bottomSheetBinding = SheetPostReviewBinding.inflate(LayoutInflater.from(this))
-            bottomSheetBinding.button.setOnClickListener {
-                val text = bottomSheetBinding.tvComment.text
-                Toast.makeText(this@DetailActivity, text, Toast.LENGTH_SHORT).show()
-                bottomSheetDialog.dismiss()
-            }
-            bottomSheetDialog.setContentView(bottomSheetBinding.bottomSheet)
-            bottomSheetDialog.show()
+            openBottomSheet()
         }
 
         binding.topAppBar.apply {
@@ -68,6 +60,54 @@ class DetailActivity : AppCompatActivity() {
         }
 
         setData()
+    }
+
+    private fun openBottomSheet() {
+        bottomSheetDialog = BottomSheetDialog(
+            this@DetailActivity, R.style.BottomSheetDialogTheme
+        )
+
+        val bottomSheetBinding = SheetPostReviewBinding.inflate(LayoutInflater.from(this))
+        bottomSheetBinding.button.setOnClickListener {
+            val text = bottomSheetBinding.tvComment.text.toString().trim()
+            val rating = bottomSheetBinding.rbPost.rating.roundToInt()
+
+
+            if (text.isEmpty()) {
+                Toast.makeText(this@DetailActivity, "Please enter your comment", Toast.LENGTH_LONG).show()
+            } else {
+                postReview(text , rating)
+                //Toast.makeText(this@DetailActivity, text, Toast.LENGTH_LONG).show()
+            }
+        }
+        bottomSheetDialog.setContentView(bottomSheetBinding.bottomSheet)
+        bottomSheetDialog.show()
+    }
+
+    private fun postReview(text: String, rating: Int) {
+        reviewViewModel.postReview(
+            "",
+            hotel.id,
+            128,
+            text,
+            rating
+        ).observe(this) {
+            when (it) {
+                is Result.Loading -> {
+                    //loading
+                }
+                is Result.Success -> {
+                    val data = it.data.message
+                    Toast.makeText(this@DetailActivity, data, Toast.LENGTH_LONG).show()
+                    bottomSheetDialog.dismiss()
+                }
+                is Result.Error -> {
+                    val toast = Toast.makeText(this, it.error, Toast.LENGTH_LONG)
+                    Log.d("PostError", it.error)
+                    toast.show()
+                }
+            }
+        }
     }
 
     private fun setImage(images: List<String>) {

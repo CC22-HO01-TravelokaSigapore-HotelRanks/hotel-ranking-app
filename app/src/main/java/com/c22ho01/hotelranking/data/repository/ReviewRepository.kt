@@ -7,6 +7,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.c22ho01.hotelranking.data.Result
 import com.c22ho01.hotelranking.data.remote.ReviewPagingSource
+import com.c22ho01.hotelranking.data.remote.response.review.PostReviewResponse
 import com.c22ho01.hotelranking.data.remote.response.review.ReviewData
 import com.c22ho01.hotelranking.data.remote.response.review.ReviewResponse
 import com.c22ho01.hotelranking.data.remote.retrofit.ReviewService
@@ -27,6 +28,32 @@ class ReviewRepository(private val reviewService: ReviewService) {
                     val errorResponse = Gson().fromJson(
                         response.errorBody()?.charStream(),
                         ReviewResponse::class.java
+                    )
+                    emit(Result.Error(errorResponse.message ?: "Error"))
+                }
+            } catch (e: Exception) {
+                emit(Result.Error(e.message.toString()))
+            }
+        }
+    }
+
+    fun postReview(
+        token: String,
+        hotelId: Int,
+        userId: Int,
+        text: String,
+        rating: Int
+    ): LiveData<Result<PostReviewResponse>> = liveData {
+        emit(Result.Loading)
+        wrapEspressoIdlingResource {
+            try {
+                val response = reviewService.postReview(token, hotelId, userId, text, rating)
+                if (response.isSuccessful) {
+                    emit(Result.Success(response.body() ?: PostReviewResponse()))
+                } else {
+                    val errorResponse = Gson().fromJson(
+                        response.errorBody()?.charStream(),
+                        PostReviewResponse::class.java
                     )
                     emit(Result.Error(errorResponse.message ?: "Error"))
                 }
