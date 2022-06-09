@@ -21,7 +21,7 @@ class ProfileViewModel(
         loadToken()
     }
 
-    fun loadToken() {
+    private fun loadToken() {
         viewModelScope.launch {
             tokenRepository.getToken().asFlow().collect { token ->
                 _userToken = "Bearer $token"

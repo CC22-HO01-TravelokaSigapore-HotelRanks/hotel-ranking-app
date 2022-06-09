@@ -314,6 +314,5 @@ class HomeLoggedInFragment : Fragment() {
     companion object {
         var USER_LAT: Double? = null
         var USER_LONG: Double? = null
-        const val USER_ID = "user_id"
     }
 }
