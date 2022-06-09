@@ -6,12 +6,10 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.c22ho01.hotelranking.R
 import com.c22ho01.hotelranking.data.Result
-import com.c22ho01.hotelranking.data.local.entity.ProfileEntity
 import com.c22ho01.hotelranking.data.remote.response.auth.LoginResponse
 import com.c22ho01.hotelranking.databinding.ActivityHomeGuestBinding
 import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
@@ -19,9 +17,6 @@ import com.c22ho01.hotelranking.viewmodel.auth.LoginViewModel
 import com.c22ho01.hotelranking.viewmodel.profile.ProfileViewModel
 import com.c22ho01.hotelranking.viewmodel.utils.TokenViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 class HomeGuestActivity : AppCompatActivity() {
 
@@ -30,22 +25,17 @@ class HomeGuestActivity : AppCompatActivity() {
     private val loginViewModel: LoginViewModel by viewModels { factory }
     private val profileViewModel: ProfileViewModel by viewModels { factory }
     private val tokenViewModel: TokenViewModel by viewModels { factory }
+    private var token: String = ""
+    private var keepSplashScreen: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        installSplashScreen()
+        installSplashScreen().setKeepOnScreenCondition { keepSplashScreen }
         binding = ActivityHomeGuestBinding.inflate(layoutInflater)
         factory = ViewModelFactory.getInstance(this)
         setContentView(binding.root)
+        getThemeSetting()
         executeRefreshLogin()
-
-        profileViewModel.getThemeSettings().observe(this) {
-            if (it == true) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
-        }
 
         val navView: BottomNavigationView = binding.navView
         val navHostFragment = supportFragmentManager
@@ -58,16 +48,26 @@ class HomeGuestActivity : AppCompatActivity() {
     }
 
     private fun executeRefreshLogin() {
-        lifecycleScope.launch {
-            tokenViewModel.getRefreshToken().collect { token ->
-                token?.let {
-                    loginViewModel.submitRefreshLogin(it).run {
-                        if (this.hasObservers()) this.removeObservers(this@HomeGuestActivity)
-                        this.observe(this@HomeGuestActivity) { result ->
-                            processLoginObserverResult(result)
-                        }
+        var isExecuted = false
+        tokenViewModel.getRefreshToken().observe(this) {
+            if (it?.isNotBlank() == true && !isExecuted) {
+                isExecuted = true
+                loginViewModel.submitRefreshLogin(it).run {
+                    if (this.hasObservers()) this.removeObservers(this@HomeGuestActivity)
+                    this.observe(this@HomeGuestActivity) { result ->
+                        processLoginObserverResult(result)
                     }
                 }
+            }
+        }
+    }
+
+    private fun getThemeSetting() {
+        profileViewModel.getThemeSettings().observe(this) {
+            if (it == true) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
         }
     }
@@ -75,79 +75,35 @@ class HomeGuestActivity : AppCompatActivity() {
     private fun processLoginObserverResult(result: Result<LoginResponse>) {
         when (result) {
             is Result.Loading -> {
-                showLoading(true)
+                keepSplashScreen = true
             }
             is Result.Success -> {
-                loginSuccessCallback(result.data)
-            }
-            is Result.Error -> {
-                showLoading(false)
-            }
-        }
-    }
-
-    private fun loginSuccessCallback(data: LoginResponse) {
-        val userId = data.loginData?.userId ?: -1
-        profileViewModel.run {
-            setProfileID(userId)
-            setSavedProfileId(userId)
-        }
-
-        tokenViewModel.run {
-            setRefreshToken(data.loginData?.refreshToken ?: "")
-            setAccessToken(data.loginData?.accessToken ?: "").invokeOnCompletion {
+                token = result.data.loginData?.accessToken ?: ""
+                val userId = result.data.loginData?.userId ?: -1
                 profileViewModel.run {
-                    loadToken()
-                    loadProfile().run {
-                        if (this.hasObservers()) this.removeObservers(this@HomeGuestActivity)
-                        this.observe(this@HomeGuestActivity) {
-                            processProfileObserverResult(it)
-                        }
+                    setProfileID(userId)
+                    setSavedProfileId(userId)
+                }
+
+                tokenViewModel.run {
+                    setAccessToken(token).invokeOnCompletion {
+                        startActivity(
+                            Intent(
+                                this@HomeGuestActivity,
+                                HomeLoggedInActivity::class.java
+                            ).also { intent ->
+                                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or
+                                        Intent.FLAG_ACTIVITY_NEW_TASK
+                            }
+                        )
+                        overridePendingTransition(0, 0)
+                        finish()
                     }
                 }
             }
-        }
-    }
-
-    private fun processProfileObserverResult(result: Result<ProfileEntity>) {
-        when (result) {
-            is Result.Loading -> {
-                showLoading(true)
+            else -> {
+                keepSplashScreen = false
             }
-            is Result.Success -> {
-                showLoading(false)
-                Snackbar.make(
-                    binding.root,
-                    getString(R.string.login_success),
-                    Snackbar.LENGTH_SHORT
-                ).show()
-                goToHome()
-            }
-            is Result.Error -> {
-                showLoading(false)
-            }
-        }
-    }
-
-    private fun goToHome() {
-        startActivity(
-            Intent(
-                this@HomeGuestActivity,
-                HomeLoggedInActivity::class.java
-            ).also { intent ->
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or
-                        Intent.FLAG_ACTIVITY_NEW_TASK
-            }
-        )
-        overridePendingTransition(0, 0)
-        finish()
-    }
-
-    private fun showLoading(isLoading: Boolean) {
-        if (isLoading) {
-            binding.clHomeGuestLoading.visibility = android.view.View.VISIBLE
-        } else {
-            binding.clHomeGuestLoading.visibility = android.view.View.GONE
         }
     }
 }

@@ -5,13 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.test.filters.MediumTest
 import com.c22ho01.hotelranking.data.Result
 import com.c22ho01.hotelranking.data.local.entity.ProfileEntity
+import com.c22ho01.hotelranking.data.repository.PreferenceRepository
 import com.c22ho01.hotelranking.data.repository.ProfileRepository
 import com.c22ho01.hotelranking.data.repository.TokenRepository
 import com.c22ho01.hotelranking.utils.DataDummy
 import com.c22ho01.hotelranking.utils.MainCoroutineRuleUnitTest
 import com.c22ho01.hotelranking.utils.getOrAwaitValue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
@@ -38,6 +38,9 @@ class ProfileViewModelTest {
     @Mock
     private lateinit var tokenRepositoryMock: TokenRepository
 
+    @Mock
+    private lateinit var preferenceRepositoryMock: PreferenceRepository
+
     private lateinit var profileViewModel: ProfileViewModel
 
     private val dummyToken = "dummyToken"
@@ -45,8 +48,9 @@ class ProfileViewModelTest {
 
     @Before
     fun setUp() {
-        `when`(tokenRepositoryMock.getToken()).thenReturn(flow { emit(dummyToken) })
-        profileViewModel = ProfileViewModel(profileRepositoryMock, tokenRepositoryMock)
+        `when`(tokenRepositoryMock.getToken()).thenReturn(MutableLiveData(dummyToken))
+        profileViewModel =
+            ProfileViewModel(profileRepositoryMock, tokenRepositoryMock, preferenceRepositoryMock)
     }
 
     @Test

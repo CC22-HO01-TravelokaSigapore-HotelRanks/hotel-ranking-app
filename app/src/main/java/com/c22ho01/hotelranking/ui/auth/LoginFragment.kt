@@ -155,15 +155,16 @@ class LoginFragment : Fragment() {
         tokenViewModel.run {
             setRefreshToken(data.loginData?.refreshToken ?: "")
             setAccessToken(data.loginData?.accessToken ?: "").invokeOnCompletion {
-                profileViewModel.run {
-                    loadToken()
-                    loadProfile().run {
-                        if (this.hasObservers()) this.removeObservers(viewLifecycleOwner)
-                        this.observe(viewLifecycleOwner) {
-                            processProfileObserverResult(it)
-                        }
-                    }
-                }
+                goToHome()
+//                profileViewModel.run {
+//                    loadToken()
+//                    loadProfile().run {
+//                        if (this.hasObservers()) this.removeObservers(viewLifecycleOwner)
+//                        this.observe(viewLifecycleOwner) {
+//                            processProfileObserverResult(it)
+//                        }
+//                    }
+//                }
             }
         }
     }

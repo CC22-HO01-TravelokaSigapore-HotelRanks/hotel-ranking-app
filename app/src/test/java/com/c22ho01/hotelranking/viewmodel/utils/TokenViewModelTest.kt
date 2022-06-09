@@ -1,13 +1,12 @@
 package com.c22ho01.hotelranking.viewmodel.utils
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.asLiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.test.filters.MediumTest
 import com.c22ho01.hotelranking.data.repository.TokenRepository
 import com.c22ho01.hotelranking.utils.MainCoroutineRuleUnitTest
 import com.c22ho01.hotelranking.utils.getOrAwaitValue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.flow
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
@@ -42,10 +41,10 @@ class TokenViewModelTest {
     @Test
     fun `when get token, should not return nullable value`() {
         `when`(tokenRepositoryMock.getToken()).thenReturn(
-            flow { emit(dummyToken) }
+            MutableLiveData<String>(dummyToken)
         )
 
-        val actualToken = tokenViewModel.getAccessToken().asLiveData().getOrAwaitValue()
+        val actualToken = tokenViewModel.getAccessToken().getOrAwaitValue()
         Assert.assertEquals(dummyToken, actualToken)
     }
 }
