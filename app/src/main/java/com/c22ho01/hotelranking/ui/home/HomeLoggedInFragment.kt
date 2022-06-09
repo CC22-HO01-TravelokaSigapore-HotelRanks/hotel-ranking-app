@@ -17,6 +17,11 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.work.Constraints
+import androidx.work.Data.Builder
+import androidx.work.NetworkType
+import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkManager
 import com.c22ho01.hotelranking.R
 import com.c22ho01.hotelranking.adapter.CardAdapter
 import com.c22ho01.hotelranking.adapter.CardLocationAdapter
@@ -28,15 +33,19 @@ import com.c22ho01.hotelranking.ui.profile.ProfileCustomizeActivity
 import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
 import com.c22ho01.hotelranking.viewmodel.hotel.HomeViewModel
 import com.c22ho01.hotelranking.viewmodel.profile.ProfileViewModel
+import com.c22ho01.hotelranking.viewmodel.utils.TokenViewModel
+import com.c22ho01.hotelranking.viewmodel.utils.TokenWorker
 import com.c22ho01.hotelranking.viewmodel.utils.dpToPx
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class HomeLoggedInFragment : Fragment() {
 
     private var _binding: FragmentHomeLoggedInBinding? = null
     private val binding get() = _binding
+    private lateinit var workManager: WorkManager
     private lateinit var fusedLocation: FusedLocationProviderClient
     private lateinit var topRatedAdapter: CardAdapter
     private lateinit var trendingAdapter: CardAdapter
@@ -45,6 +54,7 @@ class HomeLoggedInFragment : Fragment() {
     private lateinit var factory: ViewModelFactory
     private val homeViewModel by viewModels<HomeViewModel> { factory }
     private val profileViewModel by viewModels<ProfileViewModel> { factory }
+    private val tokenViewModel by viewModels<TokenViewModel> { factory }
     private lateinit var userLocation: UserLocation
 
     override fun onCreateView(
@@ -55,6 +65,7 @@ class HomeLoggedInFragment : Fragment() {
         _binding = FragmentHomeLoggedInBinding.inflate(inflater, container, false)
         fusedLocation = LocationServices.getFusedLocationProviderClient(requireContext())
         factory = ViewModelFactory.getInstance(requireContext())
+        workManager = WorkManager.getInstance(requireContext())
         topRatedAdapter = CardAdapter()
         trendingAdapter = CardAdapter()
         locationAdapter = CardLocationAdapter()
@@ -67,10 +78,43 @@ class HomeLoggedInFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        startPeriodicTask()
         getMyLastLocation()
         setupAction()
         getTopRated()
         getTrending()
+    }
+
+    private fun startPeriodicTask() {
+        tokenViewModel.apply {
+            getRefreshToken().observe(viewLifecycleOwner) { refreshToken ->
+                if (refreshToken?.isNotBlank() == true) {
+                    val data = Builder()
+                        .putString(TokenWorker.REFRESH_TOKEN, refreshToken)
+                        .build()
+
+                    val constraints = Constraints.Builder()
+                        .setRequiredNetworkType(NetworkType.CONNECTED)
+                        .build()
+
+                    val periodicWorkRequest = PeriodicWorkRequest.Builder(
+                        TokenWorker::class.java,
+                        15,
+                        TimeUnit.MINUTES
+                    ).setInputData(data)
+                        .setConstraints(constraints)
+                        .addTag(TOKEN_WORKER)
+                        .build()
+
+                    workManager.enqueue(periodicWorkRequest)
+                    workManager.getWorkInfoByIdLiveData(periodicWorkRequest.id)
+                        .observe(viewLifecycleOwner) {
+                            setAccessToken(it.outputData.toString())
+                        }
+                }
+            }
+        }
+
     }
 
 
@@ -345,5 +389,6 @@ class HomeLoggedInFragment : Fragment() {
     companion object {
         var USER_LAT: Double? = null
         var USER_LONG: Double? = null
+        private val TOKEN_WORKER = TokenWorker::class.java.simpleName
     }
 }

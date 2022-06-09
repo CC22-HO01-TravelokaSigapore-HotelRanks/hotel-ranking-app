@@ -12,7 +12,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class HomeLoggedInActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeLoggedInBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeLoggedInBinding.inflate(layoutInflater)

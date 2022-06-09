@@ -2,6 +2,7 @@ package com.c22ho01.hotelranking.data.remote.retrofit
 
 import com.c22ho01.hotelranking.data.remote.response.auth.LoginResponse
 import com.c22ho01.hotelranking.data.remote.response.auth.RegisterResponse
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -30,4 +31,9 @@ interface AuthService {
     suspend fun refreshLogin(
         @Header("Cookie") cookie: String
     ): Response<LoginResponse>
+
+    @GET("user/login/refresh-login")
+    fun refreshToken(
+        @Header("Cookie") cookie: String
+    ): Call<LoginResponse>
 }
