@@ -439,7 +439,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginVertical="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvNearLocation">
@@ -451,6 +450,69 @@
 
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:id="@+id/shimmerLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:shimmer_duration="700"
+                app:shimmer_highlight_alpha="?attr/colorOnBackground"
+                app:shimmer_tilt="50">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <include layout="@layout/card_shimmer" />
+
+                    <include layout="@layout/card_shimmer" />
+
+                    <include layout="@layout/card_shimmer" />
+
+                </LinearLayout>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+        </FrameLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvUserRecommendation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/suitable_for_you"
+            android:textAppearance="@style/TextAppearance.HotelRanking.TitleMedium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/location" />
+
+        <ImageButton
+            android:id="@+id/btnUserRecommendation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@android:color/transparent"
+            android:src="@drawable/ic_forward"
+            app:layout_constraintBottom_toBottomOf="@+id/tvUserRecommendation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvUserRecommendation"
+            tools:ignore="ContentDescription,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+        <FrameLayout
+            android:id="@+id/userRecommendation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvUserRecommendation">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvUserRecommendation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmerUserRecommendation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:shimmer_duration="700"
