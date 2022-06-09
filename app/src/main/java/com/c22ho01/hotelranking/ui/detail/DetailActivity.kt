@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -33,6 +34,7 @@ class DetailActivity : AppCompatActivity() {
     private val profileViewModel: ProfileViewModel by viewModels { factory }
     private lateinit var cardReviewAdapter: CardReviewAdapter
     private lateinit var bottomSheetDialog: BottomSheetDialog
+    private lateinit var sheetPostReviewBinding: SheetPostReviewBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,10 +80,10 @@ class DetailActivity : AppCompatActivity() {
             this@DetailActivity, R.style.BottomSheetDialogTheme
         )
 
-        val bottomSheetBinding = SheetPostReviewBinding.inflate(LayoutInflater.from(this))
-        bottomSheetBinding.button.setOnClickListener {
-            val text = bottomSheetBinding.tvComment.text.toString().trim()
-            val rating = bottomSheetBinding.rbPost.rating.roundToInt()
+        sheetPostReviewBinding = SheetPostReviewBinding.inflate(LayoutInflater.from(this))
+        sheetPostReviewBinding.btnPost.setOnClickListener {
+            val text = sheetPostReviewBinding.tvComment.text.toString().trim()
+            val rating = sheetPostReviewBinding.rbPost.rating.roundToInt()
 
 
             if (text.isEmpty()) {
@@ -91,7 +93,7 @@ class DetailActivity : AppCompatActivity() {
                 postReview(text, rating, profileId)
             }
         }
-        bottomSheetDialog.setContentView(bottomSheetBinding.bottomSheet)
+        bottomSheetDialog.setContentView(sheetPostReviewBinding.bottomSheet)
         bottomSheetDialog.show()
     }
 
@@ -105,7 +107,10 @@ class DetailActivity : AppCompatActivity() {
         ).observe(this) {
             when (it) {
                 is Result.Loading -> {
-                    //loading
+                    sheetPostReviewBinding.run {
+                        pbPostReview.visibility = View.VISIBLE
+                        btnPost.isEnabled = false
+                    }
                 }
                 is Result.Success -> {
                     val data = it.data.message
