@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.c22ho01.hotelranking.R
+import com.c22ho01.hotelranking.viewmodel.hotel.DetailViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -14,6 +16,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 class PreviewMapsFragment : Fragment() {
 
+    private val detailViewModel: DetailViewModel by activityViewModels()
     private val callback = OnMapReadyCallback { googleMap ->
         /**
          * Manipulates the map once available.
@@ -24,9 +27,11 @@ class PreviewMapsFragment : Fragment() {
          * install it inside the SupportMapFragment. This method will only be triggered once the
          * user has installed Google Play services and returned to the app.
          */
-        val sydney = LatLng(-34.0, 151.0)
-        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        detailViewModel.getHotel().observe(viewLifecycleOwner){
+            val hotel = LatLng(it.latitude, it.longitude)
+            googleMap.addMarker(MarkerOptions().position(hotel).title(it.name))
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(hotel, 15f))
+        }
     }
 
     override fun onCreateView(
