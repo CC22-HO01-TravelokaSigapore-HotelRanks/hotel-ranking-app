@@ -127,4 +127,5 @@
     <string name="post_a_review">Post a Review</string>
     <string name="suitable_for_you">Suitable for you</string>
     <string name="no_result_found">No result found.</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>
