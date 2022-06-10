@@ -146,7 +146,7 @@
                         app:layout_constraintTop_toTopOf="@+id/imageButtonReviews" />
 
                     <ImageView
-                        android:id="@+id/reviewDetailIcon"
+                        android:id="@+id/iconReviewDetail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
@@ -442,7 +442,7 @@
                         app:layout_constraintTop_toTopOf="@+id/imageButtonLocation" />
 
                     <ImageView
-                        android:id="@+id/locationDetailIcon"
+                        android:id="@+id/iconLocationDetail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/location_detail"

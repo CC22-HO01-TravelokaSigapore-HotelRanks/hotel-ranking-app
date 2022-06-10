@@ -53,8 +53,14 @@ class DetailActivity : AppCompatActivity() {
 
         checkLoginStatus()
 
-        binding.reviewCard.setOnClickListener {
+        binding.iconReviewDetail.setOnClickListener {
             val intent = Intent(this, ListReviewActivity::class.java)
+            intent.putExtra(EXTRA_HOTEL, hotel)
+            startActivity(intent)
+        }
+
+        binding.iconLocationDetail.setOnClickListener{
+            val intent = Intent(this, MapsActivity::class.java)
             intent.putExtra(EXTRA_HOTEL, hotel)
             startActivity(intent)
         }
