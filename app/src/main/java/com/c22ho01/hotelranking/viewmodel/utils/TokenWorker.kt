@@ -10,17 +10,16 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class TokenWorker(context: Context, params: WorkerParameters) :
-    Worker(context, params) {
+class TokenWorker(context: Context, params: WorkerParameters) : Worker(context, params) {
 
     private var resultStatus: Result? = null
 
     override fun doWork(): Result {
         val refreshToken = inputData.getString(REFRESH_TOKEN)
-        return refreshToken?.getCurrentToken() ?: Result.retry()
+        return refreshToken.getCurrentToken()
     }
 
-    private fun String.getCurrentToken(): Result {
+    private fun String?.getCurrentToken(): Result {
         val currentRefreshToken = "refreshToken=${this}"
         val client = APIConfig
             .getAuthAPIService()
