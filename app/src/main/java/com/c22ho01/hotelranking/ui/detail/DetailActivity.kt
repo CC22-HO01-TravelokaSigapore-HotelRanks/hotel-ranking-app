@@ -151,8 +151,6 @@ class DetailActivity : AppCompatActivity() {
             addItemDecoration(CardReviewAdapter.MarginItemDecoration(16.dpToPx))
         }
 
-
-
         setImage(hotel.image)
         binding.tvHotelName.text = hotel.name
         binding.tvLocation.text = hotel.neighborhood
@@ -179,9 +177,14 @@ class DetailActivity : AppCompatActivity() {
         reviewViewModel.getHotelReviews(hotel.id).observe(this) {
             when (it) {
                 is Result.Loading -> {
-                    //loading
+                    binding.rvReview.visibility = View.GONE
                 }
                 is Result.Success -> {
+                    binding.apply {
+                        shimmerReview.stopShimmer()
+                        shimmerReview.visibility = View.GONE
+                        rvReview.visibility = View.VISIBLE
+                    }
                     val data = it.data.data
                     cardReviewAdapter.submitList(data)
                     binding.rvReview.adapter = cardReviewAdapter
