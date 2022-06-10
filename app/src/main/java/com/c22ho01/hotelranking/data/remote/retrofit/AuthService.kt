@@ -13,7 +13,7 @@ interface AuthService {
         @Field("password") password: String
     ): Response<LoginResponse>
 
-    @GET("user/login/google")
+    @GET("user/login/google/auth")
     suspend fun loginGoogle(
         @Query("code") code: String
     ): Response<LoginResponse>

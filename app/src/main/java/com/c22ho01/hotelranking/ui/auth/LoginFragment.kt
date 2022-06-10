@@ -1,32 +1,39 @@
 package com.c22ho01.hotelranking.ui.auth
 
+import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import androidx.activity.result.contract.ActivityResultContracts
+import android.webkit.JavascriptInterface
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.c22ho01.hotelranking.R
 import com.c22ho01.hotelranking.data.Result
 import com.c22ho01.hotelranking.data.local.entity.ProfileEntity
+import com.c22ho01.hotelranking.data.remote.response.auth.GoogleConsentGetResponse
 import com.c22ho01.hotelranking.data.remote.response.auth.LoginResponse
+import com.c22ho01.hotelranking.data.remote.retrofit.APIConfig
 import com.c22ho01.hotelranking.databinding.FragmentLoginBinding
 import com.c22ho01.hotelranking.ui.home.HomeLoggedInActivity
-import com.c22ho01.hotelranking.utils.EnvUtils
 import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
 import com.c22ho01.hotelranking.viewmodel.auth.LoginViewModel
 import com.c22ho01.hotelranking.viewmodel.profile.ProfileViewModel
 import com.c22ho01.hotelranking.viewmodel.utils.TokenViewModel
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class LoginFragment : Fragment() {
@@ -39,8 +46,8 @@ class LoginFragment : Fragment() {
     private val tokenViewModel: TokenViewModel by viewModels { factory }
     private val profileViewModel: ProfileViewModel by viewModels { factory }
 
-    private lateinit var gso: GoogleSignInOptions
-    private lateinit var mGoogleSignInClient: GoogleSignInClient
+//    private lateinit var gso: GoogleSignInOptions
+//    private lateinit var mGoogleSignInClient: GoogleSignInClient
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,12 +55,12 @@ class LoginFragment : Fragment() {
     ): View? {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         factory = ViewModelFactory.getInstance(requireContext())
-        gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestServerAuthCode(EnvUtils.getGsoClientId())
-            .requestIdToken(EnvUtils.getGsoClientId())
-            .requestEmail()
-            .build()
-        mGoogleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
+//        gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//            .requestServerAuthCode(EnvUtils.getGsoClientId())
+//            .requestIdToken(EnvUtils.getGsoClientId())
+//            .requestEmail()
+//            .build()
+//        mGoogleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
         return binding?.root
     }
 
@@ -102,23 +109,77 @@ class LoginFragment : Fragment() {
     }
 
 
+//    private fun loginAccountGoogle() {
+//        val signInIntent = mGoogleSignInClient.signInIntent
+//        mGoogleSignInClient.signOut()
+//        launchGoogleSignIn.launch(signInIntent)
+//    }
+//
+//    private val launchGoogleSignIn = registerForActivityResult(
+//        ActivityResultContracts.StartActivityForResult()
+//    ) { result ->
+//        if (result.resultCode == Activity.RESULT_OK) {
+//            val account = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+//            account.result.serverAuthCode?.let { code ->
+//                loginViewModel.submitLoginByGoogle(code).run {
+//                    if (this.hasObservers()) this.removeObservers(viewLifecycleOwner)
+//                    this.observe(viewLifecycleOwner) {
+//                        processLoginObserverResult(it)
+//                    }
+//                }
+//            }
+//        }
+//    }
+
+    @SuppressLint("SetJavaScriptEnabled", "JavascriptInterface")
     private fun loginAccountGoogle() {
-        val signInIntent = mGoogleSignInClient.signInIntent
-        mGoogleSignInClient.signOut()
-        launchGoogleSignIn.launch(signInIntent)
+        val authGoogleDialog = Dialog(requireContext())
+        authGoogleDialog.setContentView(R.layout.dialog_google_auth)
+
+        val webView = authGoogleDialog.findViewById<WebView>(R.id.wv_google_auth)
+        webView.apply {
+            settings.javaScriptEnabled = true
+            settings.userAgentString =
+                "Mozilla/5.0 (Linux; Android 8.0; Pixel 2 Build/OPD3.170816.012) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Mobile Safari/537.36"
+            loadUrl(APIConfig.AUTH_BASE_URL + "user/login/google/consent")
+            webViewClient = object : WebViewClient() {
+
+                @Override
+                override fun onPageFinished(view: WebView?, url: String?) {
+                    super.onPageFinished(view, url)
+                    if (url?.contains("code=") == true) {
+                        val injectScript =
+                            "javascript:Android.onResult(200, document.body.children[0].innerText);"
+                        webView.loadUrl(injectScript);
+                        authGoogleDialog.dismiss()
+                    }
+                }
+            }
+            addJavascriptInterface(WebViewResultListener(), "Android")
+        }
+        authGoogleDialog.show()
     }
 
-    private val launchGoogleSignIn = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val account = GoogleSignIn.getSignedInAccountFromIntent(result.data)
-            account.result.serverAuthCode?.let { code ->
-                loginViewModel.submitLoginByGoogle(code).run {
-                    if (this.hasObservers()) this.removeObservers(viewLifecycleOwner)
-                    this.observe(viewLifecycleOwner) {
-                        processLoginObserverResult(it)
-                    }
+    inner class WebViewResultListener {
+        @JavascriptInterface
+        fun onResult(code: Int, response: String?) {
+            val result: GoogleConsentGetResponse =
+                Gson().fromJson(response, GoogleConsentGetResponse::class.java)
+            lifecycleScope.launch {
+                withContext(Dispatchers.Main) {
+                    processConsentCode(result)
+                }
+            }
+        }
+    }
+
+    fun processConsentCode(data: GoogleConsentGetResponse) {
+
+        data.code?.let { code ->
+            loginViewModel.submitLoginByGoogle(code).run {
+                if (this.hasObservers()) this.removeObservers(viewLifecycleOwner)
+                this.observe(viewLifecycleOwner) {
+                    processLoginObserverResult(it)
                 }
             }
         }
