@@ -114,6 +114,8 @@
                 app:layout_constraintTop_toBottomOf="@+id/ratingBar">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutReview"
+                    android:paddingBottom="16dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -161,22 +163,51 @@
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="16dp"
                         android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
                         android:nestedScrollingEnabled="true"
+                        app:layout_constraintBottom_toTopOf="@+id/btn_post"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/imageButtonReviews" />
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/shimmerReview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        app:layout_constraintBottom_toTopOf="@+id/btn_post"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageButtonReviews"
+                        app:shimmer_duration="700"
+                        app:shimmer_highlight_alpha="?attr/colorOnBackground"
+                        app:shimmer_tilt="50">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <include layout="@layout/card_review_shimmer" />
+
+                            <include layout="@layout/card_review_shimmer" />
+
+                            <include layout="@layout/card_review_shimmer" />
+
+                        </LinearLayout>
+
+                    </com.facebook.shimmer.ShimmerFrameLayout>
 
                     <Button
                         android:id="@+id/btn_post"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:text="Post"
+                        android:text="@string/post_a_review"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/rvReview" />
+                        app:layout_constraintStart_toStartOf="parent" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
