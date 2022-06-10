@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.c22ho01.hotelranking.R
 import com.c22ho01.hotelranking.adapter.CardReviewAdapter
@@ -16,6 +17,7 @@ import com.c22ho01.hotelranking.data.remote.response.hotel.HotelData
 import com.c22ho01.hotelranking.databinding.ActivityDetail2Binding
 import com.c22ho01.hotelranking.databinding.SheetPostReviewBinding
 import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
+import com.c22ho01.hotelranking.viewmodel.hotel.DetailViewModel
 import com.c22ho01.hotelranking.viewmodel.profile.ProfileViewModel
 import com.c22ho01.hotelranking.viewmodel.review.ReviewViewModel
 import com.c22ho01.hotelranking.viewmodel.utils.dpToPx
@@ -32,6 +34,7 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var factory: ViewModelFactory
     private val reviewViewModel: ReviewViewModel by viewModels { factory }
     private val profileViewModel: ProfileViewModel by viewModels { factory }
+    private val detailViewModel: DetailViewModel by viewModels()
     private lateinit var cardReviewAdapter: CardReviewAdapter
     private lateinit var bottomSheetDialog: BottomSheetDialog
     private lateinit var sheetPostReviewBinding: SheetPostReviewBinding
@@ -45,6 +48,8 @@ class DetailActivity : AppCompatActivity() {
         cardReviewAdapter = CardReviewAdapter()
 
         hotel = intent.getParcelableExtra<HotelData>(EXTRA_HOTEL) as HotelData
+        detailViewModel.setHotel(hotel)
+        setMapsFragment()
 
         checkLoginStatus()
 
@@ -62,6 +67,18 @@ class DetailActivity : AppCompatActivity() {
         }
 
         setData()
+    }
+
+    private fun setMapsFragment(){
+        val fragmentManager = supportFragmentManager
+        val previewMapsFragment = PreviewMapsFragment()
+        fragmentManager.commit {
+            add(
+                R.id.frame_previewMaps,
+                previewMapsFragment,
+                PreviewMapsFragment::class.java.simpleName
+            )
+        }
     }
 
     private fun checkLoginStatus(){
