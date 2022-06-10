@@ -29,6 +29,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
         hotel = intent.getParcelableExtra<HotelData>(DetailActivity.EXTRA_HOTEL) as HotelData
+        binding.topAppBar.apply {
+            title = hotel.name
+            setNavigationOnClickListener {
+                finish()
+            }
+        }
     }
 
     /**
