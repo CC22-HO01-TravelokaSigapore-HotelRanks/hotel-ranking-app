@@ -8,12 +8,13 @@ import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.c22ho01.hotelranking.adapter.LoadingStateAdapter
 import com.c22ho01.hotelranking.adapter.SearchAdapter
 import com.c22ho01.hotelranking.databinding.ActivitySearchBinding
 import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
 import com.c22ho01.hotelranking.viewmodel.hotel.SearchViewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -35,18 +36,80 @@ class SearchActivity : AppCompatActivity() {
         searchAdapter = SearchAdapter()
         searchJob = Job()
 
+        setupAdapter()
         setupView()
         setupAction()
+    }
+
+    private fun setupAdapter() {
+        searchAdapter.addLoadStateListener { loadState ->
+            val loading =
+                when {
+                    loadState.refresh is LoadState.Loading -> true
+                    loadState.prepend is LoadState.Loading -> true
+                    loadState.append is LoadState.Loading -> true
+                    else -> false
+                }
+            if (loading) {
+                binding.progressIndicator.visibility = View.VISIBLE
+            } else {
+                binding.progressIndicator.visibility = View.GONE
+            }
+
+            val idle = when {
+                loadState.refresh is LoadState.NotLoading -> true
+                loadState.prepend is LoadState.NotLoading -> true
+                loadState.append is LoadState.NotLoading -> true
+                else -> false
+            }
+            if(idle && searchAdapter.itemCount == 0) {
+                showEmpty(true)
+            } else {
+                showEmpty(false)
+            }
+
+            val error = when {
+                loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
+                loadState.append is LoadState.Error -> loadState.append as LoadState.Error
+                loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
+                else -> null
+            }
+            if (error != null) {
+                Snackbar.make(
+                    binding.root,
+                    error.error.message.toString(),
+                    Snackbar.LENGTH_SHORT,
+                ).show()
+            }
+        }
+    }
+
+    private fun showEmpty(isEmpty: Boolean) {
+        when(isEmpty) {
+            true -> {
+                binding.apply {
+                    rvSearch.visibility = View.GONE
+                    tvSearchNoResult.visibility = View.VISIBLE
+                }
+            }
+            false -> {
+                binding.apply {
+                    rvSearch.visibility = View.VISIBLE
+                    tvSearchNoResult.visibility = View.GONE
+                }
+            }
+        }
     }
 
     private fun setupView() {
         binding.rvSearch.apply {
             layoutManager = LinearLayoutManager(this@SearchActivity)
-            adapter = searchAdapter.withLoadStateFooter(
-                footer = LoadingStateAdapter {
-                    searchAdapter.retry()
-                }
-            )
+//            adapter = searchAdapter.withLoadStateFooter(
+//                footer = LoadingStateAdapter {
+//                    searchAdapter.retry()
+//                }
+//            )
+            adapter = searchAdapter
             addItemDecoration(
                 SearchAdapter.MarginItemDecoration(48)
             )
