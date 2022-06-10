@@ -17,11 +17,8 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.work.Constraints
+import androidx.work.*
 import androidx.work.Data.Builder
-import androidx.work.NetworkType
-import androidx.work.PeriodicWorkRequest
-import androidx.work.WorkManager
 import com.c22ho01.hotelranking.R
 import com.c22ho01.hotelranking.adapter.CardAdapter
 import com.c22ho01.hotelranking.adapter.CardLocationAdapter
@@ -78,11 +75,11 @@ class HomeLoggedInFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        startPeriodicTask()
         getMyLastLocation()
         setupAction()
         getTopRated()
         getTrending()
+        startPeriodicTask()
     }
 
     private fun startPeriodicTask() {
@@ -97,19 +94,26 @@ class HomeLoggedInFragment : Fragment() {
                         .setRequiredNetworkType(NetworkType.CONNECTED)
                         .build()
 
-                    val periodicWorkRequest = PeriodicWorkRequest.Builder(
+                    val periodicRefreshToken = PeriodicWorkRequest.Builder(
                         TokenWorker::class.java,
                         15,
                         TimeUnit.MINUTES
-                    ).setInputData(data)
+                    )
+                        .setInputData(data)
                         .setConstraints(constraints)
                         .addTag(TOKEN_WORKER)
                         .build()
 
-                    workManager.enqueue(periodicWorkRequest)
-                    workManager.getWorkInfoByIdLiveData(periodicWorkRequest.id)
+                    workManager.enqueueUniquePeriodicWork(
+                        TOKEN_WORKER,
+                        ExistingPeriodicWorkPolicy.KEEP,
+                        periodicRefreshToken
+                    )
+                    workManager.getWorkInfoByIdLiveData(periodicRefreshToken.id)
                         .observe(viewLifecycleOwner) {
-                            setAccessToken(it.outputData.toString())
+                            val newToken = it.outputData
+                                .getString(TokenWorker.NEW_ACCESS_TOKEN) ?: ""
+                            setAccessToken(newToken)
                         }
                 }
             }
