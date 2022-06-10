@@ -8,7 +8,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,6 +41,7 @@ class HomeLoggedInFragment : Fragment() {
     private lateinit var topRatedAdapter: CardAdapter
     private lateinit var trendingAdapter: CardAdapter
     private lateinit var locationAdapter: CardLocationAdapter
+    private lateinit var userRecommendationAdapter: CardAdapter
     private lateinit var factory: ViewModelFactory
     private val homeViewModel by viewModels<HomeViewModel> { factory }
     private val profileViewModel by viewModels<ProfileViewModel> { factory }
@@ -58,6 +58,7 @@ class HomeLoggedInFragment : Fragment() {
         topRatedAdapter = CardAdapter()
         trendingAdapter = CardAdapter()
         locationAdapter = CardLocationAdapter()
+        userRecommendationAdapter = CardAdapter()
         userLocation = UserLocation()
 
         return binding?.root
@@ -70,7 +71,6 @@ class HomeLoggedInFragment : Fragment() {
         setupAction()
         getTopRated()
         getTrending()
-        getUserRecommendation()
     }
 
 
@@ -96,6 +96,8 @@ class HomeLoggedInFragment : Fragment() {
                             btnForYou.isEnabled = false
                             btnForYou.isClickable = false
                         }
+
+                        getUserRecommendation(profile.id ?: -1)
 
                         btnEditProfile.setOnClickListener {
                             startActivity(
@@ -220,8 +222,38 @@ class HomeLoggedInFragment : Fragment() {
         }
     }
 
-    private fun getUserRecommendation() {
+    private fun getUserRecommendation(userId: Int) {
+        binding?.rvUserRecommendation?.apply {
+            layoutManager = LinearLayoutManager(
+                context,
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+            adapter = userRecommendationAdapter
+            setHasFixedSize(true)
+            addItemDecoration(CardAdapter.MarginItemDecoration(16.dpToPx))
+        }
 
+        homeViewModel.getUserRecommendation(profileViewModel.userToken, userId)
+            .observe(viewLifecycleOwner) {
+                when (it) {
+                    is Result.Loading -> {
+                        binding?.rvUserRecommendation?.visibility = View.GONE
+                    }
+                    is Result.Success -> {
+                        binding?.apply {
+                            shimmerUserRecommendation.stopShimmer()
+                            shimmerUserRecommendation.visibility = View.GONE
+                            rvUserRecommendation.visibility = View.VISIBLE
+                        }
+                        val data = it.data.data
+                        userRecommendationAdapter.submitList(data)
+                    }
+                    else -> {
+                        //error message
+                    }
+                }
+            }
     }
 
     private fun getMyLastLocation() {
@@ -248,7 +280,6 @@ class HomeLoggedInFragment : Fragment() {
                         addItemDecoration(CardLocationAdapter.MarginItemDecoration(16.dpToPx))
                     }
 
-                    Log.e("CEK TOKEN: ", profileViewModel.userToken)
                     homeViewModel.getLocation(profileViewModel.userToken, userLocation)
                         .observe(viewLifecycleOwner) {
                             when (it) {
@@ -314,6 +345,5 @@ class HomeLoggedInFragment : Fragment() {
     companion object {
         var USER_LAT: Double? = null
         var USER_LONG: Double? = null
-        const val USER_ID = "user_id"
     }
 }
