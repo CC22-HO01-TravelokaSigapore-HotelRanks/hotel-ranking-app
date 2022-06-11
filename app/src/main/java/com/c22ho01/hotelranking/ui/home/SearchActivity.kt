@@ -63,7 +63,7 @@ class SearchActivity : AppCompatActivity() {
                 loadState.append is LoadState.NotLoading -> true
                 else -> false
             }
-            if (idle && searchAdapter.itemCount == 0) {
+            if (!loading && idle && searchAdapter.itemCount == 0) {
                 showEmpty(true)
             } else {
                 showEmpty(false)
