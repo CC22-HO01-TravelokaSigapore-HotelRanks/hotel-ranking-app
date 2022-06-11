@@ -73,7 +73,6 @@ class HomeLoggedInFragment : Fragment() {
         getTrending()
     }
 
-
     private fun setupAction() {
         profileViewModel.loadProfile().observe(viewLifecycleOwner) { result ->
             when (result) {
