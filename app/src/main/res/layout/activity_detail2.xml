@@ -115,9 +115,9 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layoutReview"
-                    android:paddingBottom="16dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="16dp">
 
                     <ImageButton
                         android:id="@+id/imageButtonReviews"
@@ -466,7 +466,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:text="@string/open_maps"
-
                         app:layout_constraintEnd_toEndOf="@+id/frame_previewMaps"
                         app:layout_constraintStart_toStartOf="@+id/frame_previewMaps"
                         app:layout_constraintTop_toBottomOf="@+id/frame_previewMaps" />

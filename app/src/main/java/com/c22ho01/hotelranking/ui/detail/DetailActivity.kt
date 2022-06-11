@@ -59,7 +59,7 @@ class DetailActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        binding.iconLocationDetail.setOnClickListener{
+        binding.iconLocationDetail.setOnClickListener {
             val intent = Intent(this, MapsActivity::class.java)
             intent.putExtra(EXTRA_HOTEL, hotel)
             startActivity(intent)
@@ -75,7 +75,7 @@ class DetailActivity : AppCompatActivity() {
         setData()
     }
 
-    private fun setMapsFragment(){
+    private fun setMapsFragment() {
         val fragmentManager = supportFragmentManager
         val previewMapsFragment = PreviewMapsFragment()
         fragmentManager.commit {
@@ -87,13 +87,13 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkLoginStatus(){
+    private fun checkLoginStatus() {
         val profileId = profileViewModel.getProfileID()
-        if (profileId != null){
+        if (profileId != null) {
             binding.btnPost.setOnClickListener {
                 openBottomSheet(profileId.toInt())
             }
-        }else {
+        } else {
             binding.layoutReview.removeView(binding.btnPost)
         }
     }
@@ -120,7 +120,7 @@ class DetailActivity : AppCompatActivity() {
         bottomSheetDialog.show()
     }
 
-    private fun postReview(text: String, rating: Int, profileId:Int) {
+    private fun postReview(text: String, rating: Int, profileId: Int) {
         reviewViewModel.postReview(
             profileViewModel.userToken,
             hotel.id,

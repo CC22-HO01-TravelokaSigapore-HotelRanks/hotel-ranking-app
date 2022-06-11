@@ -53,6 +53,7 @@ class SearchActivity : AppCompatActivity() {
             if (loading) {
                 binding.progressIndicator.visibility = View.VISIBLE
             } else {
+                binding.searchBar.customSearchBar.requestFocus()
                 binding.progressIndicator.visibility = View.GONE
             }
 
@@ -62,7 +63,7 @@ class SearchActivity : AppCompatActivity() {
                 loadState.append is LoadState.NotLoading -> true
                 else -> false
             }
-            if(idle && searchAdapter.itemCount == 0) {
+            if (idle && searchAdapter.itemCount == 0) {
                 showEmpty(true)
             } else {
                 showEmpty(false)
@@ -85,7 +86,7 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun showEmpty(isEmpty: Boolean) {
-        when(isEmpty) {
+        when (isEmpty) {
             true -> {
                 binding.apply {
                     rvSearch.visibility = View.GONE
@@ -104,11 +105,6 @@ class SearchActivity : AppCompatActivity() {
     private fun setupView() {
         binding.rvSearch.apply {
             layoutManager = LinearLayoutManager(this@SearchActivity)
-//            adapter = searchAdapter.withLoadStateFooter(
-//                footer = LoadingStateAdapter {
-//                    searchAdapter.retry()
-//                }
-//            )
             adapter = searchAdapter
             addItemDecoration(
                 SearchAdapter.MarginItemDecoration(48)
@@ -133,31 +129,6 @@ class SearchActivity : AppCompatActivity() {
                 }
                 return@setOnKeyListener false
             }
-
-            /*etKeyword.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
-
-                override fun onTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    before: Int,
-                    count: Int
-                ) {
-                    val keyword = s.toString().trim()
-                    Timer("SendRequest", false).schedule(1000) {
-                        searchHotel(keyword)
-                    }
-                }
-
-                override fun afterTextChanged(s: Editable?) {}
-
-            })*/
         }
     }
 

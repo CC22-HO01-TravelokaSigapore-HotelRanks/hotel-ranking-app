@@ -27,7 +27,7 @@
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent"
-            tools:ignore="SmallSp"/>
+            tools:ignore="SmallSp" />
 
         <RatingBar
             android:id="@+id/itemRating"
@@ -46,12 +46,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:background="?attr/colorOnSurfaceVariant"
             android:ellipsize="end"
             android:maxLines="3"
             android:minLines="3"
             android:textAppearance="?attr/textAppearanceBodySmall"
             android:textColor="?attr/colorPrimaryContainer"
-            android:background="?attr/colorOnSurfaceVariant"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"

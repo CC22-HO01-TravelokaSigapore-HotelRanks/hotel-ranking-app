@@ -22,11 +22,13 @@ class ReviewViewModel(private val reviewRepository: ReviewRepository) : ViewMode
         return reviewRepository.getHotelReviewPaging(hotelId).cachedIn(viewModelScope)
     }
 
-    fun postReview(token: String,
-                   hotelId: Int,
-                   userId: Int,
-                   text: String,
-                   rating: Int):LiveData<Result<PostReviewResponse>>{
+    fun postReview(
+        token: String,
+        hotelId: Int,
+        userId: Int,
+        text: String,
+        rating: Int
+    ): LiveData<Result<PostReviewResponse>> {
         return reviewRepository.postReview(token, hotelId, userId, text, rating)
     }
 }

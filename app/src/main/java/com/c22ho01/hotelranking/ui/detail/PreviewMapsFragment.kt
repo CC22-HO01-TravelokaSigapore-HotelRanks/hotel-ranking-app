@@ -27,7 +27,7 @@ class PreviewMapsFragment : Fragment() {
          * install it inside the SupportMapFragment. This method will only be triggered once the
          * user has installed Google Play services and returned to the app.
          */
-        detailViewModel.getHotel().observe(viewLifecycleOwner){
+        detailViewModel.getHotel().observe(viewLifecycleOwner) {
             val hotel = LatLng(it.latitude, it.longitude)
             googleMap.addMarker(MarkerOptions().position(hotel).title(it.name))
             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(hotel, 15f))
