@@ -1,62 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     tools:context=".ui.detail.ListReviewActivity">
 
-    <TextView
-        android:id="@+id/hotelName"
-        style="@style/TextAppearance.Material3.TitleLarge"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hotel_name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/ratingBar"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/ic_baseline_star_24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/hotelName"
-        app:tint="?attr/colorPrimary"
-        tools:ignore="ContentDescription" />
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:navigationIcon="@drawable/ic_back"
+            app:titleTextAppearance="?attr/textAppearanceTitleMedium"/>
+    </com.google.android.material.appbar.AppBarLayout>
 
-    <TextView
-        android:id="@+id/ratingText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:textAppearance="@style/TextAppearance.HotelRanking.LabelMedium"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
-        app:layout_constraintStart_toEndOf="@id/ratingBar"
-        app:layout_constraintTop_toTopOf="@+id/ratingBar"
-        tools:text="@string/rating" />
-
-    <TextView
-        android:id="@+id/totalReviews"
-        style="@style/TextAppearance.HotelRanking.LabelMedium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
-        app:layout_constraintStart_toEndOf="@id/ratingText"
-        app:layout_constraintTop_toTopOf="@+id/ratingBar"
-        tools:text="(100 Reviews)" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvReviews"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/ratingBar"
-        tools:layout_editor_absoluteX="16dp"
-        tools:listitem="@layout/item_detail_review" />
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/hotelName"
+            style="@style/TextAppearance.Material3.TitleLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/hotel_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ratingBar"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_baseline_star_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/hotelName"
+            app:tint="?attr/colorPrimary"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/ratingText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textAppearance="@style/TextAppearance.HotelRanking.LabelMedium"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
+            app:layout_constraintStart_toEndOf="@id/ratingBar"
+            app:layout_constraintTop_toTopOf="@+id/ratingBar"
+            tools:text="@string/rating" />
+
+        <TextView
+            android:id="@+id/totalReviews"
+            style="@style/TextAppearance.HotelRanking.LabelMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
+            app:layout_constraintStart_toEndOf="@id/ratingText"
+            app:layout_constraintTop_toTopOf="@+id/ratingBar"
+            tools:text="(100 Reviews)" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvReviews"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/ratingBar"
+            tools:layout_editor_absoluteX="16dp"
+            tools:listitem="@layout/item_detail_review" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -30,6 +30,12 @@ class ListReviewActivity : AppCompatActivity() {
         factory = ViewModelFactory.getInstance(this)
         job = Job()
         hotel = intent.getParcelableExtra<HotelData>(DetailActivity.EXTRA_HOTEL) as HotelData
+        binding.topAppBar.apply {
+            title = resources.getString(R.string.review)
+            setNavigationOnClickListener {
+                finish()
+            }
+        }
         itemReviewAdapter = ListReviewAdapter()
         setData()
         setReviews()
