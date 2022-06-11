@@ -6,7 +6,7 @@ import com.c22ho01.hotelranking.data.repository.TokenRepository
 import kotlinx.coroutines.launch
 
 class TokenViewModel(
-    private val tokenRepository: TokenRepository,
+    private val tokenRepository: TokenRepository
 ) : ViewModel() {
     fun getAccessToken() = tokenRepository.getToken(TokenRepository.PREF_ACCESS_TOKEN)
     fun getRefreshToken() = tokenRepository.getToken(TokenRepository.PREF_REFRESH_TOKEN)
