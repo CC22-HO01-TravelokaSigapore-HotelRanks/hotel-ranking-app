@@ -1,6 +1,5 @@
 package com.c22ho01.hotelranking.utils
 
-import android.annotation.SuppressLint
 import android.text.format.DateUtils
 import java.text.SimpleDateFormat
 import java.util.*
