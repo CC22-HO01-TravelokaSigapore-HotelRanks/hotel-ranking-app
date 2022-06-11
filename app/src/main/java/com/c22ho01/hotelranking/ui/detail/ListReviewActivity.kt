@@ -55,9 +55,4 @@ class ListReviewActivity : AppCompatActivity() {
             }
         }
     }
-
-
-    companion object {
-        const val EXTRA_HOTEL = "extra_hotel"
-    }
 }

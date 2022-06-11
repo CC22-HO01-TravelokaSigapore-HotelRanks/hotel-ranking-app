@@ -150,7 +150,7 @@ class LoginFragment : Fragment() {
                     if (url?.contains("code=") == true) {
                         val injectScript =
                             "javascript:Android.onResult(200, document.body.children[0].innerText);"
-                        webView.loadUrl(injectScript);
+                        webView.loadUrl(injectScript)
                         authGoogleDialog.dismiss()
                     }
                 }
@@ -162,7 +162,7 @@ class LoginFragment : Fragment() {
 
     inner class WebViewResultListener {
         @JavascriptInterface
-        fun onResult(code: Int, response: String?) {
+        fun onResult(response: String?) {
             val result: GoogleConsentGetResponse =
                 Gson().fromJson(response, GoogleConsentGetResponse::class.java)
             lifecycleScope.launch {
