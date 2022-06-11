@@ -30,7 +30,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
         hotel = intent.getParcelableExtra<HotelData>(DetailActivity.EXTRA_HOTEL) as HotelData
         binding.topAppBar.apply {
-            title = hotel.name
+            title = resources.getString(R.string.location)
             setNavigationOnClickListener {
                 finish()
             }

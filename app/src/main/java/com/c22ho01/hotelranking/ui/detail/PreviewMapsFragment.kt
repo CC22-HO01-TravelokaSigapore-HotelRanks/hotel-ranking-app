@@ -30,6 +30,9 @@ class PreviewMapsFragment : Fragment() {
         detailViewModel.getHotel().observe(viewLifecycleOwner) {
             val hotel = LatLng(it.latitude, it.longitude)
             googleMap.addMarker(MarkerOptions().position(hotel).title(it.name))
+            googleMap.uiSettings.isScrollGesturesEnabled = false
+            googleMap.uiSettings.isZoomGesturesEnabled = false
+
             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(hotel, 15f))
         }
     }

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.c22ho01.hotelranking.R
 import com.c22ho01.hotelranking.data.remote.response.review.ReviewData
 import com.c22ho01.hotelranking.databinding.ItemDetailReviewBinding
+import com.c22ho01.hotelranking.utils.DateUtils
 
 class ListReviewAdapter :
     PagingDataAdapter<ReviewData, ListReviewAdapter.ViewHolder>(DIFF_CALLBACK) {
@@ -39,6 +40,7 @@ class ListReviewAdapter :
                 tvReview.text = data.text
                 tvUsername.text = data.name
                 ratingBar.rating = data.rating.toFloat()
+                tvTime.text = DateUtils.formatDateToTimeAgo(data.dates)
             }
         }
     }

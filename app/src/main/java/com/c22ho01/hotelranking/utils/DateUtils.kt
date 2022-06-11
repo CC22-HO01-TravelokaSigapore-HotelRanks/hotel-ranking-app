@@ -1,5 +1,6 @@
 package com.c22ho01.hotelranking.utils
 
+import android.text.format.DateUtils
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -21,4 +22,14 @@ object DateUtils {
         return SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault()).parse(date)
     }
 
+    fun formatDateToTimeAgo(date: String): String {
+        val sdf =
+            parseISODateFromString(date)?.time
+        val now = System.currentTimeMillis()
+        return if (sdf != null) DateUtils.getRelativeTimeSpanString(
+            sdf,
+            now,
+            DateUtils.MINUTE_IN_MILLIS
+        ).toString() else ""
+    }
 }
