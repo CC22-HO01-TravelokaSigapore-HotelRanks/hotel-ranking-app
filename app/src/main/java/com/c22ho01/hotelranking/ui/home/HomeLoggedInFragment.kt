@@ -77,32 +77,33 @@ class HomeLoggedInFragment : Fragment() {
         profileViewModel.loadProfile().observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Result.Success -> {
-                    val profile = result.data
-                    binding?.apply {
-                        tvName.text =
-                            requireActivity().resources.getString(R.string.name, profile.name)
-                        cardProfileCustomization.isVisible = profile.name == null
+                    profileViewModel.getCurrentProfile().observe(viewLifecycleOwner) { profile ->
+                        binding?.apply {
+                            tvName.text =
+                                requireActivity().resources.getString(R.string.name, profile.name)
+                            cardProfileCustomization.isVisible = profile.name == null
 
-                        val review = profile.ratingCounter ?: 0
-                        tvCounter.text = requireActivity().resources.getString(
-                            R.string.review_counter,
-                            review
-                        )
-
-                        reviewIndicator.progress = review.times(10)
-                        if (review <= 10) {
-                            reviewIndicator.isVisible = true
-                            btnForYou.isEnabled = false
-                            btnForYou.isClickable = false
-                        }
-
-                        getUserRecommendation(profile.id ?: -1)
-
-                        btnEditProfile.setOnClickListener {
-                            startActivity(
-                                Intent(activity, ProfileCustomizeActivity::class.java)
-                                    .putExtra(ProfileCustomizeActivity.EXTRA_PROFILE, profile)
+                            val review = profile.reviewCounter ?: 0
+                            tvCounter.text = requireActivity().resources.getString(
+                                R.string.review_counter,
+                                review
                             )
+
+                            reviewIndicator.progress = review.times(10)
+                            if (review <= 10) {
+                                reviewIndicator.isVisible = true
+                                btnForYou.isEnabled = false
+                                btnForYou.isClickable = false
+                            }
+
+                            getUserRecommendation(profile.id ?: -1)
+
+                            btnEditProfile.setOnClickListener {
+                                startActivity(
+                                    Intent(activity, ProfileCustomizeActivity::class.java)
+                                        .putExtra(ProfileCustomizeActivity.EXTRA_PROFILE, profile)
+                                )
+                            }
                         }
                     }
                 }

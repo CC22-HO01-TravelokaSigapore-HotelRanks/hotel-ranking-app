@@ -22,7 +22,7 @@ data class ProfileEntity(
     val specialNeeds: @RawValue List<DisabilityEntity?>? = null,
     val createdAt: Date? = null,
     val updatedAt: Date? = null,
-    val ratingCounter: Int? = null,
+    val reviewCounter: Int? = null,
 ) : Parcelable {
     companion object {
         fun fromGetResponse(response: ProfileGetResponse): ProfileEntity {
@@ -43,6 +43,7 @@ data class ProfileEntity(
                 createdAt = data?.createdAt?.let {
                     DateUtils.parseISODateFromString(it)
                 },
+                reviewCounter = data?.reviewCounter,
                 updatedAt = data?.updatedAt?.let {
                     DateUtils.parseISODateFromString(it)
                 },

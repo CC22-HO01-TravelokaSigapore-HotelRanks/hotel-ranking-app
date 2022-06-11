@@ -30,6 +30,10 @@ class ProfileRepository(
     val currentProfile: LiveData<ProfileEntity>
         get() = _currentProfile
 
+    fun setCurrentProfile(profile: ProfileEntity) {
+        _currentProfile.postValue(profile)
+    }
+
     val hobbyList: List<HobbyEntity> = arrayListOf(
         HobbyEntity(1, R.string.selfie, "selfie", R.drawable.ic_baseline_camera_alt_24),
         HobbyEntity(2, R.string.hiking, "hiking", R.drawable.ic_baseline_landscape_24),
@@ -153,7 +157,7 @@ class ProfileRepository(
                     )
 
                     if (response.isSuccessful) {
-                        _currentProfile.postValue(profile)
+                        setCurrentProfile(profile)
                         setSavedProfileId(profile.id ?: -1)
                         emit(Result.Success(profile))
                     } else {
@@ -167,8 +171,10 @@ class ProfileRepository(
         }
 
     fun setProfileId(profileId: Int) {
-        _currentProfile.postValue(
-            _currentProfile.value?.copy(id = profileId) ?: ProfileEntity(id = profileId)
+        setCurrentProfile(
+            currentProfile.value?.copy(
+                id = profileId
+            ) ?: ProfileEntity(id = profileId)
         )
     }
 

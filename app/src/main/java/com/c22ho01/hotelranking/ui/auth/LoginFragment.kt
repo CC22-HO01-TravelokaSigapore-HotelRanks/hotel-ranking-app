@@ -162,7 +162,7 @@ class LoginFragment : Fragment() {
 
     inner class WebViewResultListener {
         @JavascriptInterface
-        fun onResult(response: String?) {
+        fun onResult(statusCode: Int, response: String?) {
             val result: GoogleConsentGetResponse =
                 Gson().fromJson(response, GoogleConsentGetResponse::class.java)
             lifecycleScope.launch {

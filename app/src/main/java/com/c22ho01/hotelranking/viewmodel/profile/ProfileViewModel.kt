@@ -1,6 +1,7 @@
 package com.c22ho01.hotelranking.viewmodel.profile
 
 import androidx.lifecycle.*
+import com.c22ho01.hotelranking.data.local.entity.ProfileEntity
 import com.c22ho01.hotelranking.data.repository.PreferenceRepository
 import com.c22ho01.hotelranking.data.repository.ProfileRepository
 import com.c22ho01.hotelranking.data.repository.TokenRepository
@@ -31,6 +32,8 @@ class ProfileViewModel(
 
     fun loadProfile() = profileRepository.getProfile(_userToken)
     fun getCurrentProfile() = profileRepository.currentProfile
+    fun setCurrentProfile(profile: ProfileEntity) = profileRepository.setCurrentProfile(profile)
+
     fun setProfileID(profileId: Int) = profileRepository.setProfileId(profileId)
     fun getProfileID() = getCurrentProfile().value?.id
 

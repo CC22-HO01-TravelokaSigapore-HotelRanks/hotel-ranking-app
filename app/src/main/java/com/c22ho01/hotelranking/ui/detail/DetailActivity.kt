@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.c22ho01.hotelranking.R
 import com.c22ho01.hotelranking.adapter.CardReviewAdapter
 import com.c22ho01.hotelranking.data.Result
+import com.c22ho01.hotelranking.data.local.entity.ProfileEntity
 import com.c22ho01.hotelranking.data.remote.response.hotel.HotelData
 import com.c22ho01.hotelranking.databinding.ActivityDetail2Binding
 import com.c22ho01.hotelranking.databinding.SheetPostReviewBinding
@@ -137,6 +138,14 @@ class DetailActivity : AppCompatActivity() {
                 }
                 is Result.Success -> {
                     val data = it.data.message
+                    val currentProfile: ProfileEntity =
+                        profileViewModel.getCurrentProfile().value ?: ProfileEntity()
+                    val currentReviewCounter = (currentProfile.reviewCounter ?: 0)
+                    profileViewModel.setCurrentProfile(
+                        currentProfile.copy(
+                            reviewCounter = currentReviewCounter + 1,
+                        )
+                    )
                     Toast.makeText(this@DetailActivity, data, Toast.LENGTH_LONG).show()
                     bottomSheetDialog.dismiss()
                 }
