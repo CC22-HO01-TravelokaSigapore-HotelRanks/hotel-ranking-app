@@ -35,7 +35,7 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var factory: ViewModelFactory
     private val reviewViewModel: ReviewViewModel by viewModels { factory }
     private val profileViewModel: ProfileViewModel by viewModels { factory }
-    private val detailViewModel: DetailViewModel by viewModels()
+    private val detailViewModel: DetailViewModel by viewModels{ factory }
     private lateinit var cardReviewAdapter: CardReviewAdapter
     private lateinit var bottomSheetDialog: BottomSheetDialog
     private lateinit var sheetPostReviewBinding: SheetPostReviewBinding
