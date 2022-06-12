@@ -198,6 +198,7 @@ class DetailActivity : AppCompatActivity() {
         binding.tvHotelName.text = hotel.name
         binding.tvLocation.text = hotel.neighborhood
         binding.tvRating.text = resources.getString(R.string.rating, hotel.star.toString())
+        binding.tvPrice.text = resources.getString(R.string.price, hotel.pricePerNight.toString())
 
         setFeatures()
     }
