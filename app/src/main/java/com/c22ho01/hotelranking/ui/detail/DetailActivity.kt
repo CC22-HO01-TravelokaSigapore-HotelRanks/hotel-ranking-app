@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.c22ho01.hotelranking.R
+import com.c22ho01.hotelranking.adapter.CardAdapter
 import com.c22ho01.hotelranking.adapter.CardReviewAdapter
 import com.c22ho01.hotelranking.data.Result
 import com.c22ho01.hotelranking.data.local.entity.ProfileEntity
@@ -35,8 +36,9 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var factory: ViewModelFactory
     private val reviewViewModel: ReviewViewModel by viewModels { factory }
     private val profileViewModel: ProfileViewModel by viewModels { factory }
-    private val detailViewModel: DetailViewModel by viewModels()
+    private val detailViewModel: DetailViewModel by viewModels { factory }
     private lateinit var cardReviewAdapter: CardReviewAdapter
+    private lateinit var similaritiesAdapter: CardAdapter
     private lateinit var bottomSheetDialog: BottomSheetDialog
     private lateinit var sheetPostReviewBinding: SheetPostReviewBinding
 
@@ -47,6 +49,7 @@ class DetailActivity : AppCompatActivity() {
         factory = ViewModelFactory.getInstance(this)
 
         cardReviewAdapter = CardReviewAdapter()
+        similaritiesAdapter = CardAdapter()
 
         hotel = intent.getParcelableExtra<HotelData>(EXTRA_HOTEL) as HotelData
         detailViewModel.setHotel(hotel)
@@ -90,12 +93,19 @@ class DetailActivity : AppCompatActivity() {
 
     private fun checkLoginStatus() {
         val profileId = profileViewModel.getProfileID()
-        if (profileId != null) {
+        val userToken = profileViewModel.userToken
+        if (profileId != null && userToken != "") {
+            setSimilarities()
             binding.btnPost.setOnClickListener {
                 openBottomSheet(profileId.toInt())
             }
         } else {
-            binding.layoutReview.removeView(binding.btnPost)
+            binding.apply {
+                btnPost.visibility = View.GONE
+                similarities.visibility = View.GONE
+                tvSimilarities.visibility = View.GONE
+                btnSimilarities.visibility = View.GONE
+            }
         }
     }
 
@@ -179,6 +189,7 @@ class DetailActivity : AppCompatActivity() {
                 LinearLayoutManager.HORIZONTAL,
                 false
             )
+            adapter = cardReviewAdapter
             setHasFixedSize(true)
             addItemDecoration(CardReviewAdapter.MarginItemDecoration(16.dpToPx))
         }
@@ -219,8 +230,39 @@ class DetailActivity : AppCompatActivity() {
                     }
                     val data = it.data.data
                     cardReviewAdapter.submitList(data)
-                    binding.rvReview.adapter = cardReviewAdapter
+                }
+                is Result.Error -> {
+                    val toast = Toast.makeText(this, it.error, Toast.LENGTH_LONG)
+                    toast.show()
+                }
+            }
+        }
+    }
 
+    private fun setSimilarities() {
+        binding.rvSimilarities.apply {
+            layoutManager = LinearLayoutManager(
+                this@DetailActivity,
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+            setHasFixedSize(true)
+            addItemDecoration(CardAdapter.MarginItemDecoration(16.dpToPx))
+        }
+        detailViewModel.getSimilar(profileViewModel.userToken, hotel.id).observe(this) {
+            when (it) {
+                is Result.Loading -> {
+                    binding.rvSimilarities.visibility = View.GONE
+                }
+                is Result.Success -> {
+                    binding.apply {
+                        shimmerSimilarities.stopShimmer()
+                        shimmerSimilarities.visibility = View.GONE
+                        rvSimilarities.visibility = View.VISIBLE
+                    }
+                    val data = it.data.data
+                    similaritiesAdapter.submitList(data)
+                    binding.rvSimilarities.adapter = similaritiesAdapter
                 }
                 is Result.Error -> {
                     val toast = Toast.makeText(this, it.error, Toast.LENGTH_LONG)
