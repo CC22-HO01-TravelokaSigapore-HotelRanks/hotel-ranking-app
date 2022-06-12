@@ -38,7 +38,7 @@ class ProfileRepository(
         HobbyEntity(1, R.string.selfie, "selfie", R.drawable.ic_baseline_camera_alt_24),
         HobbyEntity(2, R.string.hiking, "hiking", R.drawable.ic_baseline_landscape_24),
         HobbyEntity(3, R.string.eating, "eating", R.drawable.ic_baseline_local_dining_24),
-        HobbyEntity(4, R.string.traveling, "traveling", R.drawable.ic_baseline_card_travel_24),
+        HobbyEntity(4, R.string.travelling, "travelling", R.drawable.ic_baseline_card_travel_24),
         HobbyEntity(5, R.string.shopping, "shopping", R.drawable.ic_baseline_shopping_cart_24),
         HobbyEntity(6, R.string.swimming, "swimming", R.drawable.ic_pool),
     )
