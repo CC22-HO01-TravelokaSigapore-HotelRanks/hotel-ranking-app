@@ -92,7 +92,7 @@ class HomeLoggedInFragment : Fragment() {
                             )
 
                             reviewIndicator.progress = review.times(10)
-                            if (review <= 10) {
+                            if (review < 10) {
                                 reviewIndicator.isVisible = true
                                 btnForYou.isEnabled = false
                                 btnForYou.isClickable = false
