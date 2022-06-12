@@ -42,7 +42,7 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (profileViewModel.getCurrentProfile().value?.id != null) {
+        if (profileViewModel.getCurrentProfile().value?.id == null) {
             loadProfile()
         } else {
             initializeProfileData()
