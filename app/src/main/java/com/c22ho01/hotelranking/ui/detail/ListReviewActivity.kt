@@ -76,9 +76,12 @@ class ListReviewActivity : AppCompatActivity() {
                     else -> false
                 }
             if (loading) {
-                binding.pbReview.visibility = View.VISIBLE
+                binding.shimmerDetailReview.startShimmer()
+                binding.rvReviews.visibility = View.GONE
             } else {
-                binding.pbReview.visibility = View.GONE
+                binding.rvReviews.visibility = View.VISIBLE
+                binding.shimmerDetailReview.stopShimmer()
+                binding.shimmerDetailReview.visibility = View.GONE
             }
             val idle = when {
                 loadState.refresh is LoadState.NotLoading -> true
