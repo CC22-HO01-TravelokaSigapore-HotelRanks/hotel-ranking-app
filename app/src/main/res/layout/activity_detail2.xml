@@ -29,8 +29,10 @@
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingBottom="16dp">
 
             <com.denzcoskun.imageslider.ImageSlider
                 android:id="@+id/image_slider"
@@ -144,13 +146,14 @@
                         app:layout_constraintStart_toEndOf="@id/imageButtonReviews"
                         app:layout_constraintTop_toTopOf="@+id/imageButtonReviews" />
 
-                    <ImageView
+                    <ImageButton
                         android:id="@+id/iconReviewDetail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:contentDescription="@string/all_reviews"
                         android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+                        android:backgroundTint="@android:color/transparent"
                         app:layout_constraintBottom_toBottomOf="@+id/reviewTitle"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/reviewTitle"
@@ -440,12 +443,13 @@
                         app:layout_constraintStart_toEndOf="@id/imageButtonLocation"
                         app:layout_constraintTop_toTopOf="@+id/imageButtonLocation" />
 
-                    <ImageView
+                    <ImageButton
                         android:id="@+id/iconLocationDetail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/location_detail"
                         android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+                        android:backgroundTint="@android:color/transparent"
                         app:layout_constraintBottom_toBottomOf="@+id/locationTitle"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/locationTitle"
@@ -472,6 +476,28 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvSimilarities"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/hotel_similarities"
+                android:textAppearance="@style/TextAppearance.HotelRanking.TitleMedium"
+                app:layout_constraintStart_toStartOf="@+id/locationCard"
+                app:layout_constraintTop_toBottomOf="@+id/locationCard" />
+
+            <ImageButton
+                android:id="@+id/btnSimilarities"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@android:color/transparent"
+                android:src="@drawable/ic_forward"
+                app:layout_constraintBottom_toBottomOf="@+id/tvSimilarities"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvSimilarities"
+                tools:ignore="ContentDescription,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
             <FrameLayout
                 android:id="@+id/similarities"
                 android:layout_width="0dp"
@@ -479,7 +505,7 @@
                 android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/locationCard">
+                app:layout_constraintTop_toBottomOf="@+id/tvSimilarities">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvSimilarities"

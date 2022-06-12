@@ -36,7 +36,7 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var factory: ViewModelFactory
     private val reviewViewModel: ReviewViewModel by viewModels { factory }
     private val profileViewModel: ProfileViewModel by viewModels { factory }
-    private val detailViewModel: DetailViewModel by viewModels{ factory }
+    private val detailViewModel: DetailViewModel by viewModels { factory }
     private lateinit var cardReviewAdapter: CardReviewAdapter
     private lateinit var similaritiesAdapter: CardAdapter
     private lateinit var bottomSheetDialog: BottomSheetDialog
@@ -93,14 +93,19 @@ class DetailActivity : AppCompatActivity() {
 
     private fun checkLoginStatus() {
         val profileId = profileViewModel.getProfileID()
-        if (profileId != null) {
+        val userToken = profileViewModel.userToken
+        if (profileId != null && userToken != "") {
             setSimilarities()
             binding.btnPost.setOnClickListener {
                 openBottomSheet(profileId.toInt())
             }
         } else {
-            binding.layoutReview.removeView(binding.btnPost)
-            binding.similarities.visibility = View.GONE
+            binding.apply {
+                btnPost.visibility = View.GONE
+                similarities.visibility = View.GONE
+                tvSimilarities.visibility = View.GONE
+                btnSimilarities.visibility = View.GONE
+            }
         }
     }
 
@@ -234,7 +239,7 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun setSimilarities(){
+    private fun setSimilarities() {
         binding.rvSimilarities.apply {
             layoutManager = LinearLayoutManager(
                 this@DetailActivity,
