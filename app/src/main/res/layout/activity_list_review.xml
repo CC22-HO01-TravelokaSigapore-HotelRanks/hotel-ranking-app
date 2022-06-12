@@ -17,7 +17,7 @@
             android:background="?android:attr/windowBackground"
             app:layout_collapseMode="parallax"
             app:navigationIcon="@drawable/ic_back"
-            app:titleTextAppearance="?attr/textAppearanceTitleMedium"/>
+            app:titleTextAppearance="?attr/textAppearanceTitleMedium" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -68,6 +68,7 @@
             app:layout_constraintStart_toEndOf="@id/ratingText"
             app:layout_constraintTop_toTopOf="@+id/ratingBar"
             tools:text="(100 Reviews)" />
+
         <ProgressBar
             android:id="@+id/pbReview"
             style="?android:attr/progressBarStyleHorizontal"

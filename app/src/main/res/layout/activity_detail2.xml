@@ -151,9 +151,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
+                        android:backgroundTint="@android:color/transparent"
                         android:contentDescription="@string/all_reviews"
                         android:src="@drawable/ic_baseline_arrow_forward_ios_24"
-                        android:backgroundTint="@android:color/transparent"
                         app:layout_constraintBottom_toBottomOf="@+id/reviewTitle"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/reviewTitle"
@@ -403,8 +403,8 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                style="?attr/materialCardViewFilledStyle"
                 android:id="@+id/locationCard"
+                style="?attr/materialCardViewFilledStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="24dp"
@@ -447,9 +447,9 @@
                         android:id="@+id/iconLocationDetail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:backgroundTint="@android:color/transparent"
                         android:contentDescription="@string/location_detail"
                         android:src="@drawable/ic_baseline_arrow_forward_ios_24"
-                        android:backgroundTint="@android:color/transparent"
                         app:layout_constraintBottom_toBottomOf="@+id/locationTitle"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/locationTitle"
