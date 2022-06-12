@@ -17,7 +17,7 @@ class DetailViewModel(private val hotelRepository: HotelRepository) : ViewModel(
         this._hotelData.value = hotelData
     }
 
-    fun getSimilar(token: String, hotelId: Int):LiveData<Result<HotelResponse>>{
+    fun getSimilar(token: String, hotelId: Int): LiveData<Result<HotelResponse>> {
         return hotelRepository.getSimilar(token, hotelId)
     }
 
