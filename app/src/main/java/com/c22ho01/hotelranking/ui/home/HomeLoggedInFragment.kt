@@ -59,7 +59,9 @@ class HomeLoggedInFragment : Fragment() {
         trendingAdapter = CardAdapter()
         locationAdapter = CardLocationAdapter()
         userRecommendationAdapter = CardAdapter()
-        userLocation = UserLocation()
+        userLocation = UserLocation(
+            userId = profileViewModel.getProfileID() ?: -1,
+        )
 
         return binding?.root
     }
@@ -264,7 +266,7 @@ class HomeLoggedInFragment : Fragment() {
                 if (location != null) {
                     USER_LAT = location.latitude
                     USER_LONG = location.longitude
-                    userLocation = UserLocation(
+                    userLocation = userLocation.copy(
                         longitude = USER_LONG,
                         latitude = USER_LAT
                     )

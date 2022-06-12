@@ -75,6 +75,8 @@ data class HotelData(
 
 @Parcelize
 data class UserLocation(
+    @SerializedName("user_id")
+    val userId: Int? = null,
 
     @SerializedName("latitude")
     val longitude: Double? = null,
