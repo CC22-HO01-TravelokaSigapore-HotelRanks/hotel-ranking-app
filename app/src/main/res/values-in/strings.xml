@@ -65,8 +65,8 @@
     <string name="identity_number_req">Nomor identitas*</string>
     <string name="birth_date_req">Tanggal lahir (DD/MM/YYYY)*</string>
     <string name="prefer_to_go_with_your_family_req">Lebih suka bepergian dengan keluarga?*</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
+    <string name="yes">Ya</string>
+    <string name="no">Tidak</string>
     <string name="select_hobbies_req">Silakan pilih hobi dibawah (minimal 1)*:</string>
     <string name="selfie">Selfie</string>
     <string name="hiking">Naik gunung</string>
