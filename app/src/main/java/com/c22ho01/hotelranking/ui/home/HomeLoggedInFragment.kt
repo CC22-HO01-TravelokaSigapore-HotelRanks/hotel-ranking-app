@@ -30,7 +30,9 @@ import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
 import com.c22ho01.hotelranking.viewmodel.hotel.HomeViewModel
 import com.c22ho01.hotelranking.viewmodel.profile.ProfileViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.tasks.CancellationTokenSource
 import java.util.*
 
 class HomeLoggedInFragment : Fragment() {
@@ -53,7 +55,9 @@ class HomeLoggedInFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeLoggedInBinding.inflate(inflater, container, false)
+
         fusedLocation = LocationServices.getFusedLocationProviderClient(requireContext())
+
         factory = ViewModelFactory.getInstance(requireContext())
         topRatedAdapter = CardAdapter()
         trendingAdapter = CardAdapter()
@@ -262,50 +266,54 @@ class HomeLoggedInFragment : Fragment() {
         if (checkPermission(Manifest.permission.ACCESS_FINE_LOCATION) &&
             checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
         ) {
-            fusedLocation.lastLocation.addOnSuccessListener { location: Location? ->
-                if (location != null) {
-                    USER_LAT = location.latitude
-                    USER_LONG = location.longitude
-                    userLocation = userLocation.copy(
-                        longitude = USER_LONG,
-                        latitude = USER_LAT
-                    )
-
-                    binding?.rvNearLocation?.apply {
-                        layoutManager = LinearLayoutManager(
-                            context,
-                            LinearLayoutManager.HORIZONTAL,
-                            false
+            var isExecuted = false
+            val cts = CancellationTokenSource()
+            fusedLocation.getCurrentLocation(LocationRequest.PRIORITY_HIGH_ACCURACY, cts.token)
+                .addOnSuccessListener { location: Location? ->
+                    if(isExecuted) return@addOnSuccessListener
+                    isExecuted = true
+                    if (location != null) {
+                        USER_LAT = location.latitude
+                        USER_LONG = location.longitude
+                        userLocation = userLocation.copy(
+                            longitude = USER_LONG,
+                            latitude = USER_LAT
                         )
-                        adapter = locationAdapter
-                        setHasFixedSize(true)
-                        addItemDecoration(CardLocationAdapter.MarginItemDecoration(16.dpToPx))
-                    }
+                        binding?.rvNearLocation?.apply {
+                            layoutManager = LinearLayoutManager(
+                                context,
+                                LinearLayoutManager.HORIZONTAL,
+                                false
+                            )
+                            adapter = locationAdapter
+                            setHasFixedSize(true)
+                            addItemDecoration(CardLocationAdapter.MarginItemDecoration(16.dpToPx))
+                        }
 
-                    homeViewModel.getLocation(profileViewModel.userToken, userLocation)
-                        .observe(viewLifecycleOwner) {
-                            when (it) {
-                                is Result.Loading -> {
-                                    binding?.rvNearLocation?.visibility = View.GONE
-                                }
-                                is Result.Success -> {
-                                    binding?.apply {
-                                        shimmerLocation.stopShimmer()
-                                        shimmerLocation.visibility = View.GONE
-                                        rvNearLocation.visibility = View.VISIBLE
+                        homeViewModel.getLocation(profileViewModel.userToken, userLocation)
+                            .observe(viewLifecycleOwner) {
+                                when (it) {
+                                    is Result.Loading -> {
+                                        binding?.rvNearLocation?.visibility = View.GONE
                                     }
-                                    val data = it.data.data
-                                    locationAdapter.submitList(data)
-                                }
-                                else -> {
-                                    //error message
+                                    is Result.Success -> {
+                                        binding?.apply {
+                                            shimmerLocation.stopShimmer()
+                                            shimmerLocation.visibility = View.GONE
+                                            rvNearLocation.visibility = View.VISIBLE
+                                        }
+                                        val data = it.data.data
+                                        locationAdapter.submitList(data)
+                                    }
+                                    else -> {
+                                        //error message
+                                    }
                                 }
                             }
-                        }
-                } else {
-                    // no location found
+                    } else {
+                        // no location found
+                    }
                 }
-            }
         } else {
             requestPermissionLauncher.launch(
                 arrayOf(
