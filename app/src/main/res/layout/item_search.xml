@@ -26,20 +26,23 @@
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardRefund"
             style="@style/Widget.Material3.CardView.Filled"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:cardBackgroundColor="?attr/colorTertiaryContainer"
             app:cardCornerRadius="0dp"
+            app:layout_constraintEnd_toEndOf="@+id/imgHotel"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvRefund"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="4dp"
                 android:paddingVertical="2dp"
                 android:text="@string/free_refund"
+                android:textAlignment="center"
+                app:lineHeight="12dp"
                 android:textAppearance="@style/TextAppearance.HotelRanking.LabelSmall"
                 android:textColor="?attr/colorOnTertiaryContainer" />
 
