@@ -66,7 +66,7 @@ class TokenRepositoryTest {
     fun getToken_shouldReturnToken() =
         mainCoroutineRulesInstTest.scope.runTest {
             testDataStore.edit { it[tokenPreference] = testToken }
-            val actualToken = tokenRepository.getToken().asLiveData().getOrAwaitValue()
+            val actualToken = tokenRepository.getToken().getOrAwaitValue()
             Assert.assertNotNull(actualToken)
             Assert.assertEquals(testToken, actualToken)
         }

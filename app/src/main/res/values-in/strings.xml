@@ -36,7 +36,7 @@
     <string name="navbar_home">Beranda</string>
     <string name="navbar_order">Pesanan</string>
     <string name="navbar_explore">Jelajahi</string>
-    <string name="navbar_notification">Motifikasi</string>
+    <string name="navbar_notification">Notifikasi</string>
     <string name="navbar_profile">Profil</string>
     <string name="hotel_photo">Gambar hotel</string>
     <string name="check_it_out">Periksa sekarang!</string>
@@ -71,7 +71,7 @@
     <string name="selfie">Selfie</string>
     <string name="hiking">Naik gunung</string>
     <string name="eating">Makan</string>
-    <string name="traveling">Bepergian</string>
+    <string name="travelling">Bepergian</string>
     <string name="shopping">Belanja</string>
     <string name="swimming">Berenang</string>
     <string name="let_us_know_if_you_have_any_special_needs">Beritahu kami jika kamu mempunyai kebutuhan khusus.</string>

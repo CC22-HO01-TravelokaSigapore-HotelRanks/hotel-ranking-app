@@ -119,7 +119,7 @@ class ProfileInstrumentTest {
                 ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE),
                 isDisplayed()
             )
-        ).perform(click())
+        ).perform(scrollTo(), click())
         onView(
             CoreMatchers.allOf(
                 withText(dummyHobby2),
