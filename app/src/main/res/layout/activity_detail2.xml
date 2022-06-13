@@ -58,14 +58,14 @@
 
             <TextView
                 android:id="@+id/tvPrice"
+                style="@style/TextAppearance.HotelRanking.TitleLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                style="@style/TextAppearance.HotelRanking.TitleLarge"
-                android:textColor="?attr/colorError"
                 android:text="@string/price"
-                app:layout_constraintTop_toBottomOf="@id/tvHotelName"
-                app:layout_constraintStart_toStartOf="@id/tvHotelName"/>
+                android:textColor="?attr/colorError"
+                app:layout_constraintStart_toStartOf="@id/tvHotelName"
+                app:layout_constraintTop_toBottomOf="@id/tvHotelName" />
 
             <ImageView
                 android:id="@+id/hotelLocationIcon"
