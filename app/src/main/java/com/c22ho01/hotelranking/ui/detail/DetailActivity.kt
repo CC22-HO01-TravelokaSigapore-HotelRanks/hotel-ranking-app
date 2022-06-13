@@ -18,11 +18,11 @@ import com.c22ho01.hotelranking.data.local.entity.ProfileEntity
 import com.c22ho01.hotelranking.data.remote.response.hotel.HotelData
 import com.c22ho01.hotelranking.databinding.ActivityDetail2Binding
 import com.c22ho01.hotelranking.databinding.SheetPostReviewBinding
+import com.c22ho01.hotelranking.utils.dpToPx
 import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
 import com.c22ho01.hotelranking.viewmodel.hotel.DetailViewModel
 import com.c22ho01.hotelranking.viewmodel.profile.ProfileViewModel
 import com.c22ho01.hotelranking.viewmodel.review.ReviewViewModel
-import com.c22ho01.hotelranking.viewmodel.utils.dpToPx
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
 import com.google.android.material.bottomsheet.BottomSheetDialog

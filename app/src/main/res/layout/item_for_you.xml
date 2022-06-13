@@ -97,7 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/start_from"
+            android:text="@string/start"
             android:textAppearance="@style/TextAppearance.HotelRanking.LabelSmall"
             app:layout_constraintBottom_toTopOf="@+id/tvPrice"
             app:layout_constraintStart_toStartOf="@+id/rb_rating" />

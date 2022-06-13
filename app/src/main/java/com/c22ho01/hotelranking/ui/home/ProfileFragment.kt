@@ -2,6 +2,7 @@ package com.c22ho01.hotelranking.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
+import java.util.*
 
 class ProfileFragment : Fragment() {
 
@@ -52,8 +54,20 @@ class ProfileFragment : Fragment() {
             isDarkMode(it)
         }
 
+        changeLanguage()
         switchTheme()
         signOut()
+    }
+
+    private fun changeLanguage() {
+        binding?.languageButton?.setOnClickListener {
+            startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
+        }
+
+        when (Locale.getDefault().country) {
+            "US" -> binding?.tvLanguage?.text = getString(R.string.english_us)
+            "ID" -> binding?.tvLanguage?.text = getString(R.string.indonesian)
+        }
     }
 
     private fun signOut() {
