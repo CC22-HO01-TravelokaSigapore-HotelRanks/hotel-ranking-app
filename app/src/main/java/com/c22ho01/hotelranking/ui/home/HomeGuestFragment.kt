@@ -12,9 +12,9 @@ import com.c22ho01.hotelranking.adapter.CardAdapter
 import com.c22ho01.hotelranking.data.Result
 import com.c22ho01.hotelranking.databinding.FragmentHomeGuestBinding
 import com.c22ho01.hotelranking.ui.auth.AuthActivity
+import com.c22ho01.hotelranking.utils.dpToPx
 import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
 import com.c22ho01.hotelranking.viewmodel.hotel.HomeViewModel
-import com.c22ho01.hotelranking.viewmodel.utils.dpToPx
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 

@@ -1,4 +1,4 @@
-package com.c22ho01.hotelranking.viewmodel.utils
+package com.c22ho01.hotelranking.utils
 
 import android.content.res.Resources
 

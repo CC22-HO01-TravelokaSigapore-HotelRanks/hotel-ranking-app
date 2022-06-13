@@ -25,10 +25,10 @@ import com.c22ho01.hotelranking.data.remote.response.hotel.UserLocation
 import com.c22ho01.hotelranking.databinding.FragmentHomeLoggedInBinding
 import com.c22ho01.hotelranking.ui.foryou.ForYouActivity
 import com.c22ho01.hotelranking.ui.profile.ProfileCustomizeActivity
+import com.c22ho01.hotelranking.utils.dpToPx
 import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
 import com.c22ho01.hotelranking.viewmodel.hotel.HomeViewModel
 import com.c22ho01.hotelranking.viewmodel.profile.ProfileViewModel
-import com.c22ho01.hotelranking.viewmodel.utils.dpToPx
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import java.util.*
