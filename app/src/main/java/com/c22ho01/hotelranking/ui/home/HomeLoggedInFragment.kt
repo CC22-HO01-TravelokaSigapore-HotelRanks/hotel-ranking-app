@@ -30,8 +30,8 @@ import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
 import com.c22ho01.hotelranking.viewmodel.hotel.HomeViewModel
 import com.c22ho01.hotelranking.viewmodel.profile.ProfileViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
 import com.google.android.gms.tasks.CancellationTokenSource
 import java.util.*
 
@@ -268,7 +268,7 @@ class HomeLoggedInFragment : Fragment() {
         ) {
             var isExecuted = false
             val cts = CancellationTokenSource()
-            fusedLocation.getCurrentLocation(LocationRequest.PRIORITY_HIGH_ACCURACY, cts.token)
+            fusedLocation.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, cts.token)
                 .addOnSuccessListener { location: Location? ->
                     if (isExecuted) return@addOnSuccessListener
                     isExecuted = true
