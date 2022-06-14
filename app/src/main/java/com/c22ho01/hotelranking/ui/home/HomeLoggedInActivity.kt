@@ -2,6 +2,7 @@ package com.c22ho01.hotelranking.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
@@ -12,6 +13,7 @@ import com.c22ho01.hotelranking.databinding.ActivityHomeLoggedInBinding
 import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
 import com.c22ho01.hotelranking.viewmodel.utils.TokenViewModel
 import com.c22ho01.hotelranking.viewmodel.utils.TokenWorker
+import com.c22ho01.hotelranking.viewmodel.utils.TokenWorker.Companion.NEW_TOKEN
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.concurrent.TimeUnit
 
@@ -22,6 +24,8 @@ class HomeLoggedInActivity : AppCompatActivity() {
         ViewModelFactory.getInstance(this)
     }
     private lateinit var workManager: WorkManager
+    private lateinit var periodicRefreshToken: PeriodicWorkRequest
+    private lateinit var token: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,10 +57,10 @@ class HomeLoggedInActivity : AppCompatActivity() {
                         .setRequiredNetworkType(NetworkType.CONNECTED)
                         .build()
 
-                    val periodicRefreshToken = PeriodicWorkRequest.Builder(
+                    periodicRefreshToken = PeriodicWorkRequest.Builder(
                         TokenWorker::class.java,
-                        15,
-                        TimeUnit.MINUTES
+                        PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS,
+                        TimeUnit.MILLISECONDS
                     )
                         .setInputData(data)
                         .setConstraints(constraints)
@@ -68,15 +72,22 @@ class HomeLoggedInActivity : AppCompatActivity() {
                         ExistingPeriodicWorkPolicy.KEEP,
                         periodicRefreshToken
                     )
+
+                    workManager.getWorkInfoByIdLiveData(periodicRefreshToken.id)
+                        .observe(this@HomeLoggedInActivity) {
+                            Log.e("STATE", it.outputData.getString(NEW_TOKEN) ?: "kosong")
+                            Log.e("STATE", it.outputData.getString(NEW_TOKEN) ?: "kosong")
+                            if (it != null && it.state.isFinished) {
+                                token = it.outputData.getString(NEW_TOKEN) ?: "kosong"
+                                tokenViewModel.setAccessToken(token)
+                            }
+                        }
                 }
-            }
-            if (TokenWorker.NEW_ACCESS_TOKEN?.isNotBlank() == true) {
-                setAccessToken(TokenWorker.NEW_ACCESS_TOKEN.toString())
             }
         }
     }
 
     companion object {
-        private val TOKEN_WORKER = TokenWorker::class.java.simpleName
+        private val TOKEN_WORKER: String = TokenWorker::class.java.simpleName
     }
 }
