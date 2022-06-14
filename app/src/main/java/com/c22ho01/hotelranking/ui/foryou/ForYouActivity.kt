@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.c22ho01.hotelranking.adapter.ListForYouAdapter
+import com.c22ho01.hotelranking.adapter.SearchAdapter
 import com.c22ho01.hotelranking.data.Result
 import com.c22ho01.hotelranking.data.remote.response.hotel.UserLocation
 import com.c22ho01.hotelranking.databinding.ActivityForYouBinding
@@ -50,10 +51,14 @@ class ForYouActivity : AppCompatActivity() {
                     }
                     is Result.Success -> {
                         showLoading(false)
-                        binding?.rvForYou?.run {
+                        binding?.rvForYou?.apply {
                             forYouAdapter.submitList(result.data.data)
                             adapter = forYouAdapter
                             layoutManager = LinearLayoutManager(this@ForYouActivity)
+                            addItemDecoration(
+                                SearchAdapter.MarginItemDecoration(48)
+                            )
+                            setHasFixedSize(true)
                         }
                     }
                     is Result.Error -> {
