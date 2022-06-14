@@ -53,7 +53,6 @@ class SearchActivity : AppCompatActivity() {
             if (loading) {
                 binding.progressIndicator.visibility = View.VISIBLE
             } else {
-                binding.searchBar.customSearchBar.requestFocus()
                 binding.progressIndicator.visibility = View.GONE
             }
 
@@ -75,7 +74,7 @@ class SearchActivity : AppCompatActivity() {
                 loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
                 else -> null
             }
-            if (error != null) {
+            if (error?.error?.message?.isNotBlank() == true) {
                 Snackbar.make(
                     binding.root,
                     error.error.message.toString(),
@@ -112,16 +111,18 @@ class SearchActivity : AppCompatActivity() {
         }
 
         binding.apply {
-            searchBar.customSearchBar.requestFocus()
+            etKeyword.requestFocus()
             btnCancel.setOnClickListener { onBackPressed() }
         }
     }
 
     private fun setupAction() {
-        binding.searchBar.apply {
+        binding.apply {
             etKeyword.setOnKeyListener { v, keyCode, event ->
                 if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                    binding.progressIndicator.visibility = View.VISIBLE
+                    binding.apply {
+                        progressIndicator.visibility = View.VISIBLE
+                    }
                     val keyword = etKeyword.text.toString().trim()
                     searchHotel(keyword)
                     hideSoftKeyboard(v)

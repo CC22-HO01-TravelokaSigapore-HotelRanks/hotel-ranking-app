@@ -267,7 +267,7 @@ class AuthInstrumentationTest {
         @BeforeClass
         @JvmStatic
         fun setUpBaseUrl() {
-            APIConfig.AUTH_BASE_URL = mockWebServer.url("/").toString()
+            APIConfig.BASE_URL = mockWebServer.url("/").toString()
         }
     }
 }

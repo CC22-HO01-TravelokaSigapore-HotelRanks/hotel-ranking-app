@@ -40,9 +40,6 @@
             android:name=".ui.home.SearchActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.DummyActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.home.HomeLoggedInActivity"
             android:exported="false"
             android:launchMode="singleTop"

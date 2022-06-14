@@ -7,42 +7,40 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object APIConfig {
-    var AUTH_BASE_URL = "https://test1-ywu6raktuq-uc.a.run.app/"
-    private const val HOTEL_BASE_URL = "https://hotel-test-ywu6raktuq-uc.a.run.app/"
-    private const val REVIEW_BASE_URL = "https://review-ywu6raktuq-uc.a.run.app/"
+    var BASE_URL = "https://hotel-recommendation-system-18j6qgxy.uc.gateway.dev/"
 
-    private fun getRetrofit(url: String): Retrofit {
+    private fun getRetrofit(): Retrofit {
         val loggingInterceptor =
             HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
         val client = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
+            .connectTimeout(60, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
             .build()
         return Retrofit.Builder()
-            .baseUrl(url)
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
     }
 
     fun getAuthAPIService(): AuthService {
-        val retrofit = getRetrofit(AUTH_BASE_URL)
+        val retrofit = getRetrofit()
         return retrofit.create(AuthService::class.java)
     }
 
     fun getHotelApiService(): HotelService {
-        val retrofit = getRetrofit(HOTEL_BASE_URL)
+        val retrofit = getRetrofit()
         return retrofit.create(HotelService::class.java)
     }
 
     fun getProfileAPIService(): ProfileService {
-        val retrofit = getRetrofit(AUTH_BASE_URL)
+        val retrofit = getRetrofit()
         return retrofit.create(ProfileService::class.java)
     }
 
     fun getReviewAPIService(): ReviewService {
-        val retrofit = getRetrofit(REVIEW_BASE_URL)
+        val retrofit = getRetrofit()
         return retrofit.create(ReviewService::class.java)
     }
 }
