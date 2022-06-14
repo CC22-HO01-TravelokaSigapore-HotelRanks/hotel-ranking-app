@@ -270,7 +270,7 @@ class HomeLoggedInFragment : Fragment() {
             val cts = CancellationTokenSource()
             fusedLocation.getCurrentLocation(LocationRequest.PRIORITY_HIGH_ACCURACY, cts.token)
                 .addOnSuccessListener { location: Location? ->
-                    if(isExecuted) return@addOnSuccessListener
+                    if (isExecuted) return@addOnSuccessListener
                     isExecuted = true
                     if (location != null) {
                         USER_LAT = location.latitude

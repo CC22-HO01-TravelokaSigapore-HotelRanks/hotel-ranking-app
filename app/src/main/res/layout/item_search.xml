@@ -42,9 +42,9 @@
                 android:paddingVertical="2dp"
                 android:text="@string/free_refund"
                 android:textAlignment="center"
-                app:lineHeight="12dp"
                 android:textAppearance="@style/TextAppearance.HotelRanking.LabelSmall"
-                android:textColor="?attr/colorOnTertiaryContainer" />
+                android:textColor="?attr/colorOnTertiaryContainer"
+                app:lineHeight="12dp" />
 
         </com.google.android.material.card.MaterialCardView>
 
