@@ -141,6 +141,7 @@ class ProfileCustomizeActivity : AppCompatActivity() {
     private fun setupHobbiesChipGroupValidation(initialSelected: List<HobbyEntity?>? = listOf()) {
         binding?.cgHobbiesGroup?.removeAllViews()
         val hobbyList = profileCustomViewModel.getAllHobbyList()
+        val initialHobbyList: MutableList<HobbyEntity> = mutableListOf()
         for (hobby in hobbyList) {
             val chip = Chip(this)
             val typedValue = TypedValue()
@@ -160,16 +161,18 @@ class ProfileCustomizeActivity : AppCompatActivity() {
                 }
                 if (initialSelected?.contains(hobby) == true) {
                     isChecked = true
-                    profileCustomViewModel.setHobbyChecked(hobby, true)
+                    initialHobbyList.add(hobby)
                 }
             }
             binding?.cgHobbiesGroup?.addView(chip)
         }
+        profileCustomViewModel.setSelectedHobbies(initialHobbyList)
     }
 
     private fun setupDisabilitiesChipGroupValidation(initialSelected: List<DisabilityEntity?>? = listOf()) {
         binding?.cgDisabilitiesGroup?.removeAllViews()
         val disabilityList = profileCustomViewModel.getAllDisabilityList()
+        val initialDisabilityList: MutableList<DisabilityEntity> = mutableListOf()
         for (disability in disabilityList) {
             val chip = Chip(this)
             val typedValue = TypedValue()
@@ -191,12 +194,11 @@ class ProfileCustomizeActivity : AppCompatActivity() {
                 }
                 if (initialSelected?.contains(disability) == true) {
                     isChecked = true
-                    profileCustomViewModel.setDisabilityChecked(disability, true)
                 }
             }
             binding?.cgDisabilitiesGroup?.addView(chip)
         }
-
+        profileCustomViewModel.setSelectedDisabilities(initialDisabilityList)
     }
 
     private fun customizeProfile() {
