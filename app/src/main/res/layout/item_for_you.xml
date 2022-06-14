@@ -5,10 +5,8 @@
     style="?attr/materialCardViewElevatedStyle"
     android:layout_width="match_parent"
     android:layout_height="115dp"
-    android:layout_marginTop="8dp"
-    android:layout_marginBottom="8dp"
-    android:backgroundTint="?attr/colorSurface"
-    app:cardElevation="8dp">
+    android:layout_marginHorizontal="16dp"
+    android:backgroundTint="?attr/colorSurface">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -58,8 +56,9 @@
             android:layout_marginEnd="2dp"
             android:ellipsize="end"
             android:maxLines="2"
-            android:textAppearance="@style/TextAppearance.HotelRanking.TitleMedium"
-            android:textColor="?attr/colorOnSurfaceVariant"
+            android:minLines="2"
+            android:textAppearance="@style/TextAppearance.HotelRanking.LabelMedium"
+            android:textColor="?attr/colorOnSurface"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/im_hotel_img"
             app:layout_constraintTop_toTopOf="@id/im_hotel_img"
