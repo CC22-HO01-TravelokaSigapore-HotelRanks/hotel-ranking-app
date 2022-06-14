@@ -270,6 +270,7 @@
                     android:visibility="gone"
                     app:indicatorColor="?attr/colorTertiary"
                     app:trackColor="?attr/colorPrimaryContainer"
+                    app:trackCornerRadius="12dp"
                     tools:progress="10"
                     tools:visibility="visible" />
 

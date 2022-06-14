@@ -39,6 +39,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 app:iss_delay="0"
+                app:iss_error_image="@drawable/ic_baseline_broken_image_24"
+                app:iss_placeholder="@drawable/ic_baseline_image_24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
