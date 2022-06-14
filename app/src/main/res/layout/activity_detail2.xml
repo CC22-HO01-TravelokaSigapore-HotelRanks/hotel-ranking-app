@@ -43,7 +43,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvHotelName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -56,7 +56,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/image_slider" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvPrice"
                 style="@style/TextAppearance.HotelRanking.TitleLarge"
                 android:layout_width="wrap_content"
@@ -78,7 +78,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvPrice"
                 app:tint="?attr/colorPrimary" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -102,7 +102,7 @@
                 app:tint="?attr/colorPrimary"
                 tools:ignore="ImageContrastCheck" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvRating"
                 style="@style/TextAppearance.HotelRanking.LabelMedium"
                 android:layout_width="wrap_content"
@@ -145,7 +145,7 @@
                         app:layout_constraintTop_toTopOf="parent"
                         tools:ignore="DuplicateSpeakableTextCheck,TouchTargetSizeCheck" />
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
 
                         android:id="@+id/reviewTitle"
                         android:layout_width="wrap_content"
@@ -259,7 +259,7 @@
                         tools:ignore="DuplicateSpeakableTextCheck,TouchTargetSizeCheck" />
 
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/facilitiesTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -444,7 +444,7 @@
                         app:layout_constraintTop_toTopOf="parent"
                         tools:ignore="DuplicateSpeakableTextCheck,TouchTargetSizeCheck" />
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/locationTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -486,17 +486,6 @@
                             android:nestedScrollingEnabled="false" />
 
                     </com.google.android.material.card.MaterialCardView>
-
-                    <Button
-                        android:id="@+id/btn_login"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="@string/open_maps"
-                        app:layout_constraintEnd_toEndOf="@+id/cardMaps"
-                        app:layout_constraintStart_toStartOf="@+id/cardMaps"
-                        app:layout_constraintTop_toBottomOf="@+id/cardMaps" />
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 

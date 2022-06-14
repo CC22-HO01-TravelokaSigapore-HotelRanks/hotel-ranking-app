@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvUsername"
             style="@style/TextAppearance.HotelRanking.LabelMedium"
             android:layout_width="wrap_content"
@@ -37,7 +37,7 @@
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@id/tvUsername" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvRating"
             style="@style/TextAppearance.HotelRanking.LabelSmall"
             android:layout_width="wrap_content"
@@ -48,7 +48,7 @@
             card_view:layout_constraintStart_toEndOf="@id/ratingBar"
             card_view:layout_constraintTop_toTopOf="@+id/ratingBar" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvReview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
             card_view:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="16dp" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
