@@ -23,7 +23,6 @@
     <string name="error_required">Field must not be empty</string>
     <string name="username">Username</string>
     <string name="password_confirmation">Confirm password</string>
-    <string name="login_success">Login success.</string>
     <string name="register_success">Register success.</string>
     <string name="search_hint">Search hotel</string>
     <string name="not_logged_in">You’re not logged in. Login first to enjoy interesting promotions!</string>
@@ -122,7 +121,6 @@
     <string name="evening">Good evening,</string>
     <string name="review_counter">Current review: %1$d</string>
     <string name="name">%1$s.</string>
-    <string name="please_wait">Please Wait…</string>
     <string name="post_a_review">Post a review</string>
     <string name="suitable_for_you">Suitable for you</string>
     <string name="no_result_found">No result found.</string>
@@ -130,6 +128,4 @@
     <string name="hotel_similarities">Similar Hotels</string>
     <string name="indonesian">Indonesian</string>
     <string name="english_us">English US</string>
-    <string name="select_language">Please select language below.</string>
-    <string name="apply">Apply</string>
 </resources>

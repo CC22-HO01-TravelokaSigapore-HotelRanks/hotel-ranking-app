@@ -23,7 +23,6 @@
     <string name="error_required">Form tidak boleh kosong</string>
     <string name="username">Nama pengguna</string>
     <string name="password_confirmation">Konfirmasi kata sandi</string>
-    <string name="login_success">Berhasil masuk</string>
     <string name="register_success">Akun berhasil dibuat</string>
     <string name="search_hint">Cari hotel</string>
     <string name="not_logged_in">Kamu belum masuk, yuk masuk dulu dan nikmati promo-promo menariknya!</string>
@@ -122,7 +121,6 @@
     <string name="evening">Selamat malam,</string>
     <string name="review_counter">Ulasan saat ini: %1$d</string>
     <string name="name">%1$s.</string>
-    <string name="please_wait">Harap tunggu…</string>
     <string name="post_a_review">Kirim ulasan</string>
     <string name="suitable_for_you">Cocok untuk kamu</string>
     <string name="no_result_found">Tidak ada hasil.</string>
@@ -130,6 +128,4 @@
     <string name="hotel_similarities">Hotel yang mirip</string>
     <string name="indonesian">Bahasa Indonesia</string>
     <string name="english_us">Bahasa Inggris (US)</string>
-    <string name="select_language">Silakan pilih bahasa dibawah.</string>
-    <string name="apply">Terapkan</string>
 </resources>

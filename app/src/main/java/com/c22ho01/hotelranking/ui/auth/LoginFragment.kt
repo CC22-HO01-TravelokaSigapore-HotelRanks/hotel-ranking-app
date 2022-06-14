@@ -19,7 +19,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.c22ho01.hotelranking.R
 import com.c22ho01.hotelranking.data.Result
-import com.c22ho01.hotelranking.data.local.entity.ProfileEntity
 import com.c22ho01.hotelranking.data.remote.response.auth.GoogleConsentGetResponse
 import com.c22ho01.hotelranking.data.remote.response.auth.LoginResponse
 import com.c22ho01.hotelranking.data.remote.retrofit.APIConfig
@@ -46,21 +45,12 @@ class LoginFragment : Fragment() {
     private val tokenViewModel: TokenViewModel by viewModels { factory }
     private val profileViewModel: ProfileViewModel by viewModels { factory }
 
-//    private lateinit var gso: GoogleSignInOptions
-//    private lateinit var mGoogleSignInClient: GoogleSignInClient
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         factory = ViewModelFactory.getInstance(requireContext())
-//        gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//            .requestServerAuthCode(EnvUtils.getGsoClientId())
-//            .requestIdToken(EnvUtils.getGsoClientId())
-//            .requestEmail()
-//            .build()
-//        mGoogleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
         return binding?.root
     }
 
@@ -108,29 +98,6 @@ class LoginFragment : Fragment() {
         }
     }
 
-
-//    private fun loginAccountGoogle() {
-//        val signInIntent = mGoogleSignInClient.signInIntent
-//        mGoogleSignInClient.signOut()
-//        launchGoogleSignIn.launch(signInIntent)
-//    }
-//
-//    private val launchGoogleSignIn = registerForActivityResult(
-//        ActivityResultContracts.StartActivityForResult()
-//    ) { result ->
-//        if (result.resultCode == Activity.RESULT_OK) {
-//            val account = GoogleSignIn.getSignedInAccountFromIntent(result.data)
-//            account.result.serverAuthCode?.let { code ->
-//                loginViewModel.submitLoginByGoogle(code).run {
-//                    if (this.hasObservers()) this.removeObservers(viewLifecycleOwner)
-//                    this.observe(viewLifecycleOwner) {
-//                        processLoginObserverResult(it)
-//                    }
-//                }
-//            }
-//        }
-//    }
-
     @SuppressLint("SetJavaScriptEnabled", "JavascriptInterface")
     private fun loginAccountGoogle() {
         val authGoogleDialog = Dialog(requireContext())
@@ -141,7 +108,7 @@ class LoginFragment : Fragment() {
             settings.javaScriptEnabled = true
             settings.userAgentString =
                 "Mozilla/5.0 (Linux; Android 8.0; Pixel 2 Build/OPD3.170816.012) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Mobile Safari/537.36"
-            loadUrl(APIConfig.AUTH_BASE_URL + "user/login/google/consent")
+            loadUrl(APIConfig.BASE_URL + "user/login/google/consent")
             webViewClient = object : WebViewClient() {
 
                 @Override
@@ -217,44 +184,6 @@ class LoginFragment : Fragment() {
             setRefreshToken(data.loginData?.refreshToken ?: "")
             setAccessToken(data.loginData?.accessToken ?: "").invokeOnCompletion {
                 goToHome()
-//                profileViewModel.run {
-//                    loadToken()
-//                    loadProfile().run {
-//                        if (this.hasObservers()) this.removeObservers(viewLifecycleOwner)
-//                        this.observe(viewLifecycleOwner) {
-//                            processProfileObserverResult(it)
-//                        }
-//                    }
-//                }
-            }
-        }
-    }
-
-    private fun processProfileObserverResult(result: Result<ProfileEntity>) {
-        when (result) {
-            is Result.Loading -> {
-                showLoading(true)
-            }
-            is Result.Success -> {
-                showLoading(false)
-                binding?.let { fragment ->
-                    Snackbar.make(
-                        fragment.root,
-                        getString(R.string.login_success),
-                        Snackbar.LENGTH_SHORT
-                    ).show()
-                }
-                goToHome()
-            }
-            is Result.Error -> {
-                showLoading(false)
-                binding?.let { fragment ->
-                    Snackbar.make(
-                        fragment.root,
-                        result.error,
-                        Snackbar.LENGTH_LONG,
-                    ).show()
-                }
             }
         }
     }

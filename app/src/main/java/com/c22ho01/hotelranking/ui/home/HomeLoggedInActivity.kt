@@ -2,7 +2,6 @@ package com.c22ho01.hotelranking.ui.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
@@ -65,6 +64,10 @@ class HomeLoggedInActivity : AppCompatActivity() {
                         .setInputData(data)
                         .setConstraints(constraints)
                         .addTag(TOKEN_WORKER)
+                        .setInitialDelay(
+                            PeriodicWorkRequest.DEFAULT_BACKOFF_DELAY_MILLIS,
+                            TimeUnit.MILLISECONDS
+                        )
                         .build()
 
                     workManager.enqueueUniquePeriodicWork(
@@ -73,12 +76,10 @@ class HomeLoggedInActivity : AppCompatActivity() {
                         periodicRefreshToken
                     )
 
-                    workManager.getWorkInfoByIdLiveData(periodicRefreshToken.id)
+                    workManager.getWorkInfosByTagLiveData(TOKEN_WORKER)
                         .observe(this@HomeLoggedInActivity) {
-                            Log.e("STATE", it.outputData.getString(NEW_TOKEN) ?: "kosong")
-                            Log.e("STATE", it.outputData.getString(NEW_TOKEN) ?: "kosong")
-                            if (it != null && it.state.isFinished) {
-                                token = it.outputData.getString(NEW_TOKEN) ?: "kosong"
+                            token = it.last().outputData.getString(NEW_TOKEN) ?: ""
+                            if (token.isNotBlank()) {
                                 tokenViewModel.setAccessToken(token)
                             }
                         }
