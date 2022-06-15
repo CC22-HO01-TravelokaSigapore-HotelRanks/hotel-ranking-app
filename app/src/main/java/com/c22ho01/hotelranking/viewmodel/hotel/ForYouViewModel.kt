@@ -14,13 +14,13 @@ class ForYouViewModel(
     private val hotelRepository: HotelRepository,
 ) : ViewModel() {
     private var _userToken: String = ""
-    val userToken: String get() = _userToken
+    private val userToken: String get() = _userToken
 
     init {
         loadToken()
     }
 
-    fun loadToken() {
+    private fun loadToken() {
         viewModelScope.launch {
             tokenRepository.getToken().asFlow().collect { token ->
                 _userToken = "Bearer $token"

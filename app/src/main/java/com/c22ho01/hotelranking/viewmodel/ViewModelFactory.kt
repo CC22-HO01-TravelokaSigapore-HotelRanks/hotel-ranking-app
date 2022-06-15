@@ -42,7 +42,7 @@ private constructor(
                 SearchViewModel(hotelRepository) as T
             }
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
-                HomeViewModel(hotelRepository, profileRepository) as T
+                HomeViewModel(hotelRepository) as T
             }
             modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
                 ProfileViewModel(profileRepository, tokenRepository, preferenceRepository) as T

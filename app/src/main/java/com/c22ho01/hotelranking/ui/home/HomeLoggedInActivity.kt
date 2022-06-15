@@ -76,7 +76,7 @@ class HomeLoggedInActivity : AppCompatActivity() {
                         periodicRefreshToken
                     )
 
-                    workManager.getWorkInfosByTagLiveData(TOKEN_WORKER)
+                    workManager.getWorkInfosForUniqueWorkLiveData(TOKEN_WORKER)
                         .observe(this@HomeLoggedInActivity) {
                             token = it.last().outputData.getString(NEW_TOKEN) ?: ""
                             if (token.isNotBlank()) {
