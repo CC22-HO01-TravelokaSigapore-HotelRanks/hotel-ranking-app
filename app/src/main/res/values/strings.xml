@@ -57,7 +57,7 @@
     <string name="start">Start from</string>
     <string name="night">/night</string>
     <string name="cancel">Cancel</string>
-    <string name="profile_customization">Edit profile</string>
+    <string name="profile_customization">Profile Customization</string>
     <string name="we_provide_hotel">We will provide your hotel preference based on this information.</string>
     <string name="required">*Required</string>
     <string name="full_name_req">Full name*</string>
