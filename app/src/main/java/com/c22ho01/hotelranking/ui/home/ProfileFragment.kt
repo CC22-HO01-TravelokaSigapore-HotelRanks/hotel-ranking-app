@@ -85,6 +85,7 @@ class ProfileFragment : Fragment() {
                             deleteRefreshToken()
                         }
                         profileViewModel.deleteSavedProfileId()
+                        profileViewModel.setCurrentProfile(null)
                     }
                     startActivity(Intent(requireActivity(), AuthActivity::class.java).also {
                         it.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or
@@ -117,16 +118,16 @@ class ProfileFragment : Fragment() {
     private fun initializeProfileData() {
         profileViewModel.getCurrentProfile().observe(viewLifecycleOwner) { profile ->
             binding?.run {
-                tvEmail.text = profile.email
-                tvName.text = profile.name ?: profile.userName
-                tvHobby.text = profile.hobby?.joinToString { h ->
+                tvEmail.text = profile?.email
+                tvName.text = profile?.name ?: profile?.userName
+                tvHobby.text = profile?.hobby?.joinToString { h ->
                     h?.localizedLabel?.let { getString(it) } ?: "-"
                 }
-                tvSpecialNeeds.text = profile.specialNeeds?.joinToString { sn ->
+                tvSpecialNeeds.text = profile?.specialNeeds?.joinToString { sn ->
                     sn?.localizedLabel?.let { getString(it) } ?: "-"
                 }
                 tvPrefer.text =
-                    if (profile.family == true) getString(R.string.yes) else getString(R.string.no)
+                    if (profile?.family == true) getString(R.string.yes) else getString(R.string.no)
                 btnGoToCustomizeProfile.setOnClickListener {
                     val intent = Intent(activity, ProfileCustomizeActivity::class.java).apply {
                         putExtra(ProfileCustomizeActivity.EXTRA_PROFILE, profile)

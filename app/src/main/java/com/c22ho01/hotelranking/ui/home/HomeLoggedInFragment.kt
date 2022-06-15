@@ -86,10 +86,10 @@ class HomeLoggedInFragment : Fragment() {
                     profileViewModel.getCurrentProfile().observe(viewLifecycleOwner) { profile ->
                         binding?.apply {
                             tvName.text =
-                                requireActivity().resources.getString(R.string.name, profile.name)
-                            cardProfileCustomization.isVisible = profile.name == null
+                                requireActivity().resources.getString(R.string.name, profile?.name)
+                            cardProfileCustomization.isVisible = profile?.name == null
 
-                            val review = profile.reviewCounter ?: 0
+                            val review = profile?.reviewCounter ?: 0
                             tvCounter.text = requireActivity().resources.getString(
                                 R.string.review_counter,
                                 review
@@ -102,7 +102,7 @@ class HomeLoggedInFragment : Fragment() {
                                 btnForYou.isClickable = false
                             }
 
-                            getUserRecommendation(profile.id ?: -1)
+                            getUserRecommendation(profile?.id ?: -1)
 
                             btnEditProfile.setOnClickListener {
                                 startActivity(

@@ -32,7 +32,7 @@ class ProfileViewModel(
 
     fun loadProfile() = profileRepository.getProfile(_userToken)
     fun getCurrentProfile() = profileRepository.currentProfile
-    fun setCurrentProfile(profile: ProfileEntity) = profileRepository.setCurrentProfile(profile)
+    fun setCurrentProfile(profile: ProfileEntity?) = profileRepository.setCurrentProfile(profile)
 
     fun setProfileID(profileId: Int) = profileRepository.setProfileId(profileId)
     fun getProfileID() = getCurrentProfile().value?.id

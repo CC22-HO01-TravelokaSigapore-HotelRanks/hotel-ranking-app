@@ -26,11 +26,11 @@ class ProfileRepository(
     private val settingPreferences: DataStore<Preferences>
 ) {
 
-    private var _currentProfile = MutableLiveData(ProfileEntity())
-    val currentProfile: LiveData<ProfileEntity>
+    private var _currentProfile = MutableLiveData<ProfileEntity>(null)
+    val currentProfile: LiveData<ProfileEntity?>
         get() = _currentProfile
 
-    fun setCurrentProfile(profile: ProfileEntity) {
+    fun setCurrentProfile(profile: ProfileEntity?) {
         _currentProfile.postValue(profile)
     }
 
