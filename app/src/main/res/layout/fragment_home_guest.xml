@@ -146,7 +146,11 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvTopRated"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingEnd="16dp"
+                tools:ignore="RtlSymmetry" />
+
 
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:id="@+id/shimmerTopRated"
@@ -208,7 +212,11 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvTrending"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingEnd="16dp"
+                tools:ignore="RtlSymmetry" />
+
 
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:id="@+id/shimmerTrending"

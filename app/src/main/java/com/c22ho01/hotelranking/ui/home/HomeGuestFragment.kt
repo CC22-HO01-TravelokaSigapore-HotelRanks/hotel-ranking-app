@@ -12,17 +12,13 @@ import com.c22ho01.hotelranking.adapter.CardAdapter
 import com.c22ho01.hotelranking.data.Result
 import com.c22ho01.hotelranking.databinding.FragmentHomeGuestBinding
 import com.c22ho01.hotelranking.ui.auth.AuthActivity
-import com.c22ho01.hotelranking.utils.dpToPx
 import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
 import com.c22ho01.hotelranking.viewmodel.hotel.HomeViewModel
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 
 class HomeGuestFragment : Fragment() {
 
     private var _binding: FragmentHomeGuestBinding? = null
     private val binding get() = _binding
-    private lateinit var fusedLocation: FusedLocationProviderClient
     private lateinit var topRatedAdapter: CardAdapter
     private lateinit var trendingAdapter: CardAdapter
     private lateinit var factory: ViewModelFactory
@@ -34,7 +30,6 @@ class HomeGuestFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeGuestBinding.inflate(inflater, container, false)
-        fusedLocation = LocationServices.getFusedLocationProviderClient(requireContext())
         factory = ViewModelFactory.getInstance(requireContext())
         topRatedAdapter = CardAdapter()
         trendingAdapter = CardAdapter()
@@ -53,7 +48,6 @@ class HomeGuestFragment : Fragment() {
             )
             adapter = topRatedAdapter
             setHasFixedSize(true)
-            addItemDecoration(CardAdapter.MarginItemDecoration(16.dpToPx))
         }
 
         homeViewModel.getFiveStar.observe(viewLifecycleOwner) {
@@ -85,7 +79,6 @@ class HomeGuestFragment : Fragment() {
             )
             adapter = trendingAdapter
             setHasFixedSize(true)
-            addItemDecoration(CardAdapter.MarginItemDecoration(16.dpToPx))
         }
 
         homeViewModel.getTrending.observe(viewLifecycleOwner) {

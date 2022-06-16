@@ -85,9 +85,13 @@ class HomeLoggedInFragment : Fragment() {
                 is Result.Success -> {
                     profileViewModel.getCurrentProfile().observe(viewLifecycleOwner) { profile ->
                         binding?.apply {
-                            tvName.text =
-                                requireActivity().resources.getString(R.string.name, profile?.name)
                             cardProfileCustomization.isVisible = profile?.name == null
+                            if (!profile?.name.isNullOrBlank())
+                                tvName.text = requireActivity().resources.getString(
+                                    R.string.name,
+                                    profile?.name
+                                )
+                            else tvName.isVisible = false
 
                             val review = profile?.reviewCounter ?: 0
                             tvCounter.text = requireActivity().resources.getString(
@@ -171,7 +175,6 @@ class HomeLoggedInFragment : Fragment() {
             )
             adapter = topRatedAdapter
             setHasFixedSize(true)
-            addItemDecoration(CardAdapter.MarginItemDecoration(16.dpToPx))
         }
 
         homeViewModel.getFiveStar.observe(viewLifecycleOwner) {
@@ -204,7 +207,6 @@ class HomeLoggedInFragment : Fragment() {
             )
             adapter = trendingAdapter
             setHasFixedSize(true)
-            addItemDecoration(CardAdapter.MarginItemDecoration(16.dpToPx))
         }
 
         homeViewModel.getTrending.observe(viewLifecycleOwner) {
@@ -237,7 +239,6 @@ class HomeLoggedInFragment : Fragment() {
             )
             adapter = userRecommendationAdapter
             setHasFixedSize(true)
-            addItemDecoration(CardAdapter.MarginItemDecoration(16.dpToPx))
         }
 
         homeViewModel.getUserRecommendation(profileViewModel.userToken, userId)

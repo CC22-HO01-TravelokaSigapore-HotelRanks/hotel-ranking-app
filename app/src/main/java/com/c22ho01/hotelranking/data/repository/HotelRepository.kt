@@ -51,23 +51,6 @@ class HotelRepository(private val hotelService: HotelService) {
         }
     }
 
-    fun getAll(): LiveData<Result<HotelResponse>> = liveData {
-        emit(Result.Loading)
-        wrapEspressoIdlingResource {
-            try {
-                val response = hotelService.getAll(10, 0)
-                if (response.isSuccessful) {
-                    emit(Result.Success(response.body() ?: HotelResponse()))
-                } else {
-                    val error = ErrorUtils.showErrorFromResponse(response)
-                    emit(Result.Error(error))
-                }
-            } catch (e: Exception) {
-                emit(Result.Error(e.message.toString()))
-            }
-        }
-    }
-
     fun getNearbyLocation(
         token: String,
         userLocation: UserLocation

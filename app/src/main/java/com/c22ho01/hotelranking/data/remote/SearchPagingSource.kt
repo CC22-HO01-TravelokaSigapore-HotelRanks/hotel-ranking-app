@@ -26,7 +26,7 @@ class SearchPagingSource(
                 val hotels = responseHotel.body()?.data ?: emptyList()
                 LoadResult.Page(
                     data = hotels,
-                    prevKey = if (page == INITIAL_PAGE_INDEX) null else page - 1,
+                    prevKey = null,
                     nextKey = if (hotels.isEmpty()) null else page + 1
                 )
             } else {

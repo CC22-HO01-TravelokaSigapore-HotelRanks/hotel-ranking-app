@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.c22ho01.hotelranking.R
@@ -139,30 +140,32 @@ class DetailActivity : AppCompatActivity() {
             text,
             rating
         ).observe(this) {
-            when (it) {
-                is Result.Loading -> {
-                    sheetPostReviewBinding.run {
-                        pbPostReview.visibility = View.VISIBLE
+            sheetPostReviewBinding.run {
+                when (it) {
+                    is Result.Loading -> {
+                        pbPostReview.isVisible = true
                         btnPost.isEnabled = false
                     }
-                }
-                is Result.Success -> {
-                    val data = it.data.message
-                    val currentProfile: ProfileEntity =
-                        profileViewModel.getCurrentProfile().value ?: ProfileEntity()
-                    val currentReviewCounter = (currentProfile.reviewCounter ?: 0)
-                    profileViewModel.setCurrentProfile(
-                        currentProfile.copy(
-                            reviewCounter = currentReviewCounter + 1,
+                    is Result.Success -> {
+                        pbPostReview.isVisible = false
+                        val data = it.data.message
+                        val currentProfile: ProfileEntity =
+                            profileViewModel.getCurrentProfile().value ?: ProfileEntity()
+                        val currentReviewCounter = (currentProfile.reviewCounter ?: 0)
+                        profileViewModel.setCurrentProfile(
+                            currentProfile.copy(
+                                reviewCounter = currentReviewCounter + 1,
+                            )
                         )
-                    )
-                    Toast.makeText(this@DetailActivity, data, Toast.LENGTH_LONG).show()
-                    bottomSheetDialog.dismiss()
-                }
-                is Result.Error -> {
-                    val toast = Toast.makeText(this, it.error, Toast.LENGTH_LONG)
-                    Log.d("PostError", it.error)
-                    toast.show()
+                        Toast.makeText(this@DetailActivity, data, Toast.LENGTH_LONG).show()
+                        bottomSheetDialog.dismiss()
+                    }
+                    is Result.Error -> {
+                        pbPostReview.isVisible = false
+                        val toast = Toast.makeText(this@DetailActivity, it.error, Toast.LENGTH_LONG)
+                        Log.d("PostError", it.error)
+                        toast.show()
+                    }
                 }
             }
         }
@@ -248,7 +251,6 @@ class DetailActivity : AppCompatActivity() {
                 false
             )
             setHasFixedSize(true)
-            addItemDecoration(CardAdapter.MarginItemDecoration(16.dpToPx))
         }
         detailViewModel.getSimilar(profileViewModel.userToken, hotel.id).observe(this) {
             when (it) {
