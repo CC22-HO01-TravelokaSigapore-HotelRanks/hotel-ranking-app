@@ -71,7 +71,7 @@
 
     <style name="Theme.HotelRanking.SplashScreen" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">?android:attr/colorBackground</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/rocket_launch</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_bli</item>
         <item name="postSplashScreenTheme">@style/Theme.HotelRanking</item>
     </style>
 

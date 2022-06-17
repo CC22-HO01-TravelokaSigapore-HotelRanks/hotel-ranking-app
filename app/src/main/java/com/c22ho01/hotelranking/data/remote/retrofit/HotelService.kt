@@ -27,12 +27,6 @@ interface HotelService {
         @Query("offset") offset: Int
     ): Response<HotelResponse>
 
-    @GET("hotel/list")
-    suspend fun getAll(
-        @Query("page") page: Int,
-        @Query("offset") offset: Int
-    ): Response<HotelResponse>
-
     @POST("by-location")
     suspend fun getLocation(
         @Header("Authorization") token: String,

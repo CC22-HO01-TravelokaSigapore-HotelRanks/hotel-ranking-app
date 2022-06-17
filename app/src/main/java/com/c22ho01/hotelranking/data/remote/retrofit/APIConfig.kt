@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object APIConfig {
-    var BASE_URL = "https://hotel-recommendation-system-18j6qgxy.uc.gateway.dev/"
+    const val BASE_URL = "https://hotel-recommendation-system-18j6qgxy.uc.gateway.dev/"
 
     private fun getRetrofit(): Retrofit {
         val loggingInterceptor =
