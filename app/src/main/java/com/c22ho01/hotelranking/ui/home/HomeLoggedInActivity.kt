@@ -2,37 +2,21 @@ package com.c22ho01.hotelranking.ui.home
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import androidx.work.*
 import com.c22ho01.hotelranking.R
 import com.c22ho01.hotelranking.databinding.ActivityHomeLoggedInBinding
-import com.c22ho01.hotelranking.viewmodel.ViewModelFactory
-import com.c22ho01.hotelranking.viewmodel.utils.TokenViewModel
-import com.c22ho01.hotelranking.viewmodel.utils.TokenWorker
-import com.c22ho01.hotelranking.viewmodel.utils.TokenWorker.Companion.NEW_TOKEN
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import java.util.concurrent.TimeUnit
 
 class HomeLoggedInActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeLoggedInBinding
-    private val tokenViewModel by viewModels<TokenViewModel> {
-        ViewModelFactory.getInstance(this)
-    }
-    private lateinit var workManager: WorkManager
-    private lateinit var periodicRefreshToken: PeriodicWorkRequest
-    private lateinit var token: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeLoggedInBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        workManager = WorkManager.getInstance(this)
-        startPeriodicTask()
 
         val navView: BottomNavigationView = binding.navView
         val navHostFragment = supportFragmentManager
@@ -42,53 +26,5 @@ class HomeLoggedInActivity : AppCompatActivity() {
         binding.searchBar.setOnClickListener {
             startActivity(Intent(this, SearchActivity::class.java))
         }
-    }
-
-    private fun startPeriodicTask() {
-        tokenViewModel.apply {
-            getRefreshToken().observe(this@HomeLoggedInActivity) { refreshToken ->
-                if (refreshToken?.isNotBlank() == true) {
-                    val data = Data.Builder()
-                        .putString(TokenWorker.REFRESH_TOKEN, refreshToken)
-                        .build()
-
-                    val constraints = Constraints.Builder()
-                        .setRequiredNetworkType(NetworkType.CONNECTED)
-                        .build()
-
-                    periodicRefreshToken = PeriodicWorkRequest.Builder(
-                        TokenWorker::class.java,
-                        PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS,
-                        TimeUnit.MILLISECONDS
-                    )
-                        .setInputData(data)
-                        .setConstraints(constraints)
-                        .addTag(TOKEN_WORKER)
-                        .setInitialDelay(
-                            PeriodicWorkRequest.DEFAULT_BACKOFF_DELAY_MILLIS,
-                            TimeUnit.MILLISECONDS
-                        )
-                        .build()
-
-                    workManager.enqueueUniquePeriodicWork(
-                        TOKEN_WORKER,
-                        ExistingPeriodicWorkPolicy.KEEP,
-                        periodicRefreshToken
-                    )
-
-                    workManager.getWorkInfosForUniqueWorkLiveData(TOKEN_WORKER)
-                        .observe(this@HomeLoggedInActivity) {
-                            token = it.last().outputData.getString(NEW_TOKEN) ?: ""
-                            if (token.isNotBlank()) {
-                                tokenViewModel.setAccessToken(token)
-                            }
-                        }
-                }
-            }
-        }
-    }
-
-    companion object {
-        private val TOKEN_WORKER: String = TokenWorker::class.java.simpleName
     }
 }

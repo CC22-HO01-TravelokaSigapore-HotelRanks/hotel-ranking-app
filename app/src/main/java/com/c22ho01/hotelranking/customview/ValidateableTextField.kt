@@ -96,6 +96,7 @@ class ValidateableTextField : ConstraintLayout {
         typedArray.recycle()
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables", "SetTextI18n")
     private fun setupInputType(context: Context) {
         when (inputType) {
             INPUT_TYPE_TEXT -> {
