@@ -91,7 +91,7 @@ class HomeLoggedInFragment : Fragment() {
                                     R.string.name,
                                     profile?.name
                                 )
-                            else tvName.isVisible = false
+                            else tvName.visibility = View.INVISIBLE
 
                             val review = profile?.reviewCounter ?: 0
                             tvCounter.text = requireActivity().resources.getString(
