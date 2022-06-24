@@ -127,4 +127,8 @@
     <string name="hotel_similarities">Similar Hotels</string>
     <string name="indonesian">Indonesian</string>
     <string name="english_us">English US</string>
+    <string name="toast_rating">Rating can not be empty</string>
+    <string name="toast_review">Review can not be empty</string>
+    <string name="toast_success">Submit review success</string>
+    <string name="toast_error">Submit review error</string>
 </resources>

@@ -127,4 +127,8 @@
     <string name="hotel_similarities">Hotel yang mirip</string>
     <string name="indonesian">Bahasa Indonesia</string>
     <string name="english_us">Bahasa Inggris (US)</string>
+    <string name="toast_rating">Rating tidak boleh kosong</string>
+    <string name="toast_review">Ulasan tidak boleh kosong</string>
+    <string name="toast_success">Berhasil kirim ulasan</string>
+    <string name="toast_error">Kirim ulasan gagal</string>
 </resources>
