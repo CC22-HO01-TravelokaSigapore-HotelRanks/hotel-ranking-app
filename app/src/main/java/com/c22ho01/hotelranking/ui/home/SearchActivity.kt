@@ -124,6 +124,7 @@ class SearchActivity : AppCompatActivity() {
                     val keyword = etKeyword.text.toString().trim()
                     searchHotel(keyword)
                     hideSoftKeyboard(v)
+                    rvSearch.layoutManager?.scrollToPosition(0)
                     return@setOnKeyListener true
                 }
                 return@setOnKeyListener false

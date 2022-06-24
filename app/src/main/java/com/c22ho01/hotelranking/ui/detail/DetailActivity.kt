@@ -120,12 +120,24 @@ class DetailActivity : AppCompatActivity() {
             val text = sheetPostReviewBinding.tvComment.text.toString().trim()
             val rating = sheetPostReviewBinding.rbPost.rating.roundToInt()
 
-
-            if (text.isEmpty()) {
-                Toast.makeText(this@DetailActivity, "Please enter your comment", Toast.LENGTH_LONG)
-                    .show()
-            } else {
-                postReview(text, rating, profileId)
+            when {
+                text.isEmpty() -> {
+                    Toast.makeText(
+                        this@DetailActivity,
+                        getString(R.string.toast_review),
+                        Toast.LENGTH_LONG
+                    )
+                        .show()
+                }
+                rating == 0 -> {
+                    Toast.makeText(
+                        this@DetailActivity,
+                        getString(R.string.toast_rating),
+                        Toast.LENGTH_LONG
+                    )
+                        .show()
+                }
+                else -> postReview(text, rating, profileId)
             }
         }
         bottomSheetDialog.setContentView(sheetPostReviewBinding.bottomSheet)
@@ -148,7 +160,6 @@ class DetailActivity : AppCompatActivity() {
                     }
                     is Result.Success -> {
                         pbPostReview.isVisible = false
-                        val data = it.data.message
                         val currentProfile: ProfileEntity =
                             profileViewModel.getCurrentProfile().value ?: ProfileEntity()
                         val currentReviewCounter = (currentProfile.reviewCounter ?: 0)
@@ -157,12 +168,20 @@ class DetailActivity : AppCompatActivity() {
                                 reviewCounter = currentReviewCounter + 1,
                             )
                         )
-                        Toast.makeText(this@DetailActivity, data, Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            this@DetailActivity,
+                            getString(R.string.toast_success),
+                            Toast.LENGTH_LONG
+                        ).show()
                         bottomSheetDialog.dismiss()
                     }
                     is Result.Error -> {
                         pbPostReview.isVisible = false
-                        val toast = Toast.makeText(this@DetailActivity, it.error, Toast.LENGTH_LONG)
+                        val toast = Toast.makeText(
+                            this@DetailActivity,
+                            getString(R.string.toast_error),
+                            Toast.LENGTH_LONG
+                        )
                         Log.d("PostError", it.error)
                         toast.show()
                     }
