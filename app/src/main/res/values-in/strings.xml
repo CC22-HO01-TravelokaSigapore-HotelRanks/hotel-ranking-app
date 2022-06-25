@@ -131,4 +131,5 @@
     <string name="toast_review">Ulasan tidak boleh kosong</string>
     <string name="toast_success">Berhasil kirim ulasan</string>
     <string name="toast_error">Kirim ulasan gagal</string>
+    <string name="booking">Pesan</string>
 </resources>
