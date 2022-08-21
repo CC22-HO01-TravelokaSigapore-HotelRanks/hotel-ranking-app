@@ -87,10 +87,7 @@ class ProfileFragment : Fragment() {
                         profileViewModel.deleteSavedProfileId()
                         profileViewModel.setCurrentProfile(null)
                     }
-                    startActivity(Intent(requireActivity(), AuthActivity::class.java).also {
-                        it.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or
-                                Intent.FLAG_ACTIVITY_NEW_TASK
-                    })
+                    startActivity(Intent(requireActivity(), AuthActivity::class.java))
                     requireActivity().finish()
                 }
                 .show()
