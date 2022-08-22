@@ -5,7 +5,6 @@ import com.c22ho01.hotelranking.data.local.entity.ProfileEntity
 import com.c22ho01.hotelranking.data.repository.PreferenceRepository
 import com.c22ho01.hotelranking.data.repository.ProfileRepository
 import com.c22ho01.hotelranking.data.repository.TokenRepository
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class ProfileViewModel(
@@ -36,10 +35,6 @@ class ProfileViewModel(
 
     fun setProfileID(profileId: Int) = profileRepository.setProfileId(profileId)
     fun getProfileID() = getCurrentProfile().value?.id
-
-    fun getSavedProfileId() = profileRepository.getSavedProfileId()
-    fun setSavedProfileId(id: Int) =
-        viewModelScope.launch { profileRepository.setSavedProfileId(id) }
 
     fun deleteSavedProfileId() = viewModelScope.launch { profileRepository.deleteSavedProfileId() }
 

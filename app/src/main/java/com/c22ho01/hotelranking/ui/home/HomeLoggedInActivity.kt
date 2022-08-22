@@ -25,6 +25,7 @@ class HomeLoggedInActivity : AppCompatActivity() {
 
         binding.searchBar.setOnClickListener {
             startActivity(Intent(this, SearchActivity::class.java))
+            overridePendingTransition(0, 0)
         }
     }
 }

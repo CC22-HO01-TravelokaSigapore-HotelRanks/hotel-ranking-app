@@ -177,7 +177,6 @@ class LoginFragment : Fragment() {
         val userId = data.loginData?.userId ?: -1
         profileViewModel.run {
             setProfileID(userId)
-            setSavedProfileId(userId)
         }
 
         tokenViewModel.run {

@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.c22ho01.hotelranking.data.remote.response.hotel.UserLocation
 import com.c22ho01.hotelranking.data.repository.HotelRepository
 import com.c22ho01.hotelranking.data.repository.TokenRepository
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class ForYouViewModel(

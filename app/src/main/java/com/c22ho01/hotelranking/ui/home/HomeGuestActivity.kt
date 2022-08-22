@@ -44,6 +44,7 @@ class HomeGuestActivity : AppCompatActivity() {
 
         binding.searchBar.setOnClickListener {
             startActivity(Intent(this, SearchActivity::class.java))
+            overridePendingTransition(0, 0)
         }
     }
 
@@ -82,7 +83,6 @@ class HomeGuestActivity : AppCompatActivity() {
                 val userId = result.data.loginData?.userId ?: -1
                 profileViewModel.run {
                     setProfileID(userId)
-                    setSavedProfileId(userId)
                 }
 
                 tokenViewModel.run {
